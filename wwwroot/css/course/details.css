@@ -1,0 +1,150 @@
+﻿
+/* CSS này cho trang chi tiết học phần */
+
+.container {
+    width: 80%;
+    margin-left: 7%;
+}
+
+.rate i{
+    color: var(--yellow-color);
+}
+
+.rate span {
+    color: var(--grey-color);
+    font-weight: 500;
+}
+
+/* Study mode button */
+.detail-course-container .navigation {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    padding: 15px 0;
+    border-radius: 10px;
+}
+
+.detail-course-container .nav-button {
+    background: var(--bg-color-grey);
+    color: #282e3e;
+    width: 170px;
+    height: 110px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+}
+
+.detail-course-container .nav-button:hover {
+    box-shadow: 0 .25rem 1rem 0 #282e3e1a;
+    border-bottom: 4px solid; 
+    border-bottom-color: var(--light-blue-color); 
+}
+
+.detail-course-container .nav-button i{
+    font-size:1.4rem;
+}
+
+/* Term Definition Cards */
+/*.term-defi-cards {
+    box-shadow: 0 0 2rem 0 #282e3e1a;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 30rem;
+    max-height: 30rem;
+    padding: 1.5rem 2rem;
+    overflow: hidden;
+}
+
+.term-defi-cards .icon {
+    display: flex;
+    justify-content: flex-end;*/ /* Căn các icon sang bên phải */
+    /*gap: .25rem;
+    font-size: .8rem;
+}
+
+.term-defi-cards .icon i {
+    position: relative;
+    padding: .75rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;*/ /* Thêm hiệu ứng mượt mà */
+/*}
+
+.term-defi-cards .icon i:hover{
+    background: #282e3e1a;
+}
+
+.term-defi-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: 400;
+    padding: .5rem 0;
+}*/
+
+/* Container của card */
+.term-defi-cards {
+    perspective: 1000px; /* Thêm chiều sâu để tạo hiệu ứng 3D */
+    width: 20rem; /* Chiều rộng của thẻ */
+    height: 30rem; /* Chiều cao của thẻ */
+}
+
+/* Nội dung bên trong */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; /* Cho phép hiển thị cả hai mặt */
+    transition: transform 0.8s ease; /* Thêm hiệu ứng lật mượt mà */
+}
+
+/* Mặt trước và mặt sau */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Ẩn mặt sau khi lật */
+    border-radius: 15px; /* Bo góc giống thẻ */
+    overflow: hidden;
+}
+
+/* Mặt trước */
+.card-front {
+    background: white; /* Màu nền của mặt trước */
+    box-shadow: 0 0 2rem 0 #282e3e1a;
+}
+
+/* Mặt sau */
+.card-back {
+    background: #f0f0f0; /* Màu nền của mặt sau */
+    transform: rotateX(180deg); /* Xoay 180 độ để làm mặt sau */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+/* Khi lật thẻ */
+.term-defi-cards:hover .card-inner {
+    transform: rotateX(180deg); /* Lật mặt */
+}
+
+.card-inner {
+    transform: rotateY(0); /* Ban đầu không xoay */
+}
+
+.card-inner.is-flipped {
+    transform: rotateY(180deg); /* Khi có class is-flipped, lật thẻ */
+}

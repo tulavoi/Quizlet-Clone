@@ -6,25 +6,23 @@
     --yellow-color: #FFCD1F;
     --bg-color-grey: #f6f7fb;
     --error-message-alert: #ff725b;
-}
-
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    --blue-color: #4255ff;
+    --light-blue-color: #a8b1ff;
 }
 
 html {
   position: relative;
   min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: medium;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 body {

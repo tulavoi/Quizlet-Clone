@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Thẻ ghi nhớ: CourseTitle | SmartCards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/course/details.css" />
+}
+
+<div class="container detail-course-container">
+    <h2 class="mt-4">Tu vung N4</h2>
+    <div class="rate mb-2">
+        <i class="fa-solid fa-star"></i>
+        <span>5.0 (1 đánh giá)</span>
+    </div>
+
+    <!-- Study Mode -->
+    <nav class="navigation mb-2">
+        <button class="nav-button">
+            <i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
+            <span class="mt-2">Thẻ ghi nhớ</span>
+        </button>
+        <button class="nav-button">
+            <i class="fa-solid fa-book text-primary"></i>
+            <span class="mt-2">Học</span>
+        </button>
+        <button class="nav-button">
+            <i class="fa-regular fa-check-circle text-primary"></i>
+            <span class="mt-2">Kiểm tra</span>
+        </button>
+        <button class="nav-button">
+            <i class="fa-solid fa-puzzle-piece text-primary"></i>
+            <span class="mt-2">Ghép thẻ</span>
+        </button>
+        <button class="nav-button">
+            <i class="fa-solid fa-cube text-primary"></i>
+            <span class="mt-2">Khối hộp</span>
+        </button>
+    </nav>
+
+    <!-- Term Definition Cards -->
+    @* <div class="term-defi-cards card">
+        <div class="icon">
+            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+        </div>
+        <div class="term-defi-content">
+            <span>Term</span>
+        </div>
+    </div> *@
+
+    <div class="term-defi-cards card">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="icon">
+                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                </div>
+                <div class="term-defi-content">
+                    <span>Term</span>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="term-defi-back-content">
+                    <p>Definition of the term</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/course/detail.js"></script>

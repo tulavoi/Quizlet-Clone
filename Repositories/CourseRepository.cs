@@ -26,7 +26,7 @@ namespace SmartCards.Repositories
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                course.Slug = this.GenerateSlug(course.Title, course.CreatedAt);
+                course.Slug = this.GenerateSlug(course.Title, course.Id, course.CreatedAt);
                 await _context.Courses.AddAsync(course);
                 await _context.SaveChangesAsync();
 
@@ -48,7 +48,7 @@ namespace SmartCards.Repositories
             }
         }
 
-        private string GenerateSlug(string title, DateTime createdAt)
+        private string GenerateSlug(string title, int id, DateTime createdAt)
         {
             // Bỏ dấu tiếng Việt
             var noDiacritics = RemoveDiacritics(title);
@@ -62,7 +62,7 @@ namespace SmartCards.Repositories
 
             var createdAtString = createdAt.ToString("yyyyMMddhhmmssfff");
 
-            return $"{slug}-{createdAtString}";
+            return $"{slug}-{createdAtString}-{id}";
         }
 
         private string RemoveDiacritics(string text)

@@ -26,14 +26,14 @@ namespace SmartCards.Controllers
             _courseRepo = courseRepo;
         }
 
-        [Route("/create-course")]
+        [Route("/create-course")] // https://localhost:5102/create-course
         public async Task<IActionResult> Create()
 		{
             await this.SetViewBagForCreatCourse();
 			return View();
 		}
 
-        [HttpPost("/create-course")]
+        [HttpPost("/create-course")] // https://localhost:5102/create-course
         public async Task<IActionResult> Create(CreateCourseRequestDTO courseDTO)
         {
             // Kiểm tra và trả vê lỗi nếu có
@@ -50,6 +50,21 @@ namespace SmartCards.Controllers
             await _courseRepo.CreateAsync(course, courseDTO.ViewPermissionId, courseDTO.EditPermissionId);
 
             return CreatedAtAction(nameof(GetById), new { id = course.Id }, course.ToCourseDTO());
+        }
+
+        [HttpGet("/{slug}")] // https://localhost:5102/course-slug
+        public async Task<IActionResult> Details(string slug)
+        {
+            int id = this.GetIdBySlug(slug);
+
+            var course = await _courseRepo.GetByIdAsync(id);
+            return View();
+        }
+
+        private int GetIdBySlug(string slug)
+        {
+            var parts = slug.Split('-');
+            return int.Parse(parts[parts.Length - 1]);
         }
 
         private async Task SetViewBagForCreatCourse()

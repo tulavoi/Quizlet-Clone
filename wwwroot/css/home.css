@@ -21,7 +21,7 @@
 
 /* Phần thông tin tác giả */
 .author {
-    font-size: 12px;        
+    font-size: medium;        
     color: var(--grey-color);
 }
 
@@ -52,7 +52,7 @@
 
 /* Tiêu đề của học phần trong phần gần đây */
 .recent-course .col-10 h6 {
-    font-size: small; 
+    font-size: medium; 
     font-weight: 700;
 }
 
@@ -65,5 +65,5 @@
 }
 
 .course-info {
-    font-size: 13px;
+    font-size: medium;
 }
