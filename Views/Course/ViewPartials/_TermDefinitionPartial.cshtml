@@ -14,8 +14,8 @@
         </div>
         <div class="row my-3 term-def-input-row">
             <div class="col-5 pt-3">
-                <input type="text" class="custom-input term-defi-input" name="Flashcards[@index].Term"
-                       value="@Model.termValue" autocomplete="off">
+                <input type="text" class="custom-input term-defi-input term[@index]" name="Flashcards[@index].Term"
+                       value="@Model.termValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">THUẬT NGỮ</span>
                     @await Html.PartialAsync("ViewPartials/_MenuLanguagesPartial", new
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="col-5 pt-3">
-                <input type="text" class="custom-input term-defi-input" name="Flashcards[@index].Definition"
-                       value="@Model.defiValue" autocomplete="off">
+                <input type="text" class="custom-input term-defi-input definition[@index]" name="Flashcards[@index].Definition"
+                       value="@Model.defiValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between  mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">ĐỊNH NGHĨA</span>
                     @await Html.PartialAsync("ViewPartials/_MenuLanguagesPartial", new
