@@ -52,7 +52,7 @@
 
 /* Tiêu đề của học phần trong phần gần đây */
 .recent-course .col-10 h6 {
-    font-size: medium; 
+    font-size: .9rem    ; 
     font-weight: 700;
 }
 
@@ -65,5 +65,5 @@
 }
 
 .course-info {
-    font-size: medium;
+    font-size: .9rem;
 }

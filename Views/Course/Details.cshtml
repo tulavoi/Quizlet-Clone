@@ -8,7 +8,9 @@
 }
 
 <div class="container detail-course-container">
-    <h2 class="mt-4">Tu vung N4</h2>
+    <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> Folder Name</button>
+
+    <h2 class="mt-3">Tu vung N4</h2>
     <div class="rate mb-2">
         <i class="fa-solid fa-star"></i>
         <span>5.0 (1 đánh giá)</span>
@@ -32,43 +34,115 @@
             <i class="fa-solid fa-puzzle-piece text-primary"></i>
             <span class="mt-2">Ghép thẻ</span>
         </button>
-        <button class="nav-button">
-            <i class="fa-solid fa-cube text-primary"></i>
-            <span class="mt-2">Khối hộp</span>
-        </button>
     </nav>
 
     <!-- Term Definition Cards -->
-    @* <div class="term-defi-cards card">
-        <div class="icon">
-            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
-        </div>
-        <div class="term-defi-content">
-            <span>Term</span>
-        </div>
-    </div> *@
-
-    <div class="term-defi-cards card">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="icon">
-                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+    <div class="card-container">
+        <!-- Thẻ 1 -->
+        <div class="term-defi-cards">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-actions">
+                        <button>
+                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                        </button>
+                    </div>
+                    <span>Term 1</span>
                 </div>
-                <div class="term-defi-content">
-                    <span>Term</span>
+                <div class="card-back">
+                    <div class="card-actions">
+                        <button>
+                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                        </button>
+                    </div>
+                    <p>Definition of the term 1</p>
                 </div>
             </div>
-            <div class="card-back">
-                <div class="term-defi-back-content">
-                    <p>Definition of the term</p>
+        </div>
+
+        <!-- Thẻ 2 -->
+        <div class="term-defi-cards d-none">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-actions">
+                        <button>
+                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                        </button>
+                    </div>
+                    <span>Term 2</span>
+                </div>
+                <div class="card-back">
+                    <div class="card-actions">
+                        <button>
+                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                        </button>
+                        <button>
+                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                        </button>
+                    </div>
+                    <p>Definition of the term 2</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Card Settings -->
+    <div class="card-settings my-4 row">
+        <div class="card-settings-left col-4 d-flex justify-content-start align-items-center"></div>
+
+        <div class="card-settings-mid col-4 d-flex justify-content-center align-items-center">
+            <button id="btn-prev-card">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <span class="px-3" id="card-number">1 / 10</span>
+
+            <button id="btn-next-card">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="card-settings-right col-4 d-flex justify-content-end align-items-center">
+            <button>
+                <i class="fa-solid fa-play" title="Bắt đầu"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-shuffle" title="Trộn thẻ"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-gear" title="Cài đặt"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-expand" title="Phóng to"></i>
+            </button>
+        </div>
+        <hr />
+    </div>
+
 </div>
 
 <script src="~/js/course/detail.js"></script>
