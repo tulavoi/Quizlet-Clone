@@ -11,5 +11,7 @@ namespace SmartCards.DTOs.Flashcard
 		public int TermLanguageId { get; set; }
         [Required]
 		public int DefiLanguageId { get; set; }
+        public string TermLanguageCode { get; set; } = string.Empty;
+        public string DefiLanguageCode { get; set; } = string.Empty;
     }
 }

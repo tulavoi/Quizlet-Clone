@@ -75,6 +75,11 @@
     height: 28rem; /* Chiều cao của thẻ */
 }
 
+/* Xóa viền của button khi focus */
+.term-defi-cards:focus {
+    outline: none;
+}
+
 /* Nội dung bên trong */
 .card-inner {
     position: relative;
@@ -161,6 +166,12 @@
     padding: 0;
 }
 
+/* Xóa viền của button khi focus */
+.card-settings button:focus {
+    border: 1px solid var(--light-green-color);
+    outline: none;
+}
+
 .card-settings-right button {
     width: 2.6rem;
     height: 2.6rem;
@@ -190,6 +201,7 @@
 .card-settings-mid button:hover {
     background: var(--light-grey-color);
 }
+
 
 .card-settings-mid span{
     color: var(--grey-color);

@@ -1,12 +1,9 @@
 ﻿using api.Helpers;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Course;
 using SmartCards.Interfaces;
 using SmartCards.Models;
-using System.Runtime.InteropServices;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SmartCards.Repositories
 {
@@ -84,8 +81,12 @@ namespace SmartCards.Repositories
         public async Task<List<Course>> GetAllAsync(CourseQueryObject query)
         {
             var courses = _context.Courses
-                .Include(x => x.User)
-                .Include(x => x.Flashcards).AsQueryable();
+                          .Include(x => x.User)
+                          .Include(x => x.Flashcards)
+                              .ThenInclude(f => f.Term_Lang)
+                          .Include(x => x.Flashcards)
+                              .ThenInclude(f => f.Definition_Lang)
+                          .AsQueryable();
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -104,6 +105,9 @@ namespace SmartCards.Repositories
             return await _context.Courses
                 .Include(x => x.User)
                 .Include(x => x.Flashcards)
+                    .ThenInclude(f => f.Term_Lang)
+                .Include(x => x.Flashcards)
+                    .ThenInclude(f => f.Definition_Lang)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
