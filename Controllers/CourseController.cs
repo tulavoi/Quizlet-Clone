@@ -26,14 +26,14 @@ namespace SmartCards.Controllers
             _courseRepo = courseRepo;
         }
 
-        [Route("/create-course")] // https://localhost:5102/create-course
+        [Route("/create-course")]
         public async Task<IActionResult> Create()
 		{
             await this.SetViewBagForCreatCourse();
 			return View();
 		}
 
-        [HttpPost("/create-course")] // https://localhost:5102/create-course
+        [HttpPost("/create-course")]
         public async Task<IActionResult> Create(CreateCourseRequestDTO courseDTO)
         {
             // Kiểm tra và trả vê lỗi nếu có
@@ -52,13 +52,15 @@ namespace SmartCards.Controllers
             return CreatedAtAction(nameof(GetById), new { id = course.Id }, course.ToCourseDTO());
         }
 
-        [HttpGet("/{slug}")] // https://localhost:5102/course-slug
+        [HttpGet("/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
             int id = this.GetIdBySlug(slug);
 
             var course = await _courseRepo.GetByIdAsync(id);
-            return View();
+            if (course == null) return NotFound();
+
+            return View(course.ToCourseDTO());
         }
 
         private int GetIdBySlug(string slug)
@@ -85,8 +87,12 @@ namespace SmartCards.Controllers
         // Trả về Html của PartialView
         [HttpGet]
         [Route("GetTermDefinitionPartial")]
-        public async Task<IActionResult> GetTermDefinitionPartial([FromQuery] int count, [FromQuery] string termValue, 
-            [FromQuery] string defiValue, [FromQuery] int termLanguageId, [FromQuery] int defiLanguageId)
+        public async Task<IActionResult> GetTermDefinitionPartial(
+            [FromQuery] int count, 
+            [FromQuery] string termValue, 
+            [FromQuery] string defiValue, 
+            [FromQuery] int termLanguageId, 
+            [FromQuery] int defiLanguageId)
         {
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });
             var model = new { 
@@ -96,7 +102,7 @@ namespace SmartCards.Controllers
                 termLanguageId = termLanguageId, 
                 defiLanguageId = defiLanguageId,
             };
-            return PartialView("~/Views/Course/ViewPartials/_TermDefinitionPartial.cshtml", model);
+            return PartialView("~/Views/Course/ViewPartials/Create/_TermDefinitionPartial.cshtml", model);
         }
     }
 }

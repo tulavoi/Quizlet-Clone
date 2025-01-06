@@ -1,4 +1,5 @@
-﻿
+﻿@using SmartCards.DTOs.Course
+@model CourseDTO
 @{
     ViewData["Title"] = "Thẻ ghi nhớ: CourseTitle | SmartCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,103 +9,61 @@
 }
 
 <div class="container detail-course-container">
-    <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> Folder Name</button>
+    @if (Model.CourseFolder != null) // Có ở trong 1 folder nào đó thì mới hiển thị
+    {
+        <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> 
+            @Model.CourseFolder.Folder.Title
+        </button>
+    }
 
-    <h2 class="mt-3">Tu vung N4</h2>
-    <div class="rate mb-2">
-        <i class="fa-solid fa-star"></i>
-        <span>5.0 (1 đánh giá)</span>
-    </div>
+    <h2 class="mt-3">@Model.Title</h2>
+
+    <!-- Có user khác rate thì mới hiển thị -->
+    @* <div class="rate mb-2">
+         <i class="fa-solid fa-star"></i>
+         <span>5.0 (1 đánh giá)</span> 
+    </div> *@
 
     <!-- Study Mode -->
-    <nav class="navigation mb-2">
-        <button class="nav-button">
-            <i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
-            <span class="mt-2">Thẻ ghi nhớ</span>
-        </button>
-        <button class="nav-button">
-            <i class="fa-solid fa-book text-primary"></i>
-            <span class="mt-2">Học</span>
-        </button>
-        <button class="nav-button">
-            <i class="fa-regular fa-check-circle text-primary"></i>
-            <span class="mt-2">Kiểm tra</span>
-        </button>
-        <button class="nav-button">
-            <i class="fa-solid fa-puzzle-piece text-primary"></i>
-            <span class="mt-2">Ghép thẻ</span>
-        </button>
-    </nav>
+    @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
 
     <!-- Term Definition Cards -->
     <div class="card-container">
-        <!-- Thẻ 1 -->
-        <div class="term-defi-cards">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-actions">
-                        <button>
-                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
-                        </button>
+        @foreach (var flashcard in Model.Flashcards)
+        {
+            <div class="term-defi-cards" tabindex="0">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-actions">
+                            <button>
+                                <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                            </button>
+                        </div>
+                        <span>@flashcard.Term</span>
                     </div>
-                    <span>Term 1</span>
-                </div>
-                <div class="card-back">
-                    <div class="card-actions">
-                        <button>
-                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
-                        </button>
+                    <div class="card-back">
+                        <div class="card-actions">
+                            <button>
+                                <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                            </button>
+                        </div>
+                        <span>@flashcard.Definition</span>
                     </div>
-                    <p>Definition of the term 1</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Thẻ 2 -->
-        <div class="term-defi-cards d-none">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-actions">
-                        <button>
-                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
-                        </button>
-                    </div>
-                    <span>Term 2</span>
-                </div>
-                <div class="card-back">
-                    <div class="card-actions">
-                        <button>
-                            <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
-                        </button>
-                    </div>
-                    <p>Definition of the term 2</p>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
     <!-- Card Settings -->

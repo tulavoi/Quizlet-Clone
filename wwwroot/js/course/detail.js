@@ -1,11 +1,31 @@
-﻿
-// Click để lật thẻ
-document.querySelector('.term-defi-cards').addEventListener('click', function () {
-    this.querySelector('.card-inner').classList.toggle('is-flipped');
+﻿// Lấy danh sách các card
+const cards = document.querySelectorAll('.term-defi-cards');
+
+// Gắn sự kiện click cho từng thẻ để lật thẻ
+cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+        flipCard(this);
+    });
 });
 
-// Lấy danh sách các card
-const cards = document.querySelectorAll('.term-defi-cards');
+// Lật thẻ
+function flipCard(card) {
+    card.querySelector('.card-inner').classList.toggle('is-flipped');
+}
+
+// Lắng nghe sự kiện từ bàn phím
+document.addEventListener('keydown', function (event) {
+    // Kiểm tra nếu phím space, mũi tên lên xuóng được nhấn
+    if (event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowDown') { 
+        event.preventDefault(); // Ngăn hành vi mặc định của Space (scroll trang)
+
+        cards.forEach(function (card) {
+            flipCard(card);
+        });
+    }
+});
+
+// Lấy 2 btn prev next card
 const btnPrev = document.getElementById('btn-prev-card');
 const btnNext = document.getElementById('btn-next-card');
 

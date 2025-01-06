@@ -18,7 +18,7 @@
                        value="@Model.termValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">THUẬT NGỮ</span>
-                    @await Html.PartialAsync("ViewPartials/_MenuLanguagesPartial", new
+                    @await Html.PartialAsync("ViewPartials/Create/_MenuLanguagesPartial", new
                     {
                         InputType = "term",
                         SelectedLanguageId = Model.termLanguageId,
@@ -32,7 +32,7 @@
                        value="@Model.defiValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between  mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">ĐỊNH NGHĨA</span>
-                    @await Html.PartialAsync("ViewPartials/_MenuLanguagesPartial", new
+                    @await Html.PartialAsync("ViewPartials/Create/_MenuLanguagesPartial", new
                     {
                         InputType = "definition",
                         SelectedLanguageId = Model.defiLanguageId,
