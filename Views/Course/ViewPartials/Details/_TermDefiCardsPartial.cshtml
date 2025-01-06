@@ -1,0 +1,35 @@
+﻿@model dynamic
+<div class="term-defi-cards" tabindex="0">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="card-actions">
+                <button>
+                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                </button>
+                <button id="btn-sound-front">
+                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                </button>
+                <button>
+                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                </button>
+            </div>
+            <span>@Model.Term</span>
+            <input type="hidden" name="termLangCode" value="@Model.TermLanguageCode" />
+        </div>
+        <div class="card-back">
+            <div class="card-actions">
+                <button>
+                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                </button>
+                <button id="btn-sound-back">
+                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                </button>
+                <button>
+                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                </button>
+            </div>
+            <span>@Model.Definition</span>
+            <input type="hidden" name="defiLangCode" value="@Model.DefiLanguageCode" />
+        </div>
+    </div>
+</div>

@@ -20,7 +20,7 @@
             <div class="row gy-2">
                 @foreach (var course in Model)
                 {
-                    <a class="col-md-6 btn" asp-controller="Practice" asp-action="Index" asp-route-slug="@course.Slug">
+                    <a class="col-md-6 btn" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
                         <div class="recent-course p-2 row">
                             <div class="col-1 p-0">
                                 <img src="/images/icons/card.png" alt="Icon">

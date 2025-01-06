@@ -1,0 +1,81 @@
+﻿@using SmartCards.DTOs.Course
+@model CourseDTO
+@{
+    ViewData["Title"] = "Thẻ ghi nhớ: CourseTitle | SmartCards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/course/details.css" />
+}
+
+<div class="container detail-course-container">
+    @* @if (Model.CourseFolder != null) // Có ở trong 1 folder nào đó thì mới hiển thị
+    {
+        <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> 
+            @Model.CourseFolder.Folder.Title
+        </button>
+    } *@
+
+    <h2 class="mt-3">@Model.Title</h2>
+
+    <!-- Có user khác rate thì mới hiển thị -->
+    @* <div class="rate mb-2">
+         <i class="fa-solid fa-star"></i>
+         <span>5.0 (1 đánh giá)</span> 
+    </div> *@
+
+    <!-- Study Mode -->
+    @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
+
+    <!-- Term Definition Cards -->
+    <div class="card-container">
+        @foreach (var flashcard in Model.Flashcards)
+        {
+            @await Html.PartialAsync("ViewPartials/Details/_TermDefiCardsPartial.cshtml", new {
+                Term = flashcard.Term,
+                Definition = flashcard.Definition,
+                TermLanguageCode = flashcard.TermLanguageCode,
+                DefiLanguageCode = flashcard.DefiLanguageCode,
+            })
+        }
+    </div>
+
+    <!-- Card Settings -->
+    <div class="card-settings my-4 row">
+        <div class="card-settings-left col-4 d-flex justify-content-start align-items-center"></div>
+
+        <div class="card-settings-mid col-4 d-flex justify-content-center align-items-center">
+            <button id="btn-prev-card">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <span class="px-3" id="card-number">1 / 10</span>
+
+            <button id="btn-next-card">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="card-settings-right col-4 d-flex justify-content-end align-items-center">
+            <button>
+                <i class="fa-solid fa-play" title="Bắt đầu"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-shuffle" title="Trộn thẻ"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-gear" title="Cài đặt"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-expand" title="Phóng to"></i>
+            </button>
+        </div>
+        <hr />
+    </div>
+
+</div>
+
+<script src="~/js/course/detail.js"></script>

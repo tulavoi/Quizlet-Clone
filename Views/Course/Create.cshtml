@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/createCourse.css" />
+    <link rel="stylesheet" href="~/css/course/create.css" />
 }
 
 <div class="container create-course-container">
@@ -53,7 +53,7 @@
                         data-bs-toggle="modal" data-bs-target="#course-setting-modal" title="Quản lý quyền truy cập">
                     <i class="fa-solid fa-gear"></i>
                 </button>
-                @await Html.PartialAsync("ViewPartials/_CourseSettingModal")
+                @await Html.PartialAsync("ViewPartials/Create/_CourseSettingModal")
 
                 <button type="button" class="btn btn-outline-secondary circle-button rounded-circle" 
                         id="btn-reverse-term" title="Lật thuật ngữ và định nghĩa">
@@ -64,7 +64,7 @@
 
         <!-- Thông báo lỗi ở đây -->
         <div id="error-message" class="d-flex justify-content-center">
-            @await Html.PartialAsync("ViewPartials/_ErrorMessagePartial")
+            @await Html.PartialAsync("ViewPartials/Create/_ErrorMessagePartial")
         </div>
 
         <!-- Terms and Definitions -->
@@ -73,7 +73,7 @@
             {
                 for (int i = 1; i <= Model.Flashcards.Count; i++)
                 {
-                    @await Html.PartialAsync("ViewPartials/_TermDefinitionPartial", new
+                    @await Html.PartialAsync("ViewPartials/Create/_TermDefinitionPartial", new
                         {
                             count = i,
                             termValue = Model.Flashcards[i - 1]?.Term ?? "",
@@ -87,7 +87,7 @@
             {
                 for (int i = 1; i <= 2; i++)
                 {
-                    @await Html.PartialAsync("ViewPartials/_TermDefinitionPartial", new
+                    @await Html.PartialAsync("ViewPartials/Create/_TermDefinitionPartial", new
                         {
                             count = i,
                             termValue = "",
@@ -118,6 +118,6 @@
         </div>
     </form>
 </div>
-@await Html.PartialAsync("ViewPartials/_ImportFlashcardsPartial")
+@await Html.PartialAsync("ViewPartials/Create/_ImportFlashcardsPartial")
 
-<script src="~/js/createCourse.js"></script>
+<script src="~/js/course/create.js"></script>

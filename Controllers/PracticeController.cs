@@ -7,11 +7,11 @@ using SmartCards.Interfaces;
 namespace SmartCards.Controllers
 {
 	[Authorize]
-	[Route("/practice")]
+	//[Route("/practice")]
 	public class PracticeController : Controller
 	{
-		[HttpGet("{slug}")]
-		public async Task<IActionResult> Index([FromRoute] string slug)
+		//[HttpGet("{slug}")]
+		public IActionResult Index()
 		{
             
 			return View();

@@ -1,5 +1,6 @@
 ﻿using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Flashcard;
+using SmartCards.Models;
 
 namespace SmartCards.DTOs.Course
 {

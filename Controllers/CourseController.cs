@@ -52,6 +52,23 @@ namespace SmartCards.Controllers
             return CreatedAtAction(nameof(GetById), new { id = course.Id }, course.ToCourseDTO());
         }
 
+        [HttpGet("/{slug}")]
+        public async Task<IActionResult> Details(string slug)
+        {
+            int id = this.GetIdBySlug(slug);
+
+            var course = await _courseRepo.GetByIdAsync(id);
+            if (course == null) return NotFound();
+
+            return View(course.ToCourseDTO());
+        }
+
+        private int GetIdBySlug(string slug)
+        {
+            var parts = slug.Split('-');
+            return int.Parse(parts[parts.Length - 1]);
+        }
+
         private async Task SetViewBagForCreatCourse()
         {
             ViewBag.EditPermissions = await _permissionRepo.GetAllAsync(new PermissionQueryObject { IsEdit = true });
@@ -70,8 +87,12 @@ namespace SmartCards.Controllers
         // Trả về Html của PartialView
         [HttpGet]
         [Route("GetTermDefinitionPartial")]
-        public async Task<IActionResult> GetTermDefinitionPartial([FromQuery] int count, [FromQuery] string termValue, 
-            [FromQuery] string defiValue, [FromQuery] int termLanguageId, [FromQuery] int defiLanguageId)
+        public async Task<IActionResult> GetTermDefinitionPartial(
+            [FromQuery] int count, 
+            [FromQuery] string termValue, 
+            [FromQuery] string defiValue, 
+            [FromQuery] int termLanguageId, 
+            [FromQuery] int defiLanguageId)
         {
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });
             var model = new { 
@@ -81,7 +102,7 @@ namespace SmartCards.Controllers
                 termLanguageId = termLanguageId, 
                 defiLanguageId = defiLanguageId,
             };
-            return PartialView("~/Views/Course/ViewPartials/_TermDefinitionPartial.cshtml", model);
+            return PartialView("~/Views/Course/ViewPartials/Create/_TermDefinitionPartial.cshtml", model);
         }
     }
 }
