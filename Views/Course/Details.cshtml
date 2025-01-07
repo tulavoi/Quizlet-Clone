@@ -1,7 +1,7 @@
 ﻿@using SmartCards.DTOs.Course
 @model CourseDTO
 @{
-    ViewData["Title"] = "Thẻ ghi nhớ: CourseTitle | SmartCards";
+    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | SmartCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {

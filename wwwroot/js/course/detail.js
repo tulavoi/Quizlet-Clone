@@ -97,3 +97,48 @@ actionButtons.forEach(function (button) {
         event.stopPropagation(); // Ngừng lan truyền sự kiện lên các phần tử cha
     });
 });
+
+function playTextToSpeech(text, lang) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang; // Set language code (e.g., "en-US", "vi-VN")
+    window.speechSynthesis.speak(utterance);
+}
+
+cards.forEach(card => {
+    // Chọn các phần tử trong card hiện tại
+    const btnSoundFront = card.querySelector('#btn-sound-front');
+    const btnSoundBack = card.querySelector('#btn-sound-back');
+
+    const textFront = card.querySelector('#text-front').innerText;
+    const langFront = card.querySelector('input[name="termLangCode"]').value;
+
+    const textBack = card.querySelector('#text-back').innerText;
+    const langBack = card.querySelector('input[name="defiLangCode"]').value;
+
+    // Gắn sự kiện cho nút "Phát âm mặt trước" trong card hiện tại
+    if (btnSoundFront) {
+        btnSoundFront.addEventListener('click', function () {
+            playTextToSpeech(textFront, langFront);
+        });
+    }
+
+    // Gắn sự kiện cho nút "Phát âm mặt sau" trong card hiện tại
+    if (btnSoundBack) {
+        btnSoundBack.addEventListener('click', function () {
+            playTextToSpeech(textBack, langBack);
+        });
+    }
+});
+
+//// Gắn sự kiện cho 2 button sound
+//document.getElementById('btn-sound-front').addEventListener('click', function () {
+//    const text = document.getElementById('text-front').innerText;
+//    const lang = document.querySelector('input[name="termLangCode"]').value;
+//    playTextToSpeech(text, lang);
+//});
+
+//document.getElementById('btn-sound-back').addEventListener('click', function () {
+//    const text = document.getElementById('text-back').innerText;
+//    const lang = document.querySelector('input[name="defiLangCode"]').value;
+//    playTextToSpeech(text, lang);
+//});
