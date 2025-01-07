@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using api.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartCards.DTOs.Course;
@@ -7,6 +8,7 @@ using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
 using SmartCards.Models;
+using System.Numerics;
 
 namespace SmartCards.Controllers
 {
@@ -53,11 +55,11 @@ namespace SmartCards.Controllers
         }
 
         [HttpGet("/{slug}")]
-        public async Task<IActionResult> Details(string slug)
+        public async Task<IActionResult> Details(string slug, [FromQuery] bool isShuffle = false)
         {
             int id = this.GetIdBySlug(slug);
 
-            var course = await _courseRepo.GetByIdAsync(id);
+            var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject { IsShuffle = isShuffle });
             if (course == null) return NotFound();
 
             return View(course.ToCourseDTO());
@@ -76,13 +78,13 @@ namespace SmartCards.Controllers
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var course = await _courseRepo.GetByIdAsync(id);
-            if (course == null) return NotFound();
-            return Ok(course.ToCourseDTO());
-        }
+        //[HttpGet("{id:int}")]
+        //public async Task<IActionResult> GetById(int id)
+        //{
+        //    var course = await _courseRepo.GetByIdAsync(id);
+        //    if (course == null) return NotFound();
+        //    return Ok(course.ToCourseDTO());
+        //}
 
         // Trả về Html của PartialView
         [HttpGet]

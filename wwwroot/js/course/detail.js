@@ -20,6 +20,11 @@ function flipCard(card) {
     card.querySelector('.card-inner').classList.toggle('is-flipped');
 }
 
+// Reset lật thẻ (không lật)
+function resetCard(card) {
+    card.querySelector('.card-inner').classList.remove('is-flipped');
+}
+
 // Lắng nghe sự kiện từ bàn phím
 document.addEventListener('keydown', function (event) {
     // Kiểm tra nếu phím space or mũi tên lên xuóng được nhấn
@@ -34,11 +39,13 @@ document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowLeft') { // Mũi tên trái
         if (currIndexCard > 0) {
             currIndexCard--;
+            resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
             updateCardDisplay();
         }
     } else if (event.code === 'ArrowRight') { // Mũi tên phải
         if (currIndexCard < cards.length - 1) {
-            currIndexCard++;
+            currIndexCard++; 
+            resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
             updateCardDisplay();
         }
     }
@@ -74,16 +81,20 @@ function updateCardDisplay() {
     });
 }
 
+// Sự kiện click button thẻ trước đó
 btnPrev.addEventListener('click', () => {
     if (currIndexCard > 0) {
         currIndexCard--;
+        resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
         updateCardDisplay();
     }
 });
 
+// Sự kiện click button thẻ tiếp theo
 btnNext.addEventListener('click', () => {
     if (currIndexCard < cards.length - 1) {
         currIndexCard++;
+        resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
         updateCardDisplay();
     }
 });
@@ -115,14 +126,14 @@ cards.forEach(card => {
     const textBack = card.querySelector('#text-back').innerText;
     const langBack = card.querySelector('input[name="defiLangCode"]').value;
 
-    // Gắn sự kiện cho nút "Phát âm mặt trước" trong card hiện tại
+    // Gắn sự kiện cho nút btnSoundFront trong card hiện tại
     if (btnSoundFront) {
         btnSoundFront.addEventListener('click', function () {
             playTextToSpeech(textFront, langFront);
         });
     }
 
-    // Gắn sự kiện cho nút "Phát âm mặt sau" trong card hiện tại
+    // Gắn sự kiện cho nút btnSoundBack trong card hiện tại
     if (btnSoundBack) {
         btnSoundBack.addEventListener('click', function () {
             playTextToSpeech(textBack, langBack);
@@ -130,15 +141,17 @@ cards.forEach(card => {
     }
 });
 
-//// Gắn sự kiện cho 2 button sound
-//document.getElementById('btn-sound-front').addEventListener('click', function () {
-//    const text = document.getElementById('text-front').innerText;
-//    const lang = document.querySelector('input[name="termLangCode"]').value;
-//    playTextToSpeech(text, lang);
-//});
+// Bật tắt trộn thẻ
+function toggleShuffle() {
+    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
+    var urlParams = new URLSearchParams(window.location.search);
+    const isShuffle = urlParams.get('isShuffle') === 'true'; // Kiểm tra isShuffle có = true hay k
 
-//document.getElementById('btn-sound-back').addEventListener('click', function () {
-//    const text = document.getElementById('text-back').innerText;
-//    const lang = document.querySelector('input[name="defiLangCode"]').value;
-//    playTextToSpeech(text, lang);
-//});
+    const newIsShuffle = !isShuffle;
+
+    // Lấy slug từ URL hiện tại
+    const slug = window.location.pathname.split('/').pop();
+
+    // Chuyển tới url mới
+    window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
+}
