@@ -15,6 +15,26 @@ cards.forEach(function (card) {
     });
 });
 
+// Lắng nghe sự kiện từ bàn phím
+document.addEventListener('keydown', function (event) {
+    switch (event.code) {
+        case 'Space':
+        case 'ArrowUp':
+        case 'ArrowDown':
+            event.preventDefault(); // Ngăn hành vi mặc định của các nút vừa bấm
+            flipCurrentCard();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            moveToPrevCard();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            moveToNextCard();
+            break;
+    }
+});
+
 // Lật thẻ
 function flipCard(card) {
     card.querySelector('.card-inner').classList.toggle('is-flipped');
@@ -25,31 +45,32 @@ function resetCard(card) {
     card.querySelector('.card-inner').classList.remove('is-flipped');
 }
 
-// Lắng nghe sự kiện từ bàn phím
-document.addEventListener('keydown', function (event) {
-    // Kiểm tra nếu phím space or mũi tên lên xuóng được nhấn
-    if (event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowDown') { 
-        event.preventDefault(); // Ngăn hành vi mặc định của Space (scroll trang)
+// Hàm thực hiện lật thẻ
+function flipCurrentCard() {
+    flipCard(cards[currIndexCard]);
+}
 
-        cards.forEach(function (card) {
-            flipCard(card);
-        });
-    }
+// Hàm reset thẻ hiện tại
+function resetCurrentCard() {
+    resetCard(cards[currIndexCard]);
+    updateCardDisplay();
+}
 
-    if (event.code === 'ArrowLeft') { // Mũi tên trái
-        if (currIndexCard > 0) {
-            currIndexCard--;
-            resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
-            updateCardDisplay();
-        }
-    } else if (event.code === 'ArrowRight') { // Mũi tên phải
-        if (currIndexCard < cards.length - 1) {
-            currIndexCard++; 
-            resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
-            updateCardDisplay();
-        }
+// Hàm di chuyển về thẻ trước
+function moveToPrevCard() {
+    if (currIndexCard > 0) {
+        currIndexCard--;
+        resetCurrentCard();
     }
-});
+}
+
+// Hàm di chuyển tới thẻ tiếp theo
+function moveToNextCard() {
+    if (currIndexCard < cards.length - 1) {
+        currIndexCard++;
+        resetCurrentCard();
+    }
+}
 
 // Cập nhật số thứ tự hiển thị (1/total)
 const updateCardNumber = () => {
@@ -82,22 +103,10 @@ function updateCardDisplay() {
 }
 
 // Sự kiện click button thẻ trước đó
-btnPrev.addEventListener('click', () => {
-    if (currIndexCard > 0) {
-        currIndexCard--;
-        resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
-        updateCardDisplay();
-    }
-});
+btnPrev.addEventListener('click', moveToPrevCard);
 
 // Sự kiện click button thẻ tiếp theo
-btnNext.addEventListener('click', () => {
-    if (currIndexCard < cards.length - 1) {
-        currIndexCard++;
-        resetCard(cards[currIndexCard]); // Lật lại thẻ hiện tại
-        updateCardDisplay();
-    }
-});
+btnNext.addEventListener('click', moveToNextCard);
 
 updateCardDisplay();
 
@@ -155,3 +164,28 @@ function toggleShuffle() {
     // Chuyển tới url mới
     window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
 }
+
+// Sự kiện khi click vào play/pause (tự động cuộn thẻ)
+document.getElementById('btn-enable-play-cards').addEventListener('click', function () {
+    var iconPlay = this.querySelector('i'); // Lấy thẻ <i> trong btnEnable
+
+    if (iconPlay.classList.contains("fa-play")) {
+        iconPlay.classList.replace("fa-play", "fa-pause");
+        this.title = "Tạm dừng";
+
+        let timeDelay = 1500; // Thời gian delay thực hiện các hành động
+
+        cards.forEach(function (card) {
+            // Lật thẻ sau 1.5s
+            setTimeout(() => flipCard(card), timeDelay);
+
+            // Reset lại thẻ và chuyển tới thẻ tiếp theo 
+            setTimeout(() => moveToNextCard(), timeDelay + 1500);
+
+            timeDelay += 3000;
+        });
+    } else {
+        iconPlay.classList.replace("fa-pause", "fa-play");
+        this.title = "Bắt đầu";
+    }
+});
