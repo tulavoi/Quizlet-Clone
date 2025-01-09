@@ -215,3 +215,17 @@ btnPlayCards.addEventListener('click', function () {
         startPlaying();
     }
 });
+
+// Bật tắt trộn thẻ
+function toggleShuffle() {
+    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
+    var urlParams = new URLSearchParams(window.location.search);
+    const isShuffle = urlParams.get('isShuffle') === 'true'; // Kiểm tra isShuffle có = true hay k
+    const newIsShuffle = !isShuffle;
+
+    // Lấy slug từ URL hiện tại
+    const slug = window.location.pathname.split('/').pop();
+
+    // Chuyển tới url mới
+    window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
+}
