@@ -1,4 +1,6 @@
-﻿// Lấy danh sách các card
+﻿//import { flip } from "@popperjs/core";
+
+// Lấy danh sách các card
 const cards = document.querySelectorAll('.term-defi-cards');
 
 // Lấy 2 btn prev next card
@@ -150,42 +152,66 @@ cards.forEach(card => {
     }
 });
 
-// Bật tắt trộn thẻ
-function toggleShuffle() {
-    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
-    var urlParams = new URLSearchParams(window.location.search);
-    const isShuffle = urlParams.get('isShuffle') === 'true'; // Kiểm tra isShuffle có = true hay k
+const btnPlayCards = document.getElementById('btn-play-cards');
+const icon = btnPlayCards.querySelector('i');
+let isPlaying = false; // Trạng thái đang chạy hay không
+let timeoutId; // Lưu trữ ID của timeout
 
-    const newIsShuffle = !isShuffle;
+// Hàm xử lý logic lật và chuyển thẻ
+function processCard() {
+    console.log("isPlaying in processCard() : " + isPlaying);
+    if (!isPlaying) return; // Nếu đã pause, dừng ngay
 
-    // Lấy slug từ URL hiện tại
-    const slug = window.location.pathname.split('/').pop();
+    const currCard = cards[currIndexCard];
+    const isFlipped = currCard.querySelector('.card-inner').classList.contains('is-flipped');
 
-    // Chuyển tới url mới
-    window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
+    // Nếu như là thẻ cuối và đã đc lật thì dừng cuộn thẻ
+    if (currIndexCard === cards.length - 1 && isFlipped) {
+        // Khi hoàn thành tất cả thẻ
+        stopPlaying();
+        return;
+    }
+
+    if (isFlipped) {
+        // Nếu thẻ đang ở mặt sau, reset và chuyển sang thẻ tiếp theo
+        timeoutId = setTimeout(moveToNextCard, 1500);
+        timeoutId = setTimeout(processCard, 1500); // Gọi lại hàm sau 1.5 giây
+    } else {
+        // Nếu thẻ đang ở mặt trước, chờ 1.5 giây, lật ra mặt sau
+        timeoutId = setTimeout(() => {
+            flipCard(currCard);
+            timeoutId = setTimeout(() => {
+                moveToNextCard();
+                processCard(); // Chuyển sang thẻ tiếp theo
+            }, 1500); // Đợi thêm 1.5 giây trước khi reset và chuyển
+        }, 1500);
+    }
 }
 
-// Sự kiện khi click vào play/pause (tự động cuộn thẻ)
-document.getElementById('btn-enable-play-cards').addEventListener('click', function () {
-    var iconPlay = this.querySelector('i'); // Lấy thẻ <i> trong btnEnable
+// Hàm bắt đầu chạy lật thẻ
+function startPlaying() {
+    isPlaying = true;
+    icon.classList.replace('fa-play', 'fa-pause');
+    icon.title = 'Tạm dừng';
 
-    if (iconPlay.classList.contains("fa-play")) {
-        iconPlay.classList.replace("fa-play", "fa-pause");
-        this.title = "Tạm dừng";
+    processCard(); // Bắt đầu hoặc tiếp tục xử lý từ vị trí hiện tại
+}
 
-        let timeDelay = 1500; // Thời gian delay thực hiện các hành động
+// Hàm dừng lật thẻ
+function stopPlaying() {
+    isPlaying = false;
+    console.log("isPlaying after stop: " + isPlaying);
+    icon.classList.replace('fa-pause', 'fa-play');
+    icon.title = 'Bắt đầu';
 
-        cards.forEach(function (card) {
-            // Lật thẻ sau 1.5s
-            setTimeout(() => flipCard(card), timeDelay);
+    clearTimeout(timeoutId); // Hủy bất kỳ timeout nào đang chờ
+}
 
-            // Reset lại thẻ và chuyển tới thẻ tiếp theo 
-            setTimeout(() => moveToNextCard(), timeDelay + 1500);
-
-            timeDelay += 3000;
-        });
+// Xử lý sự kiện click nút play/pause
+btnPlayCards.addEventListener('click', function () {
+    if (isPlaying) {
+        stopPlaying();
     } else {
-        iconPlay.classList.replace("fa-pause", "fa-play");
-        this.title = "Bắt đầu";
+        startPlaying();
     }
 });
