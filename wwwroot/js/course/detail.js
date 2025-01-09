@@ -1,4 +1,6 @@
-﻿// Lấy danh sách các card
+﻿//import { flip } from "@popperjs/core";
+
+// Lấy danh sách các card
 const cards = document.querySelectorAll('.term-defi-cards');
 
 // Lấy 2 btn prev next card
@@ -15,34 +17,62 @@ cards.forEach(function (card) {
     });
 });
 
+// Lắng nghe sự kiện từ bàn phím
+document.addEventListener('keydown', function (event) {
+    switch (event.code) {
+        case 'Space':
+        case 'ArrowUp':
+        case 'ArrowDown':
+            event.preventDefault(); // Ngăn hành vi mặc định của các nút vừa bấm
+            flipCurrentCard();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            moveToPrevCard();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            moveToNextCard();
+            break;
+    }
+});
+
 // Lật thẻ
 function flipCard(card) {
     card.querySelector('.card-inner').classList.toggle('is-flipped');
 }
 
-// Lắng nghe sự kiện từ bàn phím
-document.addEventListener('keydown', function (event) {
-    // Kiểm tra nếu phím space or mũi tên lên xuóng được nhấn
-    if (event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'ArrowDown') { 
-        event.preventDefault(); // Ngăn hành vi mặc định của Space (scroll trang)
+// Reset lật thẻ (không lật)
+function resetCard(card) {
+    card.querySelector('.card-inner').classList.remove('is-flipped');
+}
 
-        cards.forEach(function (card) {
-            flipCard(card);
-        });
-    }
+// Hàm thực hiện lật thẻ
+function flipCurrentCard() {
+    flipCard(cards[currIndexCard]);
+}
 
-    if (event.code === 'ArrowLeft') { // Mũi tên trái
-        if (currIndexCard > 0) {
-            currIndexCard--;
-            updateCardDisplay();
-        }
-    } else if (event.code === 'ArrowRight') { // Mũi tên phải
-        if (currIndexCard < cards.length - 1) {
-            currIndexCard++;
-            updateCardDisplay();
-        }
+// Hàm reset thẻ hiện tại
+function resetCurrentCard() {
+    resetCard(cards[currIndexCard]);
+    updateCardDisplay();
+}
+
+// Hàm di chuyển về thẻ trước
+function moveToPrevCard() {
+    if (currIndexCard > 0) {
+        currIndexCard--;
+        resetCurrentCard();
     }
-});
+}
+
+// Hàm di chuyển tới thẻ tiếp theo
+function moveToNextCard() {
+    if (currIndexCard < cards.length - 1) {
+        currIndexCard++;
+        resetCurrentCard();
+    }
+}
 
 // Cập nhật số thứ tự hiển thị (1/total)
 const updateCardNumber = () => {
@@ -74,19 +104,11 @@ function updateCardDisplay() {
     });
 }
 
-btnPrev.addEventListener('click', () => {
-    if (currIndexCard > 0) {
-        currIndexCard--;
-        updateCardDisplay();
-    }
-});
+// Sự kiện click button thẻ trước đó
+btnPrev.addEventListener('click', moveToPrevCard);
 
-btnNext.addEventListener('click', () => {
-    if (currIndexCard < cards.length - 1) {
-        currIndexCard++;
-        updateCardDisplay();
-    }
-});
+// Sự kiện click button thẻ tiếp theo
+btnNext.addEventListener('click', moveToNextCard);
 
 updateCardDisplay();
 
@@ -96,4 +118,100 @@ actionButtons.forEach(function (button) {
     button.addEventListener('click', function (event) {
         event.stopPropagation(); // Ngừng lan truyền sự kiện lên các phần tử cha
     });
+});
+
+function playTextToSpeech(text, lang) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang; // Set language code (e.g., "en-US", "vi-VN")
+    window.speechSynthesis.speak(utterance);
+}
+
+cards.forEach(card => {
+    // Chọn các phần tử trong card hiện tại
+    const btnSoundFront = card.querySelector('#btn-sound-front');
+    const btnSoundBack = card.querySelector('#btn-sound-back');
+
+    const textFront = card.querySelector('#text-front').innerText;
+    const langFront = card.querySelector('input[name="termLangCode"]').value;
+
+    const textBack = card.querySelector('#text-back').innerText;
+    const langBack = card.querySelector('input[name="defiLangCode"]').value;
+
+    // Gắn sự kiện cho nút btnSoundFront trong card hiện tại
+    if (btnSoundFront) {
+        btnSoundFront.addEventListener('click', function () {
+            playTextToSpeech(textFront, langFront);
+        });
+    }
+
+    // Gắn sự kiện cho nút btnSoundBack trong card hiện tại
+    if (btnSoundBack) {
+        btnSoundBack.addEventListener('click', function () {
+            playTextToSpeech(textBack, langBack);
+        });
+    }
+});
+
+const btnPlayCards = document.getElementById('btn-play-cards');
+const icon = btnPlayCards.querySelector('i');
+let isPlaying = false; // Trạng thái đang chạy hay không
+let timeoutId; // Lưu trữ ID của timeout
+
+// Hàm xử lý logic lật và chuyển thẻ
+function processCard() {
+    console.log("isPlaying in processCard() : " + isPlaying);
+    if (!isPlaying) return; // Nếu đã pause, dừng ngay
+
+    const currCard = cards[currIndexCard];
+    const isFlipped = currCard.querySelector('.card-inner').classList.contains('is-flipped');
+
+    // Nếu như là thẻ cuối và đã đc lật thì dừng cuộn thẻ
+    if (currIndexCard === cards.length - 1 && isFlipped) {
+        // Khi hoàn thành tất cả thẻ
+        stopPlaying();
+        return;
+    }
+
+    if (isFlipped) {
+        // Nếu thẻ đang ở mặt sau, reset và chuyển sang thẻ tiếp theo
+        timeoutId = setTimeout(moveToNextCard, 1500);
+        timeoutId = setTimeout(processCard, 1500); // Gọi lại hàm sau 1.5 giây
+    } else {
+        // Nếu thẻ đang ở mặt trước, chờ 1.5 giây, lật ra mặt sau
+        timeoutId = setTimeout(() => {
+            flipCard(currCard);
+            timeoutId = setTimeout(() => {
+                moveToNextCard();
+                processCard(); // Chuyển sang thẻ tiếp theo
+            }, 1500); // Đợi thêm 1.5 giây trước khi reset và chuyển
+        }, 1500);
+    }
+}
+
+// Hàm bắt đầu chạy lật thẻ
+function startPlaying() {
+    isPlaying = true;
+    icon.classList.replace('fa-play', 'fa-pause');
+    icon.title = 'Tạm dừng';
+
+    processCard(); // Bắt đầu hoặc tiếp tục xử lý từ vị trí hiện tại
+}
+
+// Hàm dừng lật thẻ
+function stopPlaying() {
+    isPlaying = false;
+    console.log("isPlaying after stop: " + isPlaying);
+    icon.classList.replace('fa-pause', 'fa-play');
+    icon.title = 'Bắt đầu';
+
+    clearTimeout(timeoutId); // Hủy bất kỳ timeout nào đang chờ
+}
+
+// Xử lý sự kiện click nút play/pause
+btnPlayCards.addEventListener('click', function () {
+    if (isPlaying) {
+        stopPlaying();
+    } else {
+        startPlaying();
+    }
 });

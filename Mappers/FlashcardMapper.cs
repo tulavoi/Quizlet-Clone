@@ -14,8 +14,8 @@ namespace SmartCards.Mappers
                 TermLanguageId = flashcard.Term_LangId,
                 Definition = flashcard.Definition,
                 DefiLanguageId = flashcard.Definition_LangId,
-                TermLanguageCode = flashcard.Term_Lang.Code ?? string.Empty,
-                DefiLanguageCode = flashcard.Definition_Lang.Code ?? string.Empty,
+                TermLanguageCode = flashcard.Term_Lang?.Code ?? string.Empty,
+                DefiLanguageCode = flashcard.Definition_Lang?.Code ?? string.Empty,
             };
         }
     }

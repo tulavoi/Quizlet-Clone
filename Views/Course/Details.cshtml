@@ -1,7 +1,7 @@
 ﻿@using SmartCards.DTOs.Course
 @model CourseDTO
 @{
-    ViewData["Title"] = "Thẻ ghi nhớ: CourseTitle | SmartCards";
+    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | SmartCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
@@ -41,40 +41,11 @@
     </div>
 
     <!-- Card Settings -->
-    <div class="card-settings my-4 row">
-        <div class="card-settings-left col-4 d-flex justify-content-start align-items-center"></div>
+    @await Html.PartialAsync("ViewPartials/Details/_CardSettingsPartial.cshtml", new {
+        Slug = Model.Slug
+    })
 
-        <div class="card-settings-mid col-4 d-flex justify-content-center align-items-center">
-            <button id="btn-prev-card">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-
-            <span class="px-3" id="card-number">1 / 10</span>
-
-            <button id="btn-next-card">
-                <i class="fa-solid fa-arrow-right"></i>
-            </button>
-        </div>
-
-        <div class="card-settings-right col-4 d-flex justify-content-end align-items-center">
-            <button>
-                <i class="fa-solid fa-play" title="Bắt đầu"></i>
-            </button>
-
-            <button>
-                <i class="fa-solid fa-shuffle" title="Trộn thẻ"></i>
-            </button>
-
-            <button>
-                <i class="fa-solid fa-gear" title="Cài đặt"></i>
-            </button>
-
-            <button>
-                <i class="fa-solid fa-expand" title="Phóng to"></i>
-            </button>
-        </div>
-        <hr />
-    </div>
+    
 
 </div>
 

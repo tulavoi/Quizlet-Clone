@@ -23,8 +23,12 @@ namespace SmartCards.Repositories
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                course.Slug = this.GenerateSlug(course.Title, course.Id, course.CreatedAt);
                 await _context.Courses.AddAsync(course);
+                await _context.SaveChangesAsync();
+
+                // Tạo slug sau khi đã có ID
+                course.Slug = this.GenerateSlug(course.Title, course.Id, course.CreatedAt);
+                _context.Courses.Update(course);
                 await _context.SaveChangesAsync();
 
                 var coursePermission = new CoursePermission
@@ -100,15 +104,23 @@ namespace SmartCards.Repositories
             return await courses.ToListAsync();
         }
 
-        public async Task<Course?> GetByIdAsync(int id)
+        public async Task<Course?> GetByIdAsync(int id, CourseQueryObject? query)
         {
-            return await _context.Courses
+            var course = await _context.Courses
                 .Include(x => x.User)
                 .Include(x => x.Flashcards)
                     .ThenInclude(f => f.Term_Lang)
                 .Include(x => x.Flashcards)
                     .ThenInclude(f => f.Definition_Lang)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (query != null && course != null && query.IsShuffle)
+            {
+                course.Flashcards = course.Flashcards
+                    .OrderBy(_ => Guid.NewGuid()) // Sử dụng Guid để xáo trộn ngẫu nhiên
+                    .ToList();
+            }
+            return course;
         }
 
         public string GetErrorMessage(CreateCourseRequestDTO courseDTO)
