@@ -13,6 +13,7 @@ namespace SmartCards.Models
         public string Title { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
         [Required]
         public required string UserId { get; set; }
         public AppUser? User { get; set; }

@@ -6,7 +6,7 @@ namespace SmartCards.Mappers
 {
     public static class CourseMapper
     {
-        public static CourseDTO ToCourseDTO(this Course course)
+        public static CourseDTO ToCourseDTO(this Course course, Flashcard? lastLearnedCard = null)
         {
             return new CourseDTO
             {
@@ -18,6 +18,7 @@ namespace SmartCards.Mappers
                 Slug = course.Slug,
                 Description = course.Description,
                 Flashcards = course.Flashcards.Select(x => x.ToFlashcardDTO()).ToList(),
+                LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO()
             };
         }
 

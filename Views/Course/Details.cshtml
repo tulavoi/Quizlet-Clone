@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | SmartCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Lấy ra vị trí của thẻ đã học gần nhất trong danh sách flashcards, nếu k có gán = 0
+    var lastLearnedFcIndex = (Model.LastLearnedFlashcard != null)
+        ? Model.Flashcards.FindIndex(x => x.Id == Model.LastLearnedFlashcard.Id) : 0;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/details.css" />
@@ -31,11 +35,12 @@
     <div class="card-container">
         @foreach (var flashcard in Model.Flashcards)
         {
-            @await Html.PartialAsync("ViewPartials/Details/_TermDefiCardsPartial.cshtml", new {
+            @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
                 Term = flashcard.Term,
                 Definition = flashcard.Definition,
                 TermLanguageCode = flashcard.TermLanguageCode,
                 DefiLanguageCode = flashcard.DefiLanguageCode,
+                FlashcardId = flashcard.Id
             })
         }
     </div>
@@ -44,9 +49,11 @@
     @await Html.PartialAsync("ViewPartials/Details/_CardSettingsPartial.cshtml", new {
         Slug = Model.Slug
     })
-
-    
-
 </div>
+
+<script>
+    // Có thể truyền giá trị từ lastReviewedFcIndex đẻ sử dụng trong detail.js
+    var currIndexCard = @lastLearnedFcIndex;
+</script>
 
 <script src="~/js/course/detail.js"></script>

@@ -15,8 +15,11 @@ namespace SmartCards.Models
         public string? Slug { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        [Required]
 		public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }
+
         public List<Flashcard> Flashcards { get; set; } = new List<Flashcard>();
         public List<CourseFolder> CourseFolders { get; set; } = new List<CourseFolder>();
     }

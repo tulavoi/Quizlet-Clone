@@ -14,5 +14,6 @@ namespace SmartCards.DTOs.Course
         public string UserId { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public List<FlashcardDTO> Flashcards { get; set; } = new List<FlashcardDTO>();
+        public FlashcardDTO? LastLearnedFlashcard { get; set; }
     }
 }

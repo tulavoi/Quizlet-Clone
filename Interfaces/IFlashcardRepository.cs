@@ -4,6 +4,7 @@ namespace SmartCards.Interfaces
 {
     public interface IFlashcardRepository
     {
-        Task CreateListAsync(List<Flashcard> flashcards);
+        Task<Flashcard> GetLastLearnedAsync(string userId, int courseId);
+        Task SaveLastLearnedAsync(string userId, int flashcardId);
     }
 }
