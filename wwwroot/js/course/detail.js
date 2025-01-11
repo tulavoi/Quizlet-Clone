@@ -1,5 +1,4 @@
-﻿//import { flip } from "@popperjs/core";
-
+﻿
 // Lấy danh sách các card
 const cards = document.querySelectorAll('.term-defi-cards');
 
@@ -7,14 +6,22 @@ const cards = document.querySelectorAll('.term-defi-cards');
 const btnPrev = document.getElementById('btn-prev-card');
 const btnNext = document.getElementById('btn-next-card');
 
-// Biến theo dõi index đang hiển thị
-let currIndexCard = 0;
+// currIndexCard là biến theo dõi index đang hiển thị được truyền từ view Details.cshtml sang
 
 // Gắn sự kiện click cho từng thẻ để lật thẻ
 cards.forEach(function (card) {
     card.addEventListener('click', function () {
         flipCard(this);
     });
+});
+
+// Nếu currIndexCard == 0 (tức là chưa học card nào), lưu lại card đầu tiên
+document.addEventListener('DOMContentLoaded', function () {
+    if (currIndexCard == 0) {
+        const currCard = cards[currIndexCard];
+        const flashcardId = currCard.getAttribute('data-flashcard-id');
+        saveLastLearnedCard(flashcardId);
+    }
 });
 
 // Lắng nghe sự kiện từ bàn phím
@@ -71,7 +78,27 @@ function moveToNextCard() {
     if (currIndexCard < cards.length - 1) {
         currIndexCard++;
         resetCurrentCard();
+        const currCard = cards[currIndexCard];
+        const flashcardId = currCard.getAttribute('data-flashcard-id');
+        saveLastLearnedCard(flashcardId);
     }
+}
+
+// Lưu lại card đã học
+function saveLastLearnedCard(flashcardId) {
+    fetch('/flashcard/save-last-learned', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: flashcardId })
+    }).then(respoone => {
+        if (!respoone.ok) {
+            console.log('Failed to save last learned card');
+        }
+    }).catch(error => {
+        console.error('Error: ', error );
+    });
 }
 
 // Cập nhật số thứ tự hiển thị (1/total)

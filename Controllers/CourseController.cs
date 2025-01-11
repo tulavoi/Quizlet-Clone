@@ -1,14 +1,10 @@
 ﻿using api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SmartCards.DTOs.Course;
-using SmartCards.DTOs.Flashcard;
 using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
-using SmartCards.Models;
-using System.Numerics;
 
 namespace SmartCards.Controllers
 {
@@ -19,13 +15,18 @@ namespace SmartCards.Controllers
 		private readonly IPermissionRepository _permissionRepo;
 		private readonly ILanguageRepository _languageRepo;
 		private readonly ICourseRepository _courseRepo;
+		private readonly IFlashcardRepository _flashcardRepo;
 
-        public CourseController(IPermissionRepository permissionRepo,
-            ILanguageRepository languageRepo, ICourseRepository courseRepo)
+        public CourseController(
+            IPermissionRepository permissionRepo,
+            ILanguageRepository languageRepo, 
+            ICourseRepository courseRepo,
+            IFlashcardRepository flashcardRepo)
         {
             _permissionRepo = permissionRepo;
             _languageRepo = languageRepo;
             _courseRepo = courseRepo;
+            _flashcardRepo = flashcardRepo;
         }
 
         [Route("/create-course")]
@@ -62,7 +63,30 @@ namespace SmartCards.Controllers
             var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject { IsShuffle = isShuffle });
             if (course == null) return NotFound();
 
-            return View(course.ToCourseDTO());
+            // Lấy ra flashcard đã học gần nhất trong học phần của user
+            var lastLearnedCard = await _flashcardRepo.GetLastLearnedAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id
+            });
+
+            // Lấy ra flashcards user đã học trong học phần
+            var learnedFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id,
+                IsLearned = true
+            });
+
+            // Lấy ra flashcards user chưa học trong học phần
+            var learningFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id,
+                IsLearned = false
+            });
+
+            return View(course.ToCourseDTO(lastLearnedCard, learnedFlashcards, learningFlashcards));
         }
 
         private int GetIdBySlug(string slug)
@@ -78,19 +102,11 @@ namespace SmartCards.Controllers
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });
         }
 
-        //[HttpGet("{id:int}")]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var course = await _courseRepo.GetByIdAsync(id);
-        //    if (course == null) return NotFound();
-        //    return Ok(course.ToCourseDTO());
-        //}
-
         // Trả về Html của PartialView
         [HttpGet]
         [Route("GetTermDefinitionPartial")]
         public async Task<IActionResult> GetTermDefinitionPartial(
-            [FromQuery] int count, 
+            [FromQuery] int count,
             [FromQuery] string termValue, 
             [FromQuery] string defiValue, 
             [FromQuery] int termLanguageId, 

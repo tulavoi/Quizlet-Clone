@@ -1,16 +1,16 @@
 ﻿@model dynamic
-<div class="term-defi-cards" tabindex="0">
+<div class="term-defi-cards" tabindex="0" data-flashcard-id="@Model.FlashcardId">
     <div class="card-inner">
         <div class="card-front">
             <div class="card-actions">
-                <button>
-                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                <button title="Sửa" id="btn-open-edit-modal">
+                    <i class="fa-solid fa-pen text-secondary"></i>
                 </button>
-                <button id="btn-sound-front">
-                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                <button id="btn-sound-front" title="Phát âm">
+                    <i class="fa-solid fa-volume-high text-secondary"></i>
                 </button>
-                <button>
-                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                <button title="Đánh dấu">
+                    <i class="fa-solid fa-star text-secondary"></i>
                 </button>
             </div>
             <span id="text-front">@Model.Term</span>

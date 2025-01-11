@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | SmartCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Lấy ra vị trí của thẻ đã học gần nhất trong danh sách flashcards, nếu k có gán = 0
+    var lastLearnedFcIndex = 0;
+    if (Model.LastLearnedFlashcard != null && Model.Flashcards.Any(x => x.Id == Model.LastLearnedFlashcard.Id))
+        lastLearnedFcIndex = Model.Flashcards.FindIndex(x => x.Id == Model.LastLearnedFlashcard.Id);
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/details.css" />
@@ -24,20 +29,23 @@
          <span>5.0 (1 đánh giá)</span> 
     </div> *@
 
-    <!-- Study Mode -->
-    @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
+    <div class="row">
+        <!-- Study Mode -->
+        @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
 
-    <!-- Term Definition Cards -->
-    <div class="card-container">
-        @foreach (var flashcard in Model.Flashcards)
-        {
-            @await Html.PartialAsync("ViewPartials/Details/_TermDefiCardsPartial.cshtml", new {
-                Term = flashcard.Term,
-                Definition = flashcard.Definition,
-                TermLanguageCode = flashcard.TermLanguageCode,
-                DefiLanguageCode = flashcard.DefiLanguageCode,
-            })
-        }
+        <!-- Term Definition Cards -->
+        <div class="card-container">
+            @foreach (var flashcard in Model.Flashcards)
+            {
+                @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
+                    Term = flashcard.Term,
+                    Definition = flashcard.Definition,
+                    TermLanguageCode = flashcard.TermLanguageCode,
+                    DefiLanguageCode = flashcard.DefiLanguageCode,
+                    FlashcardId = flashcard.Id
+                })
+            }
+        </div>
     </div>
 
     <!-- Card Settings -->
@@ -45,8 +53,24 @@
         Slug = Model.Slug
     })
 
-    
+    <!-- User Info, Action Bar-->
+    @await Html.PartialAsync("ViewPartials/Details/_UserInfoActionBarPartial.cshtml", new {
+        Username = Model.Username,
+        RelativeTime = Model.RelativeTime
+    })
 
+    <!-- Your terms -->
+    @await Html.PartialAsync("ViewPartials/Details/_YourTermsPartial.cshtml", new
+    {
+        Flashcards = Model.Flashcards,
+        LearnedFlashcards = Model.LearnedFlashcards,
+        LearningFlashcards = Model.LearningFlashcards,
+    })
 </div>
+
+<script>
+    // Có thể truyền giá trị từ lastReviewedFcIndex đẻ sử dụng trong detail.js
+    var currIndexCard = @lastLearnedFcIndex;
+</script>
 
 <script src="~/js/course/detail.js"></script>

@@ -4,6 +4,7 @@
 .container {
     width: 80%;
     margin-left: 7%;
+    padding: 0;
 }
 
 .btn-folder{
@@ -67,6 +68,7 @@
 .card-container {
     gap: 2rem;
     flex-wrap: wrap;
+    padding: 0;
 }
 
 .term-defi-cards {
@@ -213,4 +215,133 @@
     color: var(--blue-color);
     font-weight: 500;
     font-size: large;
+}
+
+/* User info */
+.user-info .btn-avatar {
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 500;
+    font-size: 1.25rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-right: .5rem;
+    outline: none;
+    border: none;
+}
+
+.user-info .created-by {
+    font-size: small;
+    color: var(--grey-color);
+}
+
+.user-info .created-at {
+    color: var(--grey-color);
+}
+
+/* Action bar */
+.action-bar button {
+    border-radius: .5rem;
+    margin-left: .5rem;
+    border: 2px solid var(--light-green-color);
+    background: none;
+    color: var(--grey-color);
+}
+
+.action-bar button:hover {
+    background: var(--light-grey-color);
+}
+
+.action-bar #btn-share{
+    padding: .4rem 1rem;
+}
+
+#btn-share i{
+    margin-right: .25rem;
+}
+
+.action-bar #btn-to-edit-page, #btn-more-options{
+    padding: .4rem .7rem;
+}
+
+/* Your terms */
+.terms-list {
+    background: #f6f7fb;
+    border-radius: 1rem;
+}
+
+.terms-list h5{
+    font-weight: bold;
+}
+
+.terms-list .btn-starred{
+    border-radius: .5rem;
+    margin-left: .5rem;
+    border: 2px solid var(--light-green-color);
+    background: none;
+    color: var(--grey-color);
+    padding: .5rem .75rem;
+    font-size: .9rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.terms-list .btn-starred i{
+    margin-right: .4rem;
+    font-size: smaller;
+    color: white;
+}
+
+.terms-list .btn-starred:hover{
+    background: var(--light-grey-color);
+}
+
+.learning-terms h5 {
+    color: var(--orange-color);
+}
+
+.learned-terms h5 {
+    color: var(--blue-color);
+}
+
+.terms-list .card {
+    border-radius: .25rem !important;
+    border: none;
+    margin-top: 10px;
+    font-size: large;
+    box-shadow: 0 .125rem .25rem 0 #282e3e1a;
+    padding: 0 10px;
+}
+
+.terms-list .card button{
+    border-radius: 50%;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: medium;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.terms-list .card button:hover{
+    background: var(--light-grey-color);
+}
+
+.terms-list .card .term-col{
+    border-right: 1px solid var(--light-grey-color);
+}
+
+.terms-list .card .defi-col{
+    padding-left: 30px;
 }
