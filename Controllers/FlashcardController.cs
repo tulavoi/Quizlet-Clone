@@ -18,22 +18,10 @@ namespace SmartCards.Controllers
         [HttpPost("save-last-learned")]
         public async Task<IActionResult> SaveLastLearned([FromBody] FlashcardLastLearnedDTO flashcardDTO)
         {
-            try
-            {
-                if (flashcardDTO.Id <= 0)
-                {
-                    return BadRequest("Invalid flashcard id");
-                }
+            if (flashcardDTO.Id <= 0) return BadRequest("Invalid flashcard id");
 
-                await _flashcardRepo.SaveLastLearnedAsync(this.UserId, flashcardDTO.Id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Log lỗi
-                Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, "An unexpected error occurred.");
-            }
+            await _flashcardRepo.SaveLastLearnedAsync(this.UserId, flashcardDTO.Id);
+            return Ok();
         }
     }
 }

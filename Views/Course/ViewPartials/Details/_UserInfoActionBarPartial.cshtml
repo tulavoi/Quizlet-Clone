@@ -1,0 +1,28 @@
+﻿@model dynamic
+<div class="user-info-action-bar my-4 row">
+    <div class="user-info col-8 d-flex justify-content-start align-items-center p-0">
+        <button class="btn-avatar bg-success">
+            Vu
+        </button>
+
+        <div>
+            <small class="created-by">Tạo bởi</small>
+            <h6 class="mb-0">@Model.Username</h6>
+            <small class="created-at">Đã tạo @Model.RelativeTime</small>
+        </div>
+    </div>
+
+    <div class="action-bar col-4 d-flex justify-content-end align-items-center p-0">
+        <button id="btn-share">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
+        </button>
+
+        <button id="btn-to-edit-page" title="Sửa">
+            <i class="fa-solid fa-pen text-secondary"></i>
+        </button>
+
+        <button id="btn-more-options" title="Xem thêm">
+            <i class="fa-solid fa-ellipsis"></i>
+        </button>
+    </div>
+</div>

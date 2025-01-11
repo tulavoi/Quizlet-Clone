@@ -64,9 +64,29 @@ namespace SmartCards.Controllers
             if (course == null) return NotFound();
 
             // Lấy ra flashcard đã học gần nhất trong học phần của user
-            var lastLearnedCard = await _flashcardRepo.GetLastLearnedAsync(this.UserId, course.Id);
+            var lastLearnedCard = await _flashcardRepo.GetLastLearnedAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id
+            });
 
-            return View(course.ToCourseDTO(lastLearnedCard));
+            // Lấy ra flashcards user đã học trong học phần
+            var learnedFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id,
+                IsLearned = true
+            });
+
+            // Lấy ra flashcards user chưa học trong học phần
+            var learningFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
+            {
+                UserId = this.UserId,
+                CourseId = course.Id,
+                IsLearned = false
+            });
+
+            return View(course.ToCourseDTO(lastLearnedCard, learnedFlashcards, learningFlashcards));
         }
 
         private int GetIdBySlug(string slug)

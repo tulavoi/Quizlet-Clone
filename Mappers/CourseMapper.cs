@@ -1,12 +1,16 @@
 ﻿using SmartCards.DTOs.Course;
 using SmartCards.DTOs.Flashcard;
+using SmartCards.Extensions;
 using SmartCards.Models;
 
 namespace SmartCards.Mappers
 {
     public static class CourseMapper
     {
-        public static CourseDTO ToCourseDTO(this Course course, Flashcard? lastLearnedCard = null)
+        public static CourseDTO ToCourseDTO(this Course course, 
+            Flashcard? lastLearnedCard = null,
+            List<Flashcard>? learnedFlashcards = null,
+            List<Flashcard>? learningFlashcards = null)
         {
             return new CourseDTO
             {
@@ -17,7 +21,10 @@ namespace SmartCards.Mappers
                 Password = course.Password,
                 Slug = course.Slug,
                 Description = course.Description,
+                RelativeTime = course.CreatedAt.ToRelativeTime(),
                 Flashcards = course.Flashcards.Select(x => x.ToFlashcardDTO()).ToList(),
+                LearnedFlashcards = learnedFlashcards?.Select(x => x.ToFlashcardDTO()).ToList(),
+                LearningFlashcards = learningFlashcards?.Select(x => x.ToFlashcardDTO()).ToList(),
                 LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO()
             };
         }

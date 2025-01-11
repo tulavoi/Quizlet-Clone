@@ -15,6 +15,15 @@ cards.forEach(function (card) {
     });
 });
 
+// Nếu currIndexCard == 0 (tức là chưa học card nào), lưu lại card đầu tiên
+document.addEventListener('DOMContentLoaded', function () {
+    if (currIndexCard == 0) {
+        const currCard = cards[currIndexCard];
+        const flashcardId = currCard.getAttribute('data-flashcard-id');
+        saveLastLearnedCard(flashcardId);
+    }
+});
+
 // Lắng nghe sự kiện từ bàn phím
 document.addEventListener('keydown', function (event) {
     switch (event.code) {
@@ -69,7 +78,6 @@ function moveToNextCard() {
     if (currIndexCard < cards.length - 1) {
         currIndexCard++;
         resetCurrentCard();
-
         const currCard = cards[currIndexCard];
         const flashcardId = currCard.getAttribute('data-flashcard-id');
         saveLastLearnedCard(flashcardId);
