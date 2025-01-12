@@ -12,7 +12,6 @@ namespace SmartCards.Models
         public string? Term { get; set; } = string.Empty;
         [MaxLength(100)]
         public string? Definition { get; set; } = string.Empty;
-        public bool IsMark { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 

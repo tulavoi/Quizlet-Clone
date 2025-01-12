@@ -4,24 +4,24 @@
 
 	<section class="terms-list p-3 my-4">
         <!-- Các flashcard đang học -->
-        @if (@Model.LearningFlashcards.Count > 0)
+        @if (@Model.LearnedFlashcards.Count > 0)
         {
             <section class="learning-terms mb-4">
                 <div class="row">
                     <div class="col-6 ">
-                        <h5>Đang học (@Model.LearningFlashcards.Count)</h5>
+                        <h5>Đang học (@Model.LearnedFlashcards.Count)</h5>
                         <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
                     </div>
 
                     <div class="col-6">
                         <button class="btn-starred float-end" id="btn-starred-learning-terms">
                             <i class="fa-solid fa-star text-secondary"></i>
-                            Chọn @Model.LearningFlashcards.Count
+                            Chọn @Model.LearnedFlashcards.Count
                         </button>
                     </div>
                 </div>
 
-                @foreach (var flashcard in Model.LearningFlashcards)
+                @foreach (var flashcard in Model.LearnedFlashcards)
                 {
                     <div class="card">
                         <div class="row p-3 d-flex align-items-center justify-content-center">
@@ -46,25 +46,25 @@
             </section>
         }
         
-        <!-- Các flashcard đã học -->
-        @if (@Model.LearnedFlashcards.Count > 0)
+        <!-- Các flashcard chưa học -->
+        @if (@Model.NotLearnedFlashcards.Count > 0)
         {
             <section class="learned-terms mb-4">
                 <div class="row">
                     <div class="col-6">
-                        <h5 clas>Đã học (@Model.LearnedFlashcards.Count)</h5>
+                        <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
                         <p>Bạn chưa học các thuật ngữ này!</p>
                     </div>
 
                     <div class="col-6">
                         <button class="btn-starred float-end" id="btn-starred-learning-terms">
                             <i class="fa-solid fa-star text-secondary"></i>
-                            Chọn @Model.LearnedFlashcards.Count
+                            Chọn @Model.NotLearnedFlashcards.Count
                         </button>
                     </div>
                 </div>
 
-                @foreach (var flashcard in Model.LearnedFlashcards)
+                @foreach (var flashcard in Model.NotLearnedFlashcards)
                 {
                     <div class="card">
                         <div class="row p-3 d-flex align-items-center justify-content-center">

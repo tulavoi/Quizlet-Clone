@@ -15,15 +15,6 @@ cards.forEach(function (card) {
     });
 });
 
-// Nếu currIndexCard == 0 (tức là chưa học card nào), lưu lại card đầu tiên
-document.addEventListener('DOMContentLoaded', function () {
-    if (currIndexCard == 0) {
-        const currCard = cards[currIndexCard];
-        const flashcardId = currCard.getAttribute('data-flashcard-id');
-        saveLastLearnedCard(flashcardId);
-    }
-});
-
 // Lắng nghe sự kiện từ bàn phím
 document.addEventListener('keydown', function (event) {
     switch (event.code) {
@@ -73,25 +64,51 @@ function moveToPrevCard() {
     }
 }
 
+// Lấy id flashcard đã học (flashcard vừa bấm qua là flashcard đã học)
+function getLearnedFlashcardId() {
+    if (currIndexCard > 0) {
+        const prevCard = cards[currIndexCard - 1];
+        return prevCard.getAttribute('data-flashcard-id');
+    }
+    return null;
+}
+
+// Lấy id flashcard hiện tại (flashcard đang hiển thị)
+function getCurrentFlashcardId() {
+    const prevCard = cards[currIndexCard];
+    return prevCard.getAttribute('data-flashcard-id');
+}
+
 // Hàm di chuyển tới thẻ tiếp theo
 function moveToNextCard() {
     if (currIndexCard < cards.length - 1) {
+        // Lưu card trước đó (isLearned = true)
+        const learnedCardId = getLearnedFlashcardId();
+        if (learnedCardId != null) updateProgress(learnedCardId, true);
+
+        // Di chuyển tới card tiếp theo
         currIndexCard++;
         resetCurrentCard();
-        const currCard = cards[currIndexCard];
-        const flashcardId = currCard.getAttribute('data-flashcard-id');
-        saveLastLearnedCard(flashcardId);
+
+        // Lưu card hiện tại (isLearned = false)
+        const flashcardId = getCurrentFlashcardId();
+        updateProgress(flashcardId, true);
     }
 }
 
-// Lưu lại card đã học
-function saveLastLearnedCard(flashcardId) {
-    fetch('/flashcard/save-last-learned', {
+// Lưu lại flashcard đang hiển thị 
+function updateProgress(flashcardId, isLearned, isStarred = false) {
+    fetch('/fc-progress/update-progress', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id: flashcardId })
+        body: JSON.stringify({
+            flashcardId: flashcardId,
+            isLearned: isLearned,
+            isStarred: isStarred,
+            lastReviewedAt: new Date().toISOString()
+        })
     }).then(respoone => {
         if (!respoone.ok) {
             console.log('Failed to save last learned card');
@@ -256,3 +273,10 @@ function toggleShuffle() {
     // Chuyển tới url mới
     window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
 }
+
+// Gắn sao cho flashcard
+//document.querySelector('.starred-btn');
+
+//function starred() {
+
+//}

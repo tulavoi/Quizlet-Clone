@@ -63,30 +63,18 @@ namespace SmartCards.Controllers
             var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject { IsShuffle = isShuffle });
             if (course == null) return NotFound();
 
-            // Lấy ra flashcard đã học gần nhất trong học phần của user
-            var lastLearnedCard = await _flashcardRepo.GetLastLearnedAsync(new FlashcardQueryObject
-            {
-                UserId = this.UserId,
-                CourseId = course.Id
-            });
+            // Lấy ra flashcard đã xen gần nhất trong học phần của user
+            var lastReviewedCard = await _flashcardRepo.GetCurrentDisplayedAsync(this.UserId, course.Id);
 
             // Lấy ra flashcards user đã học trong học phần
-            var learnedFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
-            {
-                UserId = this.UserId,
-                CourseId = course.Id,
-                IsLearned = true
-            });
+            var learnedFlashcards = await _flashcardRepo.GetAllInCourseAsync(this.UserId, course.Id, 
+                new FlashcardQueryObject { IsLearned = true });
 
             // Lấy ra flashcards user chưa học trong học phần
-            var learningFlashcards = await _flashcardRepo.GetAllInCourseAsync(new FlashcardQueryObject
-            {
-                UserId = this.UserId,
-                CourseId = course.Id,
-                IsLearned = false
-            });
+            var notLearnerFlashcards = await _flashcardRepo.GetAllInCourseAsync(this.UserId, course.Id, 
+                new FlashcardQueryObject { IsLearned = false });
 
-            return View(course.ToCourseDTO(lastLearnedCard, learnedFlashcards, learningFlashcards));
+            return View(course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnerFlashcards));
         }
 
         private int GetIdBySlug(string slug)

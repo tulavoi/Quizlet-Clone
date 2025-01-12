@@ -1,4 +1,5 @@
-﻿using SmartCards.DTOs.Course;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using SmartCards.DTOs.Course;
 using SmartCards.DTOs.Flashcard;
 using SmartCards.Extensions;
 using SmartCards.Models;
@@ -10,7 +11,7 @@ namespace SmartCards.Mappers
         public static CourseDTO ToCourseDTO(this Course course, 
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
-            List<Flashcard>? learningFlashcards = null)
+            List<Flashcard>? notLearnedFlashcards = null)
         {
             return new CourseDTO
             {
@@ -24,8 +25,23 @@ namespace SmartCards.Mappers
                 RelativeTime = course.CreatedAt.ToRelativeTime(),
                 Flashcards = course.Flashcards.Select(x => x.ToFlashcardDTO()).ToList(),
                 LearnedFlashcards = learnedFlashcards?.Select(x => x.ToFlashcardDTO()).ToList(),
-                LearningFlashcards = learningFlashcards?.Select(x => x.ToFlashcardDTO()).ToList(),
+                NotLearnedFlashcards = notLearnedFlashcards?.Select(x => x.ToFlashcardDTO()).ToList(),
                 LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO()
+            };
+        }
+
+        public static RecentCourseDTO ToRecentCourseDTO(this Course course)
+        {
+            return new RecentCourseDTO
+            {
+                Id = course.Id,
+                UserId = course.UserId,
+                Username = course.User?.UserName ?? string.Empty,
+                Title = course.Title,
+                Password = course.Password,
+                Slug = course.Slug,
+                RelativeTime = course.CreatedAt.ToRelativeTime(),
+                FlashcardCount = course.Flashcards.Count
             };
         }
 

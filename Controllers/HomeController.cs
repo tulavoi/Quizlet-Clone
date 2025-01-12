@@ -29,8 +29,9 @@ namespace SmartCards.Controllers
                 IsDecsending = true,
                 MaxItem = 4
             });
-            var coursesDTO = courses.Select(c => c.ToCourseDTO()).ToList();
-            return View(coursesDTO);
+            //var coursesDTO = courses.Select(c => c.ToCourseDTO()).ToList();
+            var recentCoursesDTO = courses.Select(x => x.ToRecentCourseDTO()).ToList();
+            return View(recentCoursesDTO);
         }
 
         public IActionResult Privacy()

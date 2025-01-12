@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using SmartCards.Areas.Identity.Data
 @using SmartCards.DTOs.Course
-@model List<CourseDTO>
+@model List<RecentCourseDTO>
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
@@ -28,7 +28,7 @@
                             <div class="col-10 p-0">
                                 <h6 class="mb-1">@course.Title</h6>
                                 <span class="fw-bold course-info m-0 text-secondary">
-                                    Học phần • @course.Flashcards.Count terms 
+                                    Học phần • @course.FlashcardCount terms 
                                     • Tác giả: @(course.UserId == UserManager.GetUserId(User) ? "bạn" : course.Username)
                                 </span>
                             </div>
