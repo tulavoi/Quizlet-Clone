@@ -96,7 +96,7 @@ function moveToNextCard() {
         // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
         if (currIndexCard != 0) {
             const learnedCardId = getLearnedFlashcardId();
-            if (learnedCardId != null) {
+            if (learnedCardId) {
                 saveLearnedCard(learnedCardId);
             }
         }
@@ -105,37 +105,27 @@ function moveToNextCard() {
     }
 }
 
-// Lưu lại flashcard cuối cùng đã xem
 function saveLastReviewedCard(flashcardId) {
-    fetch('/fc-progress/save-last-reviewed-card', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(flashcardId)
-    }).then(respoone => {
-        if (!respoone.ok) {
-            console.log('Failed to save last reviewed card');
-        }
-    }).catch(error => {
-        console.error('Error: ', error);
-    });
+    postFlashcardProgress('/fc-progress/save-last-reviewed-card', flashcardId, 'Failed to save last reviewed card');
 }
 
-// Lưu lại flashcard vừa học
-function saveLearnedCard(flashcardId){
-    fetch('/fc-progress/save-learned-card', {
+function saveLearnedCard(flashcardId) {
+    postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
+}
+
+function postFlashcardProgress(url, flashcardId, errorMessage) {
+    fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(flashcardId)
-    }).then(respoone => {
-        if (!respoone.ok) {
-            console.log('Failed to save learned card');
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error(errorMessage);
         }
-    }).catch(error => {
-        console.error('Error: ', error);
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 }
 
