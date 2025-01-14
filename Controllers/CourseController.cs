@@ -16,17 +16,20 @@ namespace SmartCards.Controllers
 		private readonly ILanguageRepository _languageRepo;
 		private readonly ICourseRepository _courseRepo;
 		private readonly IFlashcardRepository _flashcardRepo;
+        private readonly IUserFlashcardProgressRepository _progressRepo;
 
         public CourseController(
             IPermissionRepository permissionRepo,
             ILanguageRepository languageRepo, 
             ICourseRepository courseRepo,
-            IFlashcardRepository flashcardRepo)
+            IFlashcardRepository flashcardRepo,
+            IUserFlashcardProgressRepository progressRepo)
         {
             _permissionRepo = permissionRepo;
             _languageRepo = languageRepo;
             _courseRepo = courseRepo;
             _flashcardRepo = flashcardRepo;
+            _progressRepo = progressRepo;
         }
 
         [Route("/create-course")]
@@ -74,7 +77,11 @@ namespace SmartCards.Controllers
             var notLearnerFlashcards = await _flashcardRepo.GetAllInCourseAsync(this.UserId, course.Id, 
                 new FlashcardQueryObject { IsLearned = false });
 
-            return View(course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnerFlashcards));
+            // Lấy ra danh sách progress của user trong học phần
+            var procresses = await _progressRepo.GetByIdAsync(this.UserId, course.Id);
+
+            var courseDTO = course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnerFlashcards, procresses);
+            return View(courseDTO);
         }
 
         private int GetIdBySlug(string slug)

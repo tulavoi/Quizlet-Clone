@@ -40,11 +40,7 @@
             @foreach (var flashcard in Model.Flashcards)
             {
                 @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
-                    Term = flashcard.Term,
-                    Definition = flashcard.Definition,
-                    TermLanguageCode = flashcard.TermLanguageCode,
-                    DefiLanguageCode = flashcard.DefiLanguageCode,
-                    FlashcardId = flashcard.Id
+                    Flashcard = flashcard
                 })
             }
         </div>

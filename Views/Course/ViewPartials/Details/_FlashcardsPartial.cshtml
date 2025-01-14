@@ -1,5 +1,6 @@
 ﻿@model dynamic
-<div class="term-defi-cards" tabindex="0" data-flashcard-id="@Model.FlashcardId">
+<div class="term-defi-cards" tabindex="0" data-flashcard-id="@Model.Flashcard.Id"
+     data-fc-is-starred="@Model.Flashcard.IsStarred">
     <div class="card-inner">
         <div class="card-front">
             <div class="card-actions">
@@ -13,8 +14,8 @@
                     <i class="fa-solid fa-star text-secondary"></i>
                 </button>
             </div>
-            <span id="text-front">@Model.Term</span>
-            <input type="hidden" name="termLangCode" value="@Model.TermLanguageCode" />
+            <span id="text-front">@Model.Flashcard.Term</span>
+            <input type="hidden" name="termLangCode" value="@Model.Flashcard.TermLanguageCode" />
         </div>
         <div class="card-back">
             <div class="card-actions">
@@ -28,8 +29,8 @@
                     <i class="fa-solid fa-star text-secondary"></i>
                 </button>
             </div>
-            <span id="text-back">@Model.Definition</span>
-            <input type="hidden" name="defiLangCode" value="@Model.DefiLanguageCode" />
+            <span id="text-back">@Model.Flashcard.Definition</span>
+            <input type="hidden" name="defiLangCode" value="@Model.Flashcard.DefiLanguageCode" />
         </div>
     </div>
 </div>

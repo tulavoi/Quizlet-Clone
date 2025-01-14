@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Flashcard;
 using SmartCards.Interfaces;
@@ -14,30 +15,54 @@ namespace SmartCards.Repositories
             _context = context;
         }
 
-        public async Task SaveProgressAsync(string userId, FlashcardProgressUpdateDTO progressDTO)
+        public async Task<List<UserFlashcardProgress>> GetByIdAsync(string userId, int courseId)
+        {
+            return await _context.UserFlashcardProgresses
+                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId)
+                .ToListAsync() ?? new List<UserFlashcardProgress>();
+        }
+
+        // Lưu lại flashcard đã học
+        public async Task SaveLearnedCardAsync(string userId, int flashcardId)
         {
             var progress = await _context.UserFlashcardProgresses
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == progressDTO.FlashcardId);
+                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId);
 
             if (progress == null)
             {
-                // Nếu chưa tồn tại, tạo mới
                 progress = new UserFlashcardProgress
                 {
+                    FlashcardId = flashcardId,
                     UserId = userId,
-                    FlashcardId = progressDTO.FlashcardId,
-                    IsLearned = false,
+                    IsLearned = true,
                     IsStarred = false,
                     LastReviewedAt = DateTime.Now
                 };
                 _context.UserFlashcardProgresses.Add(progress);
             }
             else
+                progress.IsLearned = true;
+
+            await _context.SaveChangesAsync();
+        }
+
+        // Lưu lại flashcard cuối cùng đã xem
+        public async Task SaveLastReviewdCardAsync(string userId, int flashcardId)
+        {
+            var progress = await _context.UserFlashcardProgresses
+                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId);
+
+            if (progress == null)
             {
-                // Nếu tồn tại, cập nhật dữ liệu
-                progress.IsLearned = progressDTO.IsLearned;
-                progress.IsStarred = progressDTO.IsStarred;
-                progress.LastReviewedAt = progressDTO.LastReviewedAt;
+                progress = new UserFlashcardProgress
+                {
+                    FlashcardId = flashcardId,
+                    UserId = userId,
+                    IsLearned = false,
+                    IsStarred = false,
+                    LastReviewedAt = DateTime.Now
+                };
+                _context.UserFlashcardProgresses.Add(progress);
             }
 
             await _context.SaveChangesAsync();

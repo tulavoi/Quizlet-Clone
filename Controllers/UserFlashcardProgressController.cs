@@ -15,11 +15,19 @@ namespace SmartCards.Controllers
             _progressRepo = progressRepo;
         }
 
-        [HttpPost("update-progress")]
-        public async Task<IActionResult> UpdateProgress([FromBody] FlashcardProgressUpdateDTO progressDTO)
+        [HttpPost("save-learned-card")]
+        public async Task<IActionResult> SaveLearnedCard([FromBody] int flashcardId)
         {
-            if (progressDTO.FlashcardId <= 0) return BadRequest("Invalid flashcard ID.");
-            await _progressRepo.SaveProgressAsync(this.UserId, progressDTO);
+            if (flashcardId <= 0) return BadRequest("Invalid flashcard ID.");
+            await _progressRepo.SaveLearnedCardAsync(this.UserId, flashcardId);
+            return Ok();
+        }
+
+        [HttpPost("save-last-reviewed-card")]
+        public async Task<IActionResult> SaveLastReviewedCard([FromBody] int flashcardId)
+        {
+            if (flashcardId <= 0) return BadRequest("Invalid flashcard ID.");
+            await _progressRepo.SaveLastReviewdCardAsync(this.UserId, flashcardId);
             return Ok();
         }
     }

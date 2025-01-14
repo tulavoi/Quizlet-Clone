@@ -8,6 +8,10 @@ const btnNext = document.getElementById('btn-next-card');
 
 // currIndexCard là biến theo dõi index đang hiển thị được truyền từ view Details.cshtml sang
 
+document.addEventListener('DOMContentLoaded', () => {
+    console.log(currIndexCard);
+});
+
 // Gắn sự kiện click cho từng thẻ để lật thẻ
 cards.forEach(function (card) {
     card.addEventListener('click', function () {
@@ -75,46 +79,63 @@ function getLearnedFlashcardId() {
 
 // Lấy id flashcard hiện tại (flashcard đang hiển thị)
 function getCurrentFlashcardId() {
-    const prevCard = cards[currIndexCard];
-    return prevCard.getAttribute('data-flashcard-id');
+    const currCard = cards[currIndexCard];
+    return currCard.getAttribute('data-flashcard-id');
 }
 
 // Hàm di chuyển tới thẻ tiếp theo
 function moveToNextCard() {
     if (currIndexCard < cards.length - 1) {
-        // Lưu card trước đó (isLearned = true)
-        const learnedCardId = getLearnedFlashcardId();
-        if (learnedCardId != null) updateProgress(learnedCardId, true);
-
         // Di chuyển tới card tiếp theo
         currIndexCard++;
         resetCurrentCard();
 
-        // Lưu card hiện tại (isLearned = false)
-        const flashcardId = getCurrentFlashcardId();
-        updateProgress(flashcardId, true);
+        // Lấy ra id của card hiện tại
+        const currCardId = getCurrentFlashcardId();
+
+        // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
+        if (currIndexCard != 0) {
+            const learnedCardId = getLearnedFlashcardId();
+            if (learnedCardId != null) {
+                saveLearnedCard(learnedCardId);
+            }
+        }
+
+        saveLastReviewedCard(currCardId);
     }
 }
 
-// Lưu lại flashcard đang hiển thị 
-function updateProgress(flashcardId, isLearned, isStarred = false) {
-    fetch('/fc-progress/update-progress', {
+// Lưu lại flashcard cuối cùng đã xem
+function saveLastReviewedCard(flashcardId) {
+    fetch('/fc-progress/save-last-reviewed-card', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            flashcardId: flashcardId,
-            isLearned: isLearned,
-            isStarred: isStarred,
-            lastReviewedAt: new Date().toISOString()
-        })
+        body: JSON.stringify(flashcardId)
     }).then(respoone => {
         if (!respoone.ok) {
-            console.log('Failed to save last learned card');
+            console.log('Failed to save last reviewed card');
         }
     }).catch(error => {
-        console.error('Error: ', error );
+        console.error('Error: ', error);
+    });
+}
+
+// Lưu lại flashcard vừa học
+function saveLearnedCard(flashcardId){
+    fetch('/fc-progress/save-learned-card', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(flashcardId)
+    }).then(respoone => {
+        if (!respoone.ok) {
+            console.log('Failed to save learned card');
+        }
+    }).catch(error => {
+        console.error('Error: ', error);
     });
 }
 
@@ -275,8 +296,15 @@ function toggleShuffle() {
 }
 
 // Gắn sao cho flashcard
-//document.querySelector('.starred-btn');
+document.querySelectorAll('.starred-btn').forEach((btn, index) => {
+    btn.addEventListener('click', function () {
+        const currCard = cards[currIndexCard];
+        const isStarred = currCard.getAttribute('data-fc-is-starred');
+        const flashcardId = getCurrentFlashcardId();
 
-//function starred() {
-
-//}
+        // Đảo trạng thái isStarred
+        isStarred = !isStarred;
+        return;
+        //updateProgress(flashcardId, null, isStarred); // Chỉ cập nhật isStarred
+    });
+});
