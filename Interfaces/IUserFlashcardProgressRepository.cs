@@ -8,5 +8,6 @@ namespace SmartCards.Interfaces
         Task<List<UserFlashcardProgress>> GetByIdAsync(string userId, int courseId);
         Task SaveLearnedCardAsync(string userId, int flashcardId);
         Task SaveLastReviewdCardAsync(string userId, int flashcardId);
+        Task StarredFlashcardAsync(string userId, StarredFlashcardRequestDTO request);
     }
 }

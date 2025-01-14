@@ -8,10 +8,6 @@ const btnNext = document.getElementById('btn-next-card');
 
 // currIndexCard là biến theo dõi index đang hiển thị được truyền từ view Details.cshtml sang
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log(currIndexCard);
-});
-
 // Gắn sự kiện click cho từng thẻ để lật thẻ
 cards.forEach(function (card) {
     card.addEventListener('click', function () {
@@ -289,12 +285,65 @@ function toggleShuffle() {
 document.querySelectorAll('.starred-btn').forEach((btn, index) => {
     btn.addEventListener('click', function () {
         const currCard = cards[currIndexCard];
-        const isStarred = currCard.getAttribute('data-fc-is-starred');
+        let isStarred = currCard.getAttribute('data-fc-is-starred') === 'true'; // Chuyển sang bool
         const flashcardId = getCurrentFlashcardId();
 
         // Đảo trạng thái isStarred
         isStarred = !isStarred;
-        return;
-        //updateProgress(flashcardId, null, isStarred); // Chỉ cập nhật isStarred
+        currCard.setAttribute('data-fc-is-starred', isStarred.toString()); // Cập nhật trạng thái gắn sao cho card
+
+        // Cập nhật màu của icon trong starred-btn
+        updateBtnStarred(isStarred);
+
+        starredFlashcard(flashcardId, isStarred);
+    });
+});
+
+// Cập nhật màu sắc icon của nút gắn sao
+function updateBtnStarred(isStarred) {
+    // Card hiện tại
+    const currCard = cards[currIndexCard];
+
+    // Tìm tất cả các nút .starred-btn trong card hiện tại
+    const relatedButtons = currCard.querySelectorAll('.starred-btn');
+
+    // Cập nhật màu icon của các .starred-btn ở trong card
+    relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
+}
+
+// Cập nhật màu icon của btn
+function updateBtnIconColor(btn, isStarred) {
+    const icon = btn.querySelector('i');
+    icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
+}
+
+// Lưu card được gắn/bỏ sao
+function starredFlashcard(flashcardId, isStarred) {
+    fetch('/fc-progress/starred-card', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            flashcardId,
+            isStarred
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error(errorMessage);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Khi vừa load lên kiểm tra xem các card nào đc gắn sao thì sẽ đổi màu icon
+document.addEventListener('DOMContentLoaded', function () {
+    cards.forEach((card) => {
+        let isStarred = card.getAttribute('data-fc-is-starred').toLowerCase() === 'true';
+        const relatedButtons = card.querySelectorAll('.starred-btn');
+
+        // Cập nhật màu icon của các .starred-btn ở trong card
+        relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
     });
 });

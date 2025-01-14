@@ -4,6 +4,7 @@ using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Flashcard;
 using SmartCards.Interfaces;
 using SmartCards.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace SmartCards.Repositories
 {
@@ -65,6 +66,28 @@ namespace SmartCards.Repositories
                 _context.UserFlashcardProgresses.Add(progress);
             }
 
+            await _context.SaveChangesAsync();
+        }
+
+        // Gắn sao cho flashcard
+        public async Task StarredFlashcardAsync(string userId, StarredFlashcardRequestDTO request)
+        {
+            var progress = await _context.UserFlashcardProgresses
+                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == request.FlashcardId);
+
+            if (progress == null)
+            {
+                progress = new UserFlashcardProgress
+                {
+                    FlashcardId = request.FlashcardId,
+                    UserId = userId,
+                    IsLearned = false,
+                    IsStarred = request.IsStarred,
+                    LastReviewedAt = null
+                };
+                _context.UserFlashcardProgresses.Add(progress);
+            }
+            else progress.IsStarred = request.IsStarred;
             await _context.SaveChangesAsync();
         }
     }

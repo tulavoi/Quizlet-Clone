@@ -30,5 +30,13 @@ namespace SmartCards.Controllers
             await _progressRepo.SaveLastReviewdCardAsync(this.UserId, flashcardId);
             return Ok();
         }
+
+        [HttpPost("starred-card")]
+        public async Task<IActionResult> StarredCard([FromBody] StarredFlashcardRequestDTO request)
+        {
+            if (request.FlashcardId <= 0) return BadRequest("Invalid flashcard ID.");
+            await _progressRepo.StarredFlashcardAsync(this.UserId, request);
+            return Ok();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SmartCards.DTOs.Flashcard
 {
-    public class FlashcardProgressUpdateDTO
+    public class StarredFlashcardRequestDTO
     {
         public int FlashcardId { get; set; }
         public bool IsLearned { get; set; }
