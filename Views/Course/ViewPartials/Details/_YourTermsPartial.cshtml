@@ -4,56 +4,13 @@
 
 	<section class="terms-list p-3 my-4">
         <!-- Các flashcard đang học -->
-        @if (@Model.LearningFlashcards.Count > 0)
+        @if (@Model.LearnedFlashcards.Count > 0)
         {
             <section class="learning-terms mb-4">
                 <div class="row">
                     <div class="col-6 ">
-                        <h5>Đang học (@Model.LearningFlashcards.Count)</h5>
+                        <h5>Đang học (@Model.LearnedFlashcards.Count)</h5>
                         <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
-                    </div>
-
-                    <div class="col-6">
-                        <button class="btn-starred float-end" id="btn-starred-learning-terms">
-                            <i class="fa-solid fa-star text-secondary"></i>
-                            Chọn @Model.LearningFlashcards.Count
-                        </button>
-                    </div>
-                </div>
-
-                @foreach (var flashcard in Model.LearningFlashcards)
-                {
-                    <div class="card">
-                        <div class="row p-3 d-flex align-items-center justify-content-center">
-                            <div class="col-3 term-col">
-                                <span class="float-start">@flashcard.Term</span>
-                            </div>
-                            <div class="col-6 defi-col">
-                                <span class="float-start">@flashcard.Definition</span>
-                            </div>
-                            <div class="col-3">
-                                <button class="float-end" id="btn-sound" title="Phát âm">
-                                    <i class="fa-solid fa-volume-high text-secondary"></i>
-                                </button>
-
-                                <button class="float-end" id="btn-starred" title="Gắn sao">
-                                    <i class="fa-solid fa-star text-secondary"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </section>
-        }
-        
-        <!-- Các flashcard đã học -->
-        @if (@Model.LearnedFlashcards.Count > 0)
-        {
-            <section class="learned-terms mb-4">
-                <div class="row">
-                    <div class="col-6">
-                        <h5 clas>Đã học (@Model.LearnedFlashcards.Count)</h5>
-                        <p>Bạn chưa học các thuật ngữ này!</p>
                     </div>
 
                     <div class="col-6">
@@ -70,16 +27,63 @@
                         <div class="row p-3 d-flex align-items-center justify-content-center">
                             <div class="col-3 term-col">
                                 <span class="float-start">@flashcard.Term</span>
+                                <input type="hidden" name="termLangCode" value="@flashcard.TermLanguageCode" />
                             </div>
                             <div class="col-6 defi-col">
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
-                                <button class="float-end" id="btn-sound" title="Phát âm">
+                                <button class="float-end btn-sound" title="Phát âm"
+                                        onclick="playTextToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
-                                <button class="float-end" id="btn-starred" title="Gắn sao">
+                                <button class="float-end starred-btn" title="Gắn sao">
+                                    <i class="fa-solid fa-star text-secondary"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </section>
+        }
+        
+        <!-- Các flashcard chưa học -->
+        @if (@Model.NotLearnedFlashcards.Count > 0)
+        {
+            <section class="learned-terms mb-4">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
+                        <p>Bạn chưa học các thuật ngữ này!</p>
+                    </div>
+
+                    <div class="col-6">
+                        <button class="btn-starred float-end" id="btn-starred-learning-terms">
+                            <i class="fa-solid fa-star text-secondary"></i>
+                            Chọn @Model.NotLearnedFlashcards.Count
+                        </button>
+                    </div>
+                </div>
+
+                @foreach (var flashcard in Model.NotLearnedFlashcards)
+                {
+                    <div class="card">
+                        <div class="row p-3 d-flex align-items-center justify-content-center">
+                            <div class="col-3 term-col">
+                                <span class="float-start">@flashcard.Term</span>
+                                <input type="hidden" name="termLangCode" value="@flashcard.TermLanguageCode" />
+                            </div>
+                            <div class="col-6 defi-col">
+                                <span class="float-start">@flashcard.Definition</span>
+                            </div>
+                            <div class="col-3">
+                                <button class="float-end btn-sound" title="Phát âm"
+                                        onclick="playTextToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
+                                    <i class="fa-solid fa-volume-high text-secondary"></i>
+                                </button>
+
+                                <button class="float-end starred-btn" title="Gắn sao">
                                     <i class="fa-solid fa-star text-secondary"></i>
                                 </button>
                             </div>

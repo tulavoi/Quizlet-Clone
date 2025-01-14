@@ -1,5 +1,6 @@
 ﻿@model dynamic
-<div class="term-defi-cards" tabindex="0" data-flashcard-id="@Model.FlashcardId">
+<div class="term-defi-cards" tabindex="0" data-flashcard-id="@Model.Flashcard.Id"
+     data-fc-is-starred="@Model.Flashcard.IsStarred">
     <div class="card-inner">
         <div class="card-front">
             <div class="card-actions">
@@ -9,27 +10,27 @@
                 <button id="btn-sound-front" title="Phát âm">
                     <i class="fa-solid fa-volume-high text-secondary"></i>
                 </button>
-                <button title="Đánh dấu">
-                    <i class="fa-solid fa-star text-secondary"></i>
+                <button title="Gắn sao" class="starred-btn">
+                    <i class="fa-solid fa-star" style="color:#6C757D;"></i>
                 </button>
             </div>
-            <span id="text-front">@Model.Term</span>
-            <input type="hidden" name="termLangCode" value="@Model.TermLanguageCode" />
+            <span id="text-front">@Model.Flashcard.Term</span>
+            <input type="hidden" name="termLangCode" value="@Model.Flashcard.TermLanguageCode" />
         </div>
         <div class="card-back">
             <div class="card-actions">
-                <button>
-                    <i class="fa-solid fa-pen text-secondary" title="Chỉnh sửa"></i>
+                <button title="Chỉnh sửa">
+                    <i class="fa-solid fa-pen text-secondary"></i>
                 </button>
-                <button id="btn-sound-back">
-                    <i class="fa-solid fa-volume-high text-secondary" title="Phát âm"></i>
+                <button id="btn-sound-back" title="Phát âm">
+                    <i class="fa-solid fa-volume-high text-secondary"></i>
                 </button>
-                <button>
-                    <i class="fa-solid fa-star text-secondary" title="Đánh dấu"></i>
+                <button title="Gắn sao" class="starred-btn">
+                    <i class="fa-solid fa-star" style="color:#6C757D;"></i>
                 </button>
             </div>
-            <span id="text-back">@Model.Definition</span>
-            <input type="hidden" name="defiLangCode" value="@Model.DefiLanguageCode" />
+            <span id="text-back">@Model.Flashcard.Definition</span>
+            <input type="hidden" name="defiLangCode" value="@Model.Flashcard.DefiLanguageCode" />
         </div>
     </div>
 </div>

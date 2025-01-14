@@ -47,6 +47,7 @@ builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICoursePermissionRepository, CoursePermissionRepository>();
 builder.Services.AddScoped<IFlashcardRepository, FlashcardRepository>();
+builder.Services.AddScoped<IUserFlashcardProgressRepository, UserFlashcardProgressRepository>();
 
 var app = builder.Build();
 

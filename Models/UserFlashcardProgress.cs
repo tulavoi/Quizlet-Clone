@@ -19,6 +19,7 @@ namespace SmartCards.Models
         public Flashcard? Flashcard { get; set; }
 
         public bool IsLearned { get; set; } = false;
+        public bool IsStarred { get; set; } = false;
         public DateTime? LastReviewedAt { get; set; }
     }
 }

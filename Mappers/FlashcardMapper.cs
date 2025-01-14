@@ -5,7 +5,7 @@ namespace SmartCards.Mappers
 {
     public static class FlashcardMapper
     {
-        public static FlashcardDTO ToFlashcardDTO(this Flashcard flashcard)
+        public static FlashcardDTO ToFlashcardDTO(this Flashcard flashcard, UserFlashcardProgress? progress = null)
         {
             return new FlashcardDTO
             {
@@ -16,6 +16,8 @@ namespace SmartCards.Mappers
                 DefiLanguageId = flashcard.Definition_LangId,
                 TermLanguageCode = flashcard.Term_Lang?.Code ?? string.Empty,
                 DefiLanguageCode = flashcard.Definition_Lang?.Code ?? string.Empty,
+                IsStarred = progress?.IsStarred ?? false,
+                IsLearned = progress?.IsLearned ?? false,
             };
         }
     }

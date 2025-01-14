@@ -15,15 +15,6 @@ cards.forEach(function (card) {
     });
 });
 
-// Nếu currIndexCard == 0 (tức là chưa học card nào), lưu lại card đầu tiên
-document.addEventListener('DOMContentLoaded', function () {
-    if (currIndexCard == 0) {
-        const currCard = cards[currIndexCard];
-        const flashcardId = currCard.getAttribute('data-flashcard-id');
-        saveLastLearnedCard(flashcardId);
-    }
-});
-
 // Lắng nghe sự kiện từ bàn phím
 document.addEventListener('keydown', function (event) {
     switch (event.code) {
@@ -73,31 +64,64 @@ function moveToPrevCard() {
     }
 }
 
+// Lấy id flashcard đã học (flashcard vừa bấm qua là flashcard đã học)
+function getLearnedFlashcardId() {
+    if (currIndexCard > 0) {
+        const prevCard = cards[currIndexCard - 1];
+        return prevCard.getAttribute('data-flashcard-id');
+    }
+    return null;
+}
+
+// Lấy id flashcard hiện tại (flashcard đang hiển thị)
+function getCurrentFlashcardId() {
+    const currCard = cards[currIndexCard];
+    return currCard.getAttribute('data-flashcard-id');
+}
+
 // Hàm di chuyển tới thẻ tiếp theo
 function moveToNextCard() {
     if (currIndexCard < cards.length - 1) {
+        // Di chuyển tới card tiếp theo
         currIndexCard++;
         resetCurrentCard();
-        const currCard = cards[currIndexCard];
-        const flashcardId = currCard.getAttribute('data-flashcard-id');
-        saveLastLearnedCard(flashcardId);
+
+        // Lấy ra id của card hiện tại
+        const currCardId = getCurrentFlashcardId();
+
+        // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
+        if (currIndexCard != 0) {
+            const learnedCardId = getLearnedFlashcardId();
+            if (learnedCardId) {
+                saveLearnedCard(learnedCardId);
+            }
+        }
+
+        saveLastReviewedCard(currCardId);
     }
 }
 
-// Lưu lại card đã học
-function saveLastLearnedCard(flashcardId) {
-    fetch('/flashcard/save-last-learned', {
+function saveLastReviewedCard(flashcardId) {
+    postFlashcardProgress('/fc-progress/save-last-reviewed-card', flashcardId, 'Failed to save last reviewed card');
+}
+
+function saveLearnedCard(flashcardId) {
+    postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
+}
+
+function postFlashcardProgress(url, flashcardId, errorMessage) {
+    fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: flashcardId })
-    }).then(respoone => {
-        if (!respoone.ok) {
-            console.log('Failed to save last learned card');
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(flashcardId)
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error(errorMessage);
         }
-    }).catch(error => {
-        console.error('Error: ', error );
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 }
 
@@ -256,3 +280,70 @@ function toggleShuffle() {
     // Chuyển tới url mới
     window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
 }
+
+// Gắn sao cho flashcard
+document.querySelectorAll('.starred-btn').forEach((btn, index) => {
+    btn.addEventListener('click', function () {
+        const currCard = cards[currIndexCard];
+        let isStarred = currCard.getAttribute('data-fc-is-starred') === 'true'; // Chuyển sang bool
+        const flashcardId = getCurrentFlashcardId();
+
+        // Đảo trạng thái isStarred
+        isStarred = !isStarred;
+        currCard.setAttribute('data-fc-is-starred', isStarred.toString()); // Cập nhật trạng thái gắn sao cho card
+
+        // Cập nhật màu của icon trong starred-btn
+        updateBtnStarred(isStarred);
+
+        starredFlashcard(flashcardId, isStarred);
+    });
+});
+
+// Cập nhật màu sắc icon của nút gắn sao
+function updateBtnStarred(isStarred) {
+    // Card hiện tại
+    const currCard = cards[currIndexCard];
+
+    // Tìm tất cả các nút .starred-btn trong card hiện tại
+    const relatedButtons = currCard.querySelectorAll('.starred-btn');
+
+    // Cập nhật màu icon của các .starred-btn ở trong card
+    relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
+}
+
+// Cập nhật màu icon của btn
+function updateBtnIconColor(btn, isStarred) {
+    const icon = btn.querySelector('i');
+    icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
+}
+
+// Lưu card được gắn/bỏ sao
+function starredFlashcard(flashcardId, isStarred) {
+    fetch('/fc-progress/starred-card', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            flashcardId,
+            isStarred
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error(errorMessage);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Khi vừa load lên kiểm tra xem các card nào đc gắn sao thì sẽ đổi màu icon
+document.addEventListener('DOMContentLoaded', function () {
+    cards.forEach((card) => {
+        let isStarred = card.getAttribute('data-fc-is-starred').toLowerCase() === 'true';
+        const relatedButtons = card.querySelectorAll('.starred-btn');
+
+        // Cập nhật màu icon của các .starred-btn ở trong card
+        relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
+    });
+});
