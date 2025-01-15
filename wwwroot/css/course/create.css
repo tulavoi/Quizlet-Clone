@@ -120,6 +120,10 @@ textarea {
     border-bottom: none;
 }
 
+#course-setting-modal .modal-header h2{
+    font-weight: 700;
+}
+
 /* Tùy chỉnh giao diện của select */
 .form-select {
     background-color: #fff;

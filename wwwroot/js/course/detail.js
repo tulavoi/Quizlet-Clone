@@ -314,3 +314,17 @@ window.addEventListener('DOMContentLoaded', () => {
         updateBtnIconColor(btn, isStarred);
     });
 });
+
+const toggleButton = document.getElementById('toggleButton');
+
+toggleButton.addEventListener('click', function () {
+    // Toggle the active class on the button
+    toggleButton.classList.toggle('active');
+
+    // Change the text based on the state
+    if (toggleButton.classList.contains('active')) {
+        toggleButton.textContent = 'ON';
+    } else {
+        toggleButton.textContent = 'OFF';
+    }
+});
