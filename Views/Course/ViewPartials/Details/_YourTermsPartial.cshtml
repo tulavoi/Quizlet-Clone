@@ -17,7 +17,7 @@
                             <span class="float-start">@flashcard.Definition</span>
                         </div>
                         <div class="col-3">
-                            <button class="float-end btn-sound" title="Phát âm"
+                            <button class="float-end " title="Phát âm"
                                     onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                 <i class="fa-solid fa-volume-high text-secondary"></i>
                             </button>
@@ -61,13 +61,16 @@
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
-                                <button class="float-end btn-sound" title="Phát âm"
+                                <button class="float-end" title="Phát âm"
                                         onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
-                                <button class="float-end starred-btn" title="Gắn sao">
-                                    <i class="fa-solid fa-star text-secondary"></i>
+                                <button class="float-end" title="Gắn sao"
+                                        data-is-starred="@flashcard.IsStarred"
+                                        data-flashcard-id="@flashcard.Id"
+                                        onclick="starredFlashcard(this)">
+                                    <i class="fa-solid fa-star"></i>
                                 </button>
                             </div>
                         </div>
@@ -102,13 +105,16 @@
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
-                                <button class="float-end btn-sound" title="Phát âm"
+                                <button class="float-end" title="Phát âm"
                                         onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
-                                <button class="float-end starred-btn" title="Gắn sao">
-                                    <i class="fa-solid fa-star text-secondary"></i>
+                                <button class="float-end" title="Gắn sao"
+                                        data-is-starred="@flashcard.IsStarred"
+                                        data-flashcard-id="@flashcard.Id"
+                                        onclick="starredFlashcard(this)">
+                                    <i class="fa-solid fa-star"></i>
                                 </button>
                             </div>
                         </div>

@@ -317,11 +317,11 @@
 }
 
 .not-leanred-terns h5 {
-    color: var(--orange-color);
+    color: var(--blue-color);
 }
 
 .learned-terms h5 {
-    color: var(--blue-color);
+    color: var(--orange-color);
 }
 
 .terms-list .card {
@@ -357,3 +357,4 @@
 .terms-list .card .defi-col{
     padding-left: 30px;
 }
+
