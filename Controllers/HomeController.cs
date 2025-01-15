@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace SmartCards.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICourseRepository _courseRepo;
@@ -23,13 +23,12 @@ namespace SmartCards.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseRepo.GetAllAsync(new CourseQueryObject
+            var courses = await _courseRepo.GetAllAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "CreatedAt",
                 IsDecsending = true,
                 MaxItem = 4
             });
-            //var coursesDTO = courses.Select(c => c.ToCourseDTO()).ToList();
             var recentCoursesDTO = courses.Select(x => x.ToRecentCourseDTO()).ToList();
             return View(recentCoursesDTO);
         }

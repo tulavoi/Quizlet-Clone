@@ -101,10 +101,12 @@ function moveToNextCard() {
     }
 }
 
+// Lưu flashcard đã xem cuối cùng
 function saveLastReviewedCard(flashcardId) {
     postFlashcardProgress('/fc-progress/save-last-reviewed-card', flashcardId, 'Failed to save last reviewed card');
 }
 
+// Lưu flashcards đã học
 function saveLearnedCard(flashcardId) {
     postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
 }
@@ -281,17 +283,6 @@ function updateBtnIconColor(btn, isStarred) {
     const icon = btn.querySelector('i');
     icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
 }
-
-// Khi vừa load lên kiểm tra xem các card nào đc gắn sao thì sẽ đổi màu icon
-document.addEventListener('DOMContentLoaded', function () {
-    cards.forEach((card) => {
-        let isStarred = card.getAttribute('data-fc-is-starred').toLowerCase() === 'true';
-        const relatedButtons = card.querySelectorAll('.starred-btn');
-
-        // Cập nhật màu icon của các .starred-btn ở trong card
-        relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
-    });
-});
 
 // Lưu trạng thái gắn sao của flashcard
 function updateFlashcardState(flashcardId, isStarred) {

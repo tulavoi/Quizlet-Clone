@@ -70,17 +70,21 @@ namespace SmartCards.Controllers
             var lastReviewedCard = await _flashcardRepo.GetCurrentDisplayedAsync(this.UserId, course.Id);
 
             // Lấy ra flashcards user đã học trong học phần
-            var learnedFlashcards = await _flashcardRepo.GetAllInCourseAsync(this.UserId, course.Id, 
+            var learnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id, 
                 new FlashcardQueryObject { IsLearned = true });
 
             // Lấy ra flashcards user chưa học trong học phần
-            var notLearnerFlashcards = await _flashcardRepo.GetAllInCourseAsync(this.UserId, course.Id, 
+            var notLearnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id, 
                 new FlashcardQueryObject { IsLearned = false });
+
+            // Lấy ra flashcards user đã gắn sao
+            var starredFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id,
+                new FlashcardQueryObject { IsStarred = true });
 
             // Lấy ra danh sách progress của user trong học phần
             var procresses = await _progressRepo.GetByIdAsync(this.UserId, course.Id);
 
-            var courseDTO = course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnerFlashcards, procresses);
+            var courseDTO = course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnedFlashcards, starredFlashcards, procresses);
             return View(courseDTO);
         }
 

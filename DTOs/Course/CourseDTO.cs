@@ -11,12 +11,13 @@ namespace SmartCards.DTOs.Course
         public string? Description { get; set; } = string.Empty;
         public string? Password { get; set; } = string.Empty;
         public string? Slug { get; set; } = string.Empty;
-        public string UserId { get; set; } = string.Empty;
-        public string Username { get; set; } = string.Empty;
+        public string OwnerUserId { get; set; } = string.Empty;
+        public string OwnerUsername { get; set; } = string.Empty;
         public string RelativeTime { get; set; } = string.Empty;
         public List<FlashcardDTO> Flashcards { get; set; } = new List<FlashcardDTO>();
         public List<FlashcardDTO>? LearnedFlashcards { get; set; } = new List<FlashcardDTO>();
         public List<FlashcardDTO>? NotLearnedFlashcards { get; set; } = new List<FlashcardDTO>();
+        public List<FlashcardDTO>? StarredFlashcards { get; set; } = new List<FlashcardDTO>();
         public FlashcardDTO? LastLearnedFlashcard { get; set; }
     }
 }
