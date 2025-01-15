@@ -15,19 +15,20 @@
     </div>
 
     <div class="card-settings-right col-4 d-flex justify-content-end align-items-center">
-        <button title="Bắt đầu" id="btn-play-cards">
+        <button class="card-settings-right-btn" title="Bắt đầu" id="btn-play-cards">
             <i class="fa-solid fa-play"></i>
         </button>
 
-        <button title="Trộn thẻ" onclick="toggleShuffle()">
+        <button class="card-settings-right-btn" title="Trộn thẻ" onclick="toggleShuffle()">
             <i class="fa-solid fa-shuffle"></i>
         </button>
 
-        <button title="Cài đặt">
+        <button class="card-settings-right-btn" title="Tùy chọn" type="button" data-bs-toggle="modal" data-bs-target="#flashcards-options-modal">
             <i class="fa-solid fa-gear"></i>
         </button>
+        @await Html.PartialAsync("ViewPartials/Details/_FlashcardsOptionsModal")
 
-        <button title="Phóng to">
+        <button class="card-settings-right-btn" title="Phóng to">
             <i class="fa-solid fa-expand"></i>
         </button>
     </div>

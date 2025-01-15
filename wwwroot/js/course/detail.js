@@ -101,10 +101,12 @@ function moveToNextCard() {
     }
 }
 
+// Lưu flashcard đã xem cuối cùng
 function saveLastReviewedCard(flashcardId) {
     postFlashcardProgress('/fc-progress/save-last-reviewed-card', flashcardId, 'Failed to save last reviewed card');
 }
 
+// Lưu flashcards đã học
 function saveLearnedCard(flashcardId) {
     postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
 }
@@ -171,37 +173,12 @@ actionButtons.forEach(function (button) {
     });
 });
 
-function playTextToSpeech(text, lang) {
+// Phát âm thanh
+function textToSpeech(text, lang) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang; // Set language code (e.g., "en-US", "vi-VN")
     window.speechSynthesis.speak(utterance);
 }
-
-cards.forEach(card => {
-    // Chọn các phần tử trong card hiện tại
-    const btnSoundFront = card.querySelector('#btn-sound-front');
-    const btnSoundBack = card.querySelector('#btn-sound-back');
-
-    const textFront = card.querySelector('#text-front').innerText;
-    const langFront = card.querySelector('input[name="termLangCode"]').value;
-
-    const textBack = card.querySelector('#text-back').innerText;
-    const langBack = card.querySelector('input[name="defiLangCode"]').value;
-
-    // Gắn sự kiện cho nút btnSoundFront trong card hiện tại
-    if (btnSoundFront) {
-        btnSoundFront.addEventListener('click', function () {
-            playTextToSpeech(textFront, langFront);
-        });
-    }
-
-    // Gắn sự kiện cho nút btnSoundBack trong card hiện tại
-    if (btnSoundBack) {
-        btnSoundBack.addEventListener('click', function () {
-            playTextToSpeech(textBack, langBack);
-        });
-    }
-});
 
 const btnPlayCards = document.getElementById('btn-play-cards');
 const icon = btnPlayCards.querySelector('i');
@@ -210,7 +187,6 @@ let timeoutId; // Lưu trữ ID của timeout
 
 // Hàm xử lý logic lật và chuyển thẻ
 function processCard() {
-    console.log("isPlaying in processCard() : " + isPlaying);
     if (!isPlaying) return; // Nếu đã pause, dừng ngay
 
     const currCard = cards[currIndexCard];
@@ -251,7 +227,6 @@ function startPlaying() {
 // Hàm dừng lật thẻ
 function stopPlaying() {
     isPlaying = false;
-    console.log("isPlaying after stop: " + isPlaying);
     icon.classList.replace('fa-pause', 'fa-play');
     icon.title = 'Bắt đầu';
 
@@ -281,34 +256,26 @@ function toggleShuffle() {
     window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
 }
 
-// Gắn sao cho flashcard
-document.querySelectorAll('.starred-btn').forEach((btn, index) => {
-    btn.addEventListener('click', function () {
-        const currCard = cards[currIndexCard];
-        let isStarred = currCard.getAttribute('data-fc-is-starred') === 'true'; // Chuyển sang bool
-        const flashcardId = getCurrentFlashcardId();
+// Bắt đầu quy trình gắn sao flashcard
+function starredFlashcard(btn) {
+    let isStarred = getDataIsStarredValue(btn);
+    const flashcardId = btn.getAttribute('data-flashcard-id');
 
-        // Đảo trạng thái isStarred
-        isStarred = !isStarred;
-        currCard.setAttribute('data-fc-is-starred', isStarred.toString()); // Cập nhật trạng thái gắn sao cho card
+    // Đảo ngược trạng thái gắn sao
+    isStarred = !isStarred;
 
-        // Cập nhật màu của icon trong starred-btn
-        updateBtnStarred(isStarred);
+    // Cập  nhật lại màu icon
+    updateBtnIconColor(btn, isStarred);
 
-        starredFlashcard(flashcardId, isStarred);
-    });
-});
+    // Cập nhật giá trị trạng thái gắn sao của flashcard
+    updateFlashcardState(flashcardId, isStarred);
 
-// Cập nhật màu sắc icon của nút gắn sao
-function updateBtnStarred(isStarred) {
-    // Card hiện tại
-    const currCard = cards[currIndexCard];
+    btn.setAttribute('data-is-starred', isStarred.toString());
+}
 
-    // Tìm tất cả các nút .starred-btn trong card hiện tại
-    const relatedButtons = currCard.querySelectorAll('.starred-btn');
-
-    // Cập nhật màu icon của các .starred-btn ở trong card
-    relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
+// Lấy giá trị data-is-starred trong button
+function getDataIsStarredValue(btn) {
+    return btn.getAttribute('data-is-starred').toLowerCase() === 'true';
 }
 
 // Cập nhật màu icon của btn
@@ -317,8 +284,8 @@ function updateBtnIconColor(btn, isStarred) {
     icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
 }
 
-// Lưu card được gắn/bỏ sao
-function starredFlashcard(flashcardId, isStarred) {
+// Lưu trạng thái gắn sao của flashcard
+function updateFlashcardState(flashcardId, isStarred) {
     fetch('/fc-progress/starred-card', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -337,13 +304,27 @@ function starredFlashcard(flashcardId, isStarred) {
     });
 }
 
-// Khi vừa load lên kiểm tra xem các card nào đc gắn sao thì sẽ đổi màu icon
-document.addEventListener('DOMContentLoaded', function () {
-    cards.forEach((card) => {
-        let isStarred = card.getAttribute('data-fc-is-starred').toLowerCase() === 'true';
-        const relatedButtons = card.querySelectorAll('.starred-btn');
+// Hàm chạy khi trang được load
+window.addEventListener('DOMContentLoaded', () => {
+    // Lặp qua tất cả các button để cập nhật màu sắc ban đầu
+    const buttons = document.querySelectorAll('[data-is-starred]');
 
-        // Cập nhật màu icon của các .starred-btn ở trong card
-        relatedButtons.forEach((btn) => updateBtnIconColor(btn, isStarred));
+    buttons.forEach(btn => {
+        let isStarred = getDataIsStarredValue(btn);
+        updateBtnIconColor(btn, isStarred);
     });
+});
+
+const toggleButton = document.getElementById('toggleButton');
+
+toggleButton.addEventListener('click', function () {
+    // Toggle the active class on the button
+    toggleButton.classList.toggle('active');
+
+    // Change the text based on the state
+    if (toggleButton.classList.contains('active')) {
+        toggleButton.textContent = 'ON';
+    } else {
+        toggleButton.textContent = 'OFF';
+    }
 });

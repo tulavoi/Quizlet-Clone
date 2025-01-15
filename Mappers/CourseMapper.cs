@@ -9,17 +9,18 @@ namespace SmartCards.Mappers
 {
     public static class CourseMapper
     {
-        public static CourseDTO ToCourseDTO(this Course course, 
+        public static CourseDTO ToCourseDTO(this Course course,
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
             List<Flashcard>? notLearnedFlashcards = null,
+            List<Flashcard>? starredFlashcards = null,
             List<UserFlashcardProgress>? progresses = null)
         {
             return new CourseDTO
             {
                 Id = course.Id,
-                UserId = course.UserId,
-                Username = course.User?.UserName ?? string.Empty,
+                OwnerUserId = course.UserId,
+                OwnerUsername = course.User?.UserName ?? string.Empty,
                 Title = course.Title,
                 Password = course.Password,
                 Slug = course.Slug,
@@ -27,17 +28,22 @@ namespace SmartCards.Mappers
                 RelativeTime = course.CreatedAt.ToRelativeTime(),
 
                 Flashcards = course.Flashcards.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p.FlashcardId == x.Id);
+                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
                 LearnedFlashcards = learnedFlashcards?.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p.FlashcardId == x.Id);
+                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
                 NotLearnedFlashcards = notLearnedFlashcards?.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p.FlashcardId == x.Id);
+                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
+                    return x.ToFlashcardDTO(progress);
+                }).ToList(),
+
+                StarredFlashcards = starredFlashcards?.Select(x => {
+                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 

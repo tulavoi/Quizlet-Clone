@@ -7,6 +7,6 @@ namespace SmartCards.Interfaces
     public interface IFlashcardRepository
     {
         Task<Flashcard> GetCurrentDisplayedAsync(string userId, int courseId);
-        Task<List<Flashcard>> GetAllInCourseAsync(string userId, int courseId, FlashcardQueryObject query); 
+        Task<List<Flashcard>> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query); 
     }
 }

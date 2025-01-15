@@ -38,3 +38,8 @@ body {
 .btn:focus, .btn:checked {
     box-shadow: none;
 }
+
+/*Icon star*/
+.fa-star {
+    color: #6C757D;
+}

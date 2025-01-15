@@ -27,7 +27,7 @@ namespace SmartCards.Repositories
                 .FirstOrDefaultAsync() ?? new Flashcard();
         }
 
-        public async Task<List<Flashcard?>> GetAllInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
+        public async Task<List<Flashcard?>> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
         {
             // Lấy tất cả flashcard trong khóa học
             var allFlashcardsInCourse = _context.Flashcards

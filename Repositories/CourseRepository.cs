@@ -82,9 +82,11 @@ namespace SmartCards.Repositories
             return stringBuilder.ToString().Normalize(System.Text.NormalizationForm.FormC);
         }
 
-        public async Task<List<Course>> GetAllAsync(CourseQueryObject query)
+        // Lấy các học phần của user
+        public async Task<List<Course>> GetAllAsync(string userId, CourseQueryObject query)
         {
             var courses = _context.Courses
+                          .Where(x => x.UserId == userId)
                           .Include(x => x.User)
                           .Include(x => x.Flashcards)
                               .ThenInclude(f => f.Term_Lang)

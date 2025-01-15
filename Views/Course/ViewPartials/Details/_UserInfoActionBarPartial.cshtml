@@ -1,13 +1,13 @@
 ﻿@model dynamic
 <div class="user-info-action-bar my-4 row">
     <div class="user-info col-8 d-flex justify-content-start align-items-center p-0">
-        <button class="btn-avatar bg-success">
-            Vu
+        <button class="btn-avatar bg-success fs-6">
+            Avt
         </button>
 
         <div>
             <small class="created-by">Tạo bởi</small>
-            <h6 class="mb-0">@Model.Username</h6>
+            <h6 class="mb-0">@Model.OwnerUsername</h6>
             <small class="created-at">Đã tạo @Model.RelativeTime</small>
         </div>
     </div>
