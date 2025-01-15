@@ -7,7 +7,7 @@
                 <button title="Sửa" id="btn-open-edit-modal">
                     <i class="fa-solid fa-pen text-secondary"></i>
                 </button>
-                <button id="btn-sound-front" title="Phát âm">
+                <button onclick="textToSpeech('@Model.Flashcard.Term', '@Model.Flashcard.TermLanguageCode')" title="Phát âm">
                     <i class="fa-solid fa-volume-high text-secondary"></i>
                 </button>
                 <button title="Gắn sao" class="starred-btn">
@@ -15,14 +15,14 @@
                 </button>
             </div>
             <span id="text-front">@Model.Flashcard.Term</span>
-            <input type="hidden" name="termLangCode" value="@Model.Flashcard.TermLanguageCode" />
+            @* <input type="hidden" name="termLangCode" value="@Model.Flashcard.TermLanguageCode" /> *@
         </div>
         <div class="card-back">
             <div class="card-actions">
                 <button title="Chỉnh sửa">
                     <i class="fa-solid fa-pen text-secondary"></i>
                 </button>
-                <button id="btn-sound-back" title="Phát âm">
+                <button onclick="textToSpeech('@Model.Flashcard.Definition', '@Model.Flashcard.DefiLanguageCode')" title="Phát âm">
                     <i class="fa-solid fa-volume-high text-secondary"></i>
                 </button>
                 <button title="Gắn sao" class="starred-btn">
@@ -30,7 +30,7 @@
                 </button>
             </div>
             <span id="text-back">@Model.Flashcard.Definition</span>
-            <input type="hidden" name="defiLangCode" value="@Model.Flashcard.DefiLanguageCode" />
+            @* <input type="hidden" name="defiLangCode" value="@Model.Flashcard.DefiLanguageCode" /> *@
         </div>
     </div>
 </div>

@@ -171,37 +171,12 @@ actionButtons.forEach(function (button) {
     });
 });
 
-function playTextToSpeech(text, lang) {
+// Phát âm thanh
+function textToSpeech(text, lang) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang; // Set language code (e.g., "en-US", "vi-VN")
     window.speechSynthesis.speak(utterance);
 }
-
-cards.forEach(card => {
-    // Chọn các phần tử trong card hiện tại
-    const btnSoundFront = card.querySelector('#btn-sound-front');
-    const btnSoundBack = card.querySelector('#btn-sound-back');
-
-    const textFront = card.querySelector('#text-front').innerText;
-    const langFront = card.querySelector('input[name="termLangCode"]').value;
-
-    const textBack = card.querySelector('#text-back').innerText;
-    const langBack = card.querySelector('input[name="defiLangCode"]').value;
-
-    // Gắn sự kiện cho nút btnSoundFront trong card hiện tại
-    if (btnSoundFront) {
-        btnSoundFront.addEventListener('click', function () {
-            playTextToSpeech(textFront, langFront);
-        });
-    }
-
-    // Gắn sự kiện cho nút btnSoundBack trong card hiện tại
-    if (btnSoundBack) {
-        btnSoundBack.addEventListener('click', function () {
-            playTextToSpeech(textBack, langBack);
-        });
-    }
-});
 
 const btnPlayCards = document.getElementById('btn-play-cards');
 const icon = btnPlayCards.querySelector('i');
@@ -210,7 +185,6 @@ let timeoutId; // Lưu trữ ID của timeout
 
 // Hàm xử lý logic lật và chuyển thẻ
 function processCard() {
-    console.log("isPlaying in processCard() : " + isPlaying);
     if (!isPlaying) return; // Nếu đã pause, dừng ngay
 
     const currCard = cards[currIndexCard];
@@ -251,7 +225,6 @@ function startPlaying() {
 // Hàm dừng lật thẻ
 function stopPlaying() {
     isPlaying = false;
-    console.log("isPlaying after stop: " + isPlaying);
     icon.classList.replace('fa-pause', 'fa-play');
     icon.title = 'Bắt đầu';
 

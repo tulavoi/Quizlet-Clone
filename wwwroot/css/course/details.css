@@ -277,9 +277,12 @@
 .terms-list {
     background: #f6f7fb;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.terms-list h5{
+.terms-list h5 {
     font-weight: bold;
 }
 
@@ -307,7 +310,13 @@
     background: var(--light-grey-color);
 }
 
-.learning-terms h5 {
+.not-leanred-terns, .learned-terms {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.not-leanred-terns h5 {
     color: var(--orange-color);
 }
 
@@ -318,7 +327,6 @@
 .terms-list .card {
     border-radius: .25rem !important;
     border: none;
-    margin-top: 10px;
     font-size: large;
     box-shadow: 0 .125rem .25rem 0 #282e3e1a;
     padding: 0 10px;

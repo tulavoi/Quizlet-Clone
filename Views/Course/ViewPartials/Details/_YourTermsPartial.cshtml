@@ -3,18 +3,47 @@
 	<h5 class="p-0">Thuật ngữ trong học phần này (@Model.Flashcards.Count)</h5>
 
 	<section class="terms-list p-3 my-4">
-        <!-- Các flashcard đang học -->
+        <!-- Nếu chưa học flashcard nào thì hiển thị tất cả -->
+        @if (@Model.LearnedFlashcards.Count <= 0)
+        {
+            @foreach (var flashcard in Model.Flashcards)
+            {
+                <div class="card">
+                    <div class="row p-3 d-flex align-items-center justify-content-center">
+                        <div class="col-3 term-col">
+                            <span class="float-start">@flashcard.Term</span>
+                        </div>
+                        <div class="col-6 defi-col">
+                            <span class="float-start">@flashcard.Definition</span>
+                        </div>
+                        <div class="col-3">
+                            <button class="float-end btn-sound" title="Phát âm"
+                                    onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
+                                <i class="fa-solid fa-volume-high text-secondary"></i>
+                            </button>
+
+                            <button class="float-end starred-btn" title="Gắn sao">
+                                <i class="fa-solid fa-star text-secondary"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <!-- Nếu có flashcard đã học thì hiển thị 2 loại: đã học, chưa học -->
         @if (@Model.LearnedFlashcards.Count > 0)
         {
-            <section class="learning-terms mb-4">
+            <!-- Các flashcard đang học -->
+            <section class="learned-terms">
                 <div class="row">
                     <div class="col-6 ">
                         <h5>Đang học (@Model.LearnedFlashcards.Count)</h5>
-                        <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
+                        <p class="m-0">Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
                     </div>
 
                     <div class="col-6">
-                        <button class="btn-starred float-end" id="btn-starred-learning-terms">
+                        <button class="btn-starred float-end" >
                             <i class="fa-solid fa-star text-secondary"></i>
                             Chọn @Model.LearnedFlashcards.Count
                         </button>
@@ -27,14 +56,13 @@
                         <div class="row p-3 d-flex align-items-center justify-content-center">
                             <div class="col-3 term-col">
                                 <span class="float-start">@flashcard.Term</span>
-                                <input type="hidden" name="termLangCode" value="@flashcard.TermLanguageCode" />
                             </div>
                             <div class="col-6 defi-col">
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
                                 <button class="float-end btn-sound" title="Phát âm"
-                                        onclick="playTextToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
+                                        onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
@@ -46,20 +74,17 @@
                     </div>
                 }
             </section>
-        }
-        
-        <!-- Các flashcard chưa học -->
-        @if (@Model.NotLearnedFlashcards.Count > 0)
-        {
-            <section class="learned-terms mb-4">
+
+            <!-- Các flashcard chưa học -->
+            <section class="not-leanred-terns mt-3">
                 <div class="row">
                     <div class="col-6">
                         <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
-                        <p>Bạn chưa học các thuật ngữ này!</p>
+                        <p class="m-0">Bạn chưa học các thuật ngữ này!</p>
                     </div>
 
                     <div class="col-6">
-                        <button class="btn-starred float-end" id="btn-starred-learning-terms">
+                        <button class="btn-starred float-end">
                             <i class="fa-solid fa-star text-secondary"></i>
                             Chọn @Model.NotLearnedFlashcards.Count
                         </button>
@@ -72,14 +97,13 @@
                         <div class="row p-3 d-flex align-items-center justify-content-center">
                             <div class="col-3 term-col">
                                 <span class="float-start">@flashcard.Term</span>
-                                <input type="hidden" name="termLangCode" value="@flashcard.TermLanguageCode" />
                             </div>
                             <div class="col-6 defi-col">
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
                                 <button class="float-end btn-sound" title="Phát âm"
-                                        onclick="playTextToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
+                                        onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
