@@ -32,11 +32,11 @@
     </div> *@
 
     <div class="row">
-        <!-- Study Mode -->
+        <!-- Study Modes -->
         @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
 
         <!-- Term Definition Cards -->
-        <div class="card-container">
+        <div class="card-container" id="flashcards-container">
             @foreach (var flashcard in Model.Flashcards)
             {
                 @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
@@ -73,6 +73,9 @@
 
     // Biến đếm các flashcard có gắn sao
     var starredCardCount = @Model.StarredFlashcardCount;
+
+    // Chuyển đổi đối tượng Flashcards sang JSON
+    var flashcards = @Html.Raw(Json.Serialize(Model.Flashcards));
 </script>
 
 <script src="~/js/course/detail.js"></script>

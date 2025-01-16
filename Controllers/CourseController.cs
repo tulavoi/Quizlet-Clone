@@ -1,7 +1,9 @@
 ﻿using api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SmartCards.DTOs.Course;
+using SmartCards.DTOs.Flashcard;
 using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
@@ -63,7 +65,7 @@ namespace SmartCards.Controllers
         {
             int id = this.GetIdBySlug(slug);
 
-            var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject { IsShuffle = isShuffle });
+            var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject {  });
             if (course == null) return NotFound();
 
             // Lấy ra flashcard đã xen gần nhất trong học phần của user
@@ -88,6 +90,15 @@ namespace SmartCards.Controllers
 
             // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lá
             var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();
+
+            // Nếu isShuffle đều là true, trộn các flashcards
+            if (isShuffle)
+            {
+                var rand = new Random();
+                flashcards = flashcards
+                    .OrderBy(_ => Guid.NewGuid()) // Sử dụng Guid để xáo trộn ngẫu nhiên
+                    .ToList();
+            }
 
             var courseDTO = course.ToCourseDTO(flashcards, lastReviewedCard, learnedFlashcards, notLearnedFlashcards, procresses, starredCardsCount);
             return View(courseDTO);
