@@ -48,5 +48,14 @@ namespace SmartCards.Repositories
 
             return await result.ToListAsync();
         }
+
+        public async Task<List<Flashcard?>> GetStarredCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
+        {
+            // Lấy tất cả flashcard trong khóa học
+            return await _context.UserFlashcardProgresses
+                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId && x.IsStarred == query.IsStarred)
+                .Select(x => x.Flashcard)
+                .ToListAsync();
+        }
     }
 }

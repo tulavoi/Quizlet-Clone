@@ -17,7 +17,7 @@ namespace SmartCards.DTOs.Course
         public List<FlashcardDTO> Flashcards { get; set; } = new List<FlashcardDTO>();
         public List<FlashcardDTO>? LearnedFlashcards { get; set; } = new List<FlashcardDTO>();
         public List<FlashcardDTO>? NotLearnedFlashcards { get; set; } = new List<FlashcardDTO>();
-        public List<FlashcardDTO>? StarredFlashcards { get; set; } = new List<FlashcardDTO>();
         public FlashcardDTO? LastLearnedFlashcard { get; set; }
+        public int StarredFlashcardCount { get; set; }
     }
 }

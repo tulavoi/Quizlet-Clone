@@ -26,7 +26,9 @@
         <button class="card-settings-right-btn" title="Tùy chọn" type="button" data-bs-toggle="modal" data-bs-target="#flashcards-options-modal">
             <i class="fa-solid fa-gear"></i>
         </button>
-        @await Html.PartialAsync("ViewPartials/Details/_FlashcardsOptionsModal")
+        @await Html.PartialAsync("ViewPartials/Details/_FlashcardsOptionsModal", new {
+            StarredCardCount = Model.StarredCardCount
+        })
 
         <button class="card-settings-right-btn" title="Phóng to">
             <i class="fa-solid fa-expand"></i>

@@ -6,20 +6,20 @@
                 <h2 class="modal-title">Tùy chọn</h2>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body custom-modal-body ">
+            <div class="modal-body">
                 <div class="row mt-3">
                     <div class="col-9">
-                        <h5 class="float-start" style="font-size: 1.15rem;">Chỉ học các thuật ngữ có sao</h5>
+                        <span class="float-start" style="font-size: 1.15rem;">Chỉ học các thuật ngữ có sao</span>
                     </div>
                     <div class="col-3">
-                        <label class="switch starred-cards-switch float-end mx-3">
-                            <input type="checkbox" checked>
+                        <label class="switch float-end mx-3">
+                            <input type="checkbox" id="toggleStarred">
                             <span class="slider round"></span>
                         </label>
                    </div>
                 </div>
 
-                <div class="row mt-5">
+                @* <div class="row mt-5">
                     <div class="col-9">
                         <h5 class="float-start" style="font-size: 1.15rem;">Mặt trước</h5>
                     </div>
@@ -29,11 +29,16 @@
                             <option>Định nghĩa</option>
                         </select>
                     </div>
+                </div> *@
+
+                <div class="row mt-4">
+                    <div class="col-5">
+                        <button class="reset-cards-btn" onclick="resetCards()">Khởi động lại Thẻ ghi nhớ</button>
+                    </div>
                 </div>
-               
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-save btn-primary" data-bs-dismiss="modal">Lưu</button>
+            <div class="modal-footer mb-3">
+                
             </div>
         </div>
     </div>
