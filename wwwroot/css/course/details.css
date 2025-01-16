@@ -364,19 +364,40 @@
     border-radius: 20px;
 }
 
-#flashcards-options-modal .modal-header {
+#flashcards-options-modal .modal-header, .modal-body{
     border-bottom: none;
+}
+
+#flashcards-options-modal .modal-footer {
+    border-top: none;
 }
 
 #flashcards-options-modal .modal-header h2{
     font-weight: 700;
 }
 
+#flashcards-options-modal .modal-body .reset-cards-btn {
+    color: var(--red-color);
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#flashcards-options-modal .modal-body span, .reset-cards-btn {
+    font-weight: 500;
+    font-size: 1.15rem;
+}
+
+#flashcards-options-modal .modal-body .reset-cards-btn:hover {
+    color: var(--blue-color);
+}
+
+/* Toggle button */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 45px;  /* Thu nhỏ chiều rộng */
-  height: 23px; /* Thu nhỏ chiều cao */
+    position: relative;
+    display: inline-block;
+    width: 45px; /* Thu nhỏ chiều rộng */
+    height: 23px; /* Thu nhỏ chiều cao */
 }
 
 .switch input { 
@@ -430,4 +451,12 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.switch input:disabled + .slider {
+    cursor: default;
+}
+
+.switch:disabled {
+    cursor: default;
 }

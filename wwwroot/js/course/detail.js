@@ -297,11 +297,38 @@ function updateFlashcardState(flashcardId, isStarred) {
     .then(response => {
         if (!response.ok) {
             console.error(errorMessage);
+        } else {
+            // Cập nhật biến đếm starredCardCount(được khai báo và gán giá trị ở Details.cshtml)
+            // Tăng nếu gắn sao, giảm nếu gắn sao
+            starredCardCount = isStarred ? starredCardCount + 1 : starredCardCount - 1;
+
+            changeStateToggleStarred();
         }
     })
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+// Bật/tắt toggleStarred 
+function changeStateToggleStarred() {
+    const switchElement = toggleStarred.closest('.switch');
+
+    if (starredCardCount > 0) {
+        toggleStarred.removeAttribute('disabled');
+        switchElement.removeAttribute('disabled'); 
+    } else {
+        toggleStarred.checked = false;
+        toggleStarred.setAttribute('disabled', 'true');
+        switchElement.setAttribute('disabled', 'true');
+    }
+
+    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
+    var urlParams = new URLSearchParams(window.location.search);
+    const isStarred = urlParams.get('isStarred') === 'true'; // Kiểm tra isShuffle có = true hay k
+    if (isStarred) {
+        toggleStarred.checked = true;
+    }
 }
 
 // Hàm chạy khi trang được load
@@ -313,18 +340,24 @@ window.addEventListener('DOMContentLoaded', () => {
         let isStarred = getDataIsStarredValue(btn);
         updateBtnIconColor(btn, isStarred);
     });
+
+    // Gọi lại hàm để kiểm tra có flashcard nào đc gắn sao k và cập nhật trạng thái
+    changeStateToggleStarred();
 });
 
-const toggleButton = document.getElementById('toggleButton');
+const toggleStarred = document.getElementById('toggleStarred');
+// Hàm khởi động lại flashcards
+function resetCards() {
+    let isStarred = toggleStarred.checked;
+    console.log(isStarred);
 
-toggleButton.addEventListener('click', function () {
-    // Toggle the active class on the button
-    toggleButton.classList.toggle('active');
+    // Lấy slug từ URL hiện tại
+    const slug = window.location.pathname.split('/').pop();
 
-    // Change the text based on the state
-    if (toggleButton.classList.contains('active')) {
-        toggleButton.textContent = 'ON';
+    if (isStarred) {
+        // Chuyển tới url mới
+        window.location.href = `/${slug}?isStarred=${isStarred}`;
     } else {
-        toggleButton.textContent = 'OFF';
+        window.location.href = `/${slug}`;
     }
-});
+}

@@ -78,49 +78,52 @@
                 }
             </section>
 
-            <!-- Các flashcard chưa học -->
-            <section class="not-leanred-terns mt-3">
-                <div class="row">
-                    <div class="col-6">
-                        <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
-                        <p class="m-0">Bạn chưa học các thuật ngữ này!</p>
-                    </div>
+            @if (@Model.NotLearnedFlashcards.Count > 0)
+            {
+                <!-- Các flashcard chưa học -->
+                <section class="not-leanred-terns mt-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
+                            <p class="m-0">Bạn chưa học các thuật ngữ này!</p>
+                        </div>
 
-                    <div class="col-6">
-                        <button class="btn-starred float-end">
-                            <i class="fa-solid fa-star text-secondary"></i>
-                            Chọn @Model.NotLearnedFlashcards.Count
-                        </button>
-                    </div>
-                </div>
-
-                @foreach (var flashcard in Model.NotLearnedFlashcards)
-                {
-                    <div class="card">
-                        <div class="row p-3 d-flex align-items-center justify-content-center">
-                            <div class="col-3 term-col">
-                                <span class="float-start">@flashcard.Term</span>
-                            </div>
-                            <div class="col-6 defi-col">
-                                <span class="float-start">@flashcard.Definition</span>
-                            </div>
-                            <div class="col-3">
-                                <button class="float-end" title="Phát âm"
-                                        onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
-                                    <i class="fa-solid fa-volume-high text-secondary"></i>
-                                </button>
-
-                                <button class="float-end" title="Gắn sao"
-                                        data-is-starred="@flashcard.IsStarred"
-                                        data-flashcard-id="@flashcard.Id"
-                                        onclick="starredFlashcard(this)">
-                                    <i class="fa-solid fa-star"></i>
-                                </button>
-                            </div>
+                        <div class="col-6">
+                            <button class="btn-starred float-end">
+                                <i class="fa-solid fa-star text-secondary"></i>
+                                Chọn @Model.NotLearnedFlashcards.Count
+                            </button>
                         </div>
                     </div>
-                }
-            </section>
+
+                    @foreach (var flashcard in Model.NotLearnedFlashcards)
+                    {
+                        <div class="card">
+                            <div class="row p-3 d-flex align-items-center justify-content-center">
+                                <div class="col-3 term-col">
+                                    <span class="float-start">@flashcard.Term</span>
+                                </div>
+                                <div class="col-6 defi-col">
+                                    <span class="float-start">@flashcard.Definition</span>
+                                </div>
+                                <div class="col-3">
+                                    <button class="float-end" title="Phát âm"
+                                            onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
+                                        <i class="fa-solid fa-volume-high text-secondary"></i>
+                                    </button>
+
+                                    <button class="float-end" title="Gắn sao"
+                                            data-is-starred="@flashcard.IsStarred"
+                                            data-flashcard-id="@flashcard.Id"
+                                            onclick="starredFlashcard(this)">
+                                        <i class="fa-solid fa-star"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </section>
+            }
         }
 	</section>
 </div>

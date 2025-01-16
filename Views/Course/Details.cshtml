@@ -48,7 +48,8 @@
 
     <!-- Card Settings -->
     @await Html.PartialAsync("ViewPartials/Details/_CardSettingsPartial.cshtml", new {
-        Slug = Model.Slug
+        Slug = Model.Slug,
+        StarredCardCount = Model.StarredFlashcardCount
     })
 
     <!-- User Info, Action Bar-->
@@ -69,6 +70,9 @@
 <script>
     // Có thể truyền giá trị từ lastReviewedFcIndex đẻ sử dụng trong detail.js
     var currIndexCard = @lastLearnedFcIndex;
+
+    // Biến đếm các flashcard có gắn sao
+    var starredCardCount = @Model.StarredFlashcardCount;
 </script>
 
 <script src="~/js/course/detail.js"></script>

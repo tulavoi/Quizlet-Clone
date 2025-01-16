@@ -59,7 +59,7 @@ namespace SmartCards.Controllers
         }
 
         [HttpGet("/{slug}")]
-        public async Task<IActionResult> Details(string slug, [FromQuery] bool isShuffle = false)
+        public async Task<IActionResult> Details(string slug, [FromQuery] bool isShuffle = false, [FromQuery] bool isStarred = false)
         {
             int id = this.GetIdBySlug(slug);
 
@@ -78,13 +78,18 @@ namespace SmartCards.Controllers
                 new FlashcardQueryObject { IsLearned = false });
 
             // Lấy ra flashcards user đã gắn sao
-            var starredFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id,
+            var starredFlashcards = await _flashcardRepo.GetStarredCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsStarred = true });
+
+            var starredCardsCount = starredFlashcards.Count;
 
             // Lấy ra danh sách progress của user trong học phần
             var procresses = await _progressRepo.GetByIdAsync(this.UserId, course.Id);
 
-            var courseDTO = course.ToCourseDTO(lastReviewedCard, learnedFlashcards, notLearnedFlashcards, starredFlashcards, procresses);
+            // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lá
+            var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();
+
+            var courseDTO = course.ToCourseDTO(flashcards, lastReviewedCard, learnedFlashcards, notLearnedFlashcards, procresses, starredCardsCount);
             return View(courseDTO);
         }
 

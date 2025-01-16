@@ -10,11 +10,12 @@ namespace SmartCards.Mappers
     public static class CourseMapper
     {
         public static CourseDTO ToCourseDTO(this Course course,
+            List<Flashcard> flashcards,
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
             List<Flashcard>? notLearnedFlashcards = null,
-            List<Flashcard>? starredFlashcards = null,
-            List<UserFlashcardProgress>? progresses = null)
+            List<UserFlashcardProgress>? progresses = null,
+            int starredCardsCount = 0)
         {
             return new CourseDTO
             {
@@ -27,7 +28,7 @@ namespace SmartCards.Mappers
                 Description = course.Description,
                 RelativeTime = course.CreatedAt.ToRelativeTime(),
 
-                Flashcards = course.Flashcards.Select(x => {
+                Flashcards = flashcards.Select(x => {
                     var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
@@ -42,12 +43,8 @@ namespace SmartCards.Mappers
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
-                StarredFlashcards = starredFlashcards?.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
-                    return x.ToFlashcardDTO(progress);
-                }).ToList(),
-
-                LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO()
+                LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO(),
+                StarredFlashcardCount = starredCardsCount
             };
         }
 
