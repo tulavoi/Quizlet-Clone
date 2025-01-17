@@ -351,7 +351,6 @@ const toggleStarred = document.getElementById('toggleStarred');
 // Hàm khởi động lại flashcards
 function resetCards() {
     let isStarred = toggleStarred.checked;
-    console.log(isStarred);
 
     // Lấy slug từ URL hiện tại
     const slug = window.location.pathname.split('/').pop();
