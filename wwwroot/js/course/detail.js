@@ -244,16 +244,18 @@ btnPlayCards.addEventListener('click', function () {
 
 // Bật tắt trộn thẻ
 function toggleShuffle() {
-    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
+    //Lấy giá trị hiện tại của isShuffle từ URL hiện tại
     var urlParams = new URLSearchParams(window.location.search);
-    const isShuffle = urlParams.get('isShuffle') === 'true'; // Kiểm tra isShuffle có = true hay k
+    const isShuffle = urlParams.get('isShuffle') === 'true';
+    const isStarred = urlParams.get('isStarred') === 'true';
+
     const newIsShuffle = !isShuffle;
 
     // Lấy slug từ URL hiện tại
     const slug = window.location.pathname.split('/').pop();
 
     // Chuyển tới url mới
-    window.location.href = `/${slug}?isShuffle=${newIsShuffle}`;
+    window.location.href = `/${slug}?isStarred=${isStarred}&isShuffle=${newIsShuffle}`;
 }
 
 // Bắt đầu quy trình gắn sao flashcard
@@ -325,7 +327,7 @@ function changeStateToggleStarred() {
 
     // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
     var urlParams = new URLSearchParams(window.location.search);
-    const isStarred = urlParams.get('isStarred') === 'true'; // Kiểm tra isShuffle có = true hay k
+    const isStarred = urlParams.get('isStarred') === 'true'; 
     if (isStarred) {
         toggleStarred.checked = true;
     }
@@ -349,7 +351,6 @@ const toggleStarred = document.getElementById('toggleStarred');
 // Hàm khởi động lại flashcards
 function resetCards() {
     let isStarred = toggleStarred.checked;
-    console.log(isStarred);
 
     // Lấy slug từ URL hiện tại
     const slug = window.location.pathname.split('/').pop();

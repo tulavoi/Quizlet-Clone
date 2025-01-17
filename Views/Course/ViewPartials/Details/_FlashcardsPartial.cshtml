@@ -1,40 +1,82 @@
 ﻿@model dynamic
-<div class="term-defi-cards" tabindex="0"
-     data-flashcard-id="@Model.Flashcard.Id">
-    <div class="card-inner">
-        <div class="card-front">
-            <div class="card-actions">
-                <button title="Sửa" id="btn-open-edit-modal">
-                    <i class="fa-solid fa-pen text-secondary"></i>
-                </button>
-                <button onclick="textToSpeech('@Model.Flashcard.Term', '@Model.Flashcard.TermLanguageCode')" title="Phát âm">
-                    <i class="fa-solid fa-volume-high text-secondary"></i>
-                </button>
-                <button title="Gắn sao" 
-                        data-is-starred="@Model.Flashcard.IsStarred"
-                        data-flashcard-id="@Model.Flashcard.Id"
-                        onclick="starredFlashcard(this)">
-                    <i class="fa-solid fa-star"></i>
-                </button>
+@foreach (var flashcard in Model.Flashcards)
+{
+    <div class="term-defi-cards" tabindex="0"
+         data-flashcard-id="@flashcard.Id">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="card-actions">
+                    <button title="Sửa" id="btn-open-edit-modal">
+                        <i class="fa-solid fa-pen text-secondary"></i>
+                    </button>
+                    <button onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')" title="Phát âm">
+                        <i class="fa-solid fa-volume-high text-secondary"></i>
+                    </button>
+                    <button title="Gắn sao" 
+                            data-is-starred="@flashcard.IsStarred"
+                            data-flashcard-id="@flashcard.Id"
+                            onclick="starredFlashcard(this)">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                </div>
+                <span id="text-front">@flashcard.Term</span>
             </div>
-            <span id="text-front">@Model.Flashcard.Term</span>
-        </div>
-        <div class="card-back">
-            <div class="card-actions">
-                <button title="Chỉnh sửa">
-                    <i class="fa-solid fa-pen text-secondary"></i>
-                </button>
-                <button onclick="textToSpeech('@Model.Flashcard.Definition', '@Model.Flashcard.DefiLanguageCode')" title="Phát âm">
-                    <i class="fa-solid fa-volume-high text-secondary"></i>
-                </button>
-                <button title="Gắn sao"
-                        data-is-starred="@Model.Flashcard.IsStarred"
-                        data-flashcard-id="@Model.Flashcard.Id"
-                        onclick="starredFlashcard(this)">
-                    <i class="fa-solid fa-star"></i>
-                </button>
+            <div class="card-back">
+                <div class="card-actions">
+                    <button title="Chỉnh sửa">
+                        <i class="fa-solid fa-pen text-secondary"></i>
+                    </button>
+                    <button onclick="textToSpeech('@flashcard.Definition', '@flashcard.DefiLanguageCode')" title="Phát âm">
+                        <i class="fa-solid fa-volume-high text-secondary"></i>
+                    </button>
+                    <button title="Gắn sao"
+                            data-is-starred="@flashcard.IsStarred"
+                            data-flashcard-id="@flashcard.Id"
+                            onclick="starredFlashcard(this)">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                </div>
+                <span id="text-back">@flashcard.Definition</span>
             </div>
-            <span id="text-back">@Model.Flashcard.Definition</span>
         </div>
     </div>
+}
+
+<!-- Prev, Next card, Play, Shuffle, Options Button-->
+<div class="card-settings my-4 row">
+    <div class="card-settings-left col-4 d-flex justify-content-start align-items-center"></div>
+
+    <div class="card-settings-mid col-4 d-flex justify-content-center align-items-center">
+        <button id="btn-prev-card" title="Previous">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <span class="px-3" id="card-number">1 / 10</span>
+
+        <button id="btn-next-card" title="Next">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="card-settings-right col-4 d-flex justify-content-end align-items-center">
+        <button class="card-settings-right-btn" title="Bắt đầu" id="btn-play-cards">
+            <i class="fa-solid fa-play"></i>
+        </button>
+
+        <button class="card-settings-right-btn" title="Trộn thẻ" onclick="toggleShuffle()">
+            <i class="fa-solid fa-shuffle"></i>
+        </button>
+
+        <button class="card-settings-right-btn" title="Tùy chọn" type="button" data-bs-toggle="modal" data-bs-target="#flashcards-options-modal">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+        @await Html.PartialAsync("ViewPartials/Details/_FlashcardsOptionsModal", new {
+            StarredCardCount = Model.StarredCardCount
+        })
+
+        <button class="card-settings-right-btn" title="Phóng to">
+            <i class="fa-solid fa-expand"></i>
+        </button>
+    </div>
+    <hr />
 </div>
