@@ -8,8 +8,6 @@ namespace SmartCards.Models
     [Table("UserFlashcardProgress")]
     public class UserFlashcardProgress
     {
-        public int Id { get; set; }
-
         [Required]
         public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }
@@ -21,5 +19,6 @@ namespace SmartCards.Models
         public bool IsLearned { get; set; } = false;
         public bool IsStarred { get; set; } = false;
         public DateTime? LastReviewedAt { get; set; }
+        public bool isShuffle { get; set; } = false;
     }
 }

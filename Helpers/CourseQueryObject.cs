@@ -5,6 +5,5 @@
         public string? SortBy { get; set; }
         public bool IsDecsending { get; set; } = false;
         public int MaxItem { get; set; }
-        public bool IsShuffle { get; set; }
     }
 }

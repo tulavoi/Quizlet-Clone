@@ -39,25 +39,14 @@
         <div class="card-container" id="flashcards-container" 
              data-curr-index-card="@lastLearnedFcIndex"
              data-starred-card-count="@Model.StarredFlashcardCount">
-            @* @foreach (var flashcard in Model.Flashcards)
-            {
-                @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
-                    Flashcard = flashcard,
-                })
-            } *@
-
             @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
-                    Flashcards = Model.Flashcards,
-                    StarredCardCount = Model.StarredFlashcardCount
-                })
+                Flashcards = Model.Flashcards,
+                StarredCardCount = Model.StarredFlashcardCount,
+                CourseId = Model.Id,
+                IsShuffle = Model.IsShuffle
+            })
         </div>
     </div>
-
-    <!-- Card Settings -->
-    @* @await Html.PartialAsync("ViewPartials/Details/_CardSettingsPartial.cshtml", new {
-        Slug = Model.Slug,
-        StarredCardCount = Model.StarredFlashcardCount
-    }) *@
 
     <!-- User Info, Action Bar-->
     @await Html.PartialAsync("ViewPartials/Details/_UserInfoActionBarPartial.cshtml", new {

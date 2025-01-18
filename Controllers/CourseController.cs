@@ -7,31 +7,35 @@ using SmartCards.DTOs.Flashcard;
 using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
+using SmartCards.Models;
 
 namespace SmartCards.Controllers
 {
 	[Authorize]
-    [Route("/course")]
+    [Route("course")]
 	public class CourseController : BaseController
 	{
 		private readonly IPermissionRepository _permissionRepo;
 		private readonly ILanguageRepository _languageRepo;
 		private readonly ICourseRepository _courseRepo;
 		private readonly IFlashcardRepository _flashcardRepo;
-        private readonly IUserFlashcardProgressRepository _progressRepo;
+        private readonly IUserFlashcardProgressRepository _flashcardProgressRepo;
+        private readonly IUserCourseProgressRepository _courseProgressRepo;
 
         public CourseController(
             IPermissionRepository permissionRepo,
             ILanguageRepository languageRepo, 
             ICourseRepository courseRepo,
             IFlashcardRepository flashcardRepo,
-            IUserFlashcardProgressRepository progressRepo)
+            IUserFlashcardProgressRepository flashcardProgressRepo,
+            IUserCourseProgressRepository courseProgressRepo)
         {
             _permissionRepo = permissionRepo;
             _languageRepo = languageRepo;
             _courseRepo = courseRepo;
             _flashcardRepo = flashcardRepo;
-            _progressRepo = progressRepo;
+            _flashcardProgressRepo = flashcardProgressRepo;
+            _courseProgressRepo = courseProgressRepo;
         }
 
         [Route("/create-course")]
@@ -61,12 +65,20 @@ namespace SmartCards.Controllers
         }
 
         [HttpGet("/{slug}")]
-        public async Task<IActionResult> Details(string slug, [FromQuery] bool isShuffle = false, [FromQuery] bool isStarred = false)
+        public async Task<IActionResult> Details(string slug, [FromQuery] bool isStarred = false)
         {
+            // Lấy course id dựa vào slug
             int id = this.GetIdBySlug(slug);
 
-            var course = await _courseRepo.GetByIdAsync(id, new CourseQueryObject {  });
+            // Lấy ra course
+            var course = await _courseRepo.GetByIdAsync(id);
             if (course == null) return NotFound();
+
+            // Lấy ra course progress của user
+            var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
+
+            // Lưu lại course progress khi user truy cập vào course
+            await _courseProgressRepo.UpdateProgressAsync(this.UserId, course.Id, courseProcress.IsShuffle);
 
             // Lấy ra flashcard đã xen gần nhất trong học phần của user
             var lastReviewedCard = await _flashcardRepo.GetCurrentDisplayedAsync(this.UserId, course.Id);
@@ -83,24 +95,31 @@ namespace SmartCards.Controllers
             var starredFlashcards = await _flashcardRepo.GetStarredCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsStarred = true });
 
-            var starredCardsCount = starredFlashcards.Count;
-
-            // Lấy ra danh sách progress của user trong học phần
-            var procresses = await _progressRepo.GetByIdAsync(this.UserId, course.Id);
+            // Lấy ra danh sách flashcard progress của user trong học phần
+            var flashcardProcresses = await _flashcardProgressRepo.GetByIdAsync(this.UserId, course.Id);
 
             // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lá
             var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();
 
             // Nếu isShuffle đều là true, trộn các flashcards
-            if (isShuffle)
+            if (courseProcress.IsShuffle)
             {
                 var rand = new Random();
                 flashcards = flashcards
-                    .OrderBy(_ => Guid.NewGuid()) // Sử dụng Guid để xáo trộn ngẫu nhiên
+                    .OrderBy(_ => rand.Next()) // Sử dụng Random để xáo trộn ngẫu nhiên
                     .ToList();
             }
 
-            var courseDTO = course.ToCourseDTO(flashcards, lastReviewedCard, learnedFlashcards, notLearnedFlashcards, procresses, starredCardsCount);
+            var courseDTO = course.ToCourseDTO(
+                flashcards, 
+                lastReviewedCard, 
+                learnedFlashcards, 
+                notLearnedFlashcards, 
+                flashcardProcresses,
+                starredFlashcards.Count,
+                courseProcress.IsShuffle
+            );
+
             return View(courseDTO);
         }
 

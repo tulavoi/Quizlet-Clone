@@ -14,8 +14,9 @@ namespace SmartCards.Mappers
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
             List<Flashcard>? notLearnedFlashcards = null,
-            List<UserFlashcardProgress>? progresses = null,
-            int starredCardsCount = 0)
+            List<UserFlashcardProgress>? flashcardProcresses = null,
+            int starredCardsCount = 0,
+            bool isShuffle = false)
         {
             return new CourseDTO
             {
@@ -29,22 +30,23 @@ namespace SmartCards.Mappers
                 RelativeTime = course.CreatedAt.ToRelativeTime(),
 
                 Flashcards = flashcards.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
+                    var progress = flashcardProcresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
                 LearnedFlashcards = learnedFlashcards?.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
+                    var progress = flashcardProcresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
                 NotLearnedFlashcards = notLearnedFlashcards?.Select(x => {
-                    var progress = progresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
+                    var progress = flashcardProcresses?.FirstOrDefault(p => p. FlashcardId == x.Id);
                     return x.ToFlashcardDTO(progress);
                 }).ToList(),
 
                 LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO(),
-                StarredFlashcardCount = starredCardsCount
+                StarredFlashcardCount = starredCardsCount,
+                IsShuffle = isShuffle
             };
         }
 

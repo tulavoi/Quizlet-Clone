@@ -116,12 +116,6 @@ namespace SmartCards.Repositories
                     .ThenInclude(f => f.Definition_Lang)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            //if (query != null && course != null && query.IsShuffle)
-            //{
-            //    course.Flashcards = course.Flashcards
-            //        .OrderBy(_ => Guid.NewGuid()) // Sử dụng Guid để xáo trộn ngẫu nhiên
-            //        .ToList();
-            //}
             return course;
         }
 

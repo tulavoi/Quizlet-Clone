@@ -2,7 +2,7 @@
 // ==============================================
 // Mô tả: File JavaScript này chứa các hàm và logic dành riêng cho
 // phần xử lý các button trong file _FlashcardsPartial.cshtml.
-// Bao gồm: các sự kiện click cho phát âm thanh, gắn sao, edit card.
+// Bao gồm: các sự kiện click cho phát âm thanh, edit card.
 // ==============================================
 
 const actionButtons = document.querySelectorAll('.card-actions button');

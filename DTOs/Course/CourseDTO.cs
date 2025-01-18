@@ -19,5 +19,6 @@ namespace SmartCards.DTOs.Course
         public List<FlashcardDTO>? NotLearnedFlashcards { get; set; } = new List<FlashcardDTO>();
         public FlashcardDTO? LastLearnedFlashcard { get; set; }
         public int StarredFlashcardCount { get; set; }
+        public bool IsShuffle { get; set; }
     }
 }

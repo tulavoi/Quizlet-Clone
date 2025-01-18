@@ -104,6 +104,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: white;
+    box-shadow: 0 0 2rem 0 var(--light-grey-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.card-back {
+    transform: rotateX(180deg);
 }
 
 .card-actions {
@@ -127,31 +139,20 @@
     background: var(--light-grey-color);
 }
 
-.card-front {
-    background: white;
-    box-shadow: 0 0 2rem 0 var(--light-grey-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: 400;
-    text-align: center;
-}
-
-.card-back {
-    background: white;
-    box-shadow: 0 0 2rem 0 var(--light-grey-color);
-    transform: rotateX(180deg); /* Xoay mặt sau để hiển thị đúng chiều khi lật */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: 400;
-    text-align: center;
-}
-
 .card-inner.is-flipped { /* Khi lật thẻ */
     transform: rotateX(180deg); /* Khi có class is-flipped, lật thẻ */
+}
+
+.shuffle-notify {
+    position: fixed; /* Định vị tuyệt đối */
+    bottom: 0; /* Sát cạnh dưới */
+    left: 0; /* Căn trái */
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--light-purple-color);
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 0 0 15px 15px; /* Bo góc dưới */
 }
 
 /* Cards Settings */
@@ -184,6 +185,11 @@
     margin-left: .5rem;
     background: none;
     border-radius: 50%;
+}
+
+/* Thêm CSS cho class border-1 */
+.card-settings-right .card-settings-right-btn.border-1 {
+    border: 1px solid var(--light-green-color);
 }
 
 .card-settings-right .card-settings-right-btn:hover {

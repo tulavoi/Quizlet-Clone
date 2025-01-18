@@ -41,8 +41,7 @@ namespace SmartCards.Repositories
                 };
                 _context.UserFlashcardProgresses.Add(progress);
             }
-            else
-                progress.IsLearned = true;
+            else progress.IsLearned = true;
 
             await _context.SaveChangesAsync();
         }
