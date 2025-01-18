@@ -95,9 +95,6 @@ namespace SmartCards.Controllers
             var starredFlashcards = await _flashcardRepo.GetStarredCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsStarred = true });
 
-            // Lưu vào biến số lượng thẻ được gắn sao
-            var starredCardsCount = starredFlashcards.Count;
-
             // Lấy ra danh sách flashcard progress của user trong học phần
             var flashcardProcresses = await _flashcardProgressRepo.GetByIdAsync(this.UserId, course.Id);
 
@@ -118,8 +115,8 @@ namespace SmartCards.Controllers
                 lastReviewedCard, 
                 learnedFlashcards, 
                 notLearnedFlashcards, 
-                flashcardProcresses, 
-                starredCardsCount,
+                flashcardProcresses,
+                starredFlashcards.Count,
                 courseProcress.IsShuffle
             );
 

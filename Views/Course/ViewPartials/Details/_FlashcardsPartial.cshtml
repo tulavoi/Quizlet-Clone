@@ -20,6 +20,8 @@
                     </button>
                 </div>
                 <span id="text-front">@flashcard.Term</span>
+
+                <div class="shuffle-notify d-none"></div>
             </div>
             <div class="card-back">
                 <div class="card-actions">
@@ -37,6 +39,8 @@
                     </button>
                 </div>
                 <span id="text-back">@flashcard.Definition</span>
+
+                <div class="shuffle-notify d-none"></div>
             </div>
         </div>
     </div>
@@ -63,7 +67,9 @@
             <i class="fa-solid fa-play"></i>
         </button>
 
-        <button class="card-settings-right-btn" title="Trộn thẻ" onclick="toggleShuffle('@Model.CourseId', '@Model.IsShuffle')">
+        <button class="card-settings-right-btn" title="Trộn thẻ" id="btn-shuffle"
+                data-is-shuffle="@Model.IsShuffle"
+                onclick="toggleShuffle('@Model.CourseId', '@Model.IsShuffle')">
             <i class="fa-solid fa-shuffle"></i>
         </button>
 

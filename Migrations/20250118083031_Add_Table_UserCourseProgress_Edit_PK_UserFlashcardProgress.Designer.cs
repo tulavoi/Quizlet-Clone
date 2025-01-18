@@ -12,8 +12,8 @@ using SmartCards.Areas.Identity.Data;
 namespace SmartCards.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250118031836_Add_Table_UserCourseProgress")]
-    partial class Add_Table_UserCourseProgress
+    [Migration("20250118083031_Add_Table_UserCourseProgress_Edit_PK_UserFlashcardProgress")]
+    partial class Add_Table_UserCourseProgress_Edit_PK_UserFlashcardProgress
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace SmartCards.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c9284070-967e-46cf-a69c-971de267c338",
+                            Id = "f6a9ff81-4c6d-4949-90f0-c696845dc6fb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ff564b8b-5e59-4990-91db-23bd170f81ca",
+                            Id = "6ca8dbcd-180c-4c64-bd1d-ea4f6461c705",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -434,89 +434,89 @@ namespace SmartCards.Migrations
                         {
                             Id = 1,
                             Code = "en",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7557),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5450),
                             Name = "English",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7557)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5450)
                         },
                         new
                         {
                             Id = 2,
                             Code = "fr",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7559),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5452),
                             Name = "French",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7560)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5453)
                         },
                         new
                         {
                             Id = 3,
                             Code = "de",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7561),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5455),
                             Name = "German",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7562)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5455)
                         },
                         new
                         {
                             Id = 4,
                             Code = "es",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7563),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5457),
                             Name = "Spanish",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7564)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5457)
                         },
                         new
                         {
                             Id = 5,
                             Code = "it",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7565),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5458),
                             Name = "Italian",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7566)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5459)
                         },
                         new
                         {
                             Id = 6,
                             Code = "pt",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7567),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5460),
                             Name = "Portuguese",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7568)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5461)
                         },
                         new
                         {
                             Id = 7,
                             Code = "zh",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7570),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5462),
                             Name = "Chinese",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7570)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5463)
                         },
                         new
                         {
                             Id = 8,
                             Code = "ja",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7572),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5464),
                             Name = "Japanese",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7572)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5464)
                         },
                         new
                         {
                             Id = 9,
                             Code = "ru",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7574),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5466),
                             Name = "Russian",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7574)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5466)
                         },
                         new
                         {
                             Id = 10,
                             Code = "ar",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7576),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5468),
                             Name = "Arabic",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7576)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5468)
                         },
                         new
                         {
                             Id = 11,
                             Code = "vn",
-                            CreatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7578),
+                            CreatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5469),
                             Name = "Việt Nam",
-                            UpdatedAt = new DateTime(2025, 1, 18, 10, 18, 36, 63, DateTimeKind.Local).AddTicks(7578)
+                            UpdatedAt = new DateTime(2025, 1, 18, 15, 30, 30, 987, DateTimeKind.Local).AddTicks(5470)
                         });
                 });
 
@@ -585,11 +585,8 @@ namespace SmartCards.Migrations
 
             modelBuilder.Entity("SmartCards.Models.UserCourseProgress", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -600,26 +597,17 @@ namespace SmartCards.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserCourseProgress");
                 });
 
             modelBuilder.Entity("SmartCards.Models.UserFlashcardProgress", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("FlashcardId")
                         .HasColumnType("int");
@@ -633,18 +621,12 @@ namespace SmartCards.Migrations
                     b.Property<DateTime?>("LastReviewedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("isShuffle")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "FlashcardId");
 
                     b.HasIndex("FlashcardId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserFlashcardProgress");
                 });
@@ -800,7 +782,7 @@ namespace SmartCards.Migrations
                     b.HasOne("SmartCards.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")
@@ -819,7 +801,7 @@ namespace SmartCards.Migrations
                     b.HasOne("SmartCards.Models.Flashcard", "Flashcard")
                         .WithMany()
                         .HasForeignKey("FlashcardId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")

@@ -7,8 +7,6 @@ namespace SmartCards.Models
     [Table("UserCourseProgress")]
     public class UserCourseProgress
     {
-        public int Id { get; set; }
-
         [Required]
         public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }

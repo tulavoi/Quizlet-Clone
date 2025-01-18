@@ -34,7 +34,10 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
 		builder.ApplyConfiguration(new CoursePermissionConfiguration());
 
-	}
+		builder.ApplyConfiguration(new UserCourseProgressConfiguration());
+
+		builder.ApplyConfiguration(new UserFlashcardProgressConfiguration());
+    }
 
 	private void RemoveAspNetPrefix(ModelBuilder builder)
 	{

@@ -256,6 +256,9 @@ export function toggleShuffle(courseId, isShuffle) {
         if (!response.ok) {
             console.error('failed to update shuffle mode');
         } else {
+            // Lưu trạng thái isShuffle vào localStorage trước khi refresh
+            localStorage.setItem('shuffleState', isShuffle ? 'Bật' : 'Tắt');
+
             window.location.reload(); // Refresh lại trang hiện tại sau khi cập nhật thành công
         }
     })
@@ -264,3 +267,42 @@ export function toggleShuffle(courseId, isShuffle) {
     });
 }
 window.toggleShuffle = toggleShuffle;
+
+document.addEventListener('DOMContentLoaded', function () {
+    showShuffleNotify();
+    
+    updateShuffleButtonState();
+});
+
+// Hiển thị shuffle notify 
+function showShuffleNotify() {
+    const shuffleState = localStorage.getItem('shuffleState');
+
+    if (shuffleState) {
+        const shuffleNotifies = document.querySelectorAll('.shuffle-notify');
+
+        shuffleNotifies.forEach(shuffleNotify => {
+            shuffleNotify.textContent = `Trộn thẻ đang ${shuffleState}`;
+            shuffleNotify.classList.remove('d-none');
+
+            setTimeout(() => {
+                shuffleNotify.classList.add('d-none');
+            }, 3000); // Ẩn shuffleNotify sau 3 giây
+        });
+
+        // Xóa trạng thái sau khi hiển thị
+        localStorage.removeItem('shuffleState');
+    }
+}
+
+// Cập nhật trạng thái của button shuffle 
+function updateShuffleButtonState() {
+    const btnShuffle = document.querySelector('#btn-shuffle');
+    const isShuffle = btnShuffle.getAttribute('data-is-shuffle').toLowerCase() === 'true';
+    // Cập nhật class của nút btn-shuffle
+    if (isShuffle) {
+        btnShuffle.classList.add('border-1');
+    } else {
+        btnShuffle.classList.remove('border-1');
+    }
+}
