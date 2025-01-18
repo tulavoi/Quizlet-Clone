@@ -240,18 +240,27 @@ btnPlayCards.addEventListener('click', function () {
 });
 
 // Bật tắt trộn thẻ
-export function toggleShuffle() {
-    //Lấy giá trị hiện tại của isShuffle từ URL hiện tại
-    var urlParams = new URLSearchParams(window.location.search);
-    const isShuffle = urlParams.get('isShuffle') === 'true';
-    const isStarred = urlParams.get('isStarred') === 'true';
+export function toggleShuffle(courseId, isShuffle) {
+    isShuffle = isShuffle.toLowerCase() === 'true';
+    isShuffle = !isShuffle;
 
-    const newIsShuffle = !isShuffle;
-
-    // Lấy slug từ URL hiện tại
-    const slug = window.location.pathname.split('/').pop();
-
-    // Chuyển tới url mới
-    window.location.href = `/${slug}?isStarred=${isStarred}&isShuffle=${newIsShuffle}`;
+    fetch("/course-progress/update-progress", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            courseId: courseId,
+            isShuffle: isShuffle
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error('failed to update shuffle mode');
+        } else {
+            window.location.reload(); // Refresh lại trang hiện tại sau khi cập nhật thành công
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 window.toggleShuffle = toggleShuffle;

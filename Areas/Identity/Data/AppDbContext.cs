@@ -56,4 +56,5 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<CoursePermission> CoursePermissions { get; set; }
     public DbSet<UserFlashcardProgress> UserFlashcardProgresses { get; set; }
+    public DbSet<UserCourseProgress> UserCourseProgresses { get; set; }
 }
