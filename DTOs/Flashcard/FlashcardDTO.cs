@@ -13,7 +13,7 @@ namespace SmartCards.DTOs.Flashcard
 		public int DefiLanguageId { get; set; }
         public string? TermLanguageCode { get; set; } = string.Empty;
         public string? DefiLanguageCode { get; set; } = string.Empty;
-        public bool? IsStarred { get; set; } = false;
-        public bool? IsLearned { get; set; } = false;
+        public bool IsStarred { get; set; } = false;
+        public bool IsLearned { get; set; } = false;
     }
 }

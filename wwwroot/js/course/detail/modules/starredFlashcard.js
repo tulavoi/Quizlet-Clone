@@ -50,7 +50,7 @@ function updateFlashcardState(flashcardId, isStarred) {
     })
     .then(response => {
         if (!response.ok) {
-            console.error(errorMessage);
+            console.error('Failed to starred');
         } else {
             // Cập nhật biến đếm starredCardCount(được khai báo và gán giá trị ở Details.cshtml)
             // Tăng nếu gắn sao, giảm nếu gắn sao
@@ -98,3 +98,26 @@ window.addEventListener('DOMContentLoaded', () => {
     // Gọi lại hàm để kiểm tra có flashcard nào đc gắn sao k và cập nhật trạng thái
     changeStateToggleStarred();
 });
+
+export function starredFlashcards(flashcards, areCardsStarred) {
+    // Đảo ngược trạng thái gắn sao
+    let isStarred = !areCardsStarred;
+    
+    flashcards.forEach(card => {
+        updateFlashcardState(card.id, isStarred);
+    });
+
+    //// Tìm các button starred trong danh sách đã học/chưa học
+    //const starredBtns = document.querySelectorAll('[data-flashcard-id]');
+    //starredBtns.forEach(btn => {
+    //    const flashcardId = btn.getAttribute('[data-flashcard-id]');
+    //    console.log(flashcardId);
+    //    return;
+    //    // Kiểm tra nếu nút thuộc flashcard trong danh sách được thay đổi
+    //    if (flashcards.some(card => card.id === flashcardId)) {
+    //        updateBtnIconColor(btn, isStarred);
+    //        btn.setAttribute('data-is-starred', isStarred);
+    //    }
+    //});
+}
+window.starredFlashcards = starredFlashcards;

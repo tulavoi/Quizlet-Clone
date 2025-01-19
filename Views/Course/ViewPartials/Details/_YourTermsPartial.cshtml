@@ -1,4 +1,5 @@
 ﻿@model dynamic
+
 <div class="row my-4 your-terms">
 	<h5 class="p-0">Thuật ngữ trong học phần này (@Model.Flashcards.Count)</h5>
 
@@ -43,7 +44,10 @@
                     </div>
 
                     <div class="col-6">
-                        <button class="btn-starred float-end" >
+                        <button class="btn-starred float-end"
+                                id="starred-btn-learned-cards"
+                                data-are-learned-starred="@Model.AreLearnedStarred"
+                                onclick='starredFlashcards(@Html.Raw(Json.Serialize(Model.LearnedFlashcards)), @Model.AreLearnedStarred.ToString().ToLower())'>
                             <i class="fa-solid fa-star text-secondary"></i>
                             Chọn @Model.LearnedFlashcards.Count
                         </button>
@@ -78,9 +82,9 @@
                 }
             </section>
 
+            <!-- Các flashcard chưa học -->
             @if (@Model.NotLearnedFlashcards.Count > 0)
             {
-                <!-- Các flashcard chưa học -->
                 <section class="not-leanred-terns mt-3">
                     <div class="row">
                         <div class="col-6">
@@ -89,7 +93,10 @@
                         </div>
 
                         <div class="col-6">
-                            <button class="btn-starred float-end">
+                            <button class="btn-starred float-end"
+                                    id="starred-btn-not-learned-cards"
+                                    data-are-not-learned-starred="@Model.AreNotLearnedStarred"
+                                    onclick='starredFlashcards(@Html.Raw(Json.Serialize(Model.NotLearnedFlashcards)), @Model.AreNotLearnedStarred.ToString().ToLower())'>
                                 <i class="fa-solid fa-star text-secondary"></i>
                                 Chọn @Model.NotLearnedFlashcards.Count
                             </button>
