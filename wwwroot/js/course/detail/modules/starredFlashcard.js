@@ -11,9 +11,12 @@ let starredCardCount = parseInt(document.getElementById('flashcards-container')
     .getAttribute('data-starred-card-count'), 10);
 
 // Bắt đầu quy trình gắn sao flashcard
-export function starredFlashcard(btn) {
-    let isStarred = getDataIsStarredValue(btn);
+export function starredFlashcard(btn, isStarred = null) {
+    if (!isStarred) {
+        isStarred = getDataIsStarredValue(btn);
+    }
     const flashcardId = btn.getAttribute('data-flashcard-id');
+
     // Đảo ngược trạng thái gắn sao
     isStarred = !isStarred;
 
@@ -21,9 +24,7 @@ export function starredFlashcard(btn) {
     updateBtnIconColor(btn, isStarred);
 
     // Cập nhật giá trị trạng thái gắn sao của flashcard
-    updateFlashcardState(flashcardId, isStarred);
-
-    btn.setAttribute('data-is-starred', isStarred.toString());
+    updateFlashcardStarred(flashcardId, isStarred);
 }
 window.starredFlashcard = starredFlashcard;
 
@@ -34,12 +35,13 @@ function getDataIsStarredValue(btn) {
 
 // Cập nhật màu icon của btn
 function updateBtnIconColor(btn, isStarred) {
+    btn.setAttribute('data-is-starred', isStarred.toString());
     const icon = btn.querySelector('i');
     icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
 }
 
 // Lưu trạng thái gắn sao của flashcard
-function updateFlashcardState(flashcardId, isStarred) {
+function updateFlashcardStarred(flashcardId, isStarred) {
     fetch('/fc-progress/starred-card', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,7 +52,7 @@ function updateFlashcardState(flashcardId, isStarred) {
     })
     .then(response => {
         if (!response.ok) {
-            console.error(errorMessage);
+            console.error('Failed to starred');
         } else {
             // Cập nhật biến đếm starredCardCount(được khai báo và gán giá trị ở Details.cshtml)
             // Tăng nếu gắn sao, giảm nếu gắn sao
@@ -97,4 +99,54 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Gọi lại hàm để kiểm tra có flashcard nào đc gắn sao k và cập nhật trạng thái
     changeStateToggleStarred();
+
+    const btnStarredLearned = document.querySelector('#btn-starred-learned');
+    const btnStarredNotLearned = document.querySelector('#btn-starred-not-learned');
+
+    const areLearnedCardsStarred = btnStarredLearned.getAttribute('data-are-learned-starred').toLowerCase() === 'true';
+    const areNotLearnedCardsStarred = btnStarredNotLearned.getAttribute('data-are-not-learned-starred').toLowerCase() === 'true';
+
+    updateTitleStarredBtn(areLearnedCardsStarred, btnStarredLearned);
+    updateTitleStarredBtn(areNotLearnedCardsStarred, btnStarredNotLearned);
 });
+
+// Cập nhật lại tiêu đề của button gắn sao nhiều flashcards
+function updateTitleStarredBtn(areStarred, btn){
+    // Lấy phần tử <span> bên trong button
+    const span = btn.querySelector('span');
+
+    // Lấy số lượng flashcards từ textContent
+    const cardCount = span.textContent.split(' ')[1];
+
+    // Nếu areStarred = true, thay đổi nội dung thành "Bỏ chọn"
+    span.textContent = areStarred ? `Bỏ chọn ${cardCount}` : `Chọn ${cardCount}`;
+}
+
+// Thực hiện gắn sao nhiều cards
+export function starredFlashcards(flashcards, btn) {
+    let isStarred = true;
+    const starredBtns = [];
+
+    // Lấy danh sách tất cả các button tương ứng với flashcards
+    flashcards.forEach(card => {
+        let btn = document.querySelector(`button[data-flashcard-id="${card.id}"]`);
+        if (btn) {
+            starredBtns.push(btn);
+        }
+    });
+
+    starredBtns.forEach(btn => {
+        const btnIsStarred = btn.getAttribute('data-is-starred').toLowerCase() === 'true';
+        // Nếu có bất kỳ button nào không được gắn sao, chuyển thành false
+        if (!btnIsStarred) {
+            isStarred = false;
+            return false; // break forEach
+        }
+    });
+
+    // Cập nhật lại button
+    starredBtns.forEach(btn => {
+        starredFlashcard(btn, isStarred);
+    });
+}
+window.starredFlashcards = starredFlashcards;

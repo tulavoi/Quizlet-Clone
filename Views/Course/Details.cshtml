@@ -8,6 +8,12 @@
     var lastLearnedFcIndex = 0;
     if (Model.LastLearnedFlashcard != null && Model.Flashcards.Any(x => x.Id == Model.LastLearnedFlashcard.Id))
         lastLearnedFcIndex = Model.Flashcards.FindIndex(x => x.Id == Model.LastLearnedFlashcard.Id);
+
+    // Kiểm tra các flashcard đã học có được gắn sao hết hay không
+    var areLearnedStarred = Model.LearnedFlashcards?.All(x => x.IsStarred);     
+
+    // Kiểm tra các flashcard chưa học có được gắn sao hết hay không
+    var areNotLearnedAreStarred = Model.NotLearnedFlashcards?.All(x => x.IsStarred);
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/details.css" />
@@ -60,6 +66,8 @@
         Flashcards = Model.Flashcards,
         LearnedFlashcards = Model.LearnedFlashcards,
         NotLearnedFlashcards = Model.NotLearnedFlashcards,
+        AreLearnedStarred = areLearnedStarred,
+        AreNotLearnedStarred = areNotLearnedAreStarred
     })
 </div>
 

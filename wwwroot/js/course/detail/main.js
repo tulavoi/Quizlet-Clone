@@ -15,7 +15,7 @@ pressKeyToFlipCard();
 import { textToSpeech } from './modules/flashcardAction.js';
 
 // Import functions from starredFlashcard.js
-import { starredFlashcard } from './modules/starredFlashcard.js';
+import { starredFlashcard, starredFlashcards } from './modules/starredFlashcard.js';
 
 // Import functions from flashcardsOptionsModal.js
 import { resetCards } from './modules/flashcardsOptionsModal.js';
