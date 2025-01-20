@@ -12,7 +12,7 @@ let starredCardCount = parseInt(document.getElementById('flashcards-container')
 
 // Bắt đầu quy trình gắn sao flashcard
 export function starredFlashcard(btn, isStarred = null) {
-    if (!isStarred) {
+    if (isStarred === null) {
         isStarred = getDataIsStarredValue(btn);
     }
     const flashcardId = btn.getAttribute('data-flashcard-id');
@@ -22,7 +22,7 @@ export function starredFlashcard(btn, isStarred = null) {
 
     // Cập  nhật lại màu icon
     updateBtnIconColor(btn, isStarred);
-
+   
     // Cập nhật giá trị trạng thái gắn sao của flashcard
     updateFlashcardStarred(flashcardId, isStarred);
 }
@@ -140,7 +140,6 @@ export function starredFlashcards(flashcards, btn) {
         // Nếu có bất kỳ button nào không được gắn sao, chuyển thành false
         if (!btnIsStarred) {
             isStarred = false;
-            return false; // break forEach
         }
     });
 
