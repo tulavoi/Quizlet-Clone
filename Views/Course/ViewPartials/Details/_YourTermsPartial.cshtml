@@ -47,10 +47,11 @@
                     <div class="col-6">
                         <button class="btn-starred float-end"
                                 id="btn-starred-learned"
+                                data-cards-count="@Model.LearnedFlashcards.Count"
                                 data-are-learned-starred='@Model.AreLearnedStarred'
                                 onclick='starredFlashcards(@Html.Raw(Json.Serialize(Model.LearnedFlashcards)), this)'>
                             <i class="fa-solid fa-star text-secondary"></i>
-                            <span>Chọn @Model.LearnedFlashcards.Count</span>
+                            <span></span>
                         </button>
                     </div>
                 </div>
@@ -96,10 +97,12 @@
                         <div class="col-6">
                             <button class="btn-starred float-end"
                                     id="btn-starred-not-learned"
+                                    data-cards-count="@Model.NotLearnedFlashcards.Count"
                                     data-are-not-learned-starred='@Model.AreNotLearnedStarred'
                                     onclick='starredFlashcards(@Html.Raw(Json.Serialize(Model.NotLearnedFlashcards)), this)'>
                                 <i class="fa-solid fa-star text-secondary"></i>
-                                <span>Chọn @Model.NotLearnedFlashcards.Count</span>
+                                @* <span>@Model.NotLearnedFlashcards.Count</span> *@
+                                <span></span>
                             </button>
                         </div>
                     </div>

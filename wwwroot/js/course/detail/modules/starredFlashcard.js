@@ -116,7 +116,8 @@ function updateTitleStarredBtn(areStarred, btn){
     const span = btn.querySelector('span');
 
     // Lấy số lượng flashcards từ textContent
-    const cardCount = span.textContent.split(' ')[1];
+    //const cardCount = span.textContent.split(' ')[span.textContent.length - 1];
+    const cardCount = btn.getAttribute('data-cards-count');
 
     // Nếu areStarred = true, thay đổi nội dung thành "Bỏ chọn"
     span.textContent = areStarred ? `Bỏ chọn ${cardCount}` : `Chọn ${cardCount}`;
@@ -127,12 +128,12 @@ export function starredFlashcards(flashcards, btn) {
     let isStarred = true;
     const starredBtns = [];
 
-    // Lấy danh sách tất cả các button tương ứng với flashcards
+    // Lấy các button có trùng flashcardId
     flashcards.forEach(card => {
-        let btn = document.querySelector(`button[data-flashcard-id="${card.id}"]`);
-        if (btn) {
+        let btns = document.querySelectorAll(`button[data-flashcard-id="${card.id}"]`);
+        btns.forEach(btn => {
             starredBtns.push(btn);
-        }
+        });
     });
 
     starredBtns.forEach(btn => {
@@ -147,5 +148,8 @@ export function starredFlashcards(flashcards, btn) {
     starredBtns.forEach(btn => {
         starredFlashcard(btn, isStarred);
     });
+
+    // Đảo ngược isStarred và cập nhật lại tiêu đề của button
+    updateTitleStarredBtn(!isStarred, btn);
 }
 window.starredFlashcards = starredFlashcards;
