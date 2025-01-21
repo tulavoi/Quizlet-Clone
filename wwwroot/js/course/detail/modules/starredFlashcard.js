@@ -125,31 +125,27 @@ function updateTitleStarredBtn(areStarred, btn){
 
 // Thực hiện gắn sao nhiều cards
 export function starredFlashcards(flashcards, btn) {
-    let isStarred = true;
-    const starredBtns = [];
+    let allAreStarred = true;
 
-    // Lấy các button có trùng flashcardId
+    // Lặp qua từng flashcard và kiểm tra trạng thái của các button
     flashcards.forEach(card => {
         let btns = document.querySelectorAll(`button[data-flashcard-id="${card.id}"]`);
         btns.forEach(btn => {
-            starredBtns.push(btn);
+            const btnIsStarred = btn.getAttribute('data-is-starred').toLowerCase() === 'true';
+
+            // Nếu có bất kỳ button nào không được gắn sao, chuyển thành false
+            if (!btnIsStarred) {
+                allAreStarred = false;
+            }
+        });
+
+        // Thực hiện gắn sao thẻ và cập nhật từng button
+        btns.forEach(btn => {
+            starredFlashcard(btn, allAreStarred);
         });
     });
 
-    starredBtns.forEach(btn => {
-        const btnIsStarred = btn.getAttribute('data-is-starred').toLowerCase() === 'true';
-        // Nếu có bất kỳ button nào không được gắn sao, chuyển thành false
-        if (!btnIsStarred) {
-            isStarred = false;
-        }
-    });
-
-    // Cập nhật lại button
-    starredBtns.forEach(btn => {
-        starredFlashcard(btn, isStarred);
-    });
-
     // Đảo ngược isStarred và cập nhật lại tiêu đề của button
-    updateTitleStarredBtn(!isStarred, btn);
+    updateTitleStarredBtn(!allAreStarred, btn);
 }
 window.starredFlashcards = starredFlashcards;
