@@ -11,6 +11,9 @@ import {
     sharedVariables,
 } from './sharedVariables.js';
 
+const btnRestartAll = document.getElementById('btn-restart-all');
+const btnResetFlashcard = document.getElementById('btn-reset-flashcards');
+
 // Bắn pháo bông
 export function triggerConfetti() {
     confetti({
@@ -32,3 +35,18 @@ export function backToLastCard() {
     sharedVariables.currIndexCard = cards.length - 1;
 }
 window.backToLastCard = backToLastCard;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Lấy giá trị hiện tại của isShuffle từ URL hiện tại
+    var urlParams = new URLSearchParams(window.location.search);
+    const isStarred = urlParams.get('isStarred') === 'true';
+
+    // Nếu đang học các flashcard có gắn sao thì hiển thị btnRestartAll và ẩn btnResetFlashcard
+    if (isStarred) {
+        btnRestartAll.classList.remove('d-none');
+        btnResetFlashcard.classList.add('d-none');
+    } else {
+        btnRestartAll.classList.add('d-none');
+        btnResetFlashcard.classList.remove('d-none');
+    }
+});

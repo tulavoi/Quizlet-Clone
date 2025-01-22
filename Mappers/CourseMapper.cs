@@ -16,7 +16,8 @@ namespace SmartCards.Mappers
             List<Flashcard>? notLearnedFlashcards = null,
             List<UserFlashcardProgress>? flashcardProcresses = null,
             int starredCardsCount = 0,
-            bool isShuffle = false)
+            bool isShuffle = false,
+            int flashcardCount = 0)
         {
             return new CourseDTO
             {
@@ -46,6 +47,7 @@ namespace SmartCards.Mappers
 
                 LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO(),
                 StarredFlashcardCount = starredCardsCount,
+                FlashcardCount = flashcardCount,
                 IsShuffle = isShuffle
             };
         }

@@ -73,37 +73,47 @@ function moveToNextCard() {
     sharedVariables.currIndexCard++;
 
     if (sharedVariables.currIndexCard <= cards.length - 1) {
-        resetCurrentCard();
+        proceedToNextCard();
+    }
+    else {
+        completeFlashcards();
+    }
+}
 
-        // Lấy ra id của card hiện tại
-        const currCardId = getCurrentFlashcardId();
-        saveLastReviewedCard(currCardId);
+function completeFlashcards() {
+    // Lưu thẻ cuối cùng đã học
+    const learnedCardId = getLearnedFlashcardId();
+    saveLearnedCard(learnedCardId);
 
-        // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
-        if (sharedVariables.currIndexCard != 0) {
-            const learnedCardId = getLearnedFlashcardId();
-            if (learnedCardId) {
-                saveLearnedCard(learnedCardId);
-            }
-        }
+    // Ẩn thẻ và hiển thị thông báo chúc mừng
+    sharedVariables.flashcardsContainer.classList.add('d-none');
+    sharedVariables.congratulationContainer.classList.remove('d-none');
+
+    // Kích hoạt confetti
+    triggerConfetti();
+
+    // Dừng tự động cuộn nếu đang cuộn thẻ
+    if (isPlaying) {
+        stopPlaying();
     }
 
-    // Khi bấm qua thẻ cuối cùng, lưu lại thẻ đó và trạng thái đã học
-    if (sharedVariables.currIndexCard > cards.length - 1) {
+    // Reset thẻ cuối
+    resetCard(cards[cards.length - 1]);
+}
+
+function proceedToNextCard() {
+    resetCurrentCard();
+
+    // Lấy ra id của card hiện tại
+    const currCardId = getCurrentFlashcardId();
+    saveLastReviewedCard(currCardId);
+
+    // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
+    if (sharedVariables.currIndexCard > 0) {
         const learnedCardId = getLearnedFlashcardId();
-        saveLearnedCard(learnedCardId);
-
-        sharedVariables.flashcardsContainer.classList.add('d-none');
-        sharedVariables.congratulationContainer.classList.remove('d-none');
-
-        // Kích hoạt confetti
-        triggerConfetti();
-
-        // Nếu đang tự cuộn thẻ thì dừng lại và reset thẻ khi chạy xong thẻ cuối
-        isPlaying == true ? stopPlaying() : _;
-
-        // Reset lại thẻ cuối
-        resetCard(cards[cards.length - 1]);
+        if (learnedCardId) {
+            saveLearnedCard(learnedCardId);
+        }
     }
 }
 

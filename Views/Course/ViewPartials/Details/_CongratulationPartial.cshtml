@@ -1,4 +1,5 @@
-﻿<div class="congratulation-container my-5 d-none">
+﻿@model dynamic
+<div class="congratulation-container my-5 d-none">
     <div class="row">
         <div class="col-8 d-flex align-items-center">
             <h2 class="fw-bold float-start"> Chúc mừng! Bạn đã ôn tập tất cả các thẻ.</h2>
@@ -25,7 +26,7 @@
 
                 <div class="col-7">
                     <div class="complete">
-                        <span>Hoàn thành</span> <span class="float-end">10</span>
+                        <span>Hoàn thành</span> <span class="float-end">@Model.FlashcardCount</span>
                     </div>
 
                     <div class="remain mt-2">
@@ -40,31 +41,31 @@
                 <span class="fs-5 fw-bold float-start next-step-title">Bước tiếp theo</span>
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-4 reset-card-btns">
                 <div class="col-12">
-                    <button class="btn-content">
+                    <button class="btn-content" id="btn-restart-all">
                         <img src="/images/icons/study-all.svg" alt="" class="btn-icon">
                         <div class="btn-text">
                             <p>Khởi động lại thẻ ghi nhớ với tất cả thuật ngữ</p>
-                            <span>Học lại tất cả 2 thuật ngữ từ đầu</span>
+                            <span>Học lại tất cả @Model.FlashcardCount thuật ngữ từ đầu</span>
                         </div>
                         <i class="fa-solid fa-chevron-right btn-arrow"></i>
                     </button>
 
-                    <button class="btn-content mt-3">
+                    <button class="btn-content" id="btn-study-starred">
                         <img src="/images/icons/study-starred.svg" alt="" class="btn-icon">
                         <div class="btn-text">
                             <p>Học thuật ngữ có gắn sao</p>
-                            <span>Tập trung 2 thuật ngữ mà bạn đã gắn sao</span>
+                            <span>Tập trung @Model.StarredCardCount thuật ngữ mà bạn đã gắn sao</span>
                         </div>
                         <i class="fa-solid fa-chevron-right btn-arrow"></i>
                     </button>
 
-                    <button class="btn-content mt-3">
+                    <button class="btn-content" id="btn-reset-flashcards">
                         <img src="/images/icons/all-flashcards.svg" alt="" class="btn-icon">
                         <div class="btn-text">
                             <p>Đặt lại thẻ ghi nhớ</p>
-                            <span>Học lại tất cả 10 thuật ngữ từ đầu</span>
+                            <span>Học lại tất cả @Model.FlashcardCount thuật ngữ từ đầu</span>
                         </div>
                         <i class="fa-solid fa-chevron-right btn-arrow"></i>
                     </button>

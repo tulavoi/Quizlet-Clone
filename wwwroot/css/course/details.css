@@ -546,6 +546,7 @@ input:checked + .slider:before {
     width: 100%;
     min-height: 110px;
     box-shadow: 0 .25rem 1rem var(--light-grey-color);
+    margin-bottom: 1rem;
 }
 
 .btn-content:hover {
