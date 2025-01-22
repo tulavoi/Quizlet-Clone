@@ -5,12 +5,17 @@
 // Bao gồm: các sự kiện click cho lật thẻ, lưu lại thẻ đã học, lưu lại thẻ xem cuối cùng,... v.v.
 // ==============================================
 
+// Import functions from confetti.js
+import { triggerConfetti } from './confetti.js';
+
+const flashcardsContainer = document.querySelector('.flashcards-container');
+const congratulationContainer = document.querySelector('.congratulation-container');
+
 // Lấy danh sách các card
 export const cards = document.querySelectorAll('.term-defi-cards');
 
 // Lấy index của card đã xem cuối cùng
-export let currIndexCard = parseInt(document.getElementById('flashcards-container')
-    .getAttribute('data-curr-index-card'), 10);
+export let currIndexCard = parseInt(flashcardsContainer.getAttribute('data-curr-index-card'), 10);
 
 // Lấy 2 btn prev next card
 const btnPrev = document.getElementById('btn-prev-card');
@@ -73,9 +78,9 @@ function moveToPrevCard() {
 
 // Hàm di chuyển tới thẻ tiếp theo
 function moveToNextCard() {
-    if (currIndexCard < cards.length - 1) {
-        // Di chuyển tới card tiếp theo
-        currIndexCard++;
+    currIndexCard++;
+
+    if (currIndexCard <= cards.length - 1) {
         resetCurrentCard();
 
         // Lấy ra id của card hiện tại
@@ -89,6 +94,18 @@ function moveToNextCard() {
                 saveLearnedCard(learnedCardId);
             }
         }
+    }
+
+    // Khi bấm qua thẻ cuối cùng, lưu lại thẻ đó và trạng thái đã học
+    if (currIndexCard > cards.length - 1) {
+        const learnedCardId = getLearnedFlashcardId();
+        saveLearnedCard(learnedCardId);
+
+        flashcardsContainer.classList.add('d-none');
+        congratulationContainer.classList.remove('d-none');
+
+        // Kích hoạt confetti
+        triggerConfetti();
     }
 }
 

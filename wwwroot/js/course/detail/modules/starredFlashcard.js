@@ -103,24 +103,35 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnStarredLearned = document.querySelector('#btn-starred-learned');
     const btnStarredNotLearned = document.querySelector('#btn-starred-not-learned');
 
-    const areLearnedCardsStarred = btnStarredLearned.getAttribute('data-are-learned-starred').toLowerCase() === 'true';
-    const areNotLearnedCardsStarred = btnStarredNotLearned.getAttribute('data-are-not-learned-starred').toLowerCase() === 'true';
+    //const areLearnedCardsStarred = btnStarredLearned.getAttribute('data-are-learned-starred').toLowerCase() === 'true';
+    //const areNotLearnedCardsStarred = btnStarredNotLearned.getAttribute('data-are-not-learned-starred').toLowerCase() === 'true';
+    let areLearnedCardsStarred = false;
+    let areNotLearnedCardsStarred = false;
 
+    if (btnStarredLearned) {
+        areLearnedCardsStarred = btnStarredLearned.getAttribute('data-are-learned-starred')?.toLowerCase() === 'true';
+    }
+
+    if (btnStarredNotLearned) {
+        areNotLearnedCardsStarred = btnStarredNotLearned.getAttribute('data-are-not-learned-starred')?.toLowerCase() === 'true';
+    }
     updateTitleStarredBtn(areLearnedCardsStarred, btnStarredLearned);
     updateTitleStarredBtn(areNotLearnedCardsStarred, btnStarredNotLearned);
 });
 
 // Cập nhật lại tiêu đề của button gắn sao nhiều flashcards
 function updateTitleStarredBtn(areStarred, btn){
-    // Lấy phần tử <span> bên trong button
-    const span = btn.querySelector('span');
+    if (btn !== null) {
+        // Lấy phần tử <span> bên trong button
+        const span = btn.querySelector('span');
 
-    // Lấy số lượng flashcards từ textContent
-    //const cardCount = span.textContent.split(' ')[span.textContent.length - 1];
-    const cardCount = btn.getAttribute('data-cards-count');
+        // Lấy số lượng flashcards từ textContent
+        //const cardCount = span.textContent.split(' ')[span.textContent.length - 1];
+        const cardCount = btn.getAttribute('data-cards-count');
 
-    // Nếu areStarred = true, thay đổi nội dung thành "Bỏ chọn"
-    span.textContent = areStarred ? `Bỏ chọn ${cardCount}` : `Chọn ${cardCount}`;
+        // Nếu areStarred = true, thay đổi nội dung thành "Bỏ chọn"
+        span.textContent = areStarred ? `Bỏ chọn ${cardCount}` : `Chọn ${cardCount}`;
+    }
 }
 
 // Thực hiện gắn sao nhiều cards

@@ -65,7 +65,7 @@
 }
 
 /* Cards Container */
-.card-container {
+.flashcards-container {
     gap: 2rem;
     flex-wrap: wrap;
     padding: 0;
@@ -544,7 +544,7 @@ input:checked + .slider:before {
     border: 3px solid white;
     font-size: 16px;
     width: 100%;
-    min-height: 35%;
+    min-height: 110px;
     box-shadow: 0 .25rem 1rem var(--light-grey-color);
 }
 
