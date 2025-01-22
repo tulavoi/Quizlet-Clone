@@ -6,6 +6,7 @@
 // ==============================================
 
 const actionButtons = document.querySelectorAll('.card-actions button');
+
 // Gắn sự kiện click cho các button trong card-actions để ngăn lật thẻ
 actionButtons.forEach(function (button) {
     button.addEventListener('click', function (event) {

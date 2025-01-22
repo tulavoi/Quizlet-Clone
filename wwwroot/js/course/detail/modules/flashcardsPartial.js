@@ -6,20 +6,13 @@
 // ==============================================
 
 // Import functions from confetti.js
-import { triggerConfetti } from './confetti.js';
+import { triggerConfetti } from './congratulation.js';
 
-const flashcardsContainer = document.querySelector('.flashcards-container');
-const congratulationContainer = document.querySelector('.congratulation-container');
-
-// Lấy danh sách các card
-export const cards = document.querySelectorAll('.term-defi-cards');
-
-// Lấy index của card đã xem cuối cùng
-export let currIndexCard = parseInt(flashcardsContainer.getAttribute('data-curr-index-card'), 10);
-
-// Lấy 2 btn prev next card
-const btnPrev = document.getElementById('btn-prev-card');
-const btnNext = document.getElementById('btn-next-card');
+// Import variables from variablesShared.js
+import {
+    cards,
+    sharedVariables,
+} from './sharedVariables.js';
 
 // Gắn sự kiện click cho từng thẻ để lật thẻ
 export function setupClickEventForCard() {
@@ -38,7 +31,6 @@ export function pressKeyToFlipCard() {
             case 'ArrowUp':
             case 'ArrowDown':
                 event.preventDefault(); // Ngăn hành vi mặc định của các nút vừa bấm
-                console.log(currIndexCard);
                 flipCurrentCard();
                 break;
             case 'ArrowLeft':
@@ -65,22 +57,22 @@ function resetCard(card) {
 
 // Hàm thực hiện lật thẻ
 function flipCurrentCard() {
-    flipCard(cards[currIndexCard]);
+    flipCard(cards[sharedVariables.currIndexCard]);
 }
 
 // Hàm di chuyển về thẻ trước
 function moveToPrevCard() {
-    if (currIndexCard > 0) {
-        currIndexCard--;
+    if (sharedVariables.currIndexCard > 0) {
+        sharedVariables.currIndexCard--;
         resetCurrentCard();
     }
 }
 
 // Hàm di chuyển tới thẻ tiếp theo
 function moveToNextCard() {
-    currIndexCard++;
+    sharedVariables.currIndexCard++;
 
-    if (currIndexCard <= cards.length - 1) {
+    if (sharedVariables.currIndexCard <= cards.length - 1) {
         resetCurrentCard();
 
         // Lấy ra id của card hiện tại
@@ -88,7 +80,7 @@ function moveToNextCard() {
         saveLastReviewedCard(currCardId);
 
         // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
-        if (currIndexCard != 0) {
+        if (sharedVariables.currIndexCard != 0) {
             const learnedCardId = getLearnedFlashcardId();
             if (learnedCardId) {
                 saveLearnedCard(learnedCardId);
@@ -97,15 +89,21 @@ function moveToNextCard() {
     }
 
     // Khi bấm qua thẻ cuối cùng, lưu lại thẻ đó và trạng thái đã học
-    if (currIndexCard > cards.length - 1) {
+    if (sharedVariables.currIndexCard > cards.length - 1) {
         const learnedCardId = getLearnedFlashcardId();
         saveLearnedCard(learnedCardId);
 
-        flashcardsContainer.classList.add('d-none');
-        congratulationContainer.classList.remove('d-none');
+        sharedVariables.flashcardsContainer.classList.add('d-none');
+        sharedVariables.congratulationContainer.classList.remove('d-none');
 
         // Kích hoạt confetti
         triggerConfetti();
+
+        // Nếu đang tự cuộn thẻ thì dừng lại và reset thẻ khi chạy xong thẻ cuối
+        isPlaying == true ? stopPlaying() : _;
+
+        // Reset lại thẻ cuối
+        resetCard(cards[cards.length - 1]);
     }
 }
 
@@ -137,7 +135,7 @@ function postFlashcardProgress(url, flashcardId, errorMessage) {
 
 // Hàm reset thẻ hiện tại
 function resetCurrentCard() {
-    resetCard(cards[currIndexCard]);
+    resetCard(cards[sharedVariables.currIndexCard]);
     updateCardDisplay();
 }
 
@@ -148,7 +146,7 @@ function updateCardDisplay() {
 
     // Ẩn tất cả các card
     cards.forEach((card, index) => {
-        if (index === currIndexCard) {
+        if (index === sharedVariables.currIndexCard) {
             card.classList.remove('d-none'); // Hiển thị card hiện tại
         } else {
             card.classList.add('d-none'); // Ẩn các card khác
@@ -158,14 +156,14 @@ function updateCardDisplay() {
 
 // Lấy id flashcard hiện tại (flashcard đang hiển thị)
 function getCurrentFlashcardId() {
-    const currCard = cards[currIndexCard];
+    const currCard = cards[sharedVariables.currIndexCard];
     return currCard.getAttribute('data-flashcard-id');
 }
 
 // Lấy id flashcard đã học (flashcard vừa bấm qua là flashcard đã học)
 function getLearnedFlashcardId() {
-    if (currIndexCard > 0) {
-        const prevCard = cards[currIndexCard - 1];
+    if (sharedVariables.currIndexCard > 0) {
+        const prevCard = cards[sharedVariables.currIndexCard - 1];
         return prevCard.getAttribute('data-flashcard-id');
     }
     return null;
@@ -173,27 +171,28 @@ function getLearnedFlashcardId() {
 
 // Cập nhật số thứ tự hiển thị (1/total)
 const updateCardNumber = () => {
-    document.getElementById('card-number').textContent = `${currIndexCard + 1} / ${cards.length}`;
+    document.getElementById('card-number').textContent = `${sharedVariables.currIndexCard + 1} / ${cards.length}`;
 };
 
 // Cập nhật trang thái của 2 btn prev/next card
 function updateButtonState() {
-    const iconPrev = btnPrev.querySelector('i');  // Lấy thẻ <i> bên trong nút
-    const isFirstCard = currIndexCard === 0;
+    const iconPrev = sharedVariables.btnPrev.querySelector('i');  // Lấy thẻ <i> bên trong nút
+    const isFirstCard = sharedVariables.currIndexCard === 0;
 
-    btnPrev.disabled = isFirstCard;
-    btnPrev.style.pointerEvents = isFirstCard ? "none" : "";
+    sharedVariables.btnPrev.disabled = isFirstCard;
+    sharedVariables.btnPrev.style.pointerEvents = isFirstCard ? "none" : "";
     iconPrev.style.color = isFirstCard ? "#282e3e1a" : "#6c757d";
 }
 
 // Sự kiện click button thẻ trước đó
-btnPrev.addEventListener('click', moveToPrevCard);
+sharedVariables.btnPrev.addEventListener('click', moveToPrevCard);
 
 // Sự kiện click button thẻ tiếp theo
-btnNext.addEventListener('click', moveToNextCard);
+sharedVariables.btnNext.addEventListener('click', moveToNextCard);
 
 updateCardDisplay();
 
+// Các biến liên quan đến chức năng tự động cuộn thẻ
 const btnPlayCards = document.getElementById('btn-play-cards');
 const icon = btnPlayCards.querySelector('i');
 let isPlaying = false; // Trạng thái đang chạy hay không
@@ -203,11 +202,11 @@ let timeoutId; // Lưu trữ ID của timeout
 function processCard() {
     if (!isPlaying) return; // Nếu đã pause, dừng ngay
 
-    const currCard = cards[currIndexCard];
+    const currCard = cards[sharedVariables.currIndexCard];
     const isFlipped = currCard.querySelector('.card-inner').classList.contains('is-flipped');
 
     // Nếu như là thẻ cuối và đã đc lật thì dừng cuộn thẻ
-    if (currIndexCard === cards.length - 1 && isFlipped) {
+    if (sharedVariables.currIndexCard === cards.length - 1 && isFlipped) {
         // Khi hoàn thành tất cả thẻ
         stopPlaying();
         return;
@@ -257,7 +256,7 @@ btnPlayCards.addEventListener('click', function () {
 });
 
 // Bật tắt trộn thẻ
-export function toggleShuffle(courseId, isShuffle) {
+function toggleShuffle(courseId, isShuffle) {
     isShuffle = isShuffle.toLowerCase() === 'true';
     isShuffle = !isShuffle;
 
@@ -317,9 +316,6 @@ function updateShuffleButtonState() {
     const btnShuffle = document.querySelector('#btn-shuffle');
     const isShuffle = btnShuffle.getAttribute('data-is-shuffle').toLowerCase() === 'true';
     // Cập nhật class của nút btn-shuffle
-    if (isShuffle) {
-        btnShuffle.classList.add('border-1');
-    } else {
-        btnShuffle.classList.remove('border-1');
-    }
+    isShuffle == true ? btnShuffle.classList.add('border-1') : btnShuffle.classList.remove('border-1');
 }
+

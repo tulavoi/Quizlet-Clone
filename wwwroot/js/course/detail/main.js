@@ -1,12 +1,6 @@
 ﻿
 // Import functions from flashcardsPartial.js
-import {
-    cards,
-    currIndexCard,
-    setupClickEventForCard,
-    pressKeyToFlipCard,
-    toggleShuffle
-} from './modules/flashcardsPartial.js';
+import { setupClickEventForCard, pressKeyToFlipCard } from './modules/flashcardsPartial.js';
 
 setupClickEventForCard();
 pressKeyToFlipCard();
@@ -19,4 +13,7 @@ import { starredFlashcard, starredFlashcards } from './modules/starredFlashcard.
 
 // Import functions from flashcardsOptionsModal.js
 import { resetCards } from './modules/flashcardsOptionsModal.js';
+
+// Import functions from congratulation.js
+import { backToLastCard } from './modules/congratulation.js';
 
