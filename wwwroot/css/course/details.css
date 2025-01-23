@@ -65,7 +65,7 @@
 }
 
 /* Cards Container */
-.card-container {
+.flashcards-container {
     gap: 2rem;
     flex-wrap: wrap;
     padding: 0;
@@ -465,4 +465,124 @@ input:checked + .slider:before {
 
 .switch:disabled {
     cursor: default;
+}
+
+/* Congratulation complete course */
+.your-progress-title,
+.next-step-title {
+    color: var(--grey-color);
+}
+
+.complete {
+    padding: 5px 15px;
+    color: var(--primary-green-color);
+    background: var(--secondary-green-color);
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.remain {
+    padding: 5px 15px;
+    color: var(--dark-grey-color);
+    background: var(--btn-secondary-hover-color);
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.circle-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    color: var(--circle-progress-color);
+    background: var(--btn-secondary-hover-color) linear-gradient(to right, transparent 50%, var(--circle-progress-color) 0);
+}
+
+.circle-progress h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
+    z-index: 1;
+    font-weight: bolder;
+}
+
+.circle-progress::before {
+    content: '';
+    display: block;
+    height: 100%;
+    margin-left: 50%;
+    transform-origin: left;
+    border-radius: 0 100% 100% 0/50%;
+}
+
+.circle-progress::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: white;
+}
+
+.circle-progress::before {
+    background: var(--circle-progress-color);
+    transform: rotate(calc(((var(--i) - 50) * 0.01turn)));
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 10px;
+    border: 3px solid white;
+    font-size: 16px;
+    width: 100%;
+    min-height: 110px;
+    box-shadow: 0 .25rem 1rem var(--light-grey-color);
+    margin-bottom: 1rem;
+}
+
+.btn-content:hover {
+    border: 3px solid var(--light-grey-color);
+}
+
+.btn-text {
+    margin-left: 10px;
+    text-align: start;
+    width: 75%;
+}
+
+.btn-text p {
+    color: var(--blue-color);
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.btn-text span {
+    font-weight: 400;
+    font-size: .875rem;
+    margin-top: .25rem;
+}
+
+.btn-content img {
+    width: 15%;
+}
+
+.btn-content i {
+    font-size: small;
+}
+
+.btn-last-term {
+    border: none;
+    background: white;
+    color: var(--grey-color);
+    font-weight: 500;
 }

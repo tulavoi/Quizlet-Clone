@@ -98,7 +98,7 @@ namespace SmartCards.Controllers
             // Lấy ra danh sách flashcard progress của user trong học phần
             var flashcardProcresses = await _flashcardProgressRepo.GetByIdAsync(this.UserId, course.Id);
 
-            // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lá
+            // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lấy tất cả flashcard
             var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();
 
             // Nếu isShuffle đều là true, trộn các flashcards
@@ -110,6 +110,9 @@ namespace SmartCards.Controllers
                     .ToList();
             }
 
+            // Lấy ra số flashcard có trong course
+            var flashcardCount = course.Flashcards.Count;
+
             var courseDTO = course.ToCourseDTO(
                 flashcards, 
                 lastReviewedCard, 
@@ -117,7 +120,8 @@ namespace SmartCards.Controllers
                 notLearnedFlashcards, 
                 flashcardProcresses,
                 starredFlashcards.Count,
-                courseProcress.IsShuffle
+                courseProcress.IsShuffle,
+                flashcardCount
             );
 
             return View(courseDTO);

@@ -62,6 +62,7 @@
     }
 
     const termDefiTextarea = document.querySelector(".term-defi-textarea");
+
     const separatorInputs = document.querySelectorAll('input[name="separator"]');
     const tagSeparatorInputs = document.querySelectorAll('input[name="tag-separator"]');
     const customTagSeparator = document.getElementById("custom-tag-separator");
@@ -72,6 +73,22 @@
     const countCard = document.getElementById("count-card");
 
     let termDefinitionMap = new Map();
+
+    // Lắng nghe sự kiện khi người dùng nhập vào customSeparator
+    customSeparator.addEventListener('input', function () {
+        // Kiểm tra nếu có giá trị trong customSeparator
+        if (this.value.trim() !== '') {
+            document.getElementById('custom').checked = true;
+        }
+    });
+     
+    // Lắng nghe sự kiện khi người dùng nhập vào customTagSeparator
+    customTagSeparator.addEventListener('input', function () {
+        // Kiểm tra nếu có giá trị trong customTagSeparator
+        if (this.value.trim() !== '') {
+            document.getElementById('custom-tags').checked = true;
+        }
+    });
 
     // Cho phép bấm nút Tab (/t)
     termDefiTextarea.addEventListener("keydown", function (e) {

@@ -42,7 +42,7 @@
         @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
 
         <!-- Term Definition Cards -->
-        <div class="card-container" id="flashcards-container" 
+        <div class="flashcards-container" id="flashcards-container"
              data-curr-index-card="@lastLearnedFcIndex"
              data-starred-card-count="@Model.StarredFlashcardCount">
             @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
@@ -52,6 +52,13 @@
                 IsShuffle = Model.IsShuffle
             })
         </div>
+
+        <!-- Congratulation complete course -->
+        @await Html.PartialAsync("ViewPartials/Details/_CongratulationPartial.cshtml", new{
+            Flashcards = Model.Flashcards,
+            FlashcardCount = Model.FlashcardCount,
+            StarredCardCount = Model.StarredFlashcardCount,
+        })
     </div>
 
     <!-- User Info, Action Bar-->
@@ -72,4 +79,3 @@
 </div>
 
 <script type="module" src="~/js/course/detail/main.js"></script>
-@* <script src="~/js/course/detail.js"></script> *@
