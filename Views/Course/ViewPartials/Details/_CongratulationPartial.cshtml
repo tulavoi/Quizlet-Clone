@@ -26,7 +26,7 @@
 
                 <div class="col-7">
                     <div class="complete">
-                        <span>Hoàn thành</span> <span class="float-end">@Model.FlashcardCount</span>
+                        <span>Hoàn thành</span> <span class="float-end">@Model.Flashcards.Count</span>
                     </div>
 
                     <div class="remain mt-2">
@@ -43,7 +43,7 @@
 
             <div class="row mt-4 reset-card-btns">
                 <div class="col-12">
-                    <button class="btn-content" id="btn-restart-all">
+                    <button class="btn-content" id="btn-restart-all" onclick="restartAll()">
                         <img src="/images/icons/study-all.svg" alt="" class="btn-icon">
                         <div class="btn-text">
                             <p>Khởi động lại thẻ ghi nhớ với tất cả thuật ngữ</p>
@@ -52,7 +52,7 @@
                         <i class="fa-solid fa-chevron-right btn-arrow"></i>
                     </button>
 
-                    <button class="btn-content" id="btn-study-starred">
+                    <button class="btn-content" id="btn-study-starred" onclick="studyStarredCards()">
                         <img src="/images/icons/study-starred.svg" alt="" class="btn-icon">
                         <div class="btn-text">
                             <p>Học thuật ngữ có gắn sao</p>

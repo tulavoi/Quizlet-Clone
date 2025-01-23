@@ -55,6 +55,7 @@
 
         <!-- Congratulation complete course -->
         @await Html.PartialAsync("ViewPartials/Details/_CongratulationPartial.cshtml", new{
+            Flashcards = Model.Flashcards,
             FlashcardCount = Model.FlashcardCount,
             StarredCardCount = Model.StarredFlashcardCount,
         })

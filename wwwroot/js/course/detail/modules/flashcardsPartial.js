@@ -135,7 +135,7 @@ function resetCurrentCard() {
 }
 
 // Cập nhật hiển thị các card
-function updateCardDisplay() {
+export function updateCardDisplay() {
     updateCardNumber();
     updateButtonState();
 

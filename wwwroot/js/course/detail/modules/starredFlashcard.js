@@ -103,8 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnStarredLearned = document.querySelector('#btn-starred-learned');
     const btnStarredNotLearned = document.querySelector('#btn-starred-not-learned');
 
-    //const areLearnedCardsStarred = btnStarredLearned.getAttribute('data-are-learned-starred').toLowerCase() === 'true';
-    //const areNotLearnedCardsStarred = btnStarredNotLearned.getAttribute('data-are-not-learned-starred').toLowerCase() === 'true';
     let areLearnedCardsStarred = false;
     let areNotLearnedCardsStarred = false;
 

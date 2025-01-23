@@ -89,14 +89,6 @@ namespace SmartCards.Repositories
             await _context.SaveChangesAsync();
         }
 
-        // Cập nhật lại LastReviewedAt của flashcard
-        public async Task UpdateLastReviewedAtAsync(string userId, int flashcardId)
-        {
-            var progress = await GetProgressAsync(userId, flashcardId);
-            if (progress != null) progress.LastReviewedAt = DateTime.Now;
-            await _context.SaveChangesAsync();
-        }
-
         private async Task<UserFlashcardProgress> GetProgressAsync(string userId, int flashcardId)
         {
             return await _context.UserFlashcardProgresses

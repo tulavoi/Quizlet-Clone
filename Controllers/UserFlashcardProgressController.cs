@@ -38,13 +38,5 @@ namespace SmartCards.Controllers
             await _progressRepo.StarredFlashcardAsync(this.UserId, request);
             return Ok();
         }
-
-        [HttpPost("reset-progress")]
-        public async Task<IActionResult> ResetProgress([FromBody] int flashcardId)
-        {
-            if (flashcardId <= 0) return BadRequest("Invalid flashcard ID.");
-            await _progressRepo.UpdateLastReviewedAtAsync(this.UserId, flashcardId);
-            return Ok();
-        }
     }
 }
