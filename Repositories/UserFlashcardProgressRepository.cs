@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Flashcard;
@@ -26,8 +27,7 @@ namespace SmartCards.Repositories
         // Lưu lại flashcard đã học
         public async Task SaveLearnedCardAsync(string userId, int flashcardId)
         {
-            var progress = await _context.UserFlashcardProgresses
-                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId);
+            var progress = await GetProgressAsync(userId, flashcardId);
 
             if (progress == null)
             {
@@ -49,8 +49,7 @@ namespace SmartCards.Repositories
         // Lưu lại flashcard cuối cùng đã xem
         public async Task SaveLastReviewdCardAsync(string userId, int flashcardId)
         {
-            var progress = await _context.UserFlashcardProgresses
-                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId);
+            var progress = await GetProgressAsync(userId, flashcardId);
 
             if (progress == null)
             {
@@ -64,6 +63,7 @@ namespace SmartCards.Repositories
                 };
                 _context.UserFlashcardProgresses.Add(progress);
             }
+            else if (progress != null && progress.IsLearned) progress.LastReviewedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();
         }
@@ -71,8 +71,7 @@ namespace SmartCards.Repositories
         // Gắn sao cho flashcard
         public async Task StarredFlashcardAsync(string userId, StarredFlashcardRequestDTO request)
         {
-            var progress = await _context.UserFlashcardProgresses
-                    .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == request.FlashcardId);
+            var progress = await GetProgressAsync(userId, request.FlashcardId);
 
             if (progress == null)
             {
@@ -88,6 +87,21 @@ namespace SmartCards.Repositories
             }
             else progress.IsStarred = request.IsStarred;
             await _context.SaveChangesAsync();
+        }
+
+        // Cập nhật lại LastReviewedAt của flashcard
+        public async Task UpdateLastReviewedAtAsync(string userId, int flashcardId)
+        {
+            var progress = await GetProgressAsync(userId, flashcardId);
+            if (progress != null) progress.LastReviewedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task<UserFlashcardProgress> GetProgressAsync(string userId, int flashcardId)
+        {
+            return await _context.UserFlashcardProgresses
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId) 
+                ?? new UserFlashcardProgress();
         }
     }
 }

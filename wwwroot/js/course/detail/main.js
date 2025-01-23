@@ -15,5 +15,5 @@ import { starredFlashcard, starredFlashcards } from './modules/starredFlashcard.
 import { resetCards } from './modules/flashcardsOptionsModal.js';
 
 // Import functions from congratulation.js
-import { backToLastCard } from './modules/congratulation.js';
+import { backToLastCard, resetFlashcards } from './modules/congratulation.js';
 

@@ -9,6 +9,7 @@
 import {
     cards,
     sharedVariables,
+    postFlashcardProgress
 } from './sharedVariables.js';
 
 const btnRestartAll = document.getElementById('btn-restart-all');
@@ -50,3 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btnResetFlashcard.classList.remove('d-none');
     }
 });
+
+export function resetFlashcards(){
+    sharedVariables.congratulationContainer.classList.add('d-none');
+    sharedVariables.flashcardsContainer.classList.remove('d-none');
+    const firstCardId = cards[0].getAttribute('data-flashcard-id');
+    resetFlashcardProgress(firstCardId);
+    window.location.reload();
+}
+window.resetFlashcards = resetFlashcards;
+
+function resetFlashcardProgress(flashcardId) {
+    postFlashcardProgress('/fc-progress/reset-progress', flashcardId, 'failed to reset progress');
+}

@@ -12,6 +12,7 @@ import { triggerConfetti } from './congratulation.js';
 import {
     cards,
     sharedVariables,
+    postFlashcardProgress
 } from './sharedVariables.js';
 
 // Gắn sự kiện click cho từng thẻ để lật thẻ
@@ -125,22 +126,6 @@ function saveLastReviewedCard(flashcardId) {
 // Lưu flashcards đã học
 function saveLearnedCard(flashcardId) {
     postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
-}
-
-function postFlashcardProgress(url, flashcardId, errorMessage) {
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(flashcardId)
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error(errorMessage);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
 }
 
 // Hàm reset thẻ hiện tại
