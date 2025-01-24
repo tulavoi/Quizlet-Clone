@@ -1,4 +1,5 @@
-﻿
+﻿@import url('shared/custom-input.css');
+
 /* CSS này cho trang chi tiết học phần */
 
 .container {
@@ -364,17 +365,17 @@
     padding-left: 30px;
 }
 
-/* Popup tùy chọn hiển thị flashcards */
-#flashcards-options-modal .modal-content {
+/* Popup tùy chọn hiển thị flashcards, tùy chỉnh modal của trang */
+#flashcards-options-modal, .edit-flashcard-modal .modal-content {
     padding: 10px;
     border-radius: 20px;
 }
 
-#flashcards-options-modal .modal-header, .modal-body{
+#flashcards-options-modal, .edit-flashcard-modal .modal-header, .modal-body {
     border-bottom: none;
 }
 
-#flashcards-options-modal .modal-footer {
+#flashcards-options-modal, .edit-flashcard-modal .modal-footer {
     border-top: none;
 }
 
@@ -585,4 +586,49 @@ input:checked + .slider:before {
     background: white;
     color: var(--grey-color);
     font-weight: 500;
+}
+
+/* Modal edit flashcard */
+.edit-flashcard-modal .flashcard-input {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.edit-flashcard-modal .flashcard-input input {
+    font-size: large;
+}
+
+.edit-flashcard-modal .modal-footer{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.edit-flashcard-modal button {
+    border-radius: .5rem;
+    padding: 8px 17px;
+    border: none;
+}
+
+.edit-flashcard-modal .btn-cancel {
+    border: none;
+    background: white;
+    color: var(--blue-color);
+    font-weight: 600;
+}
+
+.edit-flashcard-modal .btn-cancel:hover {
+    background: #edeff4;
+}
+
+.edit-flashcard-modal .btn-save {
+    border: none;
+    background: var(--blue-color);
+    color: white;
+    font-weight: 600;
+}
+
+.edit-flashcard-modal .btn-save:hover {
+    background: #5856d6;
 }

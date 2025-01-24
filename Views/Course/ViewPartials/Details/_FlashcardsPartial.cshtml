@@ -6,12 +6,15 @@
         <div class="card-inner">
             <div class="card-front">
                 <div class="card-actions">
-                    <button title="Sửa" id="btn-open-edit-modal">
+                    <button title="Sửa" type="button"
+                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal">
                         <i class="fa-solid fa-pen text-secondary"></i>
                     </button>
+
                     <button onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')" title="Phát âm">
                         <i class="fa-solid fa-volume-high text-secondary"></i>
                     </button>
+
                     <button title="Gắn sao" 
                             data-is-starred="@flashcard.IsStarred"
                             data-flashcard-id="@flashcard.Id"
@@ -44,6 +47,14 @@
             </div>
         </div>
     </div>
+
+    // Edit flashcard modal
+    @await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal", new
+    {
+        FlashcardId = flashcard.Id,
+        Term = flashcard.Term,
+        Definition = flashcard.Definition,
+    })
 }
 
 <!-- Prev, Next card, Play, Shuffle, Options Button-->

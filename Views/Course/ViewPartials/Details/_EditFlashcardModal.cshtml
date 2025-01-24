@@ -1,0 +1,25 @@
+﻿@model dynamic
+@* Popup sửa flashcard *@
+<div class="edit-flashcard-modal">
+    <div class="modal" tabindex="-1" id="edit-flashcard-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header mt-3">
+                    <h2 class="modal-title">Sửa</h2>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="flashcardId" value="@Model.FlashcardId" />
+                    <div class="flashcard-input">
+                        <input class="custom-input" type="text" name="Term" value="@Model.Term" />
+                        <input class="custom-input" type="text" name="Definition" value="@Model.Definition" />
+                    </div>
+                </div>
+                <div class="modal-footer mb-2">
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn-save" onclick="editFlashcard()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
