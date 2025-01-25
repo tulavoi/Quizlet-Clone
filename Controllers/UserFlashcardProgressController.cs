@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartCards.DTOs.Flashcard;
+using SmartCards.DTOs.UserFlashcardProgress;
 using SmartCards.Interfaces;
 
 namespace SmartCards.Controllers
@@ -16,18 +17,18 @@ namespace SmartCards.Controllers
         }
 
         [HttpPost("save-learned-card")]
-        public async Task<IActionResult> SaveLearnedCard([FromBody] int flashcardId)
+        public async Task<IActionResult> SaveLearnedCard([FromBody] UpdateFlashcardProgressRequestDTO progressDTO)
         {
-            if (flashcardId <= 0) return BadRequest("Invalid flashcard ID.");
-            await _progressRepo.SaveLearnedCardAsync(this.UserId, flashcardId);
+            if (progressDTO.FlashcardId <= 0) return BadRequest("Invalid flashcard ID.");
+            await _progressRepo.SaveLearnedCardAsync(this.UserId, progressDTO.FlashcardId);
             return Ok();
         }
 
         [HttpPost("save-last-reviewed-card")]
-        public async Task<IActionResult> SaveLastReviewedCard([FromBody] int flashcardId)
+        public async Task<IActionResult> SaveLastReviewedCard([FromBody] UpdateFlashcardProgressRequestDTO progressDTO)
         {
-            if (flashcardId <= 0) return BadRequest("Invalid flashcard ID.");
-            await _progressRepo.SaveLastReviewdCardAsync(this.UserId, flashcardId);
+            if (progressDTO.FlashcardId <= 0) return BadRequest("Invalid flashcard ID.");
+            await _progressRepo.SaveLastReviewdCardAsync(this.UserId, progressDTO.FlashcardId);
             return Ok();
         }
 

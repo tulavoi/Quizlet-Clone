@@ -14,11 +14,11 @@ export const sharedVariables = {
     btnNext: document.getElementById('btn-next-card'),
 };
 
-export function postFlashcardProgress(url, flashcardId, errorMessage) {
+export async function postData(url, data, errorMessage) {
     fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(flashcardId)
+        body: JSON.stringify(data)
     })
     .then(response => {
         if (!response.ok) {

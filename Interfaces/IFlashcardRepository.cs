@@ -9,5 +9,6 @@ namespace SmartCards.Interfaces
         Task<Flashcard> GetCurrentDisplayedAsync(string userId, int courseId);
         Task<List<Flashcard>> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query);
         Task<List<Flashcard>> GetStarredCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject flashcardQueryObject);
+        Task UpdateAsync(UpdateFlashcardRequestDTO flashcardDTO);
     }
 }

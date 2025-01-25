@@ -1,9 +1,8 @@
 ﻿
 // Import functions from flashcardsPartial.js
-import { setupClickEventForCard, pressKeyToFlipCard } from './modules/flashcardsPartial.js';
+import { setupClickEventForCard } from './modules/flashcardsPartial.js';
 
 setupClickEventForCard();
-pressKeyToFlipCard();
 
 // Import functions from flashcardAction.js
 import { textToSpeech } from './modules/flashcardAction.js';
@@ -17,3 +16,5 @@ import { resetCards } from './modules/flashcardsOptionsModal.js';
 // Import functions from congratulation.js
 import { backToLastCard, resetFlashcards, studyStarredCards, restartAll } from './modules/congratulation.js';
 
+// Import functions from editFlashcard.js
+import { updateFlashcard, assignDataToModal } from './modules/editFlashcardModal.js';
