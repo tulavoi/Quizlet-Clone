@@ -7,7 +7,8 @@
             <div class="card-front">
                 <div class="card-actions">
                     <button title="Sửa" type="button"
-                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal">
+                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                            onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
                         <i class="fa-solid fa-pen text-secondary"></i>
                     </button>
 
@@ -49,13 +50,14 @@
     </div>
 
     // Edit flashcard modal
-    @await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal", new
+    @* @await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal", new
     {
         FlashcardId = flashcard.Id,
         Term = flashcard.Term,
         Definition = flashcard.Definition,
-    })
+    }) *@
 }
+@await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal")
 
 <!-- Prev, Next card, Play, Shuffle, Options Button-->
 <div class="card-settings my-4 row">

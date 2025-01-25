@@ -366,16 +366,16 @@
 }
 
 /* Popup tùy chọn hiển thị flashcards, tùy chỉnh modal của trang */
-#flashcards-options-modal, .edit-flashcard-modal .modal-content {
+#flashcards-options-modal .modal-content {
     padding: 10px;
     border-radius: 20px;
 }
 
-#flashcards-options-modal, .edit-flashcard-modal .modal-header, .modal-body {
+#flashcards-options-modal .modal-header, .modal-body {
     border-bottom: none;
 }
 
-#flashcards-options-modal, .edit-flashcard-modal .modal-footer {
+#flashcards-options-modal .modal-footer {
     border-top: none;
 }
 
@@ -589,6 +589,19 @@ input:checked + .slider:before {
 }
 
 /* Modal edit flashcard */
+.edit-flashcard-modal .modal-content {
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.edit-flashcard-modal .modal-header, .modal-body {
+    border-bottom: none;
+}
+
+.edit-flashcard-modal .modal-footer {
+    border-top: none;
+}
+
 .edit-flashcard-modal .flashcard-input {
     display: flex;
     flex-direction: column;

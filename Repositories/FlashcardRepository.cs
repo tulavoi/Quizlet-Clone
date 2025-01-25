@@ -27,6 +27,7 @@ namespace SmartCards.Repositories
                 .FirstOrDefaultAsync() ?? new Flashcard();
         }
 
+        // Lấy tất cả flashcard
         public async Task<List<Flashcard?>> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
         {
             // Lấy tất cả flashcard trong khóa học
@@ -49,6 +50,7 @@ namespace SmartCards.Repositories
             return await result.ToListAsync();
         }
 
+        // Lấy ra các flashcard đc gắn sao trong course
         public async Task<List<Flashcard?>> GetStarredCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
         {
             // Lấy tất cả flashcard trong khóa học
@@ -56,6 +58,18 @@ namespace SmartCards.Repositories
                 .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId && x.IsStarred == query.IsStarred)
                 .Select(x => x.Flashcard)
                 .ToListAsync();
+        }
+
+        public async Task UpdateAsync(UpdateFlashcardRequestDTO flashcardDTO)
+        {
+            var flashcard = await _context.Flashcards.FindAsync(flashcardDTO.Id);
+            if (flashcard == null) return;
+
+            flashcard.Term = flashcardDTO.Term;
+            flashcard.Definition = flashcardDTO.Definition;
+            flashcard.UpdatedAt = DateTime.Now;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

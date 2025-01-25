@@ -12,7 +12,7 @@ import { triggerConfetti } from './congratulation.js';
 import {
     cards,
     sharedVariables,
-    postFlashcardProgress
+    postData
 } from './sharedVariables.js';
 
 // Gắn sự kiện click cho từng thẻ để lật thẻ
@@ -25,25 +25,23 @@ export function setupClickEventForCard() {
 }
 
 // Lắng nghe sự kiện từ bàn phím
-export function pressKeyToFlipCard() {
-    document.addEventListener('keydown', function (event) {
-        switch (event.code) {
-            case 'Space':
-            case 'ArrowUp':
-            case 'ArrowDown':
-                event.preventDefault(); // Ngăn hành vi mặc định của các nút vừa bấm
-                flipCurrentCard();
-                break;
-            case 'ArrowLeft':
-                event.preventDefault();
-                moveToPrevCard();
-                break;
-            case 'ArrowRight':
-                event.preventDefault();
-                moveToNextCard();
-                break;
-        }
-    });
+export function pressKeyToFlipCard(event) {
+    switch (event.code) {
+        case 'Space':
+        case 'ArrowUp':
+        case 'ArrowDown':
+            event.preventDefault(); // Ngăn hành vi mặc định của các nút vừa bấm
+            flipCurrentCard();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            moveToPrevCard();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            moveToNextCard();
+            break;
+    }
 }
 
 // Lật thẻ
@@ -102,30 +100,30 @@ function completeFlashcards() {
     resetCard(cards[cards.length - 1]);
 }
 
-function proceedToNextCard() {
+async function proceedToNextCard() {
     resetCurrentCard();
 
     // Lấy ra id của card hiện tại
     const currCardId = getCurrentFlashcardId();
-    saveLastReviewedCard(currCardId);
+    await saveLastReviewedCard(currCardId);
 
     // Nếu currIndexCard k phải card đầu tiên, lưu card trước đó (là card đã học)
     if (sharedVariables.currIndexCard > 0) {
         const learnedCardId = getLearnedFlashcardId();
         if (learnedCardId) {
-            saveLearnedCard(learnedCardId);
+            await saveLearnedCard(learnedCardId);
         }
     }
 }
 
 // Lưu flashcard đã xem cuối cùng
-function saveLastReviewedCard(flashcardId) {
-    postFlashcardProgress('/fc-progress/save-last-reviewed-card', flashcardId, 'Failed to save last reviewed card');
+async function saveLastReviewedCard(flashcardId) {
+    await postData('/fc-progress/save-last-reviewed-card', { flashcardId }, 'Failed to save last reviewed card');
 }
 
 // Lưu flashcards đã học
-function saveLearnedCard(flashcardId) {
-    postFlashcardProgress('/fc-progress/save-learned-card', flashcardId, 'Failed to save learned card');
+async function saveLearnedCard(flashcardId) {
+    await postData('/fc-progress/save-learned-card', { flashcardId }, 'Failed to save learned card');
 }
 
 // Hàm reset thẻ hiện tại
