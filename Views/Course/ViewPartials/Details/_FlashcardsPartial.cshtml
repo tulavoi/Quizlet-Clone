@@ -48,14 +48,6 @@
             </div>
         </div>
     </div>
-
-    // Edit flashcard modal
-    @* @await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal", new
-    {
-        FlashcardId = flashcard.Id,
-        Term = flashcard.Term,
-        Definition = flashcard.Definition,
-    }) *@
 }
 @await Html.PartialAsync("ViewPartials/Details/_EditFlashcardModal")
 

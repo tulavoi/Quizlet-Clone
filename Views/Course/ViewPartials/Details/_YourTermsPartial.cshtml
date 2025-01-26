@@ -19,6 +19,12 @@
                             <span class="float-start">@flashcard.Definition</span>
                         </div>
                         <div class="col-3">
+                            <button class="float-end" title="Sửa" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                    onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                <i class="fa-solid fa-pen text-secondary"></i>
+                            </button>
+
                             <button class="float-end " title="Phát âm"
                                     onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                 <i class="fa-solid fa-volume-high text-secondary"></i>
@@ -67,6 +73,12 @@
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
+                                <button class="float-end" title="Sửa" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                        onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                    <i class="fa-solid fa-pen text-secondary"></i>
+                                </button>
+
                                 <button class="float-end" title="Phát âm"
                                         onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
@@ -118,6 +130,12 @@
                                     <span class="float-start">@flashcard.Definition</span>
                                 </div>
                                 <div class="col-3">
+                                    <button class="float-end" title="Sửa" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                            onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                        <i class="fa-solid fa-pen text-secondary"></i>
+                                    </button>
+
                                     <button class="float-end" title="Phát âm"
                                             onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                         <i class="fa-solid fa-volume-high text-secondary"></i>
