@@ -39,7 +39,9 @@
 
     <div class="row">
         <!-- Study Modes -->
-        @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
+        @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml", new{
+            Slug = Model.Slug
+        })
 
         <!-- Term Definition Cards -->
         <div class="flashcards-container" id="flashcards-container"

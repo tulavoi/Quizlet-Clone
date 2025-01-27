@@ -11,35 +11,46 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SmartCards</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <form class="d-flex mx-auto" style="width: 50%;" role="search">
-                        <div class="input-group">
-                            <button type="submit" class="btn input-group-text bg-white border-0">
-                                <i class="fa fa-search text-secondary"></i>
-                            </button>
-                            <input class="form-control border-0" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                        </div>
-                    </form>
-                    <partial name="_MenuManagePartial"/>
-                    <partial name="_LoginPartial" />
+    @if (!(ViewData["HideNavbar"] as bool? ?? false))
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SmartCards</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <form class="d-flex mx-auto" style="width: 50%;" role="search">
+                            <div class="input-group">
+                                <button type="submit" class="btn input-group-text bg-white border-0">
+                                    <i class="fa fa-search text-secondary"></i>
+                                </button>
+                                <input class="form-control border-0" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                            </div>
+                        </form>
+                        <partial name="_MenuManagePartial" />
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            </nav>
+        </header>
+    }
 
+    @if (!(ViewData["NotContainer"] as bool? ?? false))
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+    
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - SmartCards - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

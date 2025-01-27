@@ -1,0 +1,126 @@
+﻿/*@import url('shared/btn-close.css');*/
+
+.btn-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.common-btn {
+    border: .1rem solid var(--border-button-color);
+    border-radius: .5rem;
+    padding: .5rem;
+    color: var(--grey-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    height: 2.5rem;
+    transition: all .12s cubic-bezier(.47, 0, .745, .715);
+}
+
+.common-btn:hover {
+    background: var(--light-grey-color);
+    color: var(--grey-color);
+}
+
+.custom-btn-close {
+    width: 2.5rem;
+}
+
+.btn-option {
+    padding: .5rem .8rem;
+    font-size: medium;
+    font-weight: 500;
+    background: none;
+    margin-right: 1rem;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+}
+
+/* Dropdown toggle button */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    padding: .5rem .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--grey-color);
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover effect for button */
+.dropdown-toggle:hover {
+    background-color: var(--light-grey-color);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    width: 12rem;
+    z-index: 1000;
+    border: 1px solid #e0e0e0;
+}
+
+/* Dropdown item */
+.dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--grey-color);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-item i{
+    margin: 0 8px;
+}
+
+.dropdown-item span{
+    font-weight: bold;
+    font-size: .9rem;
+    margin-left: 7px;
+}
+
+/* Hover effect for dropdown item */
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+    color: var(--grey-color);
+}
+
+/* Dropdown divider */
+.dropdown-divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 0.5rem 0;
+}
+
+/* Show dropdown menu when active */
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+.dropdown-toggle span {
+    margin: 0 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.dropdown i{
+    font-size: 1.3rem;
+}
