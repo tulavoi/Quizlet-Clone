@@ -1,14 +1,15 @@
 ﻿@using SmartCards.DTOs.Course
 @model CreateCourseRequestDTO
 @{
-    ViewData["Title"] = "Tạo học phần mới | SmartCards";
+    ViewData["Title"] = "Tạo học phần mới | Quizlet";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["HideSidebar"] = true;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/create.css" />
 }
 
-<div class="container create-course-container">
+<div class="create-course-container my-4">
     <form method="post" asp-action="Create" asp-controller="Course">
         <div class="row mb-4" id="course-form-header">
             <div class="col-6">

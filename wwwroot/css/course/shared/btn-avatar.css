@@ -1,0 +1,17 @@
+﻿.btn-avatar {
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 500;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-right: .5rem;
+    outline: none;
+    border: none;
+    background: var(--primary-green-color);
+    text-decoration: none;
+}

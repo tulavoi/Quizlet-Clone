@@ -2,8 +2,9 @@
 @model LearnCourseDTO
 @{
 	ViewData["Title"] = $"Học: {Model.Title} | SmartCards";
-	ViewData["HideNavbar"] = true; // Ẩn navbar của _Layout.cshtml
-	ViewData["NotContainer"] = true;
+	ViewData["HideNavbar"] = true; // Ẩn navbar 
+	ViewData["HideSidebar"] = true; // Ẩn sidebar
+	ViewData["NotContainer"] = true; // Không dùng container
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/course/learnMode.css" />
@@ -19,21 +20,28 @@
 					<i class="fa-solid fa-angle-down" style="font-size: small;"></i>
 				</button>
 				<div class="dropdown-menu">
-					<a href="#" class="dropdown-item">
+					<a class="dropdown-item">
 						<i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
 						<span>Thẻ ghi nhớ</span>
 					</a>
-					<a href="#" class="dropdown-item">
+
+					<a class="dropdown-item">
 						<i class="fa-regular fa-check-circle text-primary"></i>
 						<span>Kiểm tra</span>
 					</a>
-					<a href="#" class="dropdown-item">
+
+					<a class="dropdown-item">
 						<i class="fa-solid fa-puzzle-piece text-primary"></i>
 						<span>Ghép thẻ</span>
 					</a>
+
 					<hr class="dropdown-divider">
-					<a href="#" class="dropdown-item"><span>Trang chủ</span></a>
-					<a href="#" class="dropdown-item"><span>Tìm kiếm</span></a>
+					<a asp-controller="Home" asp-action="Index" 
+						class="dropdown-item">
+						<span>Trang chủ</span>
+					</a>
+
+					<a class="dropdown-item"><span>Tìm kiếm</span></a>
 				</div>
 			</div>
 		</div>
@@ -52,6 +60,28 @@
 		   <button class="float-end common-btn btn-option">
 			   Tùy chọn
 		   </button>
+		</div>
+	</div>
+	
+	<div class="question-container mt-5">
+		<!-- Progress bar -->
+		<div class="row">
+			<div class="col-1 d-flex justify-content-center align-items-center">
+				<div class="correct-answers">
+					0
+				</div>
+			</div>
+
+			<div class="col-10 d-flex justify-content-center align-items-center">
+				<div class="learn-progress">
+				</div>
+			</div>
+
+			<div class="col-1 d-flex justify-content-center align-items-center">
+				<div class="all-questions">
+					10
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
