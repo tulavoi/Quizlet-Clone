@@ -1,7 +1,7 @@
 ﻿@using SmartCards.DTOs.Course
 @model CourseDTO
 @{
-    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | SmartCards";
+    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | Quizlet-Clone";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // Lấy ra vị trí của thẻ đã học gần nhất trong danh sách flashcards, nếu k có gán = 0
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/css/course/details.css" />
 }
 
-<div class="container detail-course-container">
+<div class="detail-course-container">
     @* @if (Model.CourseFolder != null) // Có ở trong 1 folder nào đó thì mới hiển thị
     {
         <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> 
@@ -28,7 +28,7 @@
     } *@
 
     <div class="row">
-        <h2 class="mt-3" style="font-weight: 800;">@Model.Title</h2>
+        <h2 style="font-weight: 800;">@Model.Title</h2>
     </div>
 
     <!-- Có user khác rate thì mới hiển thị -->
@@ -39,7 +39,9 @@
 
     <div class="row">
         <!-- Study Modes -->
-        @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml")
+        @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml", new{
+            Slug = Model.Slug
+        })
 
         <!-- Term Definition Cards -->
         <div class="flashcards-container" id="flashcards-container"

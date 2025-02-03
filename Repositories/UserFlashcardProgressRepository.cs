@@ -89,11 +89,10 @@ namespace SmartCards.Repositories
             await _context.SaveChangesAsync();
         }
 
-        private async Task<UserFlashcardProgress> GetProgressAsync(string userId, int flashcardId)
+        private async Task<UserFlashcardProgress?> GetProgressAsync(string userId, int flashcardId)
         {
             return await _context.UserFlashcardProgresses
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId) 
-                ?? new UserFlashcardProgress();
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.FlashcardId == flashcardId);
         }
     }
 }

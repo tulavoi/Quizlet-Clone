@@ -6,12 +6,12 @@
 @inject UserManager<AppUser> UserManager
 
 @{
-    ViewData["Title"] = "Học phần của bạn | SmartCards";
+    ViewData["Title"] = "Học phần của bạn | Quizlet-Clone";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" />
 }
-<div class="container my-4">
+<div class="my-2">
     <!-- Học phần gần đây -->
     @if (Model.Count > 0)
     {
@@ -20,7 +20,7 @@
             <div class="row gy-2">
                 @foreach (var course in Model)
                 {
-                    <a class="col-md-6 btn" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
+                    <a class="col-md-6 btn py-0 my-2" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
                         <div class="recent-course p-2 row">
                             <div class="col-1 p-0">
                                 <img src="/images/icons/card.png" alt="Icon">

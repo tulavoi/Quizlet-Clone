@@ -19,6 +19,12 @@
                             <span class="float-start">@flashcard.Definition</span>
                         </div>
                         <div class="col-3">
+                            <button class="float-end" title="Sửa" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                    onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                <i class="fa-solid fa-pen text-secondary"></i>
+                            </button>
+
                             <button class="float-end " title="Phát âm"
                                     onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                 <i class="fa-solid fa-volume-high text-secondary"></i>
@@ -39,12 +45,12 @@
             <!-- Các flashcard đang học -->
             <section class="learned-terms">
                 <div class="row">
-                    <div class="col-6 ">
+                    <div class="col-9">
                         <h5>Đang học (@Model.LearnedFlashcards.Count)</h5>
                         <p class="m-0">Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-3">
                         <button class="btn-starred float-end"
                                 id="btn-starred-learned"
                                 data-cards-count="@Model.LearnedFlashcards.Count"
@@ -67,6 +73,12 @@
                                 <span class="float-start">@flashcard.Definition</span>
                             </div>
                             <div class="col-3">
+                                <button class="float-end" title="Sửa" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                        onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                    <i class="fa-solid fa-pen text-secondary"></i>
+                                </button>
+
                                 <button class="float-end" title="Phát âm"
                                         onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
@@ -87,7 +99,7 @@
             <!-- Các flashcard chưa học -->
             @if (@Model.NotLearnedFlashcards.Count > 0)
             {
-                <section class="not-leanred-terns mt-3">
+                <section class="not-leanred-terms mt-3">
                     <div class="row">
                         <div class="col-6">
                             <h5 clas>Chưa học (@Model.NotLearnedFlashcards.Count)</h5>
@@ -101,7 +113,6 @@
                                     data-are-not-learned-starred='@Model.AreNotLearnedStarred'
                                     onclick='starredFlashcards(@Html.Raw(Json.Serialize(Model.NotLearnedFlashcards)), this)'>
                                 <i class="fa-solid fa-star text-secondary"></i>
-                                @* <span>@Model.NotLearnedFlashcards.Count</span> *@
                                 <span></span>
                             </button>
                         </div>
@@ -118,6 +129,12 @@
                                     <span class="float-start">@flashcard.Definition</span>
                                 </div>
                                 <div class="col-3">
+                                    <button class="float-end" title="Sửa" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                                            onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
+                                        <i class="fa-solid fa-pen text-secondary"></i>
+                                    </button>
+
                                     <button class="float-end" title="Phát âm"
                                             onclick="textToSpeech('@flashcard.Term', '@flashcard.TermLanguageCode')">
                                         <i class="fa-solid fa-volume-high text-secondary"></i>

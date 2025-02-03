@@ -52,6 +52,17 @@ namespace SmartCards.Mappers
             };
         }
 
+        public static LearnCourseDTO ToLearnCourseDTO(this Course course)
+        {
+            return new LearnCourseDTO
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Slug = course.Slug,
+                Flashcards = course.Flashcards.Select(x => x.ToFlashcardDTO()).ToList()
+            };
+        }
+
         public static RecentCourseDTO ToRecentCourseDTO(this Course course)
         {
             return new RecentCourseDTO

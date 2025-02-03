@@ -1,0 +1,52 @@
+﻿.dropdown-menu .user-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: default !important;
+}
+
+.dropdown-profile-menu .user-info:hover {
+    background: none;
+}
+
+.dropdown-profile-menu hr{
+    margin: 10px 0;
+    background: var(--grey-color);
+}
+
+.user-info .btn-avatar {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 1.5rem;
+}
+
+.dropdown-profile-menu {
+    right: 8px !important; /* Đẩy menu về sát bên phải */
+    left: auto !important;
+    box-shadow: 0 .25rem 1rem 0 var(--light-grey-color);
+    border-radius: 5px;
+}
+
+.user-info .info .username {
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.user-info .info .email {
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--dark-grey-color);
+}
+
+.dropdown-profile-menu .dropdown-action {
+    padding: 10px 22px;
+    color: var(--dark-grey-color);
+    font-weight: 500;
+    font-size: .875rem;
+    cursor: pointer;
+}
+
+.dropdown-profile-menu .dropdown-action i {
+    width: 2rem;
+    font-size: 1rem;
+}

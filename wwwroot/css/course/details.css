@@ -1,10 +1,11 @@
-﻿@import url('shared/custom-input.css');
+﻿@import url('../shared/custom-input.css');
+@import url('../shared/btn-avatar.css');
 
 /* CSS này cho trang chi tiết học phần */
 
 .container {
     width: 80%;
-    margin-left: 7%;
+    margin-left: 1%;
     padding: 0;
 }
 
@@ -42,7 +43,7 @@
     background: var(--bg-color-grey);
     color: #282e3e;
     width: 220px;
-    height: 120px;
+    height: 110px;
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 10px;
@@ -53,6 +54,7 @@
     justify-content: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
     border: none;
+    text-decoration: none;
 }
 
 .detail-course-container .nav-button:hover {
@@ -225,23 +227,6 @@
 }
 
 /* User info */
-.user-info .btn-avatar {
-    padding: 10px;
-    border-radius: 50%;
-    color: white;
-    font-weight: 500;
-    font-size: 1.25rem;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    margin-right: .5rem;
-    outline: none;
-    border: none;
-}
-
 .user-info .created-by {
     font-size: small;
     color: var(--grey-color);
@@ -317,13 +302,13 @@
     background: var(--light-grey-color);
 }
 
-.not-leanred-terns, .learned-terms {
+.not-leanred-terms, .learned-terms {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.not-leanred-terns h5 {
+.not-leanred-terms h5 {
     color: var(--blue-color);
 }
 

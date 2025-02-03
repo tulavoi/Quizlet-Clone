@@ -12,6 +12,7 @@
     border: 1px solid #eaeaea;
     border-radius: 10px;
     transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 /* Khi hover lên phần tử popular-item */
@@ -58,7 +59,7 @@
 
 /* Hình ảnh của học phần trong phần gần đây */
 .recent-course img {
-    background: #f6f7fb;    
+    background: var(--bg-color-grey);    
     border-radius: 5px;
     padding: 7px; 
     max-width: 35px;

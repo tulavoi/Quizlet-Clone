@@ -1,0 +1,16 @@
+﻿.dropdown-menu-create {
+    right: 23px !important; /* Đẩy menu về sát bên phải */
+    left: auto !important;
+    box-shadow: 0 .25rem 1rem 0 var(--light-grey-color);
+    border-radius: 5px;
+}
+
+.dropdown-menu-create li a{
+    color: var(--dark-grey-color);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.dropdown-menu-create li a:hover{
+    color: var(--dark-grey-color);
+}

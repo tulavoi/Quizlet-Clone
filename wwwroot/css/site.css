@@ -16,6 +16,12 @@
     --primary-green-color: #18ae79;
     --secondary-green-color: #59e8b533;
     --dark-grey-color: #586380;
+    --border-button-color: #d9dde8;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
 }
 
 html {
@@ -31,15 +37,42 @@ body {
     margin-bottom: 60px;
 }
 
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Icon star */
+.fa-star {
+    color: var(--grey-color);
+}
+
+/* 2 button bên trái thanh navbar */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-quizlet {
+    width: 3.5rem;
+    height: auto;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--grey-color);
+    padding-left: 20px;
+}
+
+.flashcard-icon{
+    width: 20px;
+    margin-right: 12px;
+}
+
 .dropdown-toggle::after {
     display: none; /* Ẩn dấu mũi tên */
-}
-
-.btn:focus, .btn:checked {
-    box-shadow: none;
-}
-
-/*Icon star*/
-.fa-star {
-    color: #6C757D;
 }

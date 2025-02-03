@@ -1,14 +1,15 @@
 ﻿@using SmartCards.DTOs.Course
 @model CreateCourseRequestDTO
 @{
-    ViewData["Title"] = "Tạo học phần mới | SmartCards";
+    ViewData["Title"] = "Tạo học phần mới | Quizlet-Clone";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["HideSidebar"] = true;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/create.css" />
 }
 
-<div class="container create-course-container">
+<div class="create-course-container my-4">
     <form method="post" asp-action="Create" asp-controller="Course">
         <div class="row mb-4" id="course-form-header">
             <div class="col-6">
@@ -99,7 +100,7 @@
             }
         </div>
 
-        <button type="button" class="term-item mb-3 border-0 rounded-3 p-3 w-100 text-start add-card">
+        <button type="button" onclick="addNewCard()" class="term-item mb-3 border-0 rounded-3 p-3 w-100 text-start add-card">
             <div class="row align-items-center">
                 <span class="fw-bold text-secondary"><i class="fa-solid fa-plus"></i> Thêm thẻ</span>
             </div>
@@ -120,4 +121,5 @@
 </div>
 @await Html.PartialAsync("ViewPartials/Create/_ImportFlashcardsPartial")
 
-<script src="~/js/course/create/main.js"></script>
+@* <script src="~/js/course/create/create.js"></script> *@
+<script type="module" src="~/js/course/create/main.js"></script>

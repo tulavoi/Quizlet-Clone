@@ -68,7 +68,7 @@ namespace SmartCards.Controllers
         public async Task<IActionResult> Details(string slug, [FromQuery] bool isStarred = false)
         {
             // Lấy course id dựa vào slug
-            int id = this.GetIdBySlug(slug);
+            int id = SlugHelper.GetIdBySlug(slug);
 
             // Lấy ra course
             var course = await _courseRepo.GetByIdAsync(id);
@@ -125,12 +125,6 @@ namespace SmartCards.Controllers
             );
 
             return View(courseDTO);
-        }
-
-        private int GetIdBySlug(string slug)
-        {
-            var parts = slug.Split('-');
-            return int.Parse(parts[parts.Length - 1]);
         }
 
         private async Task SetViewBagForCreatCourse()
