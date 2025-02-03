@@ -1,5 +1,5 @@
-﻿@import url('shared/custom-input.css');
-@import url('shared/btn-avatar.css');
+﻿@import url('../shared/custom-input.css');
+@import url('../shared/btn-avatar.css');
 
 /* CSS này cho trang chi tiết học phần */
 
@@ -302,13 +302,13 @@
     background: var(--light-grey-color);
 }
 
-.not-leanred-terns, .learned-terms {
+.not-leanred-terms, .learned-terms {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.not-leanred-terns h5 {
+.not-leanred-terms h5 {
     color: var(--blue-color);
 }
 

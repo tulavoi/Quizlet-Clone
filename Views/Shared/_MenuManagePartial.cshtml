@@ -1,15 +1,21 @@
 ﻿<div class="dropdown">
-    <a class="btn btn-primary dropdown-toggle mx-5" href="#"
+    <a class="btn btn-primary dropdown-toggle mx-4" href="#"
        id="managedropdownmenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa-solid fa-plus"></i>
     </a>
 
-    <ul class="dropdown-menu box-shadow mt-2" aria-labelledby="managedropdownmenu">
-        <li><a class="dropdown-item" asp-action="Create" asp-controller="Course">
-            Học phần</a>
+    <ul class="dropdown-menu dropdown-menu-create mt-2" aria-labelledby="managedropdownmenu">
+        <li>
+            <a class="dropdown-item" asp-action="Create" asp-controller="Course">
+                <img class="flashcard-icon" src="/images/icons/card.png" alt="Icon">
+                Học phần
+            </a>
         </li>
-        <li><a class="dropdown-item" asp-action="Create" asp-controller="Folder" asp-area="Database">
-            Thư mục</a>
+        <li>
+            <a class="dropdown-item" asp-action="Create" asp-controller="Folder">
+                <i class="fa-regular fa-folder fw-light" style="font-size: 18px; margin-right: 13px; color:var(--grey-color);"></i>
+                Thư mục
+            </a>
         </li>
     </ul>
 </div>
