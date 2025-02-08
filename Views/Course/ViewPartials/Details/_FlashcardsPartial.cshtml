@@ -29,7 +29,9 @@
             </div>
             <div class="card-back">
                 <div class="card-actions">
-                    <button title="Chỉnh sửa">
+                    <button title="Sửa" type="button"
+                            data-bs-toggle="modal" data-bs-target="#edit-flashcard-modal"
+                            onclick="assignDataToModal('@flashcard.Id', '@flashcard.Term', '@flashcard.Definition')">
                         <i class="fa-solid fa-pen text-secondary"></i>
                     </button>
                     <button onclick="textToSpeech('@flashcard.Definition', '@flashcard.DefiLanguageCode')" title="Phát âm">

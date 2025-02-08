@@ -1,12 +1,11 @@
 ﻿
-<div class="container import-flashcards-container" style="display: none;">
-    <h4>Nhập dữ liệu</h4>
-    <p>Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)</p>
-    <textarea class="form-control mb-4 term-defi-textarea" rows="6"
+<div class="import-flashcards-container" style="display: none;">
+    <h1 class="import-title">Nhập dữ liệu. <span class="fw-normal fs-6">Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)</span></h1>
+    <textarea class="form-control mb-4 term-defi-textarea" rows="8"
               placeholder=""></textarea>
 
     <div class="row mb-3">
-        <div class="col-md-4 fw-bold">
+        <div class="col-md-3 fw-bold">
             <h5 class="fw-bold">Giữa thuật ngữ và định nghĩa</h5>
             <div class="form-check mb-2">
                 <input class="form-check-input" type="radio" name="separator" id="tab" checked>
@@ -18,11 +17,11 @@
             </div>
             <div class="form-check mb-2 d-flex align-items-center">
                 <input class="form-check-input me-2" type="radio" name="separator" id="custom">
-                <input type="text" class="form-control bg-light" style="width: 250px;" placeholder="-"
+                <input type="text" class="form-control input-custom-separator bg-light" placeholder="-"
                        id="custom-separator" autocomplete="off">
             </div>
         </div>
-        <div class="col-md-4 fw-bold">
+        <div class="col-md-3 fw-bold">
             <h5 class="fw-bold">Giữa các thẻ</h5>
             <div class="form-check mb-2">
                 <input class="form-check-input" type="radio" name="tag-separator" id="newline" checked>
@@ -34,7 +33,7 @@
             </div>
             <div class="form-check mb-2 d-flex align-items-center">
                 <input class="form-check-input me-2" type="radio" name="tag-separator" id="custom-tags">
-                <input type="text" class="form-control bg-light" style="width: 250px;" placeholder="\n\n"
+                <input type="text" class="form-control input-custom-tag-separator bg-light" placeholder="\n\n"
                        id="custom-tag-separator" autocomplete="off">
             </div>
         </div>        

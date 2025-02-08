@@ -4,12 +4,13 @@
     ViewData["Title"] = "Tạo học phần mới | Quizlet-Clone";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["HideSidebar"] = true;
+    ViewData["NotContainer"] = true;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/create.css" />
 }
 
-<div class="create-course-container my-4">
+<div class="container create-course-container my-4">
     <form method="post" asp-action="Create" asp-controller="Course">
         <div class="row mb-4" id="course-form-header">
             <div class="col-6">

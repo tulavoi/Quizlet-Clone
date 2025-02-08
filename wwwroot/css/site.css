@@ -37,6 +37,14 @@ body {
     margin-bottom: 60px;
 }
 
+/* Tắt viền focus cho tất cả các input (text, radio, etc.) */
+.form-check-input:focus,
+.form-control:focus {
+    outline: none !important; /* Loại bỏ viền xanh */
+    border: none !important; /* Loại bỏ viền (nếu có) */
+    box-shadow: none !important;
+}
+
 .btn:focus,
 .btn:active {
     outline: none !important;

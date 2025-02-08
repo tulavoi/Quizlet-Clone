@@ -5,6 +5,40 @@ body {
     background: var(--bg-color-grey);
 }
 
+.import-flashcards-container{
+    margin: 2rem;
+}
+
+.import-flashcards-container .import-title{
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.import-flashcards-container .term-defi-textarea {
+    border: .18rem solid var(--input-border-bottom-color);
+    border-radius: 0;
+}
+
+.import-flashcards-container .term-defi-textarea:focus{
+    border: .18rem solid var(--blue-color) !important;
+}
+
+.import-flashcards-container .term-defi-textarea::placeholder{
+    font-weight: 400;
+}
+
+.import-flashcards-container .input-custom-separator, 
+.input-custom-tag-separator{
+    width: 250px;
+    height: 45px;
+}
+
+.input-custom-separator:focus, 
+.input-custom-tag-separator:focus{
+    border-bottom: 2px solid var(--input-border-bottom-color) !important;
+}
+
 .circle-button {
     width: 35px;
     height: 35px;
