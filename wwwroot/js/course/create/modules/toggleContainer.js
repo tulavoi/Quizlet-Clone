@@ -10,19 +10,23 @@ import { termsSection } from './sharedVariables.js';
 // Khi nhấn Nhập sẽ hiện lên gd nhập flashcards và ẩn gd tạo course
 document.getElementById('open-import-flashcards').addEventListener('click', () => {
     toggleContainer('.create-course-container', '.import-flashcards-container', 'white');
+    document.querySelector('.navbar').classList.add('d-none'); // Ẩn navbar
+    document.querySelector('.create-course-container').classList.remove('container');
 });
 
 // Khi nhấn hủy nhập sẽ hiện lên gd tạo course và ẩn gd nhâp flashcards
 document.getElementById('cancel-import').addEventListener('click', () => {
     toggleContainer('.import-flashcards-container', '.create-course-container', '#f6f7fb');
+    document.querySelector('.navbar').classList.remove('d-none'); // Hiện navbar
+    document.querySelector('.create-course-container').classList.add('container');
 });
 
-export function toggleContainer(hideSelector, showSelector, bgColor) {
+export function toggleContainer(hideThis, showThis, bgColor) {
     // Ẩn container hiện tại
-    document.querySelector(hideSelector).style.display = 'none';
+    document.querySelector(hideThis).style.display = 'none';
 
     // Hiển thị container khác
-    document.querySelector(showSelector).style.display = 'block';
+    document.querySelector(showThis).style.display = 'block';
 
     // Thay đổi màu nền (nếu có)
     if (bgColor) {

@@ -189,6 +189,8 @@ updatePreview();
 // Xử lý event import-btn
 document.getElementById('import-btn').addEventListener('click', () => {
     toggleContainer('.import-flashcards-container', '.create-course-container', '#f6f7fb');
+    document.querySelector('.navbar').classList.remove('d-none'); // Hiện navbar
+    document.querySelector('.create-course-container').classList.add('container');
 
     if (termDefinitionMap.size == 0 || ![...termDefinitionMap.keys()].length) return;
 
