@@ -19,7 +19,7 @@ export function starredFlashcard(btn, isStarred = null) {
 
     // Đảo ngược trạng thái gắn sao
     isStarred = !isStarred;
-
+    console.log(flashcardId, isStarred);
     // Cập  nhật lại màu icon
     updateBtnIconColor(btn, isStarred);
    

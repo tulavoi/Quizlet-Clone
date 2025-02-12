@@ -11,7 +11,10 @@ export function bindTrashButtonEvent() {
 
             // Cập nhật lại số thứ tự
             document.querySelectorAll('.term-item').forEach(function (item, index) {
-                item.querySelector('.term-item-count').textContent = index + 1; // Cập nhật lại số thứ tự bắt đầu từ 1
+                const countElement = item.querySelector('.term-item-count');
+                if (countElement) {
+                    countElement.textContent = index + 1; // Cập nhật lại số thứ tự bắt đầu từ 1
+                }
             });
         });
     });

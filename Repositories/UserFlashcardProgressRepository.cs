@@ -57,13 +57,11 @@ namespace SmartCards.Repositories
                 {
                     FlashcardId = flashcardId,
                     UserId = userId,
-                    IsLearned = false,
-                    IsStarred = false,
-                    LastReviewedAt = DateTime.Now
+                    LastReviewedAt = DateTime.Now.AddSeconds(2) // Có thể bị trùng thời gian khi SaveLearnedCardAsync nên + thêm 2 giây 
                 };
                 _context.UserFlashcardProgresses.Add(progress);
             }
-            else if (progress != null && progress.IsLearned) progress.LastReviewedAt = DateTime.Now;
+            else if (progress != null && progress.LastReviewedAt == null) progress.LastReviewedAt = DateTime.Now.AddSeconds(2);
 
             await _context.SaveChangesAsync();
         }

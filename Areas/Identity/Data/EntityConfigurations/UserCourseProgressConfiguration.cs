@@ -18,12 +18,12 @@ namespace SmartCards.Areas.Identity.Data.EntityConfigurations
             builder.HasOne(x => x.User)
              .WithMany()
              .HasForeignKey(x => x.UserId)
-             .OnDelete(DeleteBehavior.Cascade);
+             .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Course)
              .WithMany()
              .HasForeignKey(x => x.CourseId)
-             .OnDelete(DeleteBehavior.NoAction);
+             .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
