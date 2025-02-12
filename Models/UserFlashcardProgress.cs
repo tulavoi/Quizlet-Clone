@@ -19,6 +19,5 @@ namespace SmartCards.Models
         public bool IsLearned { get; set; } = false;
         public bool IsStarred { get; set; } = false;
         public DateTime? LastReviewedAt { get; set; }
-        public bool isShuffle { get; set; } = false;
     }
 }

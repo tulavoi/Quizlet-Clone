@@ -5,6 +5,7 @@
 // ==============================================
 
 import { termsSection } from './sharedVariables.js';
+import { bindTrashButtonEvent } from './trashButtonEvent.js';
 
 export async function addNewCard(){
     // Lấy tất cả các .term-item đang hiển thị

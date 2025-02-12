@@ -30,8 +30,11 @@
                                 <i class="fa-solid fa-volume-high text-secondary"></i>
                             </button>
 
-                            <button class="float-end starred-btn" title="Gắn sao">
-                                <i class="fa-solid fa-star text-secondary"></i>
+                            <button class="float-end starred-btn" title="Gắn sao"
+                                    data-is-starred="@flashcard.IsStarred"
+                                    data-flashcard-id="@flashcard.Id"
+                                    onclick="starredFlashcard(this)">
+                                <i class="fa-solid fa-star"></i>
                             </button>
                         </div>
                     </div>
@@ -84,7 +87,7 @@
                                     <i class="fa-solid fa-volume-high text-secondary"></i>
                                 </button>
 
-                                <button class="float-end" title="Gắn sao"
+                                <button class="float-end starred-btn" title="Gắn sao"
                                         data-is-starred="@flashcard.IsStarred"
                                         data-flashcard-id="@flashcard.Id"
                                         onclick="starredFlashcard(this)">

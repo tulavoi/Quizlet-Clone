@@ -18,13 +18,13 @@ namespace SmartCards.Repositories
         }
 
         // Lấy ra flashcard đang hiển thị ở lần truy cập trước
-        public async Task<Flashcard> GetCurrentDisplayedAsync(string userId, int courseId)
+        public async Task<Flashcard?> GetCurrentDisplayedAsync(string userId, int courseId)
         {
             return await _context.UserFlashcardProgresses
-                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId)
+                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId && x.LastReviewedAt != null)
                 .OrderByDescending(x => x.LastReviewedAt)
                 .Select(x => x.Flashcard)
-                .FirstOrDefaultAsync() ?? new Flashcard();
+                .FirstOrDefaultAsync() ?? null;
         }
 
         // Lấy tất cả flashcard
