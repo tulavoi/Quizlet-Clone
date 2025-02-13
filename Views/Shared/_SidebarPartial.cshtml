@@ -1,9 +1,14 @@
-﻿<ul class="menu-list">
-    <a class="menu-item active" asp-action="Index" asp-controller="Home">
+﻿@{
+    string isHomePage = ViewData["ActivePage"]?.ToString() == "Home" ? "active" : "";
+    string isLibraryPage = ViewData["ActivePage"]?.ToString() == "UserLibrary" ? "active" : "";
+}
+<ul class="menu-list">
+    <a class="menu-item @isHomePage" asp-controller="Home" asp-action="Index">
         <i class="fas fa-home"></i>
         <span>Trang chủ</span>
     </a>
-    <a class="menu-item" asp-action="Index" asp-controller="Folder">
+    <a class="menu-item @isLibraryPage" asp-controller="UserLibrary" asp-action="Courses"
+       asp-route-username="@User.Identity?.Name">
         <i class="fa-regular fa-folder"></i>
         <span>Thư viện của bạn</span>
     </a>

@@ -14,6 +14,7 @@ namespace SmartCards.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICourseRepository _courseRepo;
+        private readonly string _activePage = "Home";
 
         public HomeController(ILogger<HomeController> logger, ICourseRepository courseRepo)
         {
@@ -30,6 +31,9 @@ namespace SmartCards.Controllers
                 MaxItem = 4
             });
             var recentCoursesDTO = courses.Select(x => x.ToRecentCourseDTO()).ToList();
+
+            ViewData["ActivePage"] = this._activePage;
+
             return View(recentCoursesDTO);
         }
 
