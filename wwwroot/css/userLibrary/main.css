@@ -1,2 +1,138 @@
 ﻿body {
+    background: var(--bg-color-grey);
+}
+
+.library-container{
+    padding: 1rem;
+}
+
+.library-container h2{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.tab-container {
+    display: flex;
+    border-bottom: 2px solid var(--light-grey-color);
+    padding-bottom: 5px;
+    margin: 3.5rem 0;
+}
+
+.tab {
+    margin-right: 3rem;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--dark-grey-color);
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+}
+
+.tab:hover{
+    color: var(--dark-grey-color);
+}
+
+.tab.active {
+    font-weight: bold;
+    color: #282e3e;
+}
+
+.tab.active::after,
+.tab:hover::after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--blue-color);
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+}
+
+/* Filter Select */
+.select-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 110px;
+    height: 40px;
+}
+
+.selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-select {
+    width: 100%;
+    background-color: var(--bg-color-grey);
+    border: .125rem solid var(--border-button-color);
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--dark-grey-color);
+    display: flex;
+    align-items: center;
+}
+
+.custom-select:hover{
+    background-color: var(--btn-secondary-hover-color);
+}
+
+.options {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 150%;
+    background-color: white;
+    border: 1px solid var(--border-button-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    padding: 10px 0;
+}
+
+.option {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: var(--btn-secondary-hover-color);
+}
+
+/* Hiển thị dropdown khi active */
+.custom-select.active .options {
+    display: block;
+}
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: .5rem;
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    position: relative;
+}
+
+.search-container input{
+    width: 100%;
+    outline: none;
+    border: none;
+    flex: 1;
+    cursor: text;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Khi input được focus, hiển thị border-bottom */
+.search-container:focus-within {
+    border-bottom: 2px solid var(--input-border-bottom-color);
 }

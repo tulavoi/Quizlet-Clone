@@ -84,3 +84,14 @@ body {
 .dropdown-toggle::after {
     display: none; /* Ẩn dấu mũi tên */
 }
+
+.layout {
+    display: flex;
+    height: 100vh; /* Chiều cao toàn màn hình */
+}
+
+.content {
+    flex-grow: 1; /* Chiếm phần còn lại của màn hình */
+    padding: 20px;
+    overflow-y: auto;
+}

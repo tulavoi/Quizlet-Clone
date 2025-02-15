@@ -9,6 +9,14 @@ namespace SmartCards.Controllers
     [SetUserLibraryData]
     public class UserLibraryController : BaseController
     {
+        // Route mặc định khi truy cập "user/{username}"
+        //[Route("")]
+        public IActionResult Index()
+        {
+            //return RedirectToAction(nameof(Courses), new {username});
+            return View();
+        }
+
         [Route("courses")]
         public IActionResult Courses()
         {
