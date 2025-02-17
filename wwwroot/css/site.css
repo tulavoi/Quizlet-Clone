@@ -87,11 +87,27 @@ body {
 
 .layout {
     display: flex;
-    height: 100vh; /* Chiều cao toàn màn hình */
 }
 
 .content {
     flex-grow: 1; /* Chiếm phần còn lại của màn hình */
     padding: 20px;
-    overflow-y: auto;
+}
+
+.footer-links {
+    display: flex;
+    column-gap: 1.5rem;
+    padding: 0 280px;
+}
+
+.footer-links a{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--dark-grey-color);
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.footer-links a:hover{
+    color: var(--input-border-bottom-color);
 }

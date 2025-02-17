@@ -1,0 +1,11 @@
+﻿.folder-group{
+    row-gap: 10px;
+}
+
+.folder-item {
+    padding: 10px 15px 5px 15px;
+}
+
+.title .icon-folder {
+    color: var(--light-grey-color);
+}

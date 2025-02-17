@@ -30,15 +30,15 @@ builder.Services.AddAuthentication()
 .AddGoogle(options =>
 {
     var gconfig = builder.Configuration.GetSection("Authentication:Google");
-    options.ClientId = gconfig["GoogleOAuthClientId"]!;
-    options.ClientSecret = gconfig["GoogleOAuthClientSec"]!;
+    options.ClientId = gconfig["OAuthClientId"]!;
+    options.ClientSecret = gconfig["OAuthClientSecret"]!;
     options.CallbackPath = "/signin-google";
 })
 .AddFacebook(options =>
 {
     var fconfig = builder.Configuration.GetSection("Authentication:Facebook");
     options.AppId = fconfig["AppId"]!;
-    options.AppSecret = fconfig["AppSec"]!;
+    options.AppSecret = fconfig["AppSecret"]!;
     //options.CallbackPath = "/login";
 });
 builder.Services.AddAuthorization();

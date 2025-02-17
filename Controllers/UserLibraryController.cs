@@ -11,21 +11,23 @@ namespace SmartCards.Controllers
     {
         // Route mặc định khi truy cập "user/{username}"
         //[Route("")]
-        public IActionResult Index()
+        public IActionResult Index(string username)
         {
-            //return RedirectToAction(nameof(Courses), new {username});
-            return View();
+            return RedirectToAction(nameof(Courses), new {username});
+            //return View();
         }
 
         [Route("courses")]
         public IActionResult Courses()
         {
+            ViewData["ActiveTab"] = "Courses";
             return View();
         }
 
         [Route("folders")]
         public IActionResult Folders()
         {
+            ViewData["ActiveTab"] = "Folders";
             return View();
         }
     }

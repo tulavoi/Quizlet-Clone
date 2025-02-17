@@ -1,1 +1,37 @@
-﻿
+﻿@{
+    ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var activeTab = ViewData["ActiveTab"]?.ToString();
+    var tabs = new Dictionary<string, string>
+    {
+        {"Courses", "Học phần"},
+        {"Folders", "Thư mục"}
+    };
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/userLibrary/main.css" />
+    <link rel="stylesheet" href="~/css/userLibrary/content.css" />
+    <link rel="stylesheet" href="~/css/userLibrary/courses.css" />
+    <link rel="stylesheet" href="~/css/userLibrary/folders.css" />
+}
+
+<div class="library-container">
+    <h2>Thư viện của bạn </h2>
+
+    <!-- Tab Buttons -->
+    <div class="tab-container">
+        @foreach (var tab in tabs)
+        {
+            <a asp-controller="UserLibrary" asp-action="@tab.Key" asp-route-username="@ViewBag.Username"
+               class="tab @(activeTab == tab.Key ? "active" : "")">
+                @tab.Value
+            </a>
+        }
+    </div>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
+
+<script type="module" src="~/js/userLibrary/main.js"></script>

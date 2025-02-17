@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
+    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+}
+
+<div class="content-container">
+    <!-- Filter and Search Bar -->
+    <div class="row">
+        <div class="col-6 d-flex align-items-center">
+            <div class="select-container">
+                <div class="custom-select">
+                    <div class="selected" data-value="created">
+                        Đã tạo
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-value="marked">Đã đánh dấu</div>
+                        <div class="option" data-value="created">Đã tạo</div>
+                        <div class="option" data-value="recently">Gần đây</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="search-container">
+                <input type="text" placeholder="Tìm kiếm thư mục" />
+                <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thư mục"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Folder List -->
+    <div class="list-group folder-group">
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="card folder-item" onclick="pageRedirect('/tu-vung-bai-32-20250212042545987-1021')">
+                <div class="tag">
+                    <span class="items-count">6 mục</span>
+                </div>
+                <div class="title">
+                    <i class="fa-regular fa-folder icon-folder"></i>
+                    <span class="px-1">Từ vựng bài 32 (N4)</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

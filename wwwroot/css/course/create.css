@@ -3,6 +3,7 @@
 
 body {
     background: var(--bg-color-grey);
+    margin:0;
 }
 
 .import-flashcards-container{

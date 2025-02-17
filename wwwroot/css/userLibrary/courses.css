@@ -1,1 +1,33 @@
 ﻿
+.list-group .line{
+    flex-grow: 1; /* Mở rộng hết phần còn lại của header */
+    height: 1px;
+    background-color: #d9dde8;
+}
+
+.tag .separator{
+    height: 15px;
+    width: 1.5px;
+    background-color: var(--light-grey-color);
+}
+
+.tag .user-link{
+    color: var(--input-border-bottom-color);
+    text-decoration: none;
+}
+
+.tag .user-link img{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.title .icon-lock{
+    color: var(--light-grey-color);
+    font-size: .875rem;
+    padding: 0 5px;
+}
+
+.course-item {
+    padding: 15px 15px 10px 15px;
+}
