@@ -88,7 +88,7 @@
             }
             else
             {
-                for (int i = 1; i <= 2; i++)
+                for (int i = 1; i <= 5; i++)
                 {
                     @await Html.PartialAsync("ViewPartials/Create/_TermDefinitionPartial", new
                         {
@@ -102,20 +102,20 @@
             }
         </div>
 
-        <button type="button" onclick="addNewCard()" class="term-item mb-3 border-0 rounded-3 p-3 w-100 text-start add-card">
-            <div class="row align-items-center">
-                <span class="fw-bold text-secondary"><i class="fa-solid fa-plus"></i> Thêm thẻ</span>
+        <button type="button" onclick="addNewCard()" class="add-card">
+            <div class="btn">
+                <span>THÊM THẺ</span>
             </div>
         </button>
 
         <!-- Actions -->
         <div class="mt-4 d-flex justify-content-end gap-3">
             <button type="submit" asp-action="Create" asp-controller="Course" 
-                    id="create-course-btn" class="btn btn-outline-secondary">
+                    id="create-course-btn" class="btn-create-big">
                 Tạo
             </button>
 
-            <button type="submit" id="create-review-course-btn" class="btn btn-primary">
+            <button type="submit" id="create-review-course-btn" class="btn-createAndPractice-big">
                 Tạo và ôn luyện
             </button>
         </div>
