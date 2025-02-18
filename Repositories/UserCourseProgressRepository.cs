@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using api.Helpers;
+using Microsoft.EntityFrameworkCore;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.Interfaces;
 using SmartCards.Models;

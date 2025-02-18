@@ -24,15 +24,17 @@ namespace SmartCards.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["ActivePage"] = this._activePage;
+
             var courses = await _courseRepo.GetAllAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "CreatedAt",
                 IsDecsending = true,
                 MaxItem = 4
             });
-            var recentCoursesDTO = courses.Select(x => x.ToRecentCourseDTO()).ToList();
 
-            ViewData["ActivePage"] = this._activePage;
+            var recentCoursesDTO = courses?.Select(x => x.ToRecentCourseDTO()).ToList() 
+                ?? new List<RecentCourseDTO>();
 
             return View(recentCoursesDTO);
         }

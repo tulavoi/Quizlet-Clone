@@ -3,6 +3,7 @@
     background: #fff;
     padding: 10px 20px;
     flex-shrink: 0; /* Không co lại khi thu nhỏ màn hình */
+    min-height: 90vh;
 }
 
 .menu-list {
@@ -59,15 +60,4 @@
 
 .notification {
     position: relative;
-}
-
-.badge {
-    background: #ff4d4d;
-    color: white;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 12px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
 }

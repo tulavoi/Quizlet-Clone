@@ -41,7 +41,7 @@ namespace SmartCards.Controllers
         [Route("/create-course")]
         public async Task<IActionResult> Create()
 		{
-            await this.SetViewBagForCreatCourse();
+            await this.SetViewBagForCreateCourse();
 			return View();
 		}
 
@@ -53,13 +53,16 @@ namespace SmartCards.Controllers
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 TempData["ErrorMessage"] = errorMessage;
-                await this.SetViewBagForCreatCourse();
+                await this.SetViewBagForCreateCourse();
                 return View(courseDTO);
             }
 
             // Tạo học phần mới
             var course = courseDTO.ToCourseFromCreateDTO(this.UserId);
             await _courseRepo.CreateAsync(course, courseDTO.ViewPermissionId, courseDTO.EditPermissionId);
+
+            // Sau khi tạo học phần thì lưu vào course progress
+            await _courseProgressRepo.UpdateProgressAsync(this.UserId, course.Id);
 
             return RedirectToAction(nameof(Details), new { slug = course.Slug });
         }
@@ -127,7 +130,7 @@ namespace SmartCards.Controllers
             return View(courseDTO);
         }
 
-        private async Task SetViewBagForCreatCourse()
+        private async Task SetViewBagForCreateCourse()
         {
             ViewBag.EditPermissions = await _permissionRepo.GetAllAsync(new PermissionQueryObject { IsEdit = true });
             ViewBag.ViewPermissions = await _permissionRepo.GetAllAsync(new PermissionQueryObject { IsEdit = false });

@@ -11,21 +11,20 @@ namespace SmartCards.Controllers
     {
         // Route mặc định khi truy cập "user/{username}"
         //[Route("")]
-        public IActionResult Index(string username)
+        public async Task<IActionResult> Index(string username)
         {
             return RedirectToAction(nameof(Courses), new {username});
-            //return View();
         }
 
         [Route("courses")]
-        public IActionResult Courses()
+        public async Task<IActionResult> Courses()
         {
             ViewData["ActiveTab"] = "Courses";
             return View();
         }
 
         [Route("folders")]
-        public IActionResult Folders()
+        public async Task<IActionResult> Folders()
         {
             ViewData["ActiveTab"] = "Folders";
             return View();

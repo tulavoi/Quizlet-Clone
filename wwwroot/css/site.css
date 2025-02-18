@@ -23,6 +23,7 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+    overflow-y: hidden;
 }
 
 html {
@@ -93,6 +94,8 @@ body {
 .content {
     flex-grow: 1; /* Chiếm phần còn lại của màn hình */
     padding: 20px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
 }
 
 .footer-links {

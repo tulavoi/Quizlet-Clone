@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Serilog;
+using Serilog.Formatting.Json;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.Interfaces;
 using SmartCards.Repositories;
@@ -52,6 +55,18 @@ builder.Services.AddScoped<IFlashcardRepository, FlashcardRepository>();
 builder.Services.AddScoped<IUserFlashcardProgressRepository, UserFlashcardProgressRepository>();
 builder.Services.AddScoped<IUserCourseProgressRepository, UserCourseProgressRepository>();
 
+// Serilog
+builder.Host.UseSerilog((context, config) =>
+{
+    config.WriteTo.Console().MinimumLevel.Information();
+    config.WriteTo.File(
+        path: AppDomain.CurrentDomain.BaseDirectory + "/logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()
+    ).MinimumLevel.Information();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +76,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

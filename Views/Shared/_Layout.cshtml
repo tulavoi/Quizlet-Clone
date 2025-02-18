@@ -60,16 +60,18 @@
             {
                 @RenderBody()
             }
-        </main>
-        @if (!(ViewData["HideFooter"] as bool? ?? false))
-        {
-            <footer class="bg-white footer text-muted">
-                <div class="footer-links">
-                    <a asp-controller="Home" asp-action="Privacy">Quyền riêng tư</a>
-                    <a asp-controller="Home" asp-action="Privacy">Điều khoản</a>
+
+            @if (!(ViewData["HideFooter"] as bool? ?? false))
+            {
+                <div class="bg-white footer text-muted">
+                    <div class="footer-links">
+                        <a asp-controller="Home" asp-action="Privacy">Quyền riêng tư</a>
+                        <a asp-controller="Home" asp-action="Privacy">Điều khoản</a>
+                    </div>
                 </div>
-            </footer>
-        }
+            }
+        </main>
+        
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

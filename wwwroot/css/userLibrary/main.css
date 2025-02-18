@@ -2,13 +2,17 @@
     background: var(--bg-color-grey);
 }
 
-.library-container{
+.library-container {
     padding: 1rem;
 }
 
 .library-container h2{
     font-size: 2rem;
     font-weight: 700;
+}
+
+.list-group {
+    min-height: 60vh;
 }
 
 .tab-container {
@@ -140,4 +144,48 @@
 
 .content-container{
     margin: 0;
+}
+
+/* Danh sách học phần/thư mục trống thì hiện */
+.list-group-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-group-empty img{
+    width: 300px;
+    height: 150px;
+}
+
+.list-group-empty .text{
+    color: var(--dark-grey-color);
+}
+
+.list-group-empty .title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.list-group-empty span{
+    margin-top: .25rem;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.list-group-empty .btn{
+    margin-top: 1rem;
+    background: var(--blue-color);
+    border: none;
+    border-radius: .5rem;
+    color: white;
+    font-size: .875rem;
+    font-weight: 600;
+    padding: 10px 16px;
+}
+
+.list-group-empty .btn:hover{
+    background: var(--btn-blue-hover-color);
 }
