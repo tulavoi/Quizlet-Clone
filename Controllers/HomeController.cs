@@ -26,11 +26,11 @@ namespace SmartCards.Controllers
         {
             ViewData["ActivePage"] = this._activePage;
 
-            var courses = await _courseRepo.GetAllAsync(this.UserId, new CourseQueryObject
+            var courses = await _courseRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
-                SortBy = "CreatedAt",
-                IsDecsending = true,
-                MaxItem = 4
+                SortBy = "LastUpdated",
+                IsDescending = true,
+                Quantity = 4
             });
 
             var recentCoursesDTO = courses?.Select(x => x.ToRecentCourseDTO()).ToList() 

@@ -20,22 +20,9 @@
 }
 
 <div class="detail-course-container">
-    @* @if (Model.CourseFolder != null) // Có ở trong 1 folder nào đó thì mới hiển thị
-    {
-        <button class="btn-folder text-secondary mt-2"><i class="fa-regular fa-folder"></i> 
-            @Model.CourseFolder.Folder.Title
-        </button>
-    } *@
-
     <div class="row">
         <h2 style="font-weight: 800;">@Model.Title</h2>
     </div>
-
-    <!-- Có user khác rate thì mới hiển thị -->
-    @* <div class="rate mb-2">
-         <i class="fa-solid fa-star"></i>
-         <span>5.0 (1 đánh giá)</span> 
-    </div> *@
 
     <div class="row">
         <!-- Study Modes -->

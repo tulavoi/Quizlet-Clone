@@ -68,8 +68,8 @@ namespace SmartCards.Mappers
             return new RecentCourseDTO
             {
                 Id = course.Id,
-                UserId = course.UserId,
-                Username = course.User?.UserName ?? string.Empty,
+                OwnerUserId = course.UserId,
+                OwnerUsername = course.User?.UserName ?? string.Empty,
                 Title = course.Title,
                 Password = course.Password,
                 Slug = course.Slug,
@@ -95,6 +95,20 @@ namespace SmartCards.Mappers
                 }).ToList(),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
+            };
+        }
+
+        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this Course course)
+        {
+            return new UserLibraryCoursesDTO
+            {
+                Id = course.Id,
+                OwnerUserId = course.UserId,
+                OwnerUsername = course.User?.UserName ?? string.Empty,
+                Title = course.Title,
+                Slug = course.Slug,
+                FlashcardCount = course.Flashcards.Count,
+                //IsOnlyOwner = course.CoursePermission.ViewPermissionId
             };
         }
     }

@@ -14,12 +14,6 @@
     background: var(--grey-color);
 }
 
-.user-info .btn-avatar {
-    width: 64px !important;
-    height: 64px !important;
-    font-size: 1.5rem;
-}
-
 .dropdown-profile-menu {
     right: 8px !important; /* Đẩy menu về sát bên phải */
     left: auto !important;

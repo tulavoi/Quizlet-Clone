@@ -29,7 +29,7 @@
                                 <h6 class="mb-1">@course.Title</h6>
                                 <span class="fw-bold course-info m-0 text-secondary">
                                     Học phần • @course.FlashcardCount terms 
-                                    • Tác giả: @(course.UserId == UserManager.GetUserId(User) ? "bạn" : course.Username)
+                                    • Tác giả: @(course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername)
                                 </span>
                             </div>
                         </div>

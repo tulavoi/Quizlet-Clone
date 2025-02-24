@@ -83,26 +83,31 @@ namespace SmartCards.Repositories
         }
 
         // Lấy các học phần của user
-        public async Task<List<Course>?> GetAllAsync(string userId, CourseQueryObject query)
+        public async Task<List<Course>?> GetAllByUserAsync(string userId, CourseQueryObject query)
         {
             var courseProgresses = _context.UserCourseProgresses
                         .Where(ucp => ucp.UserId == userId)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.User)
                         .Include(ucp => ucp.Course)
                             .ThenInclude(c => c.Flashcards)
                                 .ThenInclude(fc => fc.Term_Lang)
                         .Include(ucp => ucp.Course)
                             .ThenInclude(c => c.Flashcards)
                                 .ThenInclude(fc => fc.Definition_Lang)
+                        //.Include(ucp => ucp.Course)
+                        //    .ThenInclude(c => c.CoursePermission)
+                        //        .ThenInclude(cp => cp.ViewPermission)
                         .AsQueryable();
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
-                courseProgresses = query.IsDecsending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
+                courseProgresses = query.IsDescending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
                     : courseProgresses.OrderBy(ucp => ucp.LastUpdated);
             }
 
-            if (query.MaxItem > 0)
-                courseProgresses = courseProgresses.Take(query.MaxItem);
+            if (!query.GetAll && query.Quantity > 0)
+                courseProgresses = courseProgresses.Take(query.Quantity);
 
             var result = await courseProgresses
                         .Select(ucp => ucp.Course!)

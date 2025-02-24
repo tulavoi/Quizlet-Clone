@@ -54,6 +54,7 @@ builder.Services.AddScoped<ICoursePermissionRepository, CoursePermissionReposito
 builder.Services.AddScoped<IFlashcardRepository, FlashcardRepository>();
 builder.Services.AddScoped<IUserFlashcardProgressRepository, UserFlashcardProgressRepository>();
 builder.Services.AddScoped<IUserCourseProgressRepository, UserCourseProgressRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Serilog
 builder.Host.UseSerilog((context, config) =>
