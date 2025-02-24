@@ -95,9 +95,9 @@ namespace SmartCards.Repositories
                         .Include(ucp => ucp.Course)
                             .ThenInclude(c => c.Flashcards)
                                 .ThenInclude(fc => fc.Definition_Lang)
-                        //.Include(ucp => ucp.Course)
-                        //    .ThenInclude(c => c.CoursePermission)
-                        //        .ThenInclude(cp => cp.ViewPermission)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.CoursePermission)
+                                .ThenInclude(cp => cp.ViewPermission)
                         .AsQueryable();
 
             if (!string.IsNullOrEmpty(query.SortBy))

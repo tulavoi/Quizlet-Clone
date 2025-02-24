@@ -108,7 +108,7 @@ namespace SmartCards.Mappers
                 Title = course.Title,
                 Slug = course.Slug,
                 FlashcardCount = course.Flashcards.Count,
-                //IsOnlyOwner = course.CoursePermission.ViewPermissionId
+                ViewPermissionType = course.CoursePermission.ViewPermission?.Type
             };
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartCards.Models;
+using System.Reflection.Emit;
 
 namespace SmartCards.Areas.Identity.Data.EntityConfigurations
 {
@@ -8,28 +9,22 @@ namespace SmartCards.Areas.Identity.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<CoursePermission> builder)
 		{
-			// Khai báo key cho CoursePermission
-			builder.HasKey(x => new
-			{
-				x.CourseId,
-				x.EditPermissionId,
-				x.ViewPermissionId,
-			});
+            builder.HasKey(cp => cp.CourseId);
 
-			builder.HasOne(x => x.Course)
-			 .WithMany()
-			 .HasForeignKey(x => x.CourseId)
-			 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(cp => cp.Course)
+                .WithOne(c => c.CoursePermission)
+                .HasForeignKey<CoursePermission>(cp => cp.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-			builder.HasOne(x => x.ViewPermission)
-			 .WithMany()
-			 .HasForeignKey(x => x.ViewPermissionId)
-			 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(cp => cp.ViewPermission)
+                .WithMany()
+                .HasForeignKey(cp => cp.ViewPermissionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasOne(x => x.EditPermission)
-			 .WithMany()
-			 .HasForeignKey(x => x.EditPermissionId)
-			 .OnDelete(DeleteBehavior.Restrict);
-		}
+            builder.HasOne(cp => cp.EditPermission)
+                .WithMany()
+                .HasForeignKey(cp => cp.EditPermissionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
 	}
 }

@@ -48,10 +48,10 @@ namespace SmartCards.Controllers
                 GetAll = true
             });
 
-            var courseInUserLibraryDTO = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
+            var courseInUserLibraryDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
                 ?? new List<UserLibraryCoursesDTO>();
 
-            return View(courseInUserLibraryDTO);
+            return View(courseInUserLibraryDTOs);
         }
 
         [Route("folders")]

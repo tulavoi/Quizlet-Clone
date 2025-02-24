@@ -1,4 +1,6 @@
-﻿namespace SmartCards.DTOs.Course
+﻿using SmartCards.Models;
+
+namespace SmartCards.DTOs.Course
 {
     public class UserLibraryCoursesDTO
     {
@@ -8,6 +10,6 @@
         public string OwnerUserId { get; set; } = string.Empty;
         public string OwnerUsername { get; set; } = string.Empty;
         public int FlashcardCount { get; set; }
-        public bool IsOnlyOwner { get; set; }
+        public PermissionType? ViewPermissionType { get; set; }
     }
 }

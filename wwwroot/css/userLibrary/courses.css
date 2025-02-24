@@ -31,3 +31,7 @@
 .course-item {
     padding: 15px 15px 10px 15px;
 }
+
+.tag .items-count{
+    min-width: 80px;
+}

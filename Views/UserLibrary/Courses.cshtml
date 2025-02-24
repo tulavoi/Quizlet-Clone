@@ -1,4 +1,7 @@
-﻿@{
+﻿@using SmartCards.DTOs.Course
+@model List<UserLibraryCoursesDTO>
+
+@{
     ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
     Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
 }
@@ -31,37 +34,46 @@
 
     <!-- Course List -->
     <div class="list-group course-group">
-        <header>
-            <h2>HÔM NAY</h2>
-            <div class="line"></div>
-        </header>
-        @for (int i = 0; i < 10; i++)
+        @if (Model.Count > 0)
         {
-            <div class="card course-item" onclick="pageRedirect('/tu-vung-bai-32-20250212042545987-1021')">
-                <div class="tag">
-                    <span class="items-count">6 thuật ngữ</span>
-                    <div class="separator"></div>
-                    <a class="user-link" asp-controller="UserLibrary"
-                       asp-action="Index" asp-route-username="@ViewBag.Username">
-                        <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @ViewBag.Username" />
-                        <span class="username">@ViewBag.Username</span>
-                    </a>
+            <header>
+                <h2>HÔM NAY</h2>
+                <div class="line"></div>
+            </header>
+            @foreach(var course in Model)
+            {
+                var isPrivateCourse = course.ViewPermissionType == PermissionType.OnlyMe ? true : false;
+                <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
+                    <div class="tag">
+                        <div class="items-count">@course.FlashcardCount thuật ngữ</div>
+                        <div class="separator"></div>
+                        <a class="user-link" asp-controller="UserLibrary"
+                           asp-action="Index" asp-route-username="@course.OwnerUsername">
+                            <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
+                            <span class="username">@course.OwnerUsername</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <span>@course.Title</span>
+                        @if (isPrivateCourse)
+                        {
+                            <i class="fa-solid fa-lock icon-lock"></i>
+                        }
+                    </div>
                 </div>
-                <div class="title">
-                    <span>Từ vựng bài 32 (N4)</span>
-                    <i class="fa-solid fa-lock icon-lock"></i>
-                </div>
+            }
+        }
+        else
+        {
+            <div class="list-group-empty">
+                <img src="/images/icons/courses_empty.svg" width="200" />
+                <div class="title text">Bạn chưa có học phần nào</div>
+                <span class="text">Các học phần bạn tạo hoặc học sẽ hiển thị ở đây</span>
+                <a class="btn" asp-controller="Course" asp-action="Create">
+                    Tạo học phần
+                </a>
             </div>
         }
-
-        @* <div class="list-group-empty">
-            <img src="/images/icons/courses_empty.svg" width="200" />
-            <div class="title text">Bạn chưa có học phần nào</div>
-            <span class="text">Các học phần bạn tạo hoặc học sẽ hiển thị ở đây</span>
-            <a class="btn" asp-controller="Course" asp-action="Create">
-                Tạo học phần
-            </a>
-        </div> *@
     </div>
 </div>
 
