@@ -74,6 +74,12 @@
     padding: 0;
 }
 
+.flashcards-container hr{
+    margin-top: 1.5rem;
+    height: .15rem;
+    background: var(--grey-color);
+}
+
 .term-defi-cards {
     perspective: 1000px; /* Thêm chiều sâu để tạo hiệu ứng 3D */
     width: 100%; /* Chiều rộng của thẻ */
@@ -159,12 +165,6 @@
 }
 
 /* Cards Settings */
-.card-settings hr {
-    margin-top: 1.5rem;
-    height: .15rem;
-    background: var(--grey-color);
-}
-
 .card-settings button {
     display: flex;
     justify-content: center;

@@ -1,0 +1,84 @@
+﻿@using SmartCards.DTOs.Course
+@model Dictionary<string, List<UserLibraryCoursesDTO>>
+
+@{
+    ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
+    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+}
+
+<div class="content-container">
+    <!-- Filter and Search Bar -->
+    <div class="row">
+        <div class="col-6 d-flex align-items-center">
+            <div class="select-container">
+                <div class="custom-select">
+                    <div class="selected" data-value="recently">
+                        Gần đây
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-value="created">Đã tạo</div>
+                        <div class="option" data-value="recently">Gần đây</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="search-container">
+                <input type="text" placeholder="Tìm kiếm thẻ ghi nhớ" />
+                <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thẻ ghi nhớ"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course List -->
+    <div class="list-group">
+        @if (Model.Count > 0)
+        {
+            @foreach(var group in Model)
+            {
+                <div class="course-group">
+                    <header>
+                        <h2>@group.Key</h2>
+                        <div class="line"></div>
+                    </header>
+                    @foreach (var course in group.Value)
+                    {
+                        var isPrivateCourse = course.ViewPermissionType == PermissionType.OnlyMe ? true : false;
+                        <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
+                            <div class="tag">
+                                <div class="items-count">@course.FlashcardCount thuật ngữ</div>
+                                <div class="separator"></div>
+                                <a class="user-link" asp-controller="UserLibrary"
+                                   asp-action="Index" asp-route-username="@course.OwnerUsername">
+                                    <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
+                                    <span class="username">@course.OwnerUsername</span>
+                                </a>
+                            </div>
+                            <div class="title">
+                                <span>@course.Title</span>
+                                @if (isPrivateCourse)
+                                {
+                                    <i class="fa-solid fa-lock icon-lock"></i>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div class="list-group-empty">
+                <img src="/images/icons/courses_empty.svg" width="200" />
+                <div class="title text">Bạn chưa có học phần nào</div>
+                <span class="text">Các học phần bạn tạo hoặc học sẽ hiển thị ở đây</span>
+                <a class="btn" asp-controller="Course" asp-action="Create">
+                    Tạo học phần
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

@@ -25,5 +25,18 @@ namespace SmartCards.Extensions
                 }
             };
         }
+
+        public static string GetTimeCategory(DateTime lastUpdated, DateTime now)
+        {
+            if (lastUpdated.Date == now.Date) return "HÔM NAY";
+            else if (lastUpdated.Date >= now.Date.AddDays(-7))
+                return "TUẦN NÀY";
+            else if (lastUpdated.Date >= now.Date.AddDays(-14) && lastUpdated.Date < now.Date.AddDays(-7))
+                return "TUẦN TRƯỚC";
+            else if (lastUpdated.Date.Year == now.Date.Year && lastUpdated.Date.Month == now.Date.Month)
+                return "THÁNG NÀY";
+
+            return $"THÁNG {lastUpdated.Month} NĂM {lastUpdated.Year}";
+        }
     }
 }

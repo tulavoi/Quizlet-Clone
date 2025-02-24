@@ -1,0 +1,48 @@
+﻿.list-group {
+    margin-top: 3rem;
+    margin-bottom: 20px;
+}
+
+.list-group header h2 {
+    font-size: .8125rem;
+    color: var(--input-border-bottom-color);
+    white-space: nowrap;
+    margin: 0;
+    font-weight: 500;
+}
+
+.list-group header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 .125rem .25rem #00000014;
+    margin-top: 10px;
+    cursor: pointer;
+    border-bottom: 5px solid transparent;
+}
+
+.card:hover{
+    border-bottom: 5px solid var(--light-blue-color);
+}
+
+.tag {
+    font-size: 0.875rem;
+    color: var(--input-border-bottom-color);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--input-border-bottom-color);
+    margin-top: 2px;
+}

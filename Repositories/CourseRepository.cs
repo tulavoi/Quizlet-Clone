@@ -83,27 +83,38 @@ namespace SmartCards.Repositories
         }
 
         // Lấy các học phần của user
-        public async Task<List<Course>> GetAllAsync(string userId, CourseQueryObject query)
+        public async Task<List<Course>?> GetAllByUserAsync(string userId, CourseQueryObject query)
         {
-            var courses = _context.Courses
-                          .Where(x => x.UserId == userId)
-                          .Include(x => x.User)
-                          .Include(x => x.Flashcards)
-                              .ThenInclude(f => f.Term_Lang)
-                          .Include(x => x.Flashcards)
-                              .ThenInclude(f => f.Definition_Lang)
-                          .AsQueryable();
+            var courseProgresses = _context.UserCourseProgresses
+                        .Where(ucp => ucp.UserId == userId)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.User)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.Flashcards)
+                                .ThenInclude(fc => fc.Term_Lang)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.Flashcards)
+                                .ThenInclude(fc => fc.Definition_Lang)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.CoursePermission)
+                                .ThenInclude(cp => cp.ViewPermission)
+                        .AsQueryable();
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
-                courses = query.IsDecsending ? courses.OrderByDescending(x => x.CreatedAt)
-                    : courses.OrderBy(x => x.CreatedAt);
+                courseProgresses = query.IsDescending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
+                    : courseProgresses.OrderBy(ucp => ucp.LastUpdated);
             }
 
-            if (query.MaxItem > 0)
-                courses = courses.Take(query.MaxItem);
+            if (!query.GetAll && query.Quantity > 0)
+                courseProgresses = courseProgresses.Take(query.Quantity);
 
-            return await courses.ToListAsync();
+            var result = await courseProgresses
+                        .Select(ucp => ucp.Course!)
+                        .Where(c => c != null)
+                        .ToListAsync();
+
+            return result.Any() ? result : null;
         }
 
         public async Task<Course?> GetByIdAsync(int id, CourseQueryObject? query)

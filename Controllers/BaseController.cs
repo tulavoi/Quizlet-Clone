@@ -7,12 +7,6 @@ namespace SmartCards.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        protected string UserId
-        {
-            get
-            {
-                return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            }
-        }
+        protected string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
     }
 }

@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Serilog;
+using Serilog.Formatting.Json;
 using SmartCards.Areas.Identity.Data;
+using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Repositories;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,15 +34,15 @@ builder.Services.AddAuthentication()
 .AddGoogle(options =>
 {
     var gconfig = builder.Configuration.GetSection("Authentication:Google");
-    options.ClientId = gconfig["GoogleOAuthClientId"]!;
-    options.ClientSecret = gconfig["GoogleOAuthClientSec"]!;
+    options.ClientId = gconfig["OAuthClientId"]!;
+    options.ClientSecret = gconfig["OAuthClientSecret"]!;
     options.CallbackPath = "/signin-google";
 })
 .AddFacebook(options =>
 {
     var fconfig = builder.Configuration.GetSection("Authentication:Facebook");
     options.AppId = fconfig["AppId"]!;
-    options.AppSecret = fconfig["AppSec"]!;
+    options.AppSecret = fconfig["AppSecret"]!;
     //options.CallbackPath = "/login";
 });
 builder.Services.AddAuthorization();
@@ -49,6 +55,19 @@ builder.Services.AddScoped<ICoursePermissionRepository, CoursePermissionReposito
 builder.Services.AddScoped<IFlashcardRepository, FlashcardRepository>();
 builder.Services.AddScoped<IUserFlashcardProgressRepository, UserFlashcardProgressRepository>();
 builder.Services.AddScoped<IUserCourseProgressRepository, UserCourseProgressRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// Serilog
+builder.Host.UseSerilog((context, config) =>
+{
+    config.WriteTo.Console().MinimumLevel.Information();
+    config.WriteTo.File(
+        path: AppDomain.CurrentDomain.BaseDirectory + "/logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()
+    ).MinimumLevel.Information();
+});
 
 var app = builder.Build();
 
@@ -59,6 +78,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -14,6 +14,7 @@ namespace SmartCards.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICourseRepository _courseRepo;
+        private readonly string _activePage = "Home";
 
         public HomeController(ILogger<HomeController> logger, ICourseRepository courseRepo)
         {
@@ -23,13 +24,18 @@ namespace SmartCards.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseRepo.GetAllAsync(this.UserId, new CourseQueryObject
+            ViewData["ActivePage"] = this._activePage;
+
+            var courses = await _courseRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
-                SortBy = "CreatedAt",
-                IsDecsending = true,
-                MaxItem = 4
+                SortBy = "LastUpdated",
+                IsDescending = true,
+                Quantity = 4
             });
-            var recentCoursesDTO = courses.Select(x => x.ToRecentCourseDTO()).ToList();
+
+            var recentCoursesDTO = courses?.Select(x => x.ToRecentCourseDTO()).ToList() 
+                ?? new List<RecentCourseDTO>();
+
             return View(recentCoursesDTO);
         }
 
