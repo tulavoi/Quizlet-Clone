@@ -1,11 +1,15 @@
 ﻿
-.list-group .line{
+.course-group .line {
     flex-grow: 1; /* Mở rộng hết phần còn lại của header */
     height: 1px;
     background-color: #d9dde8;
 }
 
-.tag .separator{
+/*.course-group {
+    gap: 10px;
+}*/
+
+.tag .separator {
     height: 15px;
     width: 1.5px;
     background-color: var(--light-grey-color);

@@ -1,4 +1,5 @@
-﻿using SmartCards.Models;
+﻿using api.Helpers;
+using SmartCards.Models;
 
 namespace SmartCards.Interfaces
 {

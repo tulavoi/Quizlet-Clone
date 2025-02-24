@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using Serilog;
 using Serilog.Formatting.Json;
 using SmartCards.Areas.Identity.Data;
+using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Repositories;
 using System.Security.Claims;

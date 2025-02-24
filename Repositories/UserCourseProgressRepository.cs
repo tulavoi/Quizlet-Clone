@@ -45,5 +45,37 @@ namespace SmartCards.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task<List<UserCourseProgress>?> GetAllByUserAsync(string userId, CourseQueryObject query)
+        {
+            var courseProgresses = _context.UserCourseProgresses
+                        .Where(ucp => ucp.UserId == userId)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.User)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.Flashcards)
+                                .ThenInclude(fc => fc.Term_Lang)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.Flashcards)
+                                .ThenInclude(fc => fc.Definition_Lang)
+                        .Include(ucp => ucp.Course)
+                            .ThenInclude(c => c.CoursePermission)
+                                .ThenInclude(cp => cp.ViewPermission)
+                        .AsQueryable();
+
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                courseProgresses = query.IsDescending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
+                    : courseProgresses.OrderBy(ucp => ucp.LastUpdated);
+            }
+
+            if (!query.GetAll && query.Quantity > 0)
+                courseProgresses = courseProgresses.Take(query.Quantity);
+
+            var result = await courseProgresses.ToListAsync();
+
+            return result.Any() ? result : null;
+        }
     }
 }

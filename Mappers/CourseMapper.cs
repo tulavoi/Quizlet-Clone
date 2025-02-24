@@ -98,17 +98,18 @@ namespace SmartCards.Mappers
             };
         }
 
-        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this Course course)
+        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this UserCourseProgress courseProgress)
         {
             return new UserLibraryCoursesDTO
             {
-                Id = course.Id,
-                OwnerUserId = course.UserId,
-                OwnerUsername = course.User?.UserName ?? string.Empty,
-                Title = course.Title,
-                Slug = course.Slug,
-                FlashcardCount = course.Flashcards.Count,
-                ViewPermissionType = course.CoursePermission.ViewPermission?.Type
+                Id = courseProgress.Course!.Id,
+                OwnerUserId = courseProgress.Course.UserId,
+                OwnerUsername = courseProgress.Course.User?.UserName ?? string.Empty,
+                Title = courseProgress.Course.Title,
+                Slug = courseProgress.Course.Slug,
+                FlashcardCount = courseProgress.Course.Flashcards.Count,
+                ViewPermissionType = courseProgress.Course.CoursePermission.ViewPermission?.Type,
+                LastUpdated = courseProgress.LastUpdated
             };
         }
     }

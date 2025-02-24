@@ -11,5 +11,6 @@ namespace SmartCards.DTOs.Course
         public string OwnerUsername { get; set; } = string.Empty;
         public int FlashcardCount { get; set; }
         public PermissionType? ViewPermissionType { get; set; }
+        public DateTime LastUpdated { get; set; }
     }
 }
