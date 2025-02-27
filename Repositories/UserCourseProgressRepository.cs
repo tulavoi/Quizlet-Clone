@@ -1,5 +1,6 @@
 ﻿using api.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.Interfaces;
 using SmartCards.Models;
@@ -46,7 +47,6 @@ namespace SmartCards.Repositories
             await _context.SaveChangesAsync();
         }
 
-
         public async Task<List<UserCourseProgress>?> GetAllByUserAsync(string userId, CourseQueryObject query)
         {
             var courseProgresses = _context.UserCourseProgresses
@@ -64,12 +64,13 @@ namespace SmartCards.Repositories
                                 .ThenInclude(cp => cp.ViewPermission)
                         .AsQueryable();
 
-            if (!string.IsNullOrEmpty(query.SortBy))
+            if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy.Equals("LastUpdated", StringComparison.OrdinalIgnoreCase))
             {
                 courseProgresses = query.IsDescending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
                     : courseProgresses.OrderBy(ucp => ucp.LastUpdated);
             }
 
+            // Giới hạn số lượng course nếu không lấy tất cả
             if (!query.GetAll && query.Quantity > 0)
                 courseProgresses = courseProgresses.Take(query.Quantity);
 

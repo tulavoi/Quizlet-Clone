@@ -46,3 +46,7 @@
     color: var(--input-border-bottom-color);
     margin-top: 2px;
 }
+
+.highlight {
+    background-color: var(--yellow-color);
+}

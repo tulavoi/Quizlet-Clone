@@ -6,5 +6,6 @@
         public bool IsDescending { get; set; } = false;
         public int Quantity { get; set; }
         public bool GetAll { get; set; } = false;
+        public string? FilterBy { get; set; }
     }
 }

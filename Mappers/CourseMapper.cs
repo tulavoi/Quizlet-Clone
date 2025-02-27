@@ -63,18 +63,18 @@ namespace SmartCards.Mappers
             };
         }
 
-        public static RecentCourseDTO ToRecentCourseDTO(this Course course)
+        public static RecentCourseDTO ToRecentCourseDTO(this UserCourseProgress courseProgress)
         {
             return new RecentCourseDTO
             {
-                Id = course.Id,
-                OwnerUserId = course.UserId,
-                OwnerUsername = course.User?.UserName ?? string.Empty,
-                Title = course.Title,
-                Password = course.Password,
-                Slug = course.Slug,
-                RelativeTime = course.CreatedAt.ToRelativeTime(),
-                FlashcardCount = course.Flashcards.Count
+                Id = courseProgress.Course!.Id,
+                OwnerUserId = courseProgress.Course.UserId,
+                OwnerUsername = courseProgress.Course.User?.UserName ?? string.Empty,
+                Title = courseProgress.Course.Title,
+                Password = courseProgress.Course.Password,
+                Slug = courseProgress.Course.Slug,
+                RelativeTime = courseProgress.Course.CreatedAt.ToRelativeTime(),
+                FlashcardCount = courseProgress.Course.Flashcards.Count
             };
         }
 
@@ -95,6 +95,11 @@ namespace SmartCards.Mappers
                 }).ToList(),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
+                CoursePermission = new CoursePermission
+                {
+                    ViewPermissionId = courseDTO.ViewPermissionId,
+                    EditPermissionId = courseDTO.EditPermissionId
+                }
             };
         }
 
@@ -110,6 +115,21 @@ namespace SmartCards.Mappers
                 FlashcardCount = courseProgress.Course.Flashcards.Count,
                 ViewPermissionType = courseProgress.Course.CoursePermission.ViewPermission?.Type,
                 LastUpdated = courseProgress.LastUpdated
+            };
+        }
+
+        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this Course course)
+        {
+            return new UserLibraryCoursesDTO
+            {
+                Id = course.Id,
+                OwnerUserId = course.UserId,
+                OwnerUsername = course.User?.UserName ?? string.Empty,
+                Title = course.Title,
+                Slug = course.Slug,
+                FlashcardCount = course.Flashcards.Count,
+                ViewPermissionType = course.CoursePermission.ViewPermission?.Type,
+                CreatedAt = course.CreatedAt
             };
         }
     }

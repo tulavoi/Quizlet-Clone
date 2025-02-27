@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
-    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml"; 
 }
 
 <div class="content-container">
@@ -12,13 +12,15 @@
         <div class="col-6 d-flex align-items-center">
             <div class="select-container">
                 <div class="custom-select">
-                    <div class="selected" data-value="recently">
-                        Gần đây
-                        <i class="fa-solid fa-angle-down"></i>
+                    <div class="selected">
+                        @ViewData["FilterBy"]
                     </div>
+                    <i class="fa-solid fa-angle-down"></i>
                     <div class="options">
-                        <div class="option" data-value="created">Đã tạo</div>
-                        <div class="option" data-value="recently">Gần đây</div>
+                        <a class="option" asp-action="CreatedCourses" asp-controller="UserLibrary"
+                           asp-route-username="@ViewBag.Username">Đã tạo</a>
+                        <a class="option" asp-action="RecentlyCourses" asp-controller="UserLibrary"
+                           asp-route-username="@ViewBag.Username">Gần đây</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +28,7 @@
 
         <div class="col-6">
             <div class="search-container">
-                <input type="text" placeholder="Tìm kiếm thẻ ghi nhớ" />
+                <input type="text" id="searchCourseInput" placeholder="Tìm kiếm thẻ ghi nhớ" autocomplete="off" />
                 <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thẻ ghi nhớ"></i>
             </div>
         </div>
@@ -49,12 +51,15 @@
                         <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
                             <div class="tag">
                                 <div class="items-count">@course.FlashcardCount thuật ngữ</div>
-                                <div class="separator"></div>
-                                <a class="user-link" asp-controller="UserLibrary"
-                                   asp-action="Index" asp-route-username="@course.OwnerUsername">
-                                    <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
-                                    <span class="username">@course.OwnerUsername</span>
-                                </a>
+                                @if (ViewData["FilterBy"].ToString() == "Gần đây")
+                                {
+                                    <div class="separator"></div>
+                                    <a class="user-link" asp-controller="UserLibrary"
+                                       asp-action="Index" asp-route-username="@course.OwnerUsername">
+                                        <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
+                                        <span class="username">@course.OwnerUsername</span>
+                                    </a>
+                                }
                             </div>
                             <div class="title">
                                 <span>@course.Title</span>

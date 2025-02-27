@@ -18,7 +18,7 @@ namespace SmartCards.Repositories
             _coursePerRepo = coursePerRepo;
         }
 
-        public async Task CreateAsync(Course course, int viewPerId, int ediPerId)
+        public async Task CreateAsync(Course course, int viewPerId, int editPerId)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -30,16 +30,6 @@ namespace SmartCards.Repositories
                 course.Slug = this.GenerateSlug(course.Title, course.Id, course.CreatedAt);
                 _context.Courses.Update(course);
                 await _context.SaveChangesAsync();
-
-                var coursePermission = new CoursePermission
-                {
-                    CourseId = course.Id,
-                    ViewPermissionId = viewPerId,
-                    EditPermissionId = ediPerId,
-                };
-
-                await _coursePerRepo.CreateAsync(coursePermission); // Tạo course permission
-
                 await transaction.CommitAsync();
             }
             catch
@@ -82,41 +72,6 @@ namespace SmartCards.Repositories
             return stringBuilder.ToString().Normalize(System.Text.NormalizationForm.FormC);
         }
 
-        // Lấy các học phần của user
-        public async Task<List<Course>?> GetAllByUserAsync(string userId, CourseQueryObject query)
-        {
-            var courseProgresses = _context.UserCourseProgresses
-                        .Where(ucp => ucp.UserId == userId)
-                        .Include(ucp => ucp.Course)
-                            .ThenInclude(c => c.User)
-                        .Include(ucp => ucp.Course)
-                            .ThenInclude(c => c.Flashcards)
-                                .ThenInclude(fc => fc.Term_Lang)
-                        .Include(ucp => ucp.Course)
-                            .ThenInclude(c => c.Flashcards)
-                                .ThenInclude(fc => fc.Definition_Lang)
-                        .Include(ucp => ucp.Course)
-                            .ThenInclude(c => c.CoursePermission)
-                                .ThenInclude(cp => cp.ViewPermission)
-                        .AsQueryable();
-
-            if (!string.IsNullOrEmpty(query.SortBy))
-            {
-                courseProgresses = query.IsDescending ? courseProgresses.OrderByDescending(ucp => ucp.LastUpdated)
-                    : courseProgresses.OrderBy(ucp => ucp.LastUpdated);
-            }
-
-            if (!query.GetAll && query.Quantity > 0)
-                courseProgresses = courseProgresses.Take(query.Quantity);
-
-            var result = await courseProgresses
-                        .Select(ucp => ucp.Course!)
-                        .Where(c => c != null)
-                        .ToListAsync();
-
-            return result.Any() ? result : null;
-        }
-
         public async Task<Course?> GetByIdAsync(int id, CourseQueryObject? query)
         {
             var course = await _context.Courses
@@ -146,6 +101,27 @@ namespace SmartCards.Repositories
             string combinedMessage = messages.Count != 0 ? $"bạn cần {string.Join(", ", messages)} để tạo 1 học phần." : "";
 
             return combinedMessage;
+        }
+
+        public async Task<List<Course>?> GetAllByUserAsync(string userId, CourseQueryObject query)
+        {
+            var courses = _context.Courses
+                .Where(c => c.UserId == userId)
+                .Include(fc => fc.Flashcards)
+                .Include(cp => cp.CoursePermission)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy.Equals("CreatedAt", StringComparison.OrdinalIgnoreCase))
+            {
+                courses = query.IsDescending ? courses.OrderByDescending(ucp => ucp.CreatedAt)
+                    : courses.OrderBy(ucp => ucp.CreatedAt);
+            }
+
+            // Giới hạn số lượng course nếu không lấy tất cả
+            if (!query.GetAll && query.Quantity > 0)
+                courses = courses.Take(query.Quantity);
+
+            return await courses.ToListAsync();
         }
     }
 }
