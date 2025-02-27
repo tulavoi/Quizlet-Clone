@@ -13,20 +13,20 @@ namespace SmartCards.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICourseRepository _courseRepo;
+        private readonly IUserCourseProgressRepository _courseProgressRepo;
         private readonly string _activePage = "Home";
 
-        public HomeController(ILogger<HomeController> logger, ICourseRepository courseRepo)
+        public HomeController(ILogger<HomeController> logger, IUserCourseProgressRepository courseProgressRepo)
         {
             _logger = logger;
-            _courseRepo = courseRepo;
+            _courseProgressRepo = courseProgressRepo;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewData["ActivePage"] = this._activePage;
 
-            var courses = await _courseRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
+            var courses = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "LastUpdated",
                 IsDescending = true,

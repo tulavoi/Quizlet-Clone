@@ -3,6 +3,7 @@
 export function bindTrashButtonEvent() {
     document.querySelectorAll('.btn-trash').forEach(function (btn) {
         btn.addEventListener('click', function () {
+        console.log("btn trash");
             // Tìm phần tử cha gần nhất có class "term-item"
             const termItem = btn.closest('.term-item');
 

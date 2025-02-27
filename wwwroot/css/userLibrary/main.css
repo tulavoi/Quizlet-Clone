@@ -105,10 +105,14 @@
 .option {
     padding: 10px 15px;
     cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--dark-grey-color);
 }
 
 .option:hover {
     background-color: var(--btn-secondary-hover-color);
+    color: var(--dark-grey-color);
 }
 
 /* Hiển thị dropdown khi active */
