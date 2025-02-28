@@ -8,6 +8,7 @@ using SmartCards.Extensions;
 using SmartCards.Filters;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
+using SmartCards.Models;
 
 namespace SmartCards.Controllers
 {
@@ -35,14 +36,14 @@ namespace SmartCards.Controllers
         // Route mặc định khi truy cập "user/{username}"
         public async Task<IActionResult> Index(string username)
         {
-            return RedirectToAction(nameof(RecentlyCourses), new {username});
+            return RedirectToAction(nameof(Courses), new {username, filter = "recently"});
         }
 
-        [Route("courses/created")]
-        public async Task<IActionResult> CreatedCourses() 
+        [Route("courses/{filter}")]
+        public async Task<IActionResult> Courses(string filter)
         {
             this.SetViewData("ActiveTab", "Courses");
-            this.SetViewData("FilterBy", "Đã tạo");
+            this.SetViewData("FilterBy", filter);
 
             var username = RouteData.Values["username"]?.ToString();
             if (string.IsNullOrEmpty(username)) return NotFound();
@@ -50,87 +51,42 @@ namespace SmartCards.Controllers
             var userId = await _userRepo.GetUserIdAsync(username);
             if (string.IsNullOrEmpty(userId)) return NotFound();
 
-            var courses = await _courseRepo.GetAllByUserAsync(userId, new CourseQueryObject
+            IEnumerable<UserLibraryCoursesDTO> courseDTOs = new List<UserLibraryCoursesDTO>();
+
+            if (filter == "created")
             {
-                SortBy = "CreatedAt",
-                IsDescending = true,
-                GetAll = true,
-            });
+                var courses = await _courseRepo.GetAllByUserAsync(userId, new CourseQueryObject
+                {
+                    SortBy = "CreatedAt",
+                    IsDescending = true,
+                    GetAll = true
+                });
 
-            var courseDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
-                ?? new List<UserLibraryCoursesDTO>();
-
-            var groupedCourseProgresses = courseDTOs
-                .GroupBy(courseProgress => DatetimeExtensions.GetTimeCategory(
-                    courseProgress.CreatedAt, DateTime.Now)
-                )
-                .ToDictionary(gr => gr.Key, gr => gr.ToList());
-
-            return View("Courses", groupedCourseProgresses);
-        }
-
-        [Route("courses/recently")]
-        public async Task<IActionResult> RecentlyCourses()
-        {
-            this.SetViewData("ActiveTab", "Courses");
-            this.SetViewData("FilterBy", "Gần đây");
-
-            var username = RouteData.Values["username"]?.ToString();
-            if (string.IsNullOrEmpty(username)) return NotFound();
-
-            var userId = await _userRepo.GetUserIdAsync(username);
-            if (string.IsNullOrEmpty(userId)) return NotFound();
-
-            var courses = await _courseProgressRepo.GetAllByUserAsync(userId, new CourseQueryObject
+                courseDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
+                                ?? new List<UserLibraryCoursesDTO>();
+            }
+            else if (filter == "recently")
             {
-                SortBy = "LastUpdated",
-                IsDescending = true,
-                GetAll = true,
-            });
+                var courseProgress = await _courseProgressRepo.GetAllByUserAsync(userId, new CourseQueryObject
+                {
+                    SortBy = "LastUpdated",
+                    IsDescending = true,
+                    GetAll = true
+                });
 
-            var courseDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
-                ?? new List<UserLibraryCoursesDTO>();
+                courseDTOs = courseProgress?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
+                                ?? new List<UserLibraryCoursesDTO>();
+            }
 
             var groupedCourses = courseDTOs
                 .GroupBy(course => DatetimeExtensions.GetTimeCategory(
-                    course.LastUpdated, DateTime.Now)
+                    filter == "created" ? course.CreatedAt : course.LastUpdated, 
+                    DateTime.Now)
                 )
                 .ToDictionary(gr => gr.Key, gr => gr.ToList());
 
             return View("Courses", groupedCourses);
         }
-
-        //[Route("courses")]
-        //public async Task<IActionResult> Courses(string filterBy)
-        //{
-        //    ViewData["ActiveTab"] = "Courses";
-        //    ViewData["Filter"] = filterBy;
-
-        //    var username = RouteData.Values["username"]?.ToString();
-        //    if (string.IsNullOrEmpty(username)) return NotFound();
-
-        //    var userId = await _userRepo.GetUserIdAsync(username);
-        //    if (string.IsNullOrEmpty(userId)) return NotFound();
-
-        //    var courses = await _courseProgressRepo.GetAllByUserAsync(userId, new CourseQueryObject
-        //    {
-        //        SortBy = "LastUpdated",
-        //        IsDescending = true,
-        //        GetAll = true,
-        //        FilterBy = filterBy
-        //    });
-
-        //    var courseDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
-        //        ?? new List<UserLibraryCoursesDTO>();
-
-        //    var groupedCourses = courseDTOs
-        //        .GroupBy(course => DatetimeExtensions.GetTimeCategory(
-        //            course.LastUpdated, DateTime.Now)
-        //        )
-        //        .ToDictionary(gr => gr.Key, gr => gr.ToList());
-
-        //    return View(groupedCourses);
-        //}
 
         [Route("folders")]
         public async Task<IActionResult> Folders()

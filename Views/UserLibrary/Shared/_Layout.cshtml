@@ -22,8 +22,9 @@
     <div class="tab-container">
         @foreach (var tab in tabs)
         {
-            <a asp-controller="UserLibrary" asp-action="@tab.Key" asp-route-username="@ViewBag.Username"
-               class="tab @(activeTab == tab.Key ? "active" : "")">
+            <a asp-controller="UserLibrary" asp-action="@tab.Key" asp-route-username="@ViewBag.Username" 
+                asp-route-filter="recently"
+                class="tab @(activeTab == tab.Key ? "active" : "")">
                 @tab.Value
             </a>
         }
