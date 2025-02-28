@@ -33,13 +33,7 @@ namespace SmartCards.Controllers
             ViewData[viewData] = content;
         }
 
-        // Route mặc định khi truy cập "user/{username}"
-        public async Task<IActionResult> Index(string username)
-        {
-            return RedirectToAction(nameof(Courses), new {username, filter = "recently"});
-        }
-
-        [Route("courses/{filter}")]
+        [Route("courses/{filter=recently}")]
         public async Task<IActionResult> Courses(string filter)
         {
             this.SetViewData("ActiveTab", "Courses");

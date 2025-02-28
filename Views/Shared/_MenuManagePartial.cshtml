@@ -12,10 +12,13 @@
             </a>
         </li>
         <li>
-            <a class="dropdown-item" asp-action="Create" asp-controller="Folder">
+            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-folder-modal">
                 <i class="fa-regular fa-folder fw-light" style="font-size: 18px; margin-right: 13px; color:var(--grey-color);"></i>
                 Thư mục
             </a>
         </li>
     </ul>
 </div>
+
+@await Html.PartialAsync("/Views/Folder/CreateFolderModal.cshtml")
+

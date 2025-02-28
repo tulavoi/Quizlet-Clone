@@ -54,9 +54,11 @@
             <div class="title text">Bạn chưa tạo thư mục nào</div>
             <span class="text">Tạo một thư mục để sắp xếp các học phần</span>
             <button type="button" class="btn"
-                    data-bs-toggle="modal" data-bs-target="#create-folder-modal">
+                    data-bs-toggle="modal" data-bs-target="#crea te-folder-modal">
                 Tạo thư mục
             </button>
         </div>
+
+        @await Html.PartialAsync("/Views/Folder/CreateFolderModal.cshtml")
     </div>
 </div>
