@@ -5,7 +5,6 @@
 // ==============================================
 
 import { termsSection } from './sharedVariables.js';
-import { bindTrashButtonEvent } from './trashButtonEvent.js';
 
 export async function renderTermsSection(map) {
     var fullHtml = "";
@@ -17,7 +16,6 @@ export async function renderTermsSection(map) {
     }
 
     termsSection.innerHTML = fullHtml;
-    bindTrashButtonEvent();
 }
 
 async function createTermsSectionHtml(key, value, count) {

@@ -7,14 +7,14 @@
         <div class="col border-bottom">
             <div class="col mb-2 d-flex align-items-center justify-content-between">
                 <span class="text-secondary fw-bold fs-6 term-item-count">@Model.count</span>
-                <button type="button" class="btn btn-trash ms-auto">
+                <button type="button" onclick="removeCard(event)" class="btn btn-trash ms-auto">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>
         <div class="row my-3 term-def-input-row">
             <div class="col-5 pt-3">
-                <input type="text" class="custom-input term-defi-input term[@index]" name="Flashcards[@index].Term"
+                <input type="text" class="custom-input term-defi-input" name="Flashcards[@index].Term"
                        value="@Model.termValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">THUẬT NGỮ</span>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-5 pt-3">
-                <input type="text" class="custom-input term-defi-input definition[@index]" name="Flashcards[@index].Definition"
+                <input type="text" class="custom-input term-defi-input" name="Flashcards[@index].Definition"
                        value="@Model.defiValue" autocomplete="off" tabindex="1">
                 <div class="d-flex align-items-center justify-content-between  mt-2">
                     <span class="fw-bold text-secondary" style="font-size: 10px;">ĐỊNH NGHĨA</span>
