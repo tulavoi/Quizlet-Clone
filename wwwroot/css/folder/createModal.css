@@ -1,0 +1,54 @@
+﻿.create-folder-modal .modal-content {
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.create-folder-modal .modal-header {
+    border-bottom: none;
+    padding-bottom: 0; 
+}
+
+.create-folder-modal .modal-footer{
+    padding-bottom: 0;
+}
+
+.create-folder-modal .modal-header h2{
+    font-weight: 700;
+}
+
+.create-folder-modal .modal-body .folderName-input {
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: text;
+    font-weight: 600;
+    font-size: 1rem;
+    background: var(--bg-color-grey);
+    padding: .25rem 1rem;
+    height: 3rem;
+    border-radius: .5rem;
+}
+
+.create-folder-modal .modal-body .folderName-input::placeholder{
+    color: var(--dark-grey-color);
+}
+
+.create-folder-modal .modal-body .folderName-input:focus{
+    border-bottom: 2px solid var(--input-border-bottom-color);
+}
+
+.create-folder-modal .modal-footer .btn-createFolder {
+    background: var(--border-button-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    min-height: 2.5rem;
+    padding: 0 15px;
+    border-radius: .5rem;
+}
+
+.btn-createFolder:hover{
+    cursor: default;
+}

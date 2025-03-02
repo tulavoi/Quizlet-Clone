@@ -2,7 +2,7 @@
     // Lấy button được click
     const btn = event.currentTarget;
 
-    // Tìm phần tử cha gần nhất có class "term-item"
+    // Tìm phần tử cha gần nhất có class term-item
     const termItem = btn.closest('.term-item');
     if (!termItem) return;
 
