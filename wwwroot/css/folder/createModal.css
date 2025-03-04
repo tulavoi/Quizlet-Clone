@@ -49,6 +49,15 @@
     border-radius: .5rem;
 }
 
-.btn-createFolder:hover{
+.create-folder-modal .modal-footer .btn-createFolder.btn-active {
+    background-color: var(--blue-color);
+}
+
+.create-folder-modal .modal-footer .btn-createFolder.btn-active:hover{
+    background: var(--btn-blue-hover-color);
+    cursor: pointer;
+}
+
+.create-folder-modal .modal-footer .btn-createFolder:hover{
     cursor: default;
 }

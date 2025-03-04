@@ -33,7 +33,7 @@ function getDataIsStarredValue(btn) {
     return btn.getAttribute('data-is-starred').toLowerCase() === 'true';
 }
 
-// Cập nhật màu icon của btn
+// Cập nhật màu icon của btnCreateFolder
 function updateBtnIconColor(btn, isStarred) {
     btn.setAttribute('data-is-starred', isStarred.toString());
     const icon = btn.querySelector('i');

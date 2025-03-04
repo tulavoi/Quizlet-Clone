@@ -2,7 +2,7 @@
 // Lấy danh sách các card
 const cards = document.querySelectorAll('.term-defi-cards');
 
-// Lấy 2 btn prev next card
+// Lấy 2 btnCreateFolder prev next card
 const btnPrev = document.getElementById('btn-prev-card');
 const btnNext = document.getElementById('btn-next-card');
 
@@ -132,7 +132,7 @@ const updateCardNumber = () => {
     document.getElementById('card-number').textContent = `${currIndexCard + 1} / ${cards.length}`;
 };
 
-// Cập nhật trang thái của 2 btn prev/next card
+// Cập nhật trang thái của 2 btnCreateFolder prev/next card
 function updateButtonState() {
     const iconPrev = btnPrev.querySelector('i');  // Lấy thẻ <i> bên trong nút
     const isFirstCard = currIndexCard === 0;
@@ -280,7 +280,7 @@ function getDataIsStarredValue(btn) {
     return btn.getAttribute('data-is-starred').toLowerCase() === 'true';
 }
 
-// Cập nhật màu icon của btn
+// Cập nhật màu icon của btnCreateFolder
 function updateBtnIconColor(btn, isStarred) {
     const icon = btn.querySelector('i');
     icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';

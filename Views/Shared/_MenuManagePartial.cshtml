@@ -12,7 +12,7 @@
             </a>
         </li>
         <li>
-            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-folder-modal">
+            <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#create-folder-modal">
                 <i class="fa-regular fa-folder fw-light" style="font-size: 18px; margin-right: 13px; color:var(--grey-color);"></i>
                 Thư mục
             </a>
@@ -20,5 +20,5 @@
     </ul>
 </div>
 
-@await Html.PartialAsync("/Views/Folder/CreateFolderModal.cshtml")
+@await Html.PartialAsync("/Views/Folders/CreateFolderModal.cshtml")
 

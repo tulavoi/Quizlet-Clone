@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartCards.Areas.Identity.Data;
 using SmartCards.DTOs.Course;
+using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Models;
 
@@ -27,7 +28,7 @@ namespace SmartCards.Repositories
                 await _context.SaveChangesAsync();
 
                 // Tạo slug sau khi đã có ID
-                course.Slug = this.GenerateSlug(course.Title, course.Id, course.CreatedAt);
+                course.Slug = SlugHelper.GenerateSlug(course.Title, course.Id, course.CreatedAt);
                 _context.Courses.Update(course);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
@@ -37,39 +38,6 @@ namespace SmartCards.Repositories
                 await transaction.RollbackAsync();
                 throw;
             }
-        }
-
-        private string GenerateSlug(string title, int id, DateTime createdAt)
-        {
-            // Bỏ dấu tiếng Việt
-            var noDiacritics = RemoveDiacritics(title);
-
-            // Chuyển thành slug
-            var slug = string.Join("-", noDiacritics.ToLower()
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-
-            // Xóa các dấu '-' dư thừa
-            slug = System.Text.RegularExpressions.Regex.Replace(slug, "-{2,}", "-").Trim('-');
-
-            var createdAtString = createdAt.ToString("yyyyMMddhhmmssfff");
-
-            return $"{slug}-{createdAtString}-{id}";
-        }
-
-        private string RemoveDiacritics(string text)
-        {
-            var normalizedString = text.Normalize(System.Text.NormalizationForm.FormD);
-            var stringBuilder = new System.Text.StringBuilder();
-
-            foreach (var c in normalizedString)
-            {
-                var unicodeCategory = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c);
-                if (unicodeCategory != System.Globalization.UnicodeCategory.NonSpacingMark)
-                {
-                    stringBuilder.Append(c);
-                }
-            }
-            return stringBuilder.ToString().Normalize(System.Text.NormalizationForm.FormC);
         }
 
         public async Task<Course?> GetByIdAsync(int id, CourseQueryObject? query)
