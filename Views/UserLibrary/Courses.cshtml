@@ -42,7 +42,7 @@
         {
             <div class="col-6">
                 <div class="search-container">
-                    <input type="text" id="searchCourseInput" placeholder="Tìm kiếm thẻ ghi nhớ" autocomplete="off" />
+                    <input type="text" id="searchInputInLibrary" placeholder="Tìm kiếm thẻ ghi nhớ" autocomplete="off" />
                     <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thẻ ghi nhớ"></i>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                     @foreach (var course in group.Value)
                     {
                         var isPrivateCourse = course.ViewPermissionType == PermissionType.OnlyMe ? true : false;
-                        <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
+                        <div class="card course-item card-item" onclick="pageRedirect('/@course.Slug')">
                             <div class="tag">
                                 <div class="items-count">@course.FlashcardCount thuật ngữ</div>
                                 @if (ViewData["FilterBy"]!.ToString() == "recently")
@@ -76,6 +76,7 @@
                                     </a>
                                 }
                             </div>
+
                             <div class="title">
                                 <span>@course.Title</span>
                                 @if (isPrivateCourse)

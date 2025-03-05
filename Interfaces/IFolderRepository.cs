@@ -1,4 +1,5 @@
-﻿using SmartCards.Models;
+﻿using SmartCards.Helpers;
+using SmartCards.Models;
 
 namespace SmartCards.Interfaces
 {
@@ -6,5 +7,6 @@ namespace SmartCards.Interfaces
     {
         Task<Folder> CreateAsync(Folder folder);
         Task<Folder?> GetByIdAsync(int id);
+        Task<List<Folder>?> GetAllAsync(string userId, FolderQueryObject queryObject);
     }
 }

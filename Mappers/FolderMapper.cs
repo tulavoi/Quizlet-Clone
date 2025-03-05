@@ -26,5 +26,17 @@ namespace SmartCards.Mappers
                 UpdatedAt = folder.UpdatedAt,
             };
         }
-    }
+
+        public static UserLibraryFolderDTO ToUserLibraryFolderDTO(this Folder folder)
+        {
+            return new UserLibraryFolderDTO
+            {
+                Id = folder.Id,
+                Title = folder.Title,
+                Slug = folder.Slug,
+                QuantityCourse = folder.CourseFolders.Count(),
+            };
+        }
+
+	}
 }

@@ -103,7 +103,7 @@ namespace SmartCards.Mappers
             };
         }
 
-        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this UserCourseProgress courseProgress)
+        public static UserLibraryCoursesDTO ToUserLibraryCoursesDTO(this UserCourseProgress courseProgress)
         {
             return new UserLibraryCoursesDTO
             {
@@ -118,7 +118,7 @@ namespace SmartCards.Mappers
             };
         }
 
-        public static UserLibraryCoursesDTO ToCourseInUserLibraryDTO(this Course course)
+        public static UserLibraryCoursesDTO ToUserLibraryCoursesDTO(this Course course)
         {
             return new UserLibraryCoursesDTO
             {

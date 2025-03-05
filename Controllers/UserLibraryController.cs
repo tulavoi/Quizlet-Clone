@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using SmartCards.DTOs.Course;
+using SmartCards.DTOs.Folder;
 using SmartCards.Extensions;
 using SmartCards.Filters;
+using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Mappers;
 using SmartCards.Models;
@@ -18,12 +20,15 @@ namespace SmartCards.Controllers
     public class UserLibraryController : BaseController
     {
         private readonly ICourseRepository _courseRepo;
-        private readonly IUserCourseProgressRepository _courseProgressRepo;
+        private readonly IFolderRepository _folderRepo;
+		private readonly IUserCourseProgressRepository _courseProgressRepo;
         private readonly IUserRepository _userRepo;
 
-        public UserLibraryController(ICourseRepository courseRepo, IUserRepository userRepo, IUserCourseProgressRepository courseProgressRepo)
+        public UserLibraryController(ICourseRepository courseRepo, IUserRepository userRepo, 
+            IUserCourseProgressRepository courseProgressRepo, IFolderRepository folderRepo)
         {
             _courseRepo = courseRepo;
+            _folderRepo = folderRepo;
             _userRepo = userRepo;
             _courseProgressRepo = courseProgressRepo;
         }
@@ -56,7 +61,7 @@ namespace SmartCards.Controllers
                     GetAll = true
                 });
 
-                courseDTOs = courses?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
+                courseDTOs = courses?.Select(x => x.ToUserLibraryCoursesDTO()).ToList()
                                 ?? new List<UserLibraryCoursesDTO>();
             }
             else if (filter == "recently")
@@ -68,7 +73,7 @@ namespace SmartCards.Controllers
                     GetAll = true
                 });
 
-                courseDTOs = courseProgress?.Select(x => x.ToCourseInUserLibraryDTO()).ToList()
+                courseDTOs = courseProgress?.Select(x => x.ToUserLibraryCoursesDTO()).ToList()
                                 ?? new List<UserLibraryCoursesDTO>();
             }
 
@@ -86,7 +91,17 @@ namespace SmartCards.Controllers
         public async Task<IActionResult> Folders()
         {
             this.SetViewData("ActiveTab", "Folders");
-            return View();
+            var folders = await _folderRepo.GetAllAsync(this.UserId, new FolderQueryObject
+            {
+                SortBy = "CreatedAt",
+                IsDescending = true,
+            });
+            var foldersDTO = folders?
+                .Select(f => f.ToUserLibraryFolderDTO())
+                .ToList()
+                ?? new List<UserLibraryFolderDTO>();
+
+            return View(foldersDTO);
         }
     }
 }

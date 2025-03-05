@@ -79,10 +79,13 @@ namespace SmartCards.Repositories
                 .Include(cp => cp.CoursePermission)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy.Equals("CreatedAt", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(query.SortBy))
             {
-                courses = query.IsDescending ? courses.OrderByDescending(ucp => ucp.CreatedAt)
-                    : courses.OrderBy(ucp => ucp.CreatedAt);
+                if (query.SortBy.Equals("CreatedAt", StringComparison.OrdinalIgnoreCase))
+                {
+                    courses = query.IsDescending ? courses.OrderByDescending(ucp => ucp.CreatedAt)
+                        : courses.OrderBy(ucp => ucp.CreatedAt);
+                }
             }
 
             // Giới hạn số lượng course nếu không lấy tất cả
