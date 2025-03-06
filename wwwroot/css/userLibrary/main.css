@@ -55,11 +55,11 @@
 }
 
 /* Filter Select */
-.select-container{
+.select-container {
     display: flex;
     justify-content: center;
     position: relative;
-    width: 110px;
+    width: auto;
     height: 40px;
 }
 
@@ -68,6 +68,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.selected i{
+    margin-left: 8px;
 }
 
 .custom-select {
@@ -118,33 +122,6 @@
 /* Hiển thị dropdown khi active */
 .custom-select.active .options {
     display: block;
-}
-
-/* Search Bar */
-.search-container {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: .5rem;
-    padding: 12px 15px;
-    width: 100%;
-    position: relative;
-    border-bottom: 2px solid transparent;
-}
-
-.search-container input{
-    width: 100%;
-    outline: none;
-    border: none;
-    flex: 1;
-    cursor: text;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-/* Khi input được focus, hiển thị border-bottom */
-.search-container:focus-within {
-    border-bottom: 2px solid var(--input-border-bottom-color);
 }
 
 .content-container{

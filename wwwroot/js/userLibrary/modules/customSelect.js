@@ -15,7 +15,9 @@
         // Xử lý khi chọn option
         optionItems.forEach(option => {
             option.addEventListener("click", function () {
-                selected.textContent = this.textContent;
+                const icon = selected.querySelector('i');
+                selected.textContent = this.textContent + " ";
+                selected.appendChild(icon);
                 selectBox.classList.remove("active");
             });
         });

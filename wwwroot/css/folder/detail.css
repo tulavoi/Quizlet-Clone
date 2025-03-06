@@ -1,0 +1,135 @@
+﻿.body{
+    background: white;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.folder-detail-container{
+    width: 90%;
+}
+
+.folder-detail-container header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 0;
+}
+
+.folder-detail-container header .header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 40px;
+}
+
+.folder-detail-container header .header-content h1{
+    font-weight: 700;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.folder-detail-container header .header-content .action-btns{
+    display:flex;
+    gap: 7px;
+}
+
+.folder-detail-container header .header-content .action-btns .btn{
+    height: 100%;
+    width: auto;
+    border: 2px solid var(--border-button-color);
+    font-weight: 600;
+    font-size: .875rem;
+    border-radius: .5rem;
+    color: var(--dark-grey-color);
+}
+
+.folder-detail-container header .header-content .action-btns .btn:hover{
+    background: var(--btn-secondary-hover-color);
+}
+
+.folder-detail-container header .last-edited{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--dark-grey-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-search-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px 0;
+}
+
+/* Filter Select */
+.select-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: auto;
+    height: 40px;
+}
+
+.selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.selected i{
+    margin-left: 8px;
+}
+
+.custom-select {
+    width: 100%;
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--dark-grey-color);
+    display: flex;
+    align-items: center;
+}
+
+.custom-select:hover{
+    background-color: var(--btn-secondary-hover-color);
+}
+
+.options {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 150%;
+    background-color: white;
+    border: 1px solid var(--border-button-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.option {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--dark-grey-color);
+}
+
+.option:hover {
+    background-color: var(--btn-secondary-hover-color);
+    color: var(--dark-grey-color);
+}
+
+/* Hiển thị dropdown khi active */
+.custom-select.active .options {
+    display: block;
+}

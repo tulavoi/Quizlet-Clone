@@ -31,7 +31,7 @@
 }
 
 /* Study mode buttons */
-.detail-course-container .navigation {
+.course-detail-container .navigation {
     display: flex;
     justify-content: space-between;
     background-color: var(--primary-color);
@@ -39,7 +39,7 @@
     border-radius: 10px;
 }
 
-.detail-course-container .nav-button {
+.course-detail-container .nav-button {
     background: var(--bg-color-grey);
     color: #282e3e;
     width: 220px;
@@ -57,13 +57,13 @@
     text-decoration: none;
 }
 
-.detail-course-container .nav-button:hover {
+.course-detail-container .nav-button:hover {
     box-shadow: 0 .25rem 1rem 0 var(--light-grey-color);
     border-bottom: 4px solid; 
     border-bottom-color: var(--light-blue-color); 
 }
 
-.detail-course-container .nav-button i{
+.course-detail-container .nav-button i{
     font-size:1.5rem;
 }
 

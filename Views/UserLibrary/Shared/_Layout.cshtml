@@ -7,16 +7,18 @@
         {"Courses", "Học phần"},
         {"Folders", "Thư mục"}
     };
+    var username = ViewBag.Username == User.Identity?.Name ? "bạn" : ViewBag.Username;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/userLibrary/main.css" />
     <link rel="stylesheet" href="~/css/userLibrary/content.css" />
     <link rel="stylesheet" href="~/css/userLibrary/courses.css" />
     <link rel="stylesheet" href="~/css/userLibrary/folders.css" />
+    <link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
 }
 
 <div class="library-container">
-    <h2>Thư viện của bạn </h2>
+    <h2>Thư viện của @username </h2>
 
     <!-- Tab Buttons -->
     <div class="tab-container">

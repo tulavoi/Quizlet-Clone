@@ -91,11 +91,19 @@ namespace SmartCards.Controllers
         public async Task<IActionResult> Folders()
         {
             this.SetViewData("ActiveTab", "Folders");
-            var folders = await _folderRepo.GetAllAsync(this.UserId, new FolderQueryObject
+
+            var username = RouteData.Values["username"]?.ToString();
+            if (string.IsNullOrEmpty(username)) return NotFound();
+
+            var userId = await _userRepo.GetUserIdAsync(username);
+            if (string.IsNullOrEmpty(userId)) return NotFound();
+
+            var folders = await _folderRepo.GetAllAsync(userId, new FolderQueryObject
             {
                 SortBy = "CreatedAt",
                 IsDescending = true,
             });
+
             var foldersDTO = folders?
                 .Select(f => f.ToUserLibraryFolderDTO())
                 .ToList()
