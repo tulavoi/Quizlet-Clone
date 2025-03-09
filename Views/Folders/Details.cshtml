@@ -1,9 +1,14 @@
-﻿@using SmartCards.DTOs.Folder
+﻿@using Microsoft.AspNetCore.Identity
+@using SmartCards.Areas.Identity.Data
+@using SmartCards.DTOs.Folder
 @model FolderDTO
-
+@inject UserManager<AppUser> UserManager
 @{
 	ViewData["Title"] = $"Thư mục {Model.Title} | Quizlet-Clone";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+	var username = string.Empty;
+	var btnState = @Model.Courses?.Count > 1 ? "" : "inactive";
+	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
@@ -14,11 +19,11 @@
 	<header>
 		<div class="header-content">
 			<div class="folder-title">
-				<h1>@Model.Title</h1>
+				<h1 id="folderTitle">@Model.Title</h1>
 			</div>
 
 			<div class="action-btns">
-				<button class="btn">
+				<button class="btn @btnState" title="@btnTitle">
 					Học
 				</button>
 				<button class="btn">
@@ -32,29 +37,70 @@
 
 		<div class="last-edited">
 			<i class="fa-solid fa-clock-rotate-left"></i>
-			Chỉnh sửa ngày 5/3/25
+			Chỉnh sửa ngày @Model.UpdatedAt
 		</div>
 	</header>
 
-	<div class="filter-search-container">
-		<div class="select-container">
-			<div class="custom-select">
-				<div class="selected" data-value="created">
-					Các mục gần đây
-					<i class="fa-solid fa-angle-down"></i>
+	<div class="py-5">
+		@if (Model.Courses?.Count > 1)
+		{
+			<div class="filter-search-container">
+				<div class="select-container">
+					<div class="custom-select">
+						<div class="selected" data-value="created">
+							Các mục gần đây
+							<i class="fa-solid fa-angle-down"></i>
+						</div>
+						<div class="options">
+							<a class="option">Các mục gần đây</a>
+							<a class="option">Tiêu đề</a>
+						</div>
+					</div>
 				</div>
-				<div class="options">
-					<a class="option">Các mục gần đây</a>
-					<a class="option">Tiêu đề</a>
-				</div>
-			</div>
-		</div>
 
-		@await Html.PartialAsync("../UserLibrary/Shared/_SearchBoxPartial.cshtml", new
+				<!--Thanh tìm kiếm-->
+				@await Html.PartialAsync("../UserLibrary/Shared/_SearchBoxPartial.cshtml", new
+					{
+						title = "Tìm kiếm thư mục này",
+						backgroundColor = "var(--bg-color-grey)"
+					})
+			</div>
+		}
+
+		<div class="course-list">
+			@if (Model.Courses?.Count > 0)
 			{
-				title = "Tìm kiếm thư mục này",
-				backgroundColor = "var(--bg-color-grey)"
-			})
+				@foreach (var course in Model.Courses)
+				{
+					username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
+					<div class="card-item">
+						<div class="course-item">
+							<div class="course-icon">
+								<img src="/images/icons/card.png" alt="Icon">
+							</div>
+							<div class="course-content">
+								<div class="title">
+									<span>@course.Title</span>
+								</div>
+								<div class="course-info">
+									Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username
+								</div>
+							</div>
+							<div class="course-actions">
+								<button class="btn-delete" title="Xóa">
+									<i class="fa-solid fa-minus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				}
+			} else
+			{
+				<div class="card-item-empty">
+					<span>Thư mục này trống</span>
+				</div>
+			}
+		</div>
 	</div>
 </div>
 

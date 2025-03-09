@@ -9,6 +9,19 @@ namespace SmartCards.Mappers
 {
     public static class CourseMapper
     {
+        public static CoursesInFolderDTO ToCoursesInFolderDTO(this Course course)
+        {
+            return new CoursesInFolderDTO
+			{
+                Id = course.Id,
+				OwnerUserId = course.UserId,
+				OwnerUsername = course.User?.UserName ?? string.Empty,
+				Title = course.Title,
+                Slug = course.Slug,
+                FlashcardCount = course.Flashcards.Count,
+            };
+		}
+
         public static CourseDTO ToCourseDTO(this Course course,
             List<Flashcard> flashcards,
             Flashcard? lastLearnedCard = null,
@@ -16,8 +29,7 @@ namespace SmartCards.Mappers
             List<Flashcard>? notLearnedFlashcards = null,
             List<UserFlashcardProgress>? flashcardProcresses = null,
             int starredCardsCount = 0,
-            bool isShuffle = false,
-            int flashcardCount = 0)
+            bool isShuffle = false)
         {
             return new CourseDTO
             {
@@ -47,7 +59,7 @@ namespace SmartCards.Mappers
 
                 LastLearnedFlashcard = lastLearnedCard?.ToFlashcardDTO(),
                 StarredFlashcardCount = starredCardsCount,
-                FlashcardCount = flashcardCount,
+                FlashcardCount = flashcards.Count,
                 IsShuffle = isShuffle
             };
         }

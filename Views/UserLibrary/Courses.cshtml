@@ -26,8 +26,8 @@
                 <div class="custom-select">
                     <div class="selected">
                         @selectedFilterLabel
+                        <i class="fa-solid fa-angle-down"></i>
                     </div>
-                    <i class="fa-solid fa-angle-down"></i>
                     <div class="options">
                         <a class="option" asp-action="Courses" asp-controller="UserLibrary"
                            asp-route-username="@ViewBag.Username" asp-route-filter="created">Đã tạo</a>
@@ -63,26 +63,28 @@
                     @foreach (var course in group.Value)
                     {
                         var isPrivateCourse = course.ViewPermissionType == PermissionType.OnlyMe ? true : false;
-                        <div class="card course-item card-item" onclick="pageRedirect('/@course.Slug')">
-                            <div class="tag">
-                                <div class="items-count">@course.FlashcardCount thuật ngữ</div>
-                                @if (ViewData["FilterBy"]!.ToString() == "recently")
-                                {
-                                    <div class="separator"></div>
-                                    <a class="user-link" asp-controller="UserLibrary"
-                                       asp-action="Courses" asp-route-username="@course.OwnerUsername">
-                                        <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
-                                        <span class="username">@course.OwnerUsername</span>
-                                    </a>
-                                }
-                            </div>
+                        <div class="card-item">
+                            <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
+                                <div class="tag">
+                                    <div class="items-count">@course.FlashcardCount thuật ngữ</div>
+                                    @if (ViewData["FilterBy"]!.ToString() == "recently")
+                                    {
+                                        <div class="separator"></div>
+                                        <a class="user-link" asp-controller="UserLibrary"
+                                           asp-action="Courses" asp-route-username="@course.OwnerUsername">
+                                            <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
+                                            <span class="username">@course.OwnerUsername</span>
+                                        </a>
+                                    }
+                                </div>
 
-                            <div class="title">
-                                <span>@course.Title</span>
-                                @if (isPrivateCourse)
-                                {
-                                    <i class="fa-solid fa-lock icon-lock"></i>
-                                }
+                                <div class="title">
+                                    <span>@course.Title</span>
+                                    @if (isPrivateCourse)
+                                    {
+                                        <i class="fa-solid fa-lock icon-lock"></i>
+                                    }
+                                </div>
                             </div>
                         </div>
                     }

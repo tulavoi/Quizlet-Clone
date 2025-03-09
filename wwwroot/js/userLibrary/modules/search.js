@@ -10,7 +10,6 @@ if (searchInput) {
             let titleElement = item.querySelector('.title span');
             let titleText = titleElement.innerText;
             let titleLower = titleText.toLowerCase();
-
             if (!keyword || titleLower.includes(keyword)) {
                 item.style.display = "block";
 
@@ -32,7 +31,7 @@ if (searchInput) {
         if (groups) {
             // Ẩn course-group nếu tất cả course trong course-group bị ẩn
             groups.forEach(group => {
-                let visibleCourses = group.querySelectorAll(".course-item[style='display: block;']"); // Lấy các course đang hiển thị
+                let visibleCourses = group.querySelectorAll(".card-item[style='display: block;']"); // Lấy các course đang hiển thị
                 group.style.display = visibleCourses.length > 0 ? "block" : "none";
             });
         }

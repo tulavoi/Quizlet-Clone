@@ -52,8 +52,9 @@ namespace SmartCards.Repositories
 		public async Task<Folder?> GetByIdAsync(int id)
         {
             var folder = await _context.Folders
-                .Include(c => c.CourseFolders)
-                    .ThenInclude(cf => cf.Course)
+                .Include(cf => cf.CourseFolders)
+                    .ThenInclude(c => c.Course)
+                        .ThenInclude(fc => fc!.Flashcards)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return folder;
         }

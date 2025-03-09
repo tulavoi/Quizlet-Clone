@@ -23,8 +23,11 @@ namespace SmartCards.Mappers
                 Id = folder.Id,
                 Title = folder.Title,
                 CreatedAt = folder.CreatedAt,
-                UpdatedAt = folder.UpdatedAt,
-            };
+                UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
+				Courses = folder.CourseFolders
+                    .Select(c => c.Course!.ToCoursesInFolderDTO())
+                    .ToList()
+			};
         }
 
         public static UserLibraryFolderDTO ToUserLibraryFolderDTO(this Folder folder)
