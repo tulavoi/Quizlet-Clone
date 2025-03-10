@@ -41,5 +41,14 @@ namespace SmartCards.Controllers
             
             return View(folder.ToFolderDTO());
         }
+
+        [HttpPost("update/{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateFolderRequestDTO folderDTO)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            await _folderRepo.UpdateAsync(id , folderDTO);
+
+            return Ok();
+		}
     }
 }

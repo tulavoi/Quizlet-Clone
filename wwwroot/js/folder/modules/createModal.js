@@ -1,5 +1,4 @@
-﻿import { postData } from '../../shared/postData.js';
-
+﻿
 const folderTitleInput = document.getElementById('folderName');
 let btnCreateFolder = document.getElementById('createFolderBtn');
 

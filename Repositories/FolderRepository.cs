@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartCards.Areas.Identity.Data;
+using SmartCards.DTOs.Folder;
 using SmartCards.Helpers;
 using SmartCards.Interfaces;
 using SmartCards.Models;
@@ -58,5 +59,16 @@ namespace SmartCards.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
             return folder;
         }
-    }
+
+		public async Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO)
+		{
+            var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
+            if (existingFolder == null) return;
+
+            existingFolder.Title = folderDTO.Title;
+            existingFolder.UpdatedAt = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+		}
+	}
 }

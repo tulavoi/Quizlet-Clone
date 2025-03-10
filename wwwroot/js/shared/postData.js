@@ -1,4 +1,5 @@
-﻿export async function postData(url, data, errorMessage) {
+﻿
+export async function postData(url, data, errorMessage) {
     try {
         const response = await fetch(url, {
             method: 'POST',
