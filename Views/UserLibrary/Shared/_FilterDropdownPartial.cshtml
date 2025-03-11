@@ -1,0 +1,15 @@
+﻿@model dynamic
+<div class="select-container">
+    <div class="custom-select">
+        <div class="selected">
+            @Model
+        </div>
+        <i class="fa-solid fa-angle-down"></i>
+        <div class="options">
+            <a class="option" asp-action="Courses" asp-controller="UserLibrary"
+               asp-route-username="@ViewBag.Username" asp-route-filter="created">Đã tạo</a>
+            <a class="option" asp-action="Courses" asp-controller="UserLibrary"
+               asp-route-username="@ViewBag.Username" asp-route-filter="recently">Gần đây</a>
+        </div>
+    </div>
+</div>

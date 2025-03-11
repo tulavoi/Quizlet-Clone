@@ -51,13 +51,13 @@ namespace SmartCards.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a6cc1ac6-16ce-42b5-b5aa-a407ceccfdc2",
+                            Id = "ed75613b-975e-49b5-9c8d-05b85e2c52f3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "56389e97-cae8-44e6-b2aa-d6cf97d295ee",
+                            Id = "f3058121-3827-48ed-b026-026afcb683e5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -379,6 +379,10 @@ namespace SmartCards.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -431,89 +435,89 @@ namespace SmartCards.Migrations
                         {
                             Id = 1,
                             Code = "en",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(555),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1316),
                             Name = "English",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(555)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1316)
                         },
                         new
                         {
                             Id = 2,
                             Code = "fr",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(557),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1318),
                             Name = "French",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(558)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1319)
                         },
                         new
                         {
                             Id = 3,
                             Code = "de",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(559),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1320),
                             Name = "German",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(559)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1321)
                         },
                         new
                         {
                             Id = 4,
                             Code = "es",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(561),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1322),
                             Name = "Spanish",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(561)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1322)
                         },
                         new
                         {
                             Id = 5,
                             Code = "it",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(562),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1324),
                             Name = "Italian",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(563)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1324)
                         },
                         new
                         {
                             Id = 6,
                             Code = "pt",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(564),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1326),
                             Name = "Portuguese",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(564)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1326)
                         },
                         new
                         {
                             Id = 7,
                             Code = "zh",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(566),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1328),
                             Name = "Chinese",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(566)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1328)
                         },
                         new
                         {
                             Id = 8,
                             Code = "ja",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(568),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1330),
                             Name = "Japanese",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(568)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1330)
                         },
                         new
                         {
                             Id = 9,
                             Code = "ru",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(569),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1331),
                             Name = "Russian",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(570)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1332)
                         },
                         new
                         {
                             Id = 10,
                             Code = "ar",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(571),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1388),
                             Name = "Arabic",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(571)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1389)
                         },
                         new
                         {
                             Id = 11,
                             Code = "vn",
-                            CreatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(573),
+                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1391),
                             Name = "Vietnamese",
-                            UpdatedAt = new DateTime(2025, 2, 24, 11, 2, 38, 762, DateTimeKind.Local).AddTicks(573)
+                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1391)
                         });
                 });
 
@@ -553,7 +557,7 @@ namespace SmartCards.Migrations
                             Description = "Mọi người đều có thể sử dụng học phần này",
                             IsEdit = false,
                             Name = "Mọi người",
-                            Type = 1
+                            Type = 2
                         },
                         new
                         {
@@ -561,7 +565,7 @@ namespace SmartCards.Migrations
                             Description = "Chỉ những người có mật khẩu mới có thể sử dụng học phần này",
                             IsEdit = false,
                             Name = "Người có mật khẩu",
-                            Type = 2
+                            Type = 3
                         },
                         new
                         {
@@ -569,7 +573,7 @@ namespace SmartCards.Migrations
                             Description = "Chỉ tôi mới có thể sử dụng học phần này",
                             IsEdit = false,
                             Name = "Chỉ tôi",
-                            Type = 0
+                            Type = 1
                         },
                         new
                         {
@@ -577,7 +581,7 @@ namespace SmartCards.Migrations
                             Description = "Chỉ tôi mới có thể chỉnh sửa học phần này",
                             IsEdit = true,
                             Name = "Chỉ tôi",
-                            Type = 0
+                            Type = 1
                         },
                         new
                         {
@@ -585,7 +589,7 @@ namespace SmartCards.Migrations
                             Description = "Chỉ những người có mật khẩu mới có thể chỉnh sửa học phần này",
                             IsEdit = true,
                             Name = "Người có mật khẩu",
-                            Type = 2
+                            Type = 3
                         });
                 });
 

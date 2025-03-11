@@ -1,6 +1,8 @@
 ﻿.list-group {
     margin-top: 3rem;
     margin-bottom: 20px;
+    min-height: 60vh;
+    gap: 4rem;
 }
 
 .list-group header h2 {

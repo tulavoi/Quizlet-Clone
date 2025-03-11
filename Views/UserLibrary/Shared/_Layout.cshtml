@@ -7,28 +7,30 @@
         {"Courses", "Học phần"},
         {"Folders", "Thư mục"}
     };
+    var username = ViewBag.Username == User.Identity?.Name ? "bạn" : ViewBag.Username;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/userLibrary/main.css" />
     <link rel="stylesheet" href="~/css/userLibrary/content.css" />
     <link rel="stylesheet" href="~/css/userLibrary/courses.css" />
     <link rel="stylesheet" href="~/css/userLibrary/folders.css" />
+    <link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
 }
 
 <div class="library-container">
-    <h2>Thư viện của bạn </h2>
+    <h2>Thư viện của @username </h2>
 
     <!-- Tab Buttons -->
     <div class="tab-container">
         @foreach (var tab in tabs)
         {
-            <a asp-controller="UserLibrary" asp-action="@tab.Key" asp-route-username="@ViewBag.Username"
-               class="tab @(activeTab == tab.Key ? "active" : "")">
+            <a asp-controller="UserLibrary" asp-action="@tab.Key" asp-route-username="@ViewBag.Username" 
+                class="tab @(activeTab == tab.Key ? "active" : "")">
                 @tab.Value
             </a>
         }
     </div>
-
+     
     <main role="main">
         @RenderBody()
     </main>

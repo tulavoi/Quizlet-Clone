@@ -5,7 +5,6 @@
 // ==============================================
 
 import { termsSection } from './sharedVariables.js';
-import { bindTrashButtonEvent } from './trashButtonEvent.js';
 
 export async function addNewCard(){
     // Lấy tất cả các .term-item đang hiển thị
@@ -13,7 +12,8 @@ export async function addNewCard(){
         return item.offsetParent !== null; // Kiểm tra xem phần tử có đang hiển thị không
     });
 
-    const count = visibleTermItems.length; // Lấy count dựa trên số lượng term-item hiển thị
+    let count = visibleTermItems.length; // Lấy count dựa trên số lượng term-item hiển thị
+    count += 1; // Tăng count thêm 1 vì khi thêm một thẻ mới, tổng số lượng thẻ trên giao diện sẽ tăng lên
 
     const termLanguageId = document.querySelector('#btn-choose-language[data-type="term"]').value;
     const defiLanguageId = document.querySelector('#btn-choose-language[data-type="definition"]').value;
@@ -27,9 +27,6 @@ export async function addNewCard(){
         // Thêm card mới vào khu vực termsSection
         termsSection.insertAdjacentHTML('beforeend', newCard);
 
-        // Gắn lại sự kiện cho nút xóa
-        bindTrashButtonEvent();
-
         // Cập nhật lại số thứ tự cho tất cả các term-item
         const updatedTermItems = document.querySelectorAll('.term-item-count');
         updatedTermItems.forEach((item, index) => {
@@ -40,5 +37,8 @@ export async function addNewCard(){
         console.error('Error loading menu languages: ', error);
     }
 }
-
 window.addNewCard = addNewCard;
+
+function updateIndex() {
+
+}

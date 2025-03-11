@@ -36,7 +36,7 @@
 
 /* Khi hover lên phần tử học phần gần đây */
 .recent-course:hover {
-    background: #f6f7fb;
+    background: var(--bg-color-grey);
 }
 
 /* Thông tin học phần trong phần gần đây */

@@ -113,9 +113,6 @@ namespace SmartCards.Controllers
                     .ToList();
             }
 
-            // Lấy ra số flashcard có trong course
-            var flashcardCount = course.Flashcards.Count;
-
             var courseDTO = course.ToCourseDTO(
                 flashcards, 
                 lastReviewedCard, 
@@ -123,8 +120,7 @@ namespace SmartCards.Controllers
                 notLearnedFlashcards, 
                 flashcardProcresses,
                 starredFlashcards.Count,
-                courseProcress.IsShuffle,
-                flashcardCount
+                courseProcress.IsShuffle
             );
 
             return View(courseDTO);

@@ -5,7 +5,7 @@ import {  } from './modules/toggleContainer.js';
 
 import { } from './modules/importFlashcardPartial.js';
 
-import { bindTrashButtonEvent } from './modules/trashButtonEvent.js';
+import { removeCard } from './modules/trashButtonEvent.js';
 
 import { } from './modules/termSection.js';
 

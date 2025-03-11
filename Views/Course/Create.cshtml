@@ -77,7 +77,7 @@
                 {
                     @await Html.PartialAsync("ViewPartials/Create/_TermDefinitionPartial", new
                         {
-                            count = i,
+                            count = i,          // số lượng thẻ
                             termValue = Model.Flashcards[i - 1]?.Term ?? "",
                             defiValue = Model.Flashcards[i - 1]?.Definition ?? "",
                             termLanguageId = Model.Flashcards[i - 1]?.TermLanguageId ?? 0,
@@ -91,7 +91,7 @@
                 {
                     @await Html.PartialAsync("ViewPartials/Create/_TermDefinitionPartial", new
                         {
-                            count = i,
+                            count = i,          // số lượng thẻ
                             termValue = "",
                             defiValue = "",
                             termLanguageId = 0,

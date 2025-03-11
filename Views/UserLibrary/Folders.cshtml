@@ -1,4 +1,6 @@
-﻿@{
+﻿@using SmartCards.DTOs.Folder
+@model List<UserLibraryFolderDTO>
+@{
     ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
     Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
 }
@@ -14,49 +16,54 @@
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
                     <div class="options">
-                        <div class="option" data-value="marked">Đã đánh dấu</div>
-                        <div class="option" data-value="created">Đã tạo</div>
-                        <div class="option" data-value="recently">Gần đây</div>
+                        <a class="option">Đã đánh dấu</a>
+                        <a class="option">Đã tạo</a>
+                        <a class="option">Gần đây</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        @* @if (Folders.Count > 0){
-        <div class="col-6">
-            <div class="search-container">
-                <input type="text" placeholder="Tìm kiếm thư mục" />
-                <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thư mục"></i>
+        @if (Model.Count > 1){
+            <div class="col-6">
+                @await Html.PartialAsync("../UserLibrary/Shared/_SearchBoxPartial.cshtml", new {
+				    title = "Tìm kiếm thư mục",
+				    backgroundColor = "white"
+			    })
             </div>
-        </div>
-        } *@
+        }
     </div>
 
     <!-- Folder List -->
     <div class="list-group folder-group">
-        @* @if (Folders.Count > 0){ 
-        @for (int i = 0; i < 10; i++)
+        @if (Model.Count > 0){ 
+            @foreach (var folder in Model)
             {
-                <div class="card folder-item" onclick="pageRedirect('/tu-vung-bai-32-20250212042545987-1021')">
-                    <div class="tag">
-                        <span class="items-count">6 mục</span>
-                    </div>
-                    <div class="title">
-                        <i class="fa-regular fa-folder icon-folder"></i>
-                        <span class="px-1">Từ vựng bài 32 (N4)</span>
+                <div class="card-item">
+                    <div class="card folder-item" onclick="pageRedirect('/folders/@folder.Slug')">
+                        <div class="tag">
+                            <span class="items-count">@folder.QuantityCourse mục</span>
+                        </div>
+                        <div class="title">
+                            <i class="fa-regular fa-folder icon-folder"></i>
+                            <span class="px-1">@folder.Title</span>
+                        </div>
                     </div>
                 </div>
             }
-        } *@
-
-        <div class="list-group-empty">
-            <img src="/images/icons/folders_empty.svg" width="200" />
-            <div class="title text">Bạn chưa tạo thư mục nào</div>
-            <span class="text">Tạo một thư mục để sắp xếp các học phần</span>
-            <button type="button" class="btn"
-                    data-bs-toggle="modal" data-bs-target="#create-folder-modal">
-                Tạo thư mục
-            </button>
-        </div>
+        }
+        else
+        {
+            <div class="list-group-empty">
+                <img src="/images/icons/folders_empty.svg" width="200" />
+                <div class="title text">Bạn chưa tạo thư mục nào</div>
+                <span class="text">Tạo một thư mục để sắp xếp các học phần</span>
+                <button type="button" class="btn"
+                        data-bs-toggle="modal" data-bs-target="#create-folder-modal">
+                    Tạo thư mục
+                </button>
+            </div>
+            @await Html.PartialAsync("/Views/Folders/CreateFolderModal.cshtml")
+        }
     </div>
 </div>

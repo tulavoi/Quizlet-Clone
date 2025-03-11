@@ -3,7 +3,19 @@
 
 @{
     ViewData["Title"] = $"{ViewBag.Username} | Quizlet-Clone";
-    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml"; 
+    Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+
+    string filterBy = ViewData["FilterBy"]!.ToString();
+    var selectedFilterLabel = filterBy == "recently" ? "Gần đây" : "Đã tạo";
+    var courseEmptyMessages = new Dictionary<string, (string title, string description)>
+    {
+        { "recently", ("Bạn chưa có học phần nào", "Các học phần bạn tạo hoặc học sẽ hiển thị ở đây") },
+        { "created", ("Bạn chưa tạo học phần nào", "Các học phần bạn tạo sẽ hiển thị ở đây") },
+    };
+
+    var (title, description) = courseEmptyMessages.ContainsKey(filterBy)
+                                        ? courseEmptyMessages[filterBy]
+                                        : courseEmptyMessages["created"];
 }
 
 <div class="content-container">
@@ -13,25 +25,28 @@
             <div class="select-container">
                 <div class="custom-select">
                     <div class="selected">
-                        @ViewData["FilterBy"]
+                        @selectedFilterLabel
+                        <i class="fa-solid fa-angle-down"></i>
                     </div>
-                    <i class="fa-solid fa-angle-down"></i>
                     <div class="options">
-                        <a class="option" asp-action="CreatedCourses" asp-controller="UserLibrary"
-                           asp-route-username="@ViewBag.Username">Đã tạo</a>
-                        <a class="option" asp-action="RecentlyCourses" asp-controller="UserLibrary"
-                           asp-route-username="@ViewBag.Username">Gần đây</a>
+                        <a class="option" asp-action="Courses" asp-controller="UserLibrary"
+                           asp-route-username="@ViewBag.Username" asp-route-filter="created">Đã tạo</a>
+                        <a class="option" asp-action="Courses" asp-controller="UserLibrary"
+                           asp-route-username="@ViewBag.Username" asp-route-filter="recently">Gần đây</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-6">
-            <div class="search-container">
-                <input type="text" id="searchCourseInput" placeholder="Tìm kiếm thẻ ghi nhớ" autocomplete="off" />
-                <i class="fa-solid fa-magnifying-glass" title="Tìm kiếm thẻ ghi nhớ"></i>
+        
+        @if (Model.Count > 1)
+        {
+            <div class="col-6">
+                @await Html.PartialAsync("../UserLibrary/Shared/_SearchBoxPartial.cshtml", new {
+				    title = "Tìm kiếm thẻ ghi nhớ",
+				    backgroundColor = "white"
+			    })
             </div>
-        </div>
+        }
     </div>
 
     <!-- Course List -->
@@ -48,25 +63,28 @@
                     @foreach (var course in group.Value)
                     {
                         var isPrivateCourse = course.ViewPermissionType == PermissionType.OnlyMe ? true : false;
-                        <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
-                            <div class="tag">
-                                <div class="items-count">@course.FlashcardCount thuật ngữ</div>
-                                @if (ViewData["FilterBy"].ToString() == "Gần đây")
-                                {
-                                    <div class="separator"></div>
-                                    <a class="user-link" asp-controller="UserLibrary"
-                                       asp-action="Index" asp-route-username="@course.OwnerUsername">
-                                        <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
-                                        <span class="username">@course.OwnerUsername</span>
-                                    </a>
-                                }
-                            </div>
-                            <div class="title">
-                                <span>@course.Title</span>
-                                @if (isPrivateCourse)
-                                {
-                                    <i class="fa-solid fa-lock icon-lock"></i>
-                                }
+                        <div class="card-item">
+                            <div class="card course-item" onclick="pageRedirect('/@course.Slug')">
+                                <div class="tag">
+                                    <div class="items-count">@course.FlashcardCount thuật ngữ</div>
+                                    @if (ViewData["FilterBy"]!.ToString() == "recently")
+                                    {
+                                        <div class="separator"></div>
+                                        <a class="user-link" asp-controller="UserLibrary"
+                                           asp-action="Courses" asp-route-username="@course.OwnerUsername">
+                                            <img src="~/images/icons/avatar.png" alt="Avatar" class="avatar" title="Thăm hồ sơ của @course.OwnerUsername" />
+                                            <span class="username">@course.OwnerUsername</span>
+                                        </a>
+                                    }
+                                </div>
+
+                                <div class="title">
+                                    <span>@course.Title</span>
+                                    @if (isPrivateCourse)
+                                    {
+                                        <i class="fa-solid fa-lock icon-lock"></i>
+                                    }
+                                </div>
                             </div>
                         </div>
                     }
@@ -77,8 +95,8 @@
         {
             <div class="list-group-empty">
                 <img src="/images/icons/courses_empty.svg" width="200" />
-                <div class="title text">Bạn chưa có học phần nào</div>
-                <span class="text">Các học phần bạn tạo hoặc học sẽ hiển thị ở đây</span>
+                <div class="title text">@title</div>
+                <span class="text">@description</span>
                 <a class="btn" asp-controller="Course" asp-action="Create">
                     Tạo học phần
                 </a>

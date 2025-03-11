@@ -1,0 +1,24 @@
+﻿/* Search Box */
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: .5rem;
+    padding: 12px 15px;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    min-width: 50%;
+}
+
+.search-container input{
+    outline: none;
+    border: none;
+    flex: 1;
+    cursor: text;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Khi input được focus, hiển thị border-bottom */
+.search-container:focus-within {
+    border-bottom: 2px solid var(--input-border-bottom-color);
+}

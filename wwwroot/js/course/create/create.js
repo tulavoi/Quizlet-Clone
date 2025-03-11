@@ -242,7 +242,7 @@
     updatePlaceholder();
     updatePreview();
 
-    // Xử lý event import-btn
+    // Xử lý event import-btnCreateFolder
     document.getElementById('import-btn').addEventListener('click', () => {
         toggleContainer('.import-flashcards-container', '.create-course-container', '#f6f7fb');
 
@@ -345,7 +345,7 @@
         }
     });
 
-    // Đồng bộ giá trị trong btn-choose-language
+    // Đồng bộ giá trị trong btnCreateFolder-choose-language
     function syncSelectsByType(dataType) {
         termsSection.addEventListener('change', event => {
             const target = event.target;
@@ -366,7 +366,7 @@
     syncSelectsByType("term");       
     syncSelectsByType("definition");
 
-    // Hàm gắn sự kiện cho các nút btn-trash
+    // Hàm gắn sự kiện cho các nút btnCreateFolder-trash
     function bindTrashButtonEvent() {
         document.querySelectorAll('.btn-trash').forEach(function (btn) {
             btn.addEventListener('click', function () {
