@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.CodeAnalysis.Operations;
 using SmartCards.DTOs.Folder;
 using SmartCards.Helpers;
 using SmartCards.Interfaces;
@@ -50,5 +51,12 @@ namespace SmartCards.Controllers
 
             return Ok();
 		}
+
+        [HttpDelete("delete/{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+
+			return RedirectToAction(nameof(Index), nameof(HomeController));
+        }
     }
 }

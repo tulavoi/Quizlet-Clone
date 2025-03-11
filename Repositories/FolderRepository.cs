@@ -30,6 +30,15 @@ namespace SmartCards.Repositories
             return folder;
         }
 
+		public async Task DeleteAsync(int id)
+		{
+			var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
+			if (existingFolder == null) return;
+
+            _context.Folders.Remove(existingFolder);
+            await _context.SaveChangesAsync();
+		}
+
 		public async Task<List<Folder>?> GetAllAsync(string userId, FolderQueryObject query)
 		{
             var folders = _context.Folders

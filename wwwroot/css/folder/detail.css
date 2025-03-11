@@ -91,7 +91,7 @@
 }
 
 /* Filter Select */
-.select-container {
+.filter-search-container .select-container {
     display: flex;
     justify-content: center;
     position: relative;
@@ -99,18 +99,18 @@
     height: 40px;
 }
 
-.selected {
+.filter-search-container .selected {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.selected i{
+.filter-search-container .selected i{
     margin-left: 8px;
 }
 
-.custom-select {
+.filter-search-container .custom-select {
     width: 100%;
     border-radius: .5rem;
     cursor: pointer;
@@ -122,11 +122,11 @@
     align-items: center;
 }
 
-.custom-select:hover{
+.filter-search-container .custom-select:hover{
     background-color: var(--btn-secondary-hover-color);
 }
 
-.options {
+.filter-search-container .options {
     position: absolute;
     top: 42px;
     left: 0;
@@ -140,7 +140,7 @@
     z-index: 1000;
 }
 
-.option {
+.filter-search-container .option {
     padding: 10px 15px;
     cursor: pointer;
     display: block;
@@ -148,14 +148,15 @@
     color: var(--dark-grey-color);
 }
 
-.option:hover {
+.filter-search-container .option:hover {
     background-color: var(--btn-secondary-hover-color);
     color: var(--dark-grey-color);
 }
 
 /* Hiển thị dropdown khi active */
 .custom-select.active .options {
-    display: block;
+    display: inline-block;
+    width: 200px;
 }
 
 /* Item list */
@@ -242,4 +243,77 @@
     border-radius: .5rem;
     padding: 1rem;
     height: 4rem;
+}
+
+/* Button Other */
+.btn-options {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.btn-options .selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-options {
+    border: 2px solid var(--border-button-color);
+    width: 100%;
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--dark-grey-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-options:hover {
+    background-color: var(--btn-secondary-hover-color);
+}
+
+.btn-options .options {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 150%;
+    background-color: white;
+    border: 1px solid var(--border-button-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.btn-options .option {
+    padding: 8px 24px;
+    cursor: pointer;
+    display: flex;
+    text-decoration: none;
+    color: var(--dark-grey-color);
+    gap: 20px;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-options .option i{
+    font-size: 1.2rem;
+}
+
+.btn-options .option:hover {
+    background-color: var(--btn-secondary-hover-color);
+    color: var(--dark-grey-color);
+}
+
+/* Hiển thị dropdown khi active */
+.btn-options.active .options {
+    display: inline-block;
+    width: 200px;
 }

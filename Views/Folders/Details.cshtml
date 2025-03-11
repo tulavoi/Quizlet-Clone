@@ -12,6 +12,7 @@
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
+	<link rel="stylesheet" href="~/css/folder/confirmDeleteModal.css" />
 	<link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
 }
 
@@ -26,12 +27,29 @@
 				<button class="btn @btnState" title="@btnTitle">
 					Học
 				</button>
+
 				<button class="btn">
 					<i class="fa-solid fa-plus"></i>
 				</button>
-				<button class="btn">
-					<i class="fa-solid fa-ellipsis"></i>
-				</button>
+
+				<div class="btn-options btn-other">
+					<div class="selected">
+						<i class="fa-solid fa-ellipsis"></i>
+					</div>
+					<div class="options">
+						<div class="option">
+							<i class="fa-solid fa-arrow-up-from-bracket"></i>
+							Chia sẻ
+						</div>
+						<div class="option" style="color: var(--cherry-color)"
+							 data-bs-toggle="modal" data-bs-target="#confirm-delete-folder-modal">
+							<i class="fa-solid fa-trash"></i>
+							Xóa
+						</div>
+					</div>
+				</div>
+				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml")
+
 			</div>
 		</div>
 
@@ -86,10 +104,19 @@
 									Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username
 								</div>
 							</div>
+
 							<div class="course-actions">
-								<button class="btn-delete" title="Xóa">
-									<i class="fa-solid fa-minus"></i>
-								</button>
+								<div class="btn-options" style="border:2px solid transparent;">
+									<div class="selected">
+										<i class="fa-solid fa-ellipsis"></i>
+									</div>
+									<div class="options">
+										<div class="option">
+											<i class="fa-solid fa-minus"></i>
+											Xóa
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
