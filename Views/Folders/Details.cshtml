@@ -48,7 +48,9 @@
 						</div>
 					</div>
 				</div>
-				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml")
+				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml", new{
+					Id = Model.Id
+				})
 
 			</div>
 		</div>

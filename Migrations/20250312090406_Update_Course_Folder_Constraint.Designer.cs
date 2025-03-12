@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartCards.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using SmartCards.Areas.Identity.Data;
 namespace SmartCards.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250312090406_Update_Course_Folder_Constraint")]
+    partial class Update_Course_Folder_Constraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,7 +282,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("SmartCards.Models.CourseFolder", b =>
@@ -308,7 +311,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("FolderId");
 
-                    b.ToTable("CourseFolder", (string)null);
+                    b.ToTable("CourseFolder");
                 });
 
             modelBuilder.Entity("SmartCards.Models.CoursePermission", b =>
@@ -328,7 +331,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("ViewPermissionId");
 
-                    b.ToTable("CoursePermissions", (string)null);
+                    b.ToTable("CoursePermissions");
                 });
 
             modelBuilder.Entity("SmartCards.Models.Flashcard", b =>
@@ -373,7 +376,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("Term_LangId");
 
-                    b.ToTable("Flashcards", (string)null);
+                    b.ToTable("Flashcards");
                 });
 
             modelBuilder.Entity("SmartCards.Models.Folder", b =>
@@ -407,7 +410,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Folders", (string)null);
+                    b.ToTable("Folders");
                 });
 
             modelBuilder.Entity("SmartCards.Models.Language", b =>
@@ -436,7 +439,7 @@ namespace SmartCards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
 
                     b.HasData(
                         new
@@ -556,7 +559,7 @@ namespace SmartCards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
 
                     b.HasData(
                         new
@@ -619,7 +622,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("UserCourseProgress", (string)null);
+                    b.ToTable("UserCourseProgress");
                 });
 
             modelBuilder.Entity("SmartCards.Models.UserFlashcardProgress", b =>
@@ -643,7 +646,7 @@ namespace SmartCards.Migrations
 
                     b.HasIndex("FlashcardId");
 
-                    b.ToTable("UserFlashcardProgress", (string)null);
+                    b.ToTable("UserFlashcardProgress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

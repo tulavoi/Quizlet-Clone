@@ -52,11 +52,13 @@ namespace SmartCards.Controllers
             return Ok();
 		}
 
-        [HttpDelete("delete/{id:int}")]
-        public IActionResult Delete([FromRoute] int id)
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-
-			return RedirectToAction(nameof(Index), nameof(HomeController));
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var folder = await _folderRepo.DeleteAsync(id);
+            if (folder == null) return NotFound();
+			return RedirectToAction("Index", "Home");
         }
     }
 }
