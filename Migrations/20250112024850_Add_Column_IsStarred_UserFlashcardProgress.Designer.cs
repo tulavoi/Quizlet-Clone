@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Quizlet-Clone.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data;
 
 #nullable disable
 
-namespace Quizlet-Clone.Migrations
+namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250112024850_Add_Column_IsStarred_UserFlashcardProgress")]
