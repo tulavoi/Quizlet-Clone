@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartCards.Areas.Identity.Data;
+using Quizlet-Clone.Areas.Identity.Data;
 
 #nullable disable
 
-namespace SmartCards.Migrations
+namespace Quizlet-Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250118083031_Add_Table_UserCourseProgress_Edit_PK_UserFlashcardProgress")]

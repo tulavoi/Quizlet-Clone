@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SmartCards.Areas.Identity.Data.EntityConfigurations
+namespace QuizletClone.Areas.Identity.Data.EntityConfigurations
 {
 	public class IdentityRoleConfiguration : IEntityTypeConfiguration<IdentityRole>
 	{

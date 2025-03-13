@@ -1,7 +1,7 @@
-﻿using SmartCards.DTOs.Flashcard;
+﻿using QuizletClone.DTOs.Flashcard;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmartCards.DTOs.Folder
+namespace QuizletClone.DTOs.Folder
 {
     public class CreateFolderRequestDTO
     {

@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis.Operations;
-using SmartCards.DTOs.Folder;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Mappers;
+using QuizletClone.DTOs.Folder;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Mappers;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("folders")]

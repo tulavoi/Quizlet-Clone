@@ -1,4 +1,4 @@
-﻿namespace SmartCards.DTOs.Flashcard
+﻿namespace QuizletClone.DTOs.Flashcard
 {
     public class StarredFlashcardRequestDTO
     {

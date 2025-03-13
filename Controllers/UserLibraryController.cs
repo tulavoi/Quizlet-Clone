@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using SmartCards.DTOs.Course;
-using SmartCards.DTOs.Folder;
-using SmartCards.Extensions;
-using SmartCards.Filters;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Mappers;
-using SmartCards.Models;
+using QuizletClone.DTOs.Course;
+using QuizletClone.DTOs.Folder;
+using QuizletClone.Extensions;
+using QuizletClone.Filters;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Mappers;
+using QuizletClone.Models;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("user/{username}")]

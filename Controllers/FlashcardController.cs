@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartCards.DTOs.Course;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Interfaces;
+using QuizletClone.DTOs.Course;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Interfaces;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("flashcard")]

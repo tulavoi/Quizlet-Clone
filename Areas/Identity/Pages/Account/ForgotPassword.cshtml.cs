@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using SmartCards.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data;
 
-namespace SmartCards.Areas.Identity.Pages.Account
+namespace QuizletClone.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {

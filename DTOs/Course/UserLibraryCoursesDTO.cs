@@ -1,6 +1,6 @@
-﻿using SmartCards.Models;
+﻿using QuizletClone.Models;
 
-namespace SmartCards.DTOs.Course
+namespace QuizletClone.DTOs.Course
 {
     public class UserLibraryCoursesDTO
     {

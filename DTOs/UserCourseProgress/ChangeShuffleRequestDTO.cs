@@ -1,4 +1,4 @@
-﻿namespace SmartCards.DTOs.UserCourseProgress
+﻿namespace QuizletClone.DTOs.UserCourseProgress
 {
     public class ChangeShuffleRequestDTO
     {

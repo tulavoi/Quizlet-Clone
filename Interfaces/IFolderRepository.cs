@@ -1,8 +1,8 @@
-﻿using SmartCards.DTOs.Folder;
-using SmartCards.Helpers;
-using SmartCards.Models;
+﻿using QuizletClone.DTOs.Folder;
+using QuizletClone.Helpers;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface IFolderRepository
     {

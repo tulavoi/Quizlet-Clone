@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.Interfaces;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.Interfaces;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class UserRepository : IUserRepository
     {

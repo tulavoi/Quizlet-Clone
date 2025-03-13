@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartCards.DTOs.Flashcard
+namespace QuizletClone.DTOs.Flashcard
 {
     public class FlashcardDTO
     {

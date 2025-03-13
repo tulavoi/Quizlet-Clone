@@ -1,11 +1,11 @@
 ﻿using api.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class UserCourseProgressRepository : IUserCourseProgressRepository
     {

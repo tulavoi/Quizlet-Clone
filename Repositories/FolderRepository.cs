@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Folder;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Folder;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 using System.Runtime.InteropServices;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
 	public class FolderRepository : IFolderRepository
     {

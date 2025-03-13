@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SmartCards.Filters
+namespace QuizletClone.Filters
 {
     public class SetUserLibraryDataAttribute : ActionFilterAttribute
     {

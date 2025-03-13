@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartCards.Areas.Identity.Data;
+using Quizlet-Clone.Areas.Identity.Data;
 
 #nullable disable
 
-namespace SmartCards.Migrations
+namespace Quizlet-Clone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

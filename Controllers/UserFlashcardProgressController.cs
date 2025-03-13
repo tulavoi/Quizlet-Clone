@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.DTOs.UserFlashcardProgress;
-using SmartCards.Interfaces;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.DTOs.UserFlashcardProgress;
+using QuizletClone.Interfaces;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("fc-progress")]

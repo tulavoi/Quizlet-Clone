@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using SmartCards.Models;
+using QuizletClone.Models;
 using static NuGet.Packaging.PackagingConstants;
 
-namespace SmartCards.Areas.Identity.Data;
+namespace QuizletClone.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the AppUser class
 public class AppUser : IdentityUser

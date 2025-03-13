@@ -1,7 +1,7 @@
-﻿using SmartCards.Helpers;
-using SmartCards.Models;
+﻿using QuizletClone.Helpers;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface ILanguageRepository
     {

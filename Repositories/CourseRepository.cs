@@ -1,12 +1,12 @@
 ﻿using api.Helpers;
 using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Course;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Course;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class CourseRepository : ICourseRepository
     {

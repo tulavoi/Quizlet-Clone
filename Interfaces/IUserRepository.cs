@@ -1,4 +1,4 @@
-﻿namespace SmartCards.Interfaces
+﻿namespace QuizletClone.Interfaces
 {
     public interface IUserRepository
     {

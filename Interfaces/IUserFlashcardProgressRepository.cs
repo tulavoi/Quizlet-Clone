@@ -1,7 +1,7 @@
-﻿using SmartCards.DTOs.Flashcard;
-using SmartCards.Models;
+﻿using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface IUserFlashcardProgressRepository
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartCards.Models
+namespace QuizletClone.Models
 {
     [Table("Languages")]
     public class Language

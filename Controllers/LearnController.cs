@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Mappers;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Mappers;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("learn")]
