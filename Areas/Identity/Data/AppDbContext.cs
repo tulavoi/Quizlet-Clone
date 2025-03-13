@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuizletClone.Areas.Identity.Data;
 using QuizletClone.Areas.Identity.Data.EntityConfigurations;
 using QuizletClone.Models;
+using System.Reflection.Emit;
 using static NuGet.Packaging.PackagingConstants;
 
 namespace QuizletClone.Areas.Identity.Data;

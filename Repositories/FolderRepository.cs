@@ -32,9 +32,13 @@ namespace QuizletClone.Repositories
 
 		public async Task<Folder?> DeleteAsync(int id)
 		{
-			var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
+            var existingFolder = await _context.Folders
+                .Include(f => f.CourseFolders)
+                .FirstOrDefaultAsync(f => f.Id == id);
+
 			if (existingFolder == null) return null;
 
+            _context.CourseFolders.RemoveRange(existingFolder.CourseFolders);
             _context.Folders.Remove(existingFolder);
             await _context.SaveChangesAsync();
             return existingFolder;

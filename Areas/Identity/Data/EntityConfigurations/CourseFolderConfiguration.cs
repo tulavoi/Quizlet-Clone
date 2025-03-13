@@ -9,22 +9,20 @@ namespace QuizletClone.Areas.Identity.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<CourseFolder> builder)
 		{
-			// Khai báo key cho FolderCourse
-			//builder.HasKey(p => new
-			//{
-			//	p.CourseId,
-			//	p.FolderId
-			//});
+            builder.HasKey(cf => new { 
+                cf.FolderId, 
+                cf.CourseId 
+            });
 
-			//builder.HasOne(x => x.Course)
-			//	.WithMany(x => x.CourseFolders)
-			//	.HasForeignKey(x => x.CourseId);
+            //builder.HasOne(x => x.Course)
+            // .WithMany(x => x.CourseFolders)
+            // .HasForeignKey(x => x.CourseId)
+            // .OnDelete(DeleteBehavior.Cascade);
 
-			//builder.HasOne(x => x.Folder)
-			//	.WithMany(x => x.CourseFolders)
-			//	.HasForeignKey(x => x.FolderId);
-
-            builder.HasKey(cf => new { cf.FolderId, cf.CourseId });
+            //builder.HasOne(x => x.Folder)
+            // .WithMany(x => x.CourseFolders)
+            // .HasForeignKey(x => x.FolderId)
+            // .OnDelete(DeleteBehavior.Cascade);
         }
 	}
 }
