@@ -1,6 +1,6 @@
-﻿using SmartCards.DTOs.Course;
+﻿using QuizletClone.DTOs.Course;
 
-namespace SmartCards.DTOs.Folder
+namespace QuizletClone.DTOs.Folder
 {
     public class FolderDTO
     {

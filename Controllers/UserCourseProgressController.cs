@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartCards.DTOs.UserCourseProgress;
-using SmartCards.Interfaces;
+using QuizletClone.DTOs.UserCourseProgress;
+using QuizletClone.Interfaces;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     [Route("course-progress")]

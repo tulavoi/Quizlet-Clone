@@ -1,12 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using SmartCards.Areas.Identity.Data
-@using SmartCards.DTOs.Course
+@using QuizletClone.Areas.Identity.Data
+@using QuizletClone.DTOs.Course
 @model List<RecentCourseDTO>
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 @{
-    ViewData["Title"] = "Học phần của bạn | Quizlet-Clone";
+    ViewData["Title"] = "Học phần của bạn | QuizletClone";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" />

@@ -1,8 +1,8 @@
 ﻿using api.Helpers;
 using Microsoft.EntityFrameworkCore;
-using SmartCards.Models;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface IUserCourseProgressRepository
     {

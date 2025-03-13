@@ -1,8 +1,8 @@
-﻿using SmartCards.DTOs.Flashcard;
-using SmartCards.Helpers;
-using SmartCards.Models;
+﻿using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Helpers;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface IFlashcardRepository
     {

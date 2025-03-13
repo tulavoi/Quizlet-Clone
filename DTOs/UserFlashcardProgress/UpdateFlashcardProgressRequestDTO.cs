@@ -1,4 +1,4 @@
-﻿namespace SmartCards.DTOs.UserFlashcardProgress
+﻿namespace QuizletClone.DTOs.UserFlashcardProgress
 {
     public class UpdateFlashcardProgressRequestDTO
     {

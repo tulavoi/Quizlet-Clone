@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartCards.DTOs.Folder
+namespace QuizletClone.DTOs.Folder
 {
 	public class UpdateFolderRequestDTO
 	{

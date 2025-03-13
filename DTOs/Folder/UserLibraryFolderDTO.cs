@@ -1,4 +1,4 @@
-﻿namespace SmartCards.DTOs.Folder
+﻿namespace QuizletClone.DTOs.Folder
 {
 	public class UserLibraryFolderDTO
 	{

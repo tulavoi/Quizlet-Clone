@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace SmartCards.Extensions
+namespace QuizletClone.Extensions
 {
     public static class DatetimeExtensions
     {

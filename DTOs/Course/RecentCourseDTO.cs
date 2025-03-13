@@ -1,4 +1,4 @@
-﻿namespace SmartCards.DTOs.Course
+﻿namespace QuizletClone.DTOs.Course
 {
     public class RecentCourseDTO
     {

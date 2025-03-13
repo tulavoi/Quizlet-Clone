@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Folder;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Folder;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 using System.Runtime.InteropServices;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
 	public class FolderRepository : IFolderRepository
     {
@@ -30,13 +30,18 @@ namespace SmartCards.Repositories
             return folder;
         }
 
-		public async Task DeleteAsync(int id)
+		public async Task<Folder?> DeleteAsync(int id)
 		{
-			var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
-			if (existingFolder == null) return;
+            var existingFolder = await _context.Folders
+                .Include(f => f.CourseFolders)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
+			if (existingFolder == null) return null;
+
+            _context.CourseFolders.RemoveRange(existingFolder.CourseFolders);
             _context.Folders.Remove(existingFolder);
             await _context.SaveChangesAsync();
+            return existingFolder;
 		}
 
 		public async Task<List<Folder>?> GetAllAsync(string userId, FolderQueryObject query)

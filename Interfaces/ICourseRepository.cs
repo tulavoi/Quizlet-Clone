@@ -1,8 +1,8 @@
 ﻿using api.Helpers;
-using SmartCards.DTOs.Course;
-using SmartCards.Models;
+using QuizletClone.DTOs.Course;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface ICourseRepository
     {

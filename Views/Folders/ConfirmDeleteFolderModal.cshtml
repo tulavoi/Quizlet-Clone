@@ -1,4 +1,5 @@
-﻿<div class="confirm-delete-folder-modal">
+﻿@model dynamic
+<div class="confirm-delete-folder-modal">
     <div class="modal" tabindex="-1" id="confirm-delete-folder-modal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 50%;">
             <div class="modal-content">
@@ -11,7 +12,10 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" data-bs-dismiss="modal">Hủy</button>
-                    <button class="btn-confirm-delete">Xóa thư mục</button>
+                    <a class="btn-confirm-delete" asp-controller="Folders" asp-action="Delete" 
+                        asp-route-id="@Model.Id">
+                        Xóa thư mục
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartCards.Models;
+using QuizletClone.Models;
 using System.Reflection.Emit;
 
-namespace SmartCards.Areas.Identity.Data.EntityConfigurations
+namespace QuizletClone.Areas.Identity.Data.EntityConfigurations
 {
 	public class CoursePermissionConfiguration : IEntityTypeConfiguration<CoursePermission>
 	{

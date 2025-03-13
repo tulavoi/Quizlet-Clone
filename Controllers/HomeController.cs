@@ -1,13 +1,13 @@
 using api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartCards.DTOs.Course;
-using SmartCards.Interfaces;
-using SmartCards.Mappers;
-using SmartCards.Models;
+using QuizletClone.DTOs.Course;
+using QuizletClone.Interfaces;
+using QuizletClone.Mappers;
+using QuizletClone.Models;
 using System.Diagnostics;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
     [Authorize]
     public class HomeController : BaseController

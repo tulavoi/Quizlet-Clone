@@ -1,7 +1,7 @@
-﻿using SmartCards.DTOs.Folder;
-using SmartCards.Models;
+﻿using QuizletClone.DTOs.Folder;
+using QuizletClone.Models;
 
-namespace SmartCards.Mappers
+namespace QuizletClone.Mappers
 {
     public static class FolderMapper
     {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 using System.Net.Quic;
 using System.Net.WebSockets;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class FlashcardRepository : IFlashcardRepository
     {

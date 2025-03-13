@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using SmartCards.Areas.Identity.Data
-@using SmartCards.DTOs.Folder
+@using QuizletClone.Areas.Identity.Data
+@using QuizletClone.DTOs.Folder
 @model FolderDTO
 @inject UserManager<AppUser> UserManager
 @{
-	ViewData["Title"] = $"Thư mục {Model.Title} | Quizlet-Clone";
+	ViewData["Title"] = $"Thư mục {Model.Title} | QuizletClone";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	var username = string.Empty;
 	var btnState = @Model.Courses?.Count > 1 ? "" : "inactive";
@@ -48,7 +48,9 @@
 						</div>
 					</div>
 				</div>
-				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml")
+				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml", new{
+					Id = Model.Id
+				})
 
 			</div>
 		</div>

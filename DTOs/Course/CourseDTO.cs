@@ -1,8 +1,8 @@
-﻿using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Models;
+﻿using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Models;
 
-namespace SmartCards.DTOs.Course
+namespace QuizletClone.DTOs.Course
 {
     public class CourseDTO
     {

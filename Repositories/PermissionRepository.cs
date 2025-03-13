@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class PermissionRepository : IPermissionRepository
     {

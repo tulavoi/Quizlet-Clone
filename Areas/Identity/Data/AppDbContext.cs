@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.Areas.Identity.Data.EntityConfigurations;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data.EntityConfigurations;
+using QuizletClone.Models;
+using System.Reflection.Emit;
 using static NuGet.Packaging.PackagingConstants;
 
-namespace SmartCards.Areas.Identity.Data;
+namespace QuizletClone.Areas.Identity.Data;
 
 public class AppDbContext : IdentityDbContext<AppUser>
 {

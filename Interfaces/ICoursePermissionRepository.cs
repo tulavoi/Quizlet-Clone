@@ -1,7 +1,7 @@
 ﻿using api.Helpers;
-using SmartCards.Models;
+using QuizletClone.Models;
 
-namespace SmartCards.Interfaces
+namespace QuizletClone.Interfaces
 {
     public interface ICoursePermissionRepository
     {

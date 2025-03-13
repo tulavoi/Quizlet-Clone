@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace SmartCards.Migrations
+namespace QuizletClone.Migrations
 {
     /// <inheritdoc />
     public partial class Add_Table_UserCourseProgress_Edit_PK_UserFlashcardProgress : Migration

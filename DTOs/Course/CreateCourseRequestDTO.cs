@@ -1,7 +1,7 @@
-﻿using SmartCards.DTOs.Flashcard;
+﻿using QuizletClone.DTOs.Flashcard;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmartCards.DTOs.Course
+namespace QuizletClone.DTOs.Course
 {
     public class CreateCourseRequestDTO
     {

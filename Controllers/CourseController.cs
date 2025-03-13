@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SmartCards.DTOs.Course;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Helpers;
-using SmartCards.Interfaces;
-using SmartCards.Mappers;
-using SmartCards.Models;
+using QuizletClone.DTOs.Course;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Helpers;
+using QuizletClone.Interfaces;
+using QuizletClone.Mappers;
+using QuizletClone.Models;
 
-namespace SmartCards.Controllers
+namespace QuizletClone.Controllers
 {
 	[Authorize]
     [Route("course")]

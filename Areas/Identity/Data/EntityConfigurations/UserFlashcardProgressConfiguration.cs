@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using SmartCards.Models;
+using QuizletClone.Models;
 
-namespace SmartCards.Areas.Identity.Data.EntityConfigurations
+namespace QuizletClone.Areas.Identity.Data.EntityConfigurations
 {
     public class UserFlashcardProgressConfiguration : IEntityTypeConfiguration<UserFlashcardProgress>
     {

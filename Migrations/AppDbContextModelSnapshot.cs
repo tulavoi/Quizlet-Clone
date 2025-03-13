@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartCards.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data;
 
 #nullable disable
 
-namespace SmartCards.Migrations
+namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -51,13 +51,13 @@ namespace SmartCards.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ed75613b-975e-49b5-9c8d-05b85e2c52f3",
+                            Id = "c0be3570-ef22-4b9b-9ec9-62107c41bc3c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f3058121-3827-48ed-b026-026afcb683e5",
+                            Id = "af883d17-7afe-4c8c-9a54-19c57b03a201",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -173,7 +173,7 @@ namespace SmartCards.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SmartCards.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("QuizletClone.Areas.Identity.Data.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -243,7 +243,7 @@ namespace SmartCards.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Course", b =>
+            modelBuilder.Entity("QuizletClone.Models.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +282,7 @@ namespace SmartCards.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.CourseFolder", b =>
+            modelBuilder.Entity("QuizletClone.Models.CourseFolder", b =>
                 {
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
@@ -303,7 +303,7 @@ namespace SmartCards.Migrations
                     b.ToTable("CourseFolder");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.CoursePermission", b =>
+            modelBuilder.Entity("QuizletClone.Models.CoursePermission", b =>
                 {
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -323,7 +323,7 @@ namespace SmartCards.Migrations
                     b.ToTable("CoursePermissions");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Flashcard", b =>
+            modelBuilder.Entity("QuizletClone.Models.Flashcard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -368,7 +368,7 @@ namespace SmartCards.Migrations
                     b.ToTable("Flashcards");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Folder", b =>
+            modelBuilder.Entity("QuizletClone.Models.Folder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -402,7 +402,7 @@ namespace SmartCards.Migrations
                     b.ToTable("Folders");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Language", b =>
+            modelBuilder.Entity("QuizletClone.Models.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -435,93 +435,93 @@ namespace SmartCards.Migrations
                         {
                             Id = 1,
                             Code = "en",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1316),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3325),
                             Name = "English",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1316)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3326)
                         },
                         new
                         {
                             Id = 2,
                             Code = "fr",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1318),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3328),
                             Name = "French",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1319)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3329)
                         },
                         new
                         {
                             Id = 3,
                             Code = "de",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1320),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3331),
                             Name = "German",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1321)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3331)
                         },
                         new
                         {
                             Id = 4,
                             Code = "es",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1322),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3332),
                             Name = "Spanish",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1322)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3333)
                         },
                         new
                         {
                             Id = 5,
                             Code = "it",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1324),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3334),
                             Name = "Italian",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1324)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3335)
                         },
                         new
                         {
                             Id = 6,
                             Code = "pt",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1326),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3336),
                             Name = "Portuguese",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1326)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3336)
                         },
                         new
                         {
                             Id = 7,
                             Code = "zh",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1328),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3338),
                             Name = "Chinese",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1328)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3338)
                         },
                         new
                         {
                             Id = 8,
                             Code = "ja",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1330),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3340),
                             Name = "Japanese",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1330)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3340)
                         },
                         new
                         {
                             Id = 9,
                             Code = "ru",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1331),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3342),
                             Name = "Russian",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1332)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3342)
                         },
                         new
                         {
                             Id = 10,
                             Code = "ar",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1388),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3343),
                             Name = "Arabic",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1389)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3344)
                         },
                         new
                         {
                             Id = 11,
                             Code = "vn",
-                            CreatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1391),
+                            CreatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3345),
                             Name = "Vietnamese",
-                            UpdatedAt = new DateTime(2025, 3, 4, 15, 14, 21, 329, DateTimeKind.Local).AddTicks(1391)
+                            UpdatedAt = new DateTime(2025, 3, 13, 15, 25, 3, 346, DateTimeKind.Local).AddTicks(3346)
                         });
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Permission", b =>
+            modelBuilder.Entity("QuizletClone.Models.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -593,7 +593,7 @@ namespace SmartCards.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartCards.Models.UserCourseProgress", b =>
+            modelBuilder.Entity("QuizletClone.Models.UserCourseProgress", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -614,7 +614,7 @@ namespace SmartCards.Migrations
                     b.ToTable("UserCourseProgress");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.UserFlashcardProgress", b =>
+            modelBuilder.Entity("QuizletClone.Models.UserFlashcardProgress", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -649,7 +649,7 @@ namespace SmartCards.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -658,7 +658,7 @@ namespace SmartCards.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -673,7 +673,7 @@ namespace SmartCards.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -682,16 +682,16 @@ namespace SmartCards.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Course", b =>
+            modelBuilder.Entity("QuizletClone.Models.Course", b =>
                 {
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", "User")
                         .WithMany("Courses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -700,15 +700,15 @@ namespace SmartCards.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.CourseFolder", b =>
+            modelBuilder.Entity("QuizletClone.Models.CourseFolder", b =>
                 {
-                    b.HasOne("SmartCards.Models.Course", "Course")
+                    b.HasOne("QuizletClone.Models.Course", "Course")
                         .WithMany("CourseFolders")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Models.Folder", "Folder")
+                    b.HasOne("QuizletClone.Models.Folder", "Folder")
                         .WithMany("CourseFolders")
                         .HasForeignKey("FolderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -719,21 +719,21 @@ namespace SmartCards.Migrations
                     b.Navigation("Folder");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.CoursePermission", b =>
+            modelBuilder.Entity("QuizletClone.Models.CoursePermission", b =>
                 {
-                    b.HasOne("SmartCards.Models.Course", "Course")
+                    b.HasOne("QuizletClone.Models.Course", "Course")
                         .WithOne("CoursePermission")
-                        .HasForeignKey("SmartCards.Models.CoursePermission", "CourseId")
+                        .HasForeignKey("QuizletClone.Models.CoursePermission", "CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Models.Permission", "EditPermission")
+                    b.HasOne("QuizletClone.Models.Permission", "EditPermission")
                         .WithMany()
                         .HasForeignKey("EditPermissionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Models.Permission", "ViewPermission")
+                    b.HasOne("QuizletClone.Models.Permission", "ViewPermission")
                         .WithMany()
                         .HasForeignKey("ViewPermissionId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -746,21 +746,21 @@ namespace SmartCards.Migrations
                     b.Navigation("ViewPermission");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Flashcard", b =>
+            modelBuilder.Entity("QuizletClone.Models.Flashcard", b =>
                 {
-                    b.HasOne("SmartCards.Models.Course", "Course")
+                    b.HasOne("QuizletClone.Models.Course", "Course")
                         .WithMany("Flashcards")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Models.Language", "Definition_Lang")
+                    b.HasOne("QuizletClone.Models.Language", "Definition_Lang")
                         .WithMany()
                         .HasForeignKey("Definition_LangId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Models.Language", "Term_Lang")
+                    b.HasOne("QuizletClone.Models.Language", "Term_Lang")
                         .WithMany()
                         .HasForeignKey("Term_LangId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -773,9 +773,9 @@ namespace SmartCards.Migrations
                     b.Navigation("Term_Lang");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Folder", b =>
+            modelBuilder.Entity("QuizletClone.Models.Folder", b =>
                 {
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", "User")
                         .WithMany("Folders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -784,15 +784,15 @@ namespace SmartCards.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.UserCourseProgress", b =>
+            modelBuilder.Entity("QuizletClone.Models.UserCourseProgress", b =>
                 {
-                    b.HasOne("SmartCards.Models.Course", "Course")
+                    b.HasOne("QuizletClone.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -803,15 +803,15 @@ namespace SmartCards.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.UserFlashcardProgress", b =>
+            modelBuilder.Entity("QuizletClone.Models.UserFlashcardProgress", b =>
                 {
-                    b.HasOne("SmartCards.Models.Flashcard", "Flashcard")
+                    b.HasOne("QuizletClone.Models.Flashcard", "Flashcard")
                         .WithMany()
                         .HasForeignKey("FlashcardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartCards.Areas.Identity.Data.AppUser", "User")
+                    b.HasOne("QuizletClone.Areas.Identity.Data.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -822,14 +822,14 @@ namespace SmartCards.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmartCards.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("QuizletClone.Areas.Identity.Data.AppUser", b =>
                 {
                     b.Navigation("Courses");
 
                     b.Navigation("Folders");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Course", b =>
+            modelBuilder.Entity("QuizletClone.Models.Course", b =>
                 {
                     b.Navigation("CourseFolders");
 
@@ -839,7 +839,7 @@ namespace SmartCards.Migrations
                     b.Navigation("Flashcards");
                 });
 
-            modelBuilder.Entity("SmartCards.Models.Folder", b =>
+            modelBuilder.Entity("QuizletClone.Models.Folder", b =>
                 {
                     b.Navigation("CourseFolders");
                 });

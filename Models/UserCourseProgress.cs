@@ -1,8 +1,8 @@
-﻿using SmartCards.Areas.Identity.Data;
+﻿using QuizletClone.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartCards.Models
+namespace QuizletClone.Models
 {
     [Table("UserCourseProgress")]
     public class UserCourseProgress

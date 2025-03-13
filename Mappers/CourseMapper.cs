@@ -1,11 +1,11 @@
 ﻿using Microsoft.Build.Graph;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using SmartCards.DTOs.Course;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Extensions;
-using SmartCards.Models;
+using QuizletClone.DTOs.Course;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Extensions;
+using QuizletClone.Models;
 
-namespace SmartCards.Mappers
+namespace QuizletClone.Mappers
 {
     public static class CourseMapper
     {

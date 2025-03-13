@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartCards.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data;
 
 #nullable disable
 
-namespace SmartCards.Migrations
+namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250212090727_UpdateCascadeDelete")]

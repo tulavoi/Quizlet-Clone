@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SmartCards.Areas.Identity.Data;
+using QuizletClone.Areas.Identity.Data;
 
-namespace SmartCards.Areas.Identity.Pages.Account.Manage
+namespace QuizletClone.Areas.Identity.Pages.Account.Manage
 {
     public class SetPasswordModel : PageModel
     {

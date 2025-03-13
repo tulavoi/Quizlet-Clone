@@ -1,4 +1,4 @@
-namespace SmartCards.Models
+namespace QuizletClone.Models
 {
     public class ErrorViewModel
     {

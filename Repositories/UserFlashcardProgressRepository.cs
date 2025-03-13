@@ -1,13 +1,13 @@
 ﻿using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
-using SmartCards.Areas.Identity.Data;
-using SmartCards.DTOs.Flashcard;
-using SmartCards.Interfaces;
-using SmartCards.Models;
+using QuizletClone.Areas.Identity.Data;
+using QuizletClone.DTOs.Flashcard;
+using QuizletClone.Interfaces;
+using QuizletClone.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace SmartCards.Repositories
+namespace QuizletClone.Repositories
 {
     public class UserFlashcardProgressRepository : IUserFlashcardProgressRepository
     {

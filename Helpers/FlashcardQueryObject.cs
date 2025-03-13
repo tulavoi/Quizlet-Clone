@@ -1,4 +1,4 @@
-﻿namespace SmartCards.Helpers
+﻿namespace QuizletClone.Helpers
 {
     public class FlashcardQueryObject
     {
