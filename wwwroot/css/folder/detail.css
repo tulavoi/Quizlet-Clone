@@ -7,8 +7,9 @@
     justify-content: center;
 }
 
-.folder-detail-container{
+.folder-detail-container {
     width: 90%;
+    min-height: 90vh;
 }
 
 .folder-detail-container header{
@@ -166,7 +167,7 @@
     gap: 20px;
     align-items: center;
     cursor: pointer;
-    padding: 16px;
+    padding: 14px;
     border-radius: .5rem;
 }
 
@@ -281,7 +282,6 @@
     position: absolute;
     top: 45px;
     right: 0;
-    width: 150%;
     background-color: white;
     border: 1px solid var(--border-button-color);
     border-radius: 0.5rem;

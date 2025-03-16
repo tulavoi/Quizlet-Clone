@@ -1,0 +1,61 @@
+﻿@model dynamic
+@{
+    string username = string.Empty;
+}
+<div class="add-course-to-folder-modal">
+    <div class="modal" tabindex="-1" id="add-course-to-folder-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 52%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Thêm vào thư mục</h2>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-options btn-create-course">
+                        <div class="selected">
+                            <i class="fa-solid fa-plus"></i>
+                            Tạo mới
+                        </div>
+                        <div class="options">
+                            <div class="option" style="color: var(--cherry-color)">
+                                @* <img src="/images/icons/card.png"/> *@
+                                Học phần
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-list">
+                        @foreach (var course in Model.CoursesAccessed)
+                        {
+                            username = course.OwnerUserId == Model.CurrUserId ? "bạn" : course.OwnerUsername;
+                            <div class="card-item">
+                                <div class="course-item">
+                                    <div class="course-icon">
+                                        <img src="/images/icons/card.png" alt="Icon">
+                                    </div>
+                                    <div class="course-content">
+                                        <div class="title">
+                                            <span>@course.Title</span>
+                                        </div>
+                                        <div class="course-info">
+                                            Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username
+                                        </div>
+                                    </div>
+
+                                    <div class="course-actions">
+                                        <div class="btn-options btn-add-to-folder">
+                                            <i class="fa-solid fa-circle-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-complete" data-bs-dismiss="modal">Hoàn tất</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

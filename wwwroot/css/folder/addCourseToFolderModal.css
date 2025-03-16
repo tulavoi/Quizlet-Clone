@@ -1,0 +1,61 @@
+﻿
+@import url('../folder/styleForModal.css');
+
+.add-course-to-folder-modal .modal-content {
+    display: flex;
+    gap: 15px;
+    padding: 30px;
+}
+
+.add-course-to-folder-modal .modal-content h2{
+    margin: 16px 0;
+}
+
+.add-course-to-folder-modal .modal-header {
+    padding: 0;
+}
+
+.add-course-to-folder-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.add-course-to-folder-modal .modal-body .btn-create-course {
+    align-self: end;
+    width: 15%;
+    border: 2px solid transparent;
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: 8px 14px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--blue-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-course-to-folder-modal .modal-footer{
+    padding: 0;
+}
+
+.add-course-to-folder-modal .modal-footer .btn-complete {
+    background: var(--blue-color);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.add-course-to-folder-modal .modal-footer .btn-complete:hover {
+    background: var(--btn-blue-hover-color);
+}
+
+.course-actions .btn-add-to-folder {
+    border: 2px solid transparent;
+}
+
+.course-actions .btn-add-to-folder i{
+    font-size: 1.2rem;
+}

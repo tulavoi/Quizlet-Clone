@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using api.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
@@ -7,6 +8,7 @@ using QuizletClone.DTOs.Folder;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
+using System.Globalization;
 
 namespace QuizletClone.Controllers
 {
@@ -15,10 +17,12 @@ namespace QuizletClone.Controllers
     public class FoldersController : BaseController
     {
         private readonly IFolderRepository _folderRepo;
+        private readonly IUserCourseProgressRepository _courseProgressRepo;
 
-        public FoldersController(IFolderRepository folderRepo)
+        public FoldersController(IFolderRepository folderRepo, IUserCourseProgressRepository courseProgressRepo)
         {
             _folderRepo = folderRepo;
+            _courseProgressRepo = courseProgressRepo;
         }
 
         [HttpPost("create")]
@@ -39,8 +43,15 @@ namespace QuizletClone.Controllers
 
             var folder = await _folderRepo.GetByIdAsync(id);
             if (folder == null) return NotFound();
-            
-            return View(folder.ToFolderDTO());
+
+            var courseProgress = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
+            {
+                SortBy = "LastUpdated",
+                IsDescending = true,
+                GetAll = true
+            });
+
+            return View(folder.ToFolderDTO(courseProgress));
         }
 
         [HttpPost("update/{id:int}")]

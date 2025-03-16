@@ -9,10 +9,13 @@
 	var username = string.Empty;
 	var btnState = @Model.Courses?.Count > 1 ? "" : "inactive";
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
+
+	var user = await UserManager.GetUserAsync(User);
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
 	<link rel="stylesheet" href="~/css/folder/confirmDeleteModal.css" />
+	<link rel="stylesheet" href="~/css/folder/addCourseToFolderModal.css" />
 	<link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
 }
 
@@ -28,11 +31,11 @@
 					Học
 				</button>
 
-				<button class="btn">
+				<button class="btn" data-bs-toggle="modal" data-bs-target="#add-course-to-folder-modal">
 					<i class="fa-solid fa-plus"></i>
 				</button>
 
-				<div class="btn-options btn-other">
+				<div class="btn-options">
 					<div class="selected">
 						<i class="fa-solid fa-ellipsis"></i>
 					</div>
@@ -48,12 +51,19 @@
 						</div>
 					</div>
 				</div>
-				@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml", new{
-					Id = Model.Id
-				})
-
 			</div>
 		</div>
+
+		<!-- Modal xác nhận xóa folder -->
+		@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml", new{
+			Id = Model.Id
+		})
+
+		<!-- Modal thêm các học phần vào folder -->
+		@await Html.PartialAsync("/Views/Folders/ViewPartials/_AddCourseToFolderModal.cshtml", new{
+			CoursesAccessed = Model.CoursesAccessed,
+			CurrUserId = UserManager.GetUserId(User)
+		})
 
 		<div class="last-edited">
 			<i class="fa-solid fa-clock-rotate-left"></i>
