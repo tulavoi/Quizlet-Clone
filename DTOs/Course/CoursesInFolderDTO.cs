@@ -9,6 +9,7 @@ namespace QuizletClone.DTOs.Course
         public string? Slug { get; set; } = string.Empty;
 		public string OwnerUserId { get; set; } = string.Empty;
 		public string OwnerUsername { get; set; } = string.Empty;
+		public DateTime LastUpdated { get; set; }
         public int FlashcardCount { get; set; }
-	}
+    }
 }

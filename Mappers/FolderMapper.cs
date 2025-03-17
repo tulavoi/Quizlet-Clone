@@ -18,18 +18,43 @@ namespace QuizletClone.Mappers
 
         public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress)
         {
+            var coursesInFolder = folder.CourseFolders
+                    .Select(cf =>
+                    {
+                        // Lọc danh sách courseProgress có cùng CourseId với cf
+                        var progress = courseProgress?.Where(cp => cp.CourseId == cf.CourseId) 
+                            ?? Enumerable.Empty<UserCourseProgress>();
+
+                        // Lấy LastUpdated, nếu không có thì dùng DateTime.MinValue
+                        var lastUpdated = progress.OrderByDescending(cp => cp.LastUpdated)
+                                                  .FirstOrDefault()?.LastUpdated ?? DateTime.MinValue;
+                        return new
+                        {
+                            CourseDTO = cf.Course!.ToCoursesInFolderDTO(),
+                            LastUpdated = lastUpdated
+                        };
+                    })
+                    .OrderByDescending(x => x.LastUpdated)
+                    .Select(x => x.CourseDTO)
+                    .ToList();
+
+            var coursesAccessed = courseProgress?
+                    .Select(c =>
+                    {
+                        var dto = c.Course!.ToCoursesAccessedDTO();
+                        dto.IsInFolder = coursesInFolder.Any(c => c.Id == dto.Id);
+                        return dto;
+                    })
+                    .ToList();
+
             return new FolderDTO
             {
                 Id = folder.Id,
                 Title = folder.Title,
                 CreatedAt = folder.CreatedAt,
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
-				Courses = folder.CourseFolders
-                    .Select(c => c.Course!.ToCoursesInFolderDTO())
-                    .ToList(),
-                CoursesAccessed = courseProgress?
-                    .Select(c => c.Course!.ToCoursesInFolderDTO())
-                    .ToList()
+				CoursesInFolder = coursesInFolder,
+                CoursesAccessed = coursesAccessed
             };
         }
 

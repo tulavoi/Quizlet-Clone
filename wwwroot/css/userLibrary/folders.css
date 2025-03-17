@@ -4,6 +4,7 @@
 
 .folder-item {
     padding: 10px 15px 5px 15px;
+    text-decoration: none;
 }
 
 .title .icon-folder {

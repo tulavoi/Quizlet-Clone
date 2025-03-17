@@ -169,6 +169,7 @@
     cursor: pointer;
     padding: 14px;
     border-radius: .5rem;
+    text-decoration: none;
 }
 
 .course-list .course-item:hover{

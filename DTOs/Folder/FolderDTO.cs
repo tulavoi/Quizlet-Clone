@@ -8,7 +8,7 @@ namespace QuizletClone.DTOs.Folder
         public string Title { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public string UpdatedAt { get; set; } = string.Empty;
-        public List<CoursesInFolderDTO>? Courses { get; set; }
-        public List<CoursesInFolderDTO>? CoursesAccessed { get; set; }
+        public List<CoursesInFolderDTO>? CoursesInFolder { get; set; }
+        public List<CoursesAccessedDTO>? CoursesAccessed { get; set; }
     }
 }

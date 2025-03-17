@@ -7,7 +7,7 @@
 	ViewData["Title"] = $"Thư mục {Model.Title} | QuizletClone";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	var username = string.Empty;
-	var btnState = @Model.Courses?.Count > 1 ? "" : "inactive";
+	var btnState = @Model.CoursesInFolder?.Count > 1 ? "" : "inactive";
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
 	var user = await UserManager.GetUserAsync(User);
@@ -72,7 +72,7 @@
 	</header>
 
 	<div class="py-5">
-		@if (Model.Courses?.Count > 1)
+		@if (Model.CoursesInFolder?.Count > 1)
 		{
 			<div class="filter-search-container">
 				<div class="select-container">
@@ -98,13 +98,13 @@
 		}
 
 		<div class="course-list">
-			@if (Model.Courses?.Count > 0)
+			@if (Model.CoursesInFolder?.Count > 0)
 			{
-				@foreach (var course in Model.Courses)
+				@foreach (var course in Model.CoursesInFolder)
 				{
 					username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
 					<div class="card-item">
-						<div class="course-item">
+						<a class="course-item" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
 							<div class="course-icon">
 								<img src="/images/icons/card.png" alt="Icon">
 							</div>
@@ -130,7 +130,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 				}
 			} else

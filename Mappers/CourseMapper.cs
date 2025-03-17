@@ -21,6 +21,18 @@ namespace QuizletClone.Mappers
                 FlashcardCount = course.Flashcards.Count,
             };
 		}
+        
+        public static CoursesAccessedDTO ToCoursesAccessedDTO(this Course course)
+        {
+            return new CoursesAccessedDTO
+            {
+                Id = course.Id,
+				OwnerUserId = course.UserId,
+				OwnerUsername = course.User?.UserName ?? string.Empty,
+				Title = course.Title,
+                FlashcardCount = course.Flashcards.Count,
+            };
+		}
 
         public static CourseDTO ToCourseDTO(this Course course,
             List<Flashcard> flashcards,
