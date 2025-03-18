@@ -62,7 +62,8 @@
 		<!-- Modal thêm các học phần vào folder -->
 		@await Html.PartialAsync("/Views/Folders/ViewPartials/_AddCourseToFolderModal.cshtml", new{
 			CoursesAccessed = Model.CoursesAccessed,
-			CurrUserId = UserManager.GetUserId(User)
+			CurrUserId = UserManager.GetUserId(User),
+			FolderId = Model.Id
 		})
 
 		<div class="last-edited">
