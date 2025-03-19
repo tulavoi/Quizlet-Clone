@@ -7,11 +7,15 @@ export async function ToggleCourseFolder(courseId, folderId, event) {
     // Kiểm tra trạng thái hiện tại của icon
     const isCurrentlyInFolder = icon.classList.contains("fa-circle-check");
 
-    // Gửi request lên server
-    await postData("/course-folder/toggle-course-folder", { courseId, folderId }, "Failed to toggle course folder");
+    try {
+        // Gửi request lên server
+        await postData("/course-folder/toggle-course-folder", { courseId, folderId }, "Failed to toggle course folder");
 
-    // Đảo trạng thái icon
-    icon.classList.toggle("fa-circle-check", !isCurrentlyInFolder);
-    icon.classList.toggle("fa-plus", isCurrentlyInFolder);
+        // Đảo trạng thái icon
+        icon.classList.toggle("fa-circle-check", !isCurrentlyInFolder);
+        icon.classList.toggle("fa-plus", isCurrentlyInFolder);
+    } catch (error) {
+        console.error(error);
+    }
 }
 window.ToggleCourseFolder = ToggleCourseFolder;
