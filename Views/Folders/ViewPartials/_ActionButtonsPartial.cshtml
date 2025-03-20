@@ -1,0 +1,48 @@
+﻿@model QuizletClone.ViewModels.Folders.FolderActionButtonsViewModel
+
+<div class="action-btns">
+    @if (Model.IsOwner)
+    {
+        <button class="btn @Model.BtnState" title="@Model.BtnTitle">Học</button>
+
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#add-course-to-folder-modal">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+
+        <div class="btn-options">
+            <div class="selected">
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
+                </div>
+                <div class="option text-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-folder-modal">
+                    <i class="fa-solid fa-trash"></i> Xóa
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <button class="btn">
+            <i class="fa-regular fa-folder"></i> Thêm vào thư viện
+        </button>
+
+        <div class="btn-options">
+            <div class="selected">
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <i class="fa-solid fa-book"></i>
+                    Học
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    Chia sẻ
+                </div>
+            </div>
+        </div>
+    }
+</div>

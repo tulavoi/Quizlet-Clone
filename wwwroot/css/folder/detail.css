@@ -60,6 +60,9 @@
     font-size: .875rem;
     border-radius: .5rem;
     color: var(--dark-grey-color);
+    display: flex;
+    align-items:center;
+    gap: 10px;
 }
 
 .folder-detail-container header .header-content .action-btns .btn:hover{
@@ -75,7 +78,7 @@
     background: none !important;
 }
 
-.folder-detail-container header .last-edited{
+.folder-detail-container header .folder-info {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -84,7 +87,16 @@
     font-weight: 600;
 }
 
-.filter-search-container{
+.folder-info .folder-creator-name {
+    color: var(--blue-color);
+    text-decoration: none;
+}
+
+.folder-info .folder-creator-name:hover {
+    color: var(--btn-blue-hover-color);
+}
+
+.filter-search-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -249,21 +261,7 @@
 
 /* Button Other */
 .btn-options {
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-
-.btn-options .selected {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.btn-options {
     border: 2px solid var(--border-button-color);
-    width: 100%;
     border-radius: .5rem;
     cursor: pointer;
     padding: 6px 12px;
@@ -273,10 +271,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .btn-options:hover {
     background-color: var(--btn-secondary-hover-color);
+}
+
+.btn-options .selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
 .btn-options .options {

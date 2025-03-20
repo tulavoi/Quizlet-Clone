@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using QuizletClone.Areas.Identity.Data
 @using QuizletClone.DTOs.Folder
+@using QuizletClone.ViewModels.Folders
 @model FolderDTO
 @inject UserManager<AppUser> UserManager
 @{
@@ -11,6 +12,7 @@
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
 	var user = await UserManager.GetUserAsync(User);
+	var isOwner = UserManager.GetUserId(User) == Model.Owner.Id;
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
@@ -26,50 +28,34 @@
 				<h1 id="folderTitle">@Model.Title</h1>
 			</div>
 
-			<div class="action-btns">
-				<button class="btn @btnState" title="@btnTitle">
-					Học
-				</button>
-
-				<button class="btn" data-bs-toggle="modal" data-bs-target="#add-course-to-folder-modal">
-					<i class="fa-solid fa-plus"></i>
-				</button>
-
-				<div class="btn-options">
-					<div class="selected">
-						<i class="fa-solid fa-ellipsis"></i>
-					</div>
-					<div class="options">
-						<div class="option">
-							<i class="fa-solid fa-arrow-up-from-bracket"></i>
-							Chia sẻ
-						</div>
-						<div class="option" style="color: var(--cherry-color)"
-							 data-bs-toggle="modal" data-bs-target="#confirm-delete-folder-modal">
-							<i class="fa-solid fa-trash"></i>
-							Xóa
-						</div>
-					</div>
-				</div>
-			</div>
+			<!-- Hiển thị các action buttons -->
+			@await Html.PartialAsync("/Views/Folders/ViewPartials/_ActionButtonsPartial.cshtml", new FolderActionButtonsViewModel{
+				FolderId = Model.Id,
+				IsOwner = isOwner,
+				BtnState = btnState,
+				BtnTitle = btnTitle,
+			})
 		</div>
-
+		
+		<!-- Hiển thị thời gian create/update -->
+		@await Html.PartialAsync("/Views/Folders/ViewPartials/_FolderInfoPartial.cshtml", new FolderInfoViewModel
+		{
+			IsOwner = isOwner,
+			CreatedAt = Model.CreatedAt,
+			UpdatedAt = "",
+		})
+		
 		<!-- Modal xác nhận xóa folder -->
-		@await Html.PartialAsync("/Views/Folders/ConfirmDeleteFolderModal.cshtml", new{
+		@await Html.PartialAsync("/Views/Folders/Modals/ConfirmDeleteFolderModal.cshtml", new{
 			Id = Model.Id
 		})
 
 		<!-- Modal thêm các học phần vào folder -->
-		@await Html.PartialAsync("/Views/Folders/ViewPartials/_AddCourseToFolderModal.cshtml", new{
+		@await Html.PartialAsync("/Views/Folders/Modals/AddCourseToFolderModal.cshtml", new{
 			CoursesAccessed = Model.CoursesAccessed,
-			CurrUserId = UserManager.GetUserId(User),
+			CurrUserId = Model.Owner.Id,
 			FolderId = Model.Id
 		})
-
-		<div class="last-edited">
-			<i class="fa-solid fa-clock-rotate-left"></i>
-			Chỉnh sửa ngày @Model.UpdatedAt
-		</div>
 	</header>
 
 	<div class="py-5">

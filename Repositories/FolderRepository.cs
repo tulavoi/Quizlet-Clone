@@ -67,6 +67,7 @@ namespace QuizletClone.Repositories
 		public async Task<Folder?> GetByIdAsync(int id)
         {
             var folder = await _context.Folders
+                .Include(u => u.User)
                 .Include(cf => cf.CourseFolders)
                     .ThenInclude(c => c.Course)
                         .ThenInclude(fc => fc!.Flashcards)

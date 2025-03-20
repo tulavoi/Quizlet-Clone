@@ -1,4 +1,5 @@
 ﻿using QuizletClone.DTOs.Folder;
+using QuizletClone.DTOs.User;
 using QuizletClone.Models;
 
 namespace QuizletClone.Mappers
@@ -51,8 +52,9 @@ namespace QuizletClone.Mappers
             {
                 Id = folder.Id,
                 Title = folder.Title,
-                CreatedAt = folder.CreatedAt,
+                CreatedAt = folder.CreatedAt.ToString("d/M/yy"),
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
+                Owner = folder.User!.ToUserDTO(),
 				CoursesInFolder = coursesInFolder,
                 CoursesAccessed = coursesAccessed
             };
