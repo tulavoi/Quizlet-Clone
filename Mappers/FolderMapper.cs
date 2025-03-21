@@ -20,30 +20,15 @@ namespace QuizletClone.Mappers
         public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress)
         {
             var coursesInFolder = folder.CourseFolders
-                    .Select(cf =>
-                    {
-                        // Lọc danh sách courseProgress có cùng CourseId với cf
-                        var progress = courseProgress?.Where(cp => cp.CourseId == cf.CourseId) 
-                            ?? Enumerable.Empty<UserCourseProgress>();
+                .Where(cf => cf.FolderId == folder.Id)
+                .Select(c => c.Course!.ToCoursesInFolderDTO())
+                .ToList();
 
-                        // Lấy LastUpdated, nếu không có thì dùng DateTime.MinValue
-                        var lastUpdated = progress.OrderByDescending(cp => cp.LastUpdated)
-                                                  .FirstOrDefault()?.LastUpdated ?? DateTime.MinValue;
-                        return new
-                        {
-                            CourseDTO = cf.Course!.ToCoursesInFolderDTO(),
-                            LastUpdated = lastUpdated
-                        };
-                    })
-                    .OrderByDescending(x => x.LastUpdated)
-                    .Select(x => x.CourseDTO)
-                    .ToList();
-
-            var coursesAccessed = courseProgress?
+			var coursesAccessed = courseProgress?
                     .Select(c =>
                     {
                         var dto = c.Course!.ToCoursesAccessedDTO();
-                        dto.IsInFolder = coursesInFolder.Any(c => c.Id == dto.Id);
+                        dto.IsInFolder = coursesInFolder!.Any(c => c.Id == dto.Id);
                         return dto;
                     })
                     .ToList();

@@ -12,13 +12,14 @@ namespace QuizletClone.Mappers
         public static CoursesInFolderDTO ToCoursesInFolderDTO(this Course course)
         {
             return new CoursesInFolderDTO
-			{
+            {
                 Id = course.Id,
-				OwnerUserId = course.UserId,
-				OwnerUsername = course.User?.UserName ?? string.Empty,
-				Title = course.Title,
+                OwnerUserId = course.UserId,
+                OwnerUsername = course.User?.UserName ?? string.Empty,
+                Title = course.Title,
                 Slug = course.Slug,
                 FlashcardCount = course.Flashcards.Count,
+                ViewPermissionType = course.CoursePermission.ViewPermission?.Type
             };
 		}
         

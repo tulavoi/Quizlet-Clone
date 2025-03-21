@@ -13,6 +13,7 @@
 
 	var user = await UserManager.GetUserAsync(User);
 	var isOwner = UserManager.GetUserId(User) == Model.Owner.Id;
+	var hasPublicCourses = Model.CoursesInFolder.Any(c => isOwner || c.ViewPermissionType != PermissionType.OnlyMe);
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
@@ -42,7 +43,8 @@
 		{
 			IsOwner = isOwner,
 			CreatedAt = Model.CreatedAt,
-			UpdatedAt = "",
+			UpdatedAt = Model.UpdatedAt,
+			OwnerUsername = Model.Owner.Username
 		})
 		
 		<!-- Modal xác nhận xóa folder -->
@@ -59,7 +61,8 @@
 	</header>
 
 	<div class="py-5">
-		@if (Model.CoursesInFolder?.Count > 1)
+		<!-- Filter và thanh tìm kiếm -->
+		@if (hasPublicCourses)
 		{
 			<div class="filter-search-container">
 				<div class="select-container">
@@ -85,10 +88,15 @@
 		}
 
 		<div class="course-list">
-			@if (Model.CoursesInFolder?.Count > 0)
+			@if (hasPublicCourses)
 			{
 				@foreach (var course in Model.CoursesInFolder)
 				{
+					if (!isOwner && course.ViewPermissionType == PermissionType.OnlyMe)
+					{
+						continue;
+					}
+
 					username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
 					<div class="card-item">
 						<a class="course-item" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
@@ -104,23 +112,27 @@
 								</div>
 							</div>
 
-							<div class="course-actions">
-								<div class="btn-options" style="border:2px solid transparent;">
-									<div class="selected">
-										<i class="fa-solid fa-ellipsis"></i>
-									</div>
-									<div class="options">
-										<div class="option" onclick="DeleteFromFolder(@course.Id, @Model.Id)">
-											<i class="fa-solid fa-minus"></i>
-											Xóa
+							@if (isOwner)
+							{
+								<div class="course-actions">
+									<div class="btn-options" style="border:2px solid transparent;">
+										<div class="selected">
+											<i class="fa-solid fa-ellipsis"></i>
+										</div>
+										<div class ="options">
+											<div class="option" onclick="DeleteFromFolder(@course.Id, @Model.Id)">
+												<i class="fa-solid fa-minus"></i>
+												Xóa
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							}
 						</a>
 					</div>
 				}
-			} else
+			} 
+			else
 			{
 				<div class="card-item-empty">
 					<span>Thư mục này trống</span>

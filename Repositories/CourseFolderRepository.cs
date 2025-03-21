@@ -34,15 +34,29 @@ namespace QuizletClone.Repositories
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
             };
-
             await _context.CourseFolders.AddAsync(newRecord);
-            await _context.SaveChangesAsync();
+
+            await this.UpdateFolderTimestamp(newRecord.FolderId);
+
+			await _context.SaveChangesAsync();
         }
 
         private async Task Delete(CourseFolder existingRecord)
         {
+            await this.UpdateFolderTimestamp(existingRecord.FolderId);
+
             _context.CourseFolders.Remove(existingRecord);
             await _context.SaveChangesAsync();
         }
-    }
+
+        private async Task UpdateFolderTimestamp(int folderId)
+        {
+			var folder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == folderId);
+			if (folder != null)
+            {
+				folder.UpdatedAt = DateTime.Now; 
+                await _context.SaveChangesAsync();
+			}
+		}
+	}
 }

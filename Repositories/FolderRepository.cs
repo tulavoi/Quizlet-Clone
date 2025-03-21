@@ -71,7 +71,7 @@ namespace QuizletClone.Repositories
                 .Include(cf => cf.CourseFolders)
                     .ThenInclude(c => c.Course)
                         .ThenInclude(fc => fc!.Flashcards)
-                .FirstOrDefaultAsync(x => x.Id == id);
+				.FirstOrDefaultAsync(x => x.Id == id);
             return folder;
         }
 
