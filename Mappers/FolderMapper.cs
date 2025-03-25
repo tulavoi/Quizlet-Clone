@@ -1,4 +1,5 @@
-﻿using QuizletClone.DTOs.Folder;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizletClone.DTOs.Folder;
 using QuizletClone.DTOs.User;
 using QuizletClone.Models;
 
@@ -22,9 +23,10 @@ namespace QuizletClone.Mappers
             var coursesInFolder = folder.CourseFolders
                 .Where(cf => cf.FolderId == folder.Id)
                 .Select(c => c.Course!.ToCoursesInFolderDTO())
+                .OrderByDescending(c => c.UpdatedAt)
                 .ToList();
 
-			var coursesAccessed = courseProgress?
+            var coursesAccessed = courseProgress?
                     .Select(c =>
                     {
                         var dto = c.Course!.ToCoursesAccessedDTO();

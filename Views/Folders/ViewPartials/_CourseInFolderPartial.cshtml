@@ -1,0 +1,60 @@
+﻿@model QuizletClone.ViewModels.Folders.CourseFolderViewModel
+@using Microsoft.AspNetCore.Identity
+@using QuizletClone.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
+@{
+	var username = string.Empty;
+}
+<div class="course-list" id="courseInFolderList">
+	@if (Model.HasPublicCourses)
+	{
+		@foreach (var course in Model.Courses!)
+		{
+			if (!Model.IsOwner && course.ViewPermissionType == PermissionType.OnlyMe)
+			{
+				continue;
+			}
+
+			username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
+			<div class="card-item" data-updated="@course.UpdatedAt">
+				<a class="course-item" asp-controller="Course" 
+					asp-action="Details" asp-route-slug="@course.Slug">
+					<div class="course-icon">
+						<img src="/images/icons/card.png" alt="Icon">
+					</div>
+					<div class="course-content">
+						<div class="title">
+							<span>@course.Title</span>
+						</div>
+						<div class="course-info">
+							Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username
+						</div>
+					</div>
+
+					@if (Model.IsOwner)
+					{
+						<div class="course-actions">
+							<div class="btn-options" style="border:2px solid transparent;">
+								<div class="selected">
+									<i class="fa-solid fa-ellipsis"></i>
+								</div>
+								<div class="options">
+									<div class="option" onclick="DeleteFromFolder(@course.Id, @Model.FolderId)">
+										<i class="fa-solid fa-minus"></i>
+										Xóa
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</a>
+			</div>
+		}
+	}
+	else
+	{
+		<div class="card-item-empty">
+			<span>Thư mục này trống</span>
+		</div>
+	}
+</div>

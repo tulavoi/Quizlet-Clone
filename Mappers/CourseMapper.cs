@@ -11,6 +11,8 @@ namespace QuizletClone.Mappers
     {
         public static CoursesInFolderDTO ToCoursesInFolderDTO(this Course course)
         {
+
+
             return new CoursesInFolderDTO
             {
                 Id = course.Id,
@@ -19,8 +21,9 @@ namespace QuizletClone.Mappers
                 Title = course.Title,
                 Slug = course.Slug,
                 FlashcardCount = course.Flashcards.Count,
-                ViewPermissionType = course.CoursePermission.ViewPermission?.Type
-            };
+                ViewPermissionType = course.CoursePermission.ViewPermission?.Type,
+                UpdatedAt = course.UpdatedAt,
+			};
 		}
         
         public static CoursesAccessedDTO ToCoursesAccessedDTO(this Course course)

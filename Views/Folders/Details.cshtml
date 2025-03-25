@@ -7,7 +7,6 @@
 @{
 	ViewData["Title"] = $"Thư mục {Model.Title} | QuizletClone";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	var username = string.Empty;
 	var btnState = @Model.CoursesInFolder?.Count > 1 ? "" : "inactive";
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
@@ -72,8 +71,8 @@
 							<i class="fa-solid fa-angle-down"></i>
 						</div>
 						<div class="options">
-							<a class="option">Các mục gần đây</a>
-							<a class="option">Tiêu đề</a>
+							<div class="option" data-value="updated">Các mục gần đây</div>
+							<div class="option" data-value="title">Tiêu đề</div>
 						</div>
 					</div>
 				</div>
@@ -87,60 +86,24 @@
 			</div>
 		}
 
-		<div class="course-list">
-			@if (hasPublicCourses)
-			{
-				@foreach (var course in Model.CoursesInFolder)
-				{
-					if (!isOwner && course.ViewPermissionType == PermissionType.OnlyMe)
-					{
-						continue;
-					}
-
-					username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
-					<div class="card-item">
-						<a class="course-item" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
-							<div class="course-icon">
-								<img src="/images/icons/card.png" alt="Icon">
-							</div>
-							<div class="course-content">
-								<div class="title">
-									<span>@course.Title</span>
-								</div>
-								<div class="course-info">
-									Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username
-								</div>
-							</div>
-
-							@if (isOwner)
-							{
-								<div class="course-actions">
-									<div class="btn-options" style="border:2px solid transparent;">
-										<div class="selected">
-											<i class="fa-solid fa-ellipsis"></i>
-										</div>
-										<div class ="options">
-											<div class="option" onclick="DeleteFromFolder(@course.Id, @Model.Id)">
-												<i class="fa-solid fa-minus"></i>
-												Xóa
-											</div>
-										</div>
-									</div>
-								</div>
-							}
-						</a>
-					</div>
-				}
-			} 
-			else
-			{
-				<div class="card-item-empty">
-					<span>Thư mục này trống</span>
-				</div>
-			}
-		</div>
+		<!-- Courses in folder -->
+		@await Html.PartialAsync("/Views/Folders/ViewPartials/_CourseInFolderPartial.cshtml", new CourseFolderViewModel
+		{
+			FolderId = Model.Id,
+			IsOwner = isOwner,
+			HasPublicCourses = hasPublicCourses,
+			Courses = Model.CoursesInFolder.Select(c => new CourseInFolderViewModel{
+				Id = c.Id,
+				Title = c.Title, 
+				Slug = c.Slug,
+				OwnerUsername = c.OwnerUsername,
+				OwnerUserId = c.OwnerUserId,
+				FlashcardCount = c.FlashcardCount,
+				UpdatedAt = c.UpdatedAt,	
+				ViewPermissionType = c.ViewPermissionType
+			}).ToList()
+		})
 	</div>
 </div>
 
 <script type="module" src="~/js/folder/main.js"></script>
-<script type="module" src="~/js/userLibrary/main.js"></script>
