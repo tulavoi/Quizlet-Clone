@@ -26,36 +26,39 @@
                     </div>
 
                     <div class="course-list">
-                        @foreach (var course in Model.CoursesAccessed)
+                        @if (Model.CoursesAccessed != null)
                         {
-                            iconClass = course.IsInFolder
+                            @foreach (var course in Model.CoursesAccessed)
+                            {
+                                iconClass = course.IsInFolder
                                 ? "fa-solid fa-circle-check"
                                 : "fa-solid fa-plus";
-                            username = course.OwnerUserId == Model.CurrUserId ? "bạn" : course.OwnerUsername;
+                                username = course.OwnerUserId == Model.CurrUserId ? "bạn" : course.OwnerUsername;
 
-                            <div class="card-item">
-                                <div class="course-item" 
-                                    onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
-                                    <div class="course-icon">
-                                        <img src="/images/icons/card.png" alt="Icon">
-                                    </div>
-                                    <div class="course-content">
-                                        <div class="title">
-                                            <span>@course.Title</span>
+                                <div class="card-item">
+                                    <div class="course-item"
+                                         onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
+                                        <div class="course-icon">
+                                            <img src="/images/icons/card.png" alt="Icon">
                                         </div>
-                                        <div class="course-info">
-                                            Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username&nbsp;&nbsp;
+                                        <div class="course-content">
+                                            <div class="title">
+                                                <span>@course.Title</span>
+                                            </div>
+                                            <div class="course-info">
+                                                Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username&nbsp;&nbsp;
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="course-actions">
-                                        <div class="btn-options btn-add-to-folder"
-                                             onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
-                                            <i class="@iconClass"></i>
+                                        <div class="course-actions">
+                                            <div class="btn-options btn-add-to-folder"
+                                                 onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
+                                                <i class="@iconClass"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

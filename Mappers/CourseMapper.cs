@@ -9,20 +9,18 @@ namespace QuizletClone.Mappers
 {
     public static class CourseMapper
     {
-        public static CoursesInFolderDTO ToCoursesInFolderDTO(this Course course)
+        public static CourseInFolderDTO ToCourseInFolderDTO(this CourseFolder courseFolder)
         {
-
-
-            return new CoursesInFolderDTO
+            return new CourseInFolderDTO
             {
-                Id = course.Id,
-                OwnerUserId = course.UserId,
-                OwnerUsername = course.User?.UserName ?? string.Empty,
-                Title = course.Title,
-                Slug = course.Slug,
-                FlashcardCount = course.Flashcards.Count,
-                ViewPermissionType = course.CoursePermission.ViewPermission?.Type,
-                UpdatedAt = course.UpdatedAt,
+                Id = courseFolder.Course!.Id,
+                OwnerUserId = courseFolder.Course.UserId,
+                OwnerUsername = courseFolder.Course.User?.UserName ?? string.Empty,
+                Title = courseFolder.Course.Title,
+                Slug = courseFolder.Course.Slug,
+                FlashcardCount = courseFolder.Course.Flashcards.Count,
+                ViewPermissionType = courseFolder.Course.CoursePermission.ViewPermission?.Type,
+                UpdatedAt = courseFolder.UpdatedAt,
 			};
 		}
         

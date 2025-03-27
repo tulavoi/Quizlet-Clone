@@ -3,7 +3,7 @@ using QuizletClone.Models;
 
 namespace QuizletClone.DTOs.Course
 {
-	public class CoursesInFolderDTO
+	public class CourseInFolderDTO
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;

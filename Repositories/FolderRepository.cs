@@ -17,7 +17,12 @@ namespace QuizletClone.Repositories
             _context = context;
         }
 
-        public async Task<Folder> CreateAsync(Folder folder)
+		public async Task<Folder> AddToLibrary(Folder folder)
+		{
+            return await CreateAsync(folder);
+		}
+
+		public async Task<Folder> CreateAsync(Folder folder)
         {
             await _context.Folders.AddAsync(folder);
             await _context.SaveChangesAsync();
@@ -74,6 +79,17 @@ namespace QuizletClone.Repositories
 				.FirstOrDefaultAsync(x => x.Id == id);
             return folder;
         }
+
+		public async Task<List<CourseFolder>?> GetCourseInFolder(int folderId)
+		{
+			return await _context.CourseFolders
+                .Where(cf => cf.FolderId == folderId)
+                .Include(cf => cf.Folder!.User)
+                .Include(cf => cf.Course)
+                    .ThenInclude(c => c!.CoursePermission)
+                        .ThenInclude(cp => cp.ViewPermission)
+				.ToListAsync();
+		}
 
 		public async Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO)
 		{

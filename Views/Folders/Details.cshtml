@@ -45,18 +45,21 @@
 			UpdatedAt = Model.UpdatedAt,
 			OwnerUsername = Model.Owner.Username
 		})
-		
-		<!-- Modal xác nhận xóa folder -->
-		@await Html.PartialAsync("/Views/Folders/Modals/ConfirmDeleteFolderModal.cshtml", new{
-			Id = Model.Id
-		})
 
-		<!-- Modal thêm các học phần vào folder -->
-		@await Html.PartialAsync("/Views/Folders/Modals/AddCourseToFolderModal.cshtml", new{
-			CoursesAccessed = Model.CoursesAccessed,
-			CurrUserId = Model.Owner.Id,
-			FolderId = Model.Id
-		})
+		@if (isOwner)
+		{
+			<!-- Modal xác nhận xóa folder -->
+			@await Html.PartialAsync("/Views/Folders/Modals/ConfirmDeleteFolderModal.cshtml", new{
+				Id = Model.Id
+			})
+		
+			<!-- Modal thêm các học phần vào folder -->
+			@await Html.PartialAsync("/Views/Folders/Modals/AddCourseToFolderModal.cshtml", new{
+				CoursesAccessed = Model.CoursesAccessed,
+				CurrUserId = Model.Owner.Id,
+				FolderId = Model.Id
+			})
+		}
 	</header>
 
 	<div class="py-5">
@@ -99,7 +102,7 @@
 				OwnerUsername = c.OwnerUsername,
 				OwnerUserId = c.OwnerUserId,
 				FlashcardCount = c.FlashcardCount,
-				UpdatedAt = c.UpdatedAt,	
+				UpdatedAt = c.UpdatedAt.ToString("yyyy/MM/dd HH:mm:ss"),
 				ViewPermissionType = c.ViewPermissionType
 			}).ToList()
 		})

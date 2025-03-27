@@ -5,11 +5,14 @@
 @{
 	var username = string.Empty;
 }
+
 <div class="course-list" id="courseInFolderList">
 	@if (Model.HasPublicCourses)
 	{
 		@foreach (var course in Model.Courses!)
 		{
+			/*	Nếu user hiện tại k phải ng sở hữu học phần
+				Học phần có quyền xem là Only Me thì bỏ qua k hiển thị học phần đó */
 			if (!Model.IsOwner && course.ViewPermissionType == PermissionType.OnlyMe)
 			{
 				continue;
@@ -17,6 +20,7 @@
 
 			username = course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername;
 			<div class="card-item" data-updated="@course.UpdatedAt">
+				<input type="hidden" name="courseId" value="@course.Id" />
 				<a class="course-item" asp-controller="Course" 
 					asp-action="Details" asp-route-slug="@course.Slug">
 					<div class="course-icon">

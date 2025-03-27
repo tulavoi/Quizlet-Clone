@@ -18,6 +18,6 @@ namespace QuizletClone.Models
         [Required]
         public required string UserId { get; set; }
         public AppUser? User { get; set; }
-        public List<CourseFolder> CourseFolders { get; set; } = new List<CourseFolder>();
+        public List<CourseFolder> CourseFolders { get; set; } = new();
     }
 }

@@ -19,11 +19,11 @@ namespace QuizletClone.Controllers
         private readonly IFolderRepository _folderRepo;
         private readonly IUserCourseProgressRepository _courseProgressRepo;
 
-        public FoldersController(IFolderRepository folderRepo, IUserCourseProgressRepository courseProgressRepo)
+		public FoldersController(IFolderRepository folderRepo, IUserCourseProgressRepository courseProgressRepo)
         {
             _folderRepo = folderRepo;
             _courseProgressRepo = courseProgressRepo;
-        }
+		}
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateFolderRequestDTO folderDTO)
@@ -38,10 +38,10 @@ namespace QuizletClone.Controllers
         [HttpGet("{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
-            // Lấy folder id dựa vào slug
-            int id = SlugHelper.GetIdBySlug(slug);
+            // Lấy folder folderId dựa vào slug
+            int folderId = SlugHelper.GetIdBySlug(slug);
 
-            var folder = await _folderRepo.GetByIdAsync(id);
+            var folder = await _folderRepo.GetByIdAsync(folderId);
             if (folder == null) return NotFound();
 
             var courseProgress = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
@@ -51,7 +51,9 @@ namespace QuizletClone.Controllers
                 GetAll = true
             });
 
-            return View(folder.ToFolderDTO(courseProgress));
+            var coursesInFolder = await _folderRepo.GetCourseInFolder(folderId);
+
+            return View(folder.ToFolderDTO(courseProgress, coursesInFolder));
         }
 
         [HttpPost("update/{id:int}")]

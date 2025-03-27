@@ -6,7 +6,7 @@
     const optionItems = customSelect.querySelectorAll(".option");
 
     // Hiển thị hoặc ẩn dropdown khi click
-    selected.addEventListener('click', toggleDropdown);
+    customSelect.addEventListener('click', toggleDropdown);
 
     // Xử lý khi chọn option
     optionItems.forEach(option => {
@@ -16,7 +16,7 @@
     // Đóng dropdown khi click ra ngoài
     document.addEventListener("click", function (event) {
         if (!customSelect.contains(event.target)) {
-            toggleDropdown();
+            closeDropdown();
         }
     });
 
@@ -24,7 +24,13 @@
         customSelect.classList.toggle("active");
     }
 
+    function closeDropdown() {
+        customSelect.classList.remove("active");
+    }
+
     function selectOption(event) {
+        event.stopPropagation();
+
         const selectedText = event.target.textContent;
         const icon = selected.querySelector('i');
         selected.textContent = selectedText + " ";
@@ -36,13 +42,12 @@
             sortCourses(selectedValue);
         }
 
-        toggleDropdown();
+        closeDropdown();
     }
 
     function sortCourses(sortBy) {
         const courseListContainer = document.getElementById('courseInFolderList');
         if (!courseListContainer) return;
-        console.log(sortBy);
 
         const courses = Array.from(courseListContainer.querySelectorAll('.card-item'));
         courses.sort((a, b) => {
@@ -50,6 +55,7 @@
                 case "updated":
                     const dateA = new Date(a.getAttribute("data-updated"));
                     const dateB = new Date(b.getAttribute("data-updated"));
+                    console.log(dateA, dateB);
                     return dateB - dateA; // Sắp xếp giảm dần (mới nhất trước)
                 case "title":
                     const titleA = a.querySelector('.title span').textContent.trim().toLowerCase();

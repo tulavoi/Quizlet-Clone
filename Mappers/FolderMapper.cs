@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Folder;
 using QuizletClone.DTOs.User;
 using QuizletClone.Models;
@@ -18,22 +19,31 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress)
-        {
-            var coursesInFolder = folder.CourseFolders
-                .Where(cf => cf.FolderId == folder.Id)
-                .Select(c => c.Course!.ToCoursesInFolderDTO())
-                .OrderByDescending(c => c.UpdatedAt)
-                .ToList();
+		public static Folder ToFolderFromAddFolderToLibraryRequestDTO(this AddFolderToLibraryRequestDTO folderDTO)
+		{
+			return new Folder
+			{
+				Title = folderDTO.Title,
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now,
+				UserId = folderDTO.UserId,
+                CourseFolders = folderDTO.CourseIds
+                                .Select(courseId => new CourseFolder { CourseId = courseId })
+                                .ToList()
+			};
+		}
 
-            var coursesAccessed = courseProgress?
-                    .Select(c =>
-                    {
-                        var dto = c.Course!.ToCoursesAccessedDTO();
-                        dto.IsInFolder = coursesInFolder!.Any(c => c.Id == dto.Id);
-                        return dto;
-                    })
-                    .ToList();
+		public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
+            List<CourseFolder>? coursesInFolder)
+        {
+			//var coursesAccessed = courseProgress?
+   //                 .Select(c =>
+   //                 {
+   //                     var dto = c.Course!.ToCoursesAccessedDTO();
+   //                     dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
+   //                     return dto;
+   //                 })
+   //                 .ToList();
 
             return new FolderDTO
             {
@@ -42,8 +52,8 @@ namespace QuizletClone.Mappers
                 CreatedAt = folder.CreatedAt.ToString("d/M/yy"),
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
                 Owner = folder.User!.ToUserDTO(),
-				CoursesInFolder = coursesInFolder,
-                CoursesAccessed = coursesAccessed
+				CoursesInFolder = coursesInFolder?.Select(cf => cf.ToCourseInFolderDTO()).ToList(),
+                //CoursesAccessed = coursesAccessed
             };
         }
 
