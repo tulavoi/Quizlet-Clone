@@ -1,0 +1,30 @@
+﻿
+/* Common styles for modals */
+.modal-content {
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-header h2 {
+    font-weight: 700;
+}
+
+.modal-footer {
+    padding-bottom: 0;
+    display: flex;
+    gap: 10px;
+    border-top: none;
+}
+
+.modal-footer * {
+    font-weight: 600;
+    font-size: 1rem;
+    min-height: 2.5rem;
+    padding: 0 15px;
+    border-radius: .5rem;
+}

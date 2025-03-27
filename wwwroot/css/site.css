@@ -103,7 +103,7 @@ body {
 .footer-links {
     display: flex;
     column-gap: 1.5rem;
-    padding: 0 280px;
+    padding: 0 12px 12px 12px;
 }
 
 .footer-links a{

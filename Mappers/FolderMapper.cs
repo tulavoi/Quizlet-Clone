@@ -1,4 +1,7 @@
-﻿using QuizletClone.DTOs.Folder;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizletClone.DTOs.Course;
+using QuizletClone.DTOs.Folder;
+using QuizletClone.DTOs.User;
 using QuizletClone.Models;
 
 namespace QuizletClone.Mappers
@@ -16,18 +19,42 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static FolderDTO ToFolderDTO(this Folder folder)
+		public static Folder ToFolderFromAddFolderToLibraryRequestDTO(this AddFolderToLibraryRequestDTO folderDTO)
+		{
+			return new Folder
+			{
+				Title = folderDTO.Title,
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now,
+				UserId = folderDTO.UserId,
+                CourseFolders = folderDTO.CourseIds
+                                .Select(courseId => new CourseFolder { CourseId = courseId })
+                                .ToList()
+			};
+		}
+
+		public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
+            List<CourseFolder>? coursesInFolder)
         {
+			//var coursesAccessed = courseProgress?
+   //                 .Select(c =>
+   //                 {
+   //                     var dto = c.Course!.ToCoursesAccessedDTO();
+   //                     dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
+   //                     return dto;
+   //                 })
+   //                 .ToList();
+
             return new FolderDTO
             {
                 Id = folder.Id,
                 Title = folder.Title,
-                CreatedAt = folder.CreatedAt,
+                CreatedAt = folder.CreatedAt.ToString("d/M/yy"),
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
-				Courses = folder.CourseFolders
-                    .Select(c => c.Course!.ToCoursesInFolderDTO())
-                    .ToList()
-			};
+                Owner = folder.User!.ToUserDTO(),
+				CoursesInFolder = coursesInFolder?.Select(cf => cf.ToCourseInFolderDTO()).ToList(),
+                //CoursesAccessed = coursesAccessed
+            };
         }
 
         public static UserLibraryFolderDTO ToUserLibraryFolderDTO(this Folder folder)

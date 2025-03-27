@@ -1,0 +1,22 @@
+﻿@model QuizletClone.ViewModels.Folders.FolderInfoViewModel
+
+@{
+	var folderTimestamp = string.IsNullOrEmpty(Model.UpdatedAt) ? $"Tạo ngày {Model.CreatedAt}" : $"Chỉnh sửa ngày {Model.UpdatedAt}";
+}
+
+@if (Model.IsOwner)
+{
+	<div class="folder-info">
+		<i class="fa-solid fa-clock-rotate-left"></i>
+		@folderTimestamp
+	</div>
+}
+else
+{
+	<div class="folder-info">
+		Tạo bởi
+		<a class="folder-creator-name" asp-controller="UserLibrary" asp-action="Folders" asp-route-username="@Model.OwnerUsername">
+			@Model.OwnerUsername
+		</a>
+	</div>
+}

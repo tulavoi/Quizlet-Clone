@@ -1,4 +1,6 @@
-﻿.create-folder-modal .modal-content {
+﻿@import url('../folder/styleForModal.css');
+
+.create-folder-modal .modal-content {
     padding: 10px;
     border-radius: 20px;
 }

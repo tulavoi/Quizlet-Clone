@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/css/shared/profile-menu.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/folder/createModal.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
-    <link rel="stylesheet" href="~/SmartCards.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/QuizletClone.styles.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -63,7 +63,7 @@
 
             @if (!(ViewData["HideFooter"] as bool? ?? false))
             {
-                <div class="bg-white footer text-muted">
+                <div class="footer text-muted">
                     <div class="footer-links">
                         <a asp-controller="Home" asp-action="Privacy">Quyền riêng tư</a>
                         <a asp-controller="Home" asp-action="Privacy">Điều khoản</a>

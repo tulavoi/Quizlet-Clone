@@ -40,7 +40,7 @@
             @foreach (var folder in Model)
             {
                 <div class="card-item">
-                    <div class="card folder-item" onclick="pageRedirect('/folders/@folder.Slug')">
+                    <a class="card folder-item" asp-controller="Folders" asp-action="Details" asp-route-slug="@folder.Slug">
                         <div class="tag">
                             <span class="items-count">@folder.QuantityCourse mục</span>
                         </div>
@@ -48,7 +48,7 @@
                             <i class="fa-regular fa-folder icon-folder"></i>
                             <span class="px-1">@folder.Title</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
             }
         }
@@ -63,7 +63,7 @@
                     Tạo thư mục
                 </button>
             </div>
-            @await Html.PartialAsync("/Views/Folders/CreateFolderModal.cshtml")
+            @await Html.PartialAsync("/Views/Folders/Modals/CreateFolderModal.cshtml")
         }
     </div>
 </div>

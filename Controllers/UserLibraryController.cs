@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Folder;
 using QuizletClone.Extensions;
@@ -111,5 +112,15 @@ namespace QuizletClone.Controllers
 
             return View(foldersDTO);
         }
-    }
+
+		[HttpPost("/add-folder-to-library")]
+		public async Task<IActionResult> AddFolderToLibrary([FromBody] AddFolderToLibraryRequestDTO requestDTO)
+		{
+            requestDTO.UserId = this.UserId;
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+            var folder = requestDTO.ToFolderFromAddFolderToLibraryRequestDTO();
+            await _folderRepo.AddToLibrary(folder);
+			return Ok();
+		}
+	}
 }
