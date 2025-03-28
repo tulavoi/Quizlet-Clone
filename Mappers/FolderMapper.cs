@@ -36,14 +36,14 @@ namespace QuizletClone.Mappers
 		public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
             List<CourseFolder>? coursesInFolder)
         {
-			//var coursesAccessed = courseProgress?
-   //                 .Select(c =>
-   //                 {
-   //                     var dto = c.Course!.ToCoursesAccessedDTO();
-   //                     dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
-   //                     return dto;
-   //                 })
-   //                 .ToList();
+            var coursesAccessed = courseProgress?
+                    .Select(c =>
+                    {
+                        var dto = c.Course!.ToCoursesAccessedDTO();
+                        dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
+                        return dto;
+                    })
+                    .ToList();
 
             return new FolderDTO
             {
@@ -53,7 +53,7 @@ namespace QuizletClone.Mappers
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
                 Owner = folder.User!.ToUserDTO(),
 				CoursesInFolder = coursesInFolder?.Select(cf => cf.ToCourseInFolderDTO()).ToList(),
-                //CoursesAccessed = coursesAccessed
+                CoursesAccessed = coursesAccessed
             };
         }
 

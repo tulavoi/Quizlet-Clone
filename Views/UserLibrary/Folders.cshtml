@@ -1,28 +1,37 @@
 ﻿@using QuizletClone.DTOs.Folder
+@using Microsoft.AspNetCore.Identity
+@using QuizletClone.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
 @model List<UserLibraryFolderDTO>
 @{
     ViewData["Title"] = $"{ViewBag.Username} | QuizletClone";
     Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+
+    var currUser = await UserManager.GetUserAsync(User);
+    var istUserLibraryOwner = ViewBag.Username == currUser?.UserName;
 }
 
 <div class="content-container">
     <!-- Filter and Search Bar -->
     <div class="row">
-        <div class="col-6 d-flex align-items-center">
-            <div class="select-container">
-                <div class="custom-select">
-                    <div class="selected" data-value="created">
-                        Đã tạo
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="options">
-                        <a class="option">Đã đánh dấu</a>
-                        <a class="option">Đã tạo</a>
-                        <a class="option">Gần đây</a>
+        @if (istUserLibraryOwner)
+        {
+            <div class="col-6 d-flex align-items-center">
+                <div class="select-container">
+                    <div class="custom-select">
+                        <div class="selected" data-value="created">
+                            Đã tạo
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="options">
+                            <a class="option">Đã đánh dấu</a>
+                            <a class="option">Đã tạo</a>
+                            <a class="option">Gần đây</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
 
         @if (Model.Count > 1){
             <div class="col-6">

@@ -85,6 +85,7 @@ namespace QuizletClone.Repositories
 			return await _context.CourseFolders
                 .Where(cf => cf.FolderId == folderId)
                 .Include(cf => cf.Folder!.User)
+                .Include(cf => cf.Course!.User)
                 .Include(cf => cf.Course)
                     .ThenInclude(c => c!.CoursePermission)
                         .ThenInclude(cp => cp.ViewPermission)

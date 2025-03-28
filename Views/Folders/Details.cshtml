@@ -10,9 +10,12 @@
 	var btnState = @Model.CoursesInFolder?.Count > 1 ? "" : "inactive";
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
-	var user = await UserManager.GetUserAsync(User);
 	var isOwner = UserManager.GetUserId(User) == Model.Owner.Id;
 	var hasPublicCourses = Model.CoursesInFolder.Any(c => isOwner || c.ViewPermissionType != PermissionType.OnlyMe);
+
+	// Nếu user là chủ sở hữu (isOwner == true), đặt ID cho tiêu đề để có thể chỉnh sửa.
+	// Nếu không, để trống để tiêu đề không thể click vào và đổi tên.
+	var editableFolderTitleId = isOwner ? "folderTitle" : "";
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
@@ -25,7 +28,7 @@
 	<header>
 		<div class="header-content">
 			<div class="folder-title" data-folder-id="@Model.Id">
-				<h1 id="folderTitle">@Model.Title</h1>
+				<h1 id="@editableFolderTitleId">@Model.Title</h1>
 			</div>
 
 			<!-- Hiển thị các action buttons -->
