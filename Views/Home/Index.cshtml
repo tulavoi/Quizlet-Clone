@@ -40,30 +40,48 @@
     }
 
     <!-- Bộ thẻ ghi nhớ phổ biến -->
-    <div class="">
-        <h5 class="section-title">Bộ thẻ ghi nhớ phổ biến</h5>
-        <div class="row gy-3">
-            <div class="col-md-4 mt-3">
-                <div class="popular-item p-3">
-                    <h6>matematica</h6>
-                    <p class="term-count">15 thuật ngữ</p>
-                    <p class="author">quizlette727480 • Giáo viên</p>
+    <div class="popular-courses">
+        <div class="title">
+            <span>Bộ thẻ ghi nhớ phổ biến</span>
+        </div>
+
+        <div class="items">
+            <div class="item" onclick="pageRedirect('/create-course')">
+                <div class="course-info">
+                    <span class="course-title">Tieng Anh</span>
+                    <span class="term-count">10 thuật ngữ</span>
                 </div>
+                <a class="owner-info" title="Thăm hồ sơ của Author" asp-controller="UserLibrary"
+                     asp-action="Courses" asp-route-username="asdasdasdasd">
+                    <img src="~/images/icons/avatar.png" class="avatar" />
+                    <span class="author">Owner name</span>
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="popular-item p-3">
-                    <h6>SMARTER TGATI 2024 VOCAB</h6>
-                    <p class="term-count">896 thuật ngữ</p>
-                    <p class="author">GATENGCOOLCOOLI • Giáo viên</p>
+
+            <div class="item" onclick="pageRedirect('/create-course')">
+                <div class="course-info">
+                    <span class="course-title">Tu vung tieng Nhat</span>
+                    <span class="term-count">10 thuật ngữ</span>
                 </div>
+                <a class="owner-info" title="Thăm hồ sơ của Author" asp-controller="UserLibrary"
+                   asp-action="Courses" asp-route-username="asdasdasdasd">
+                    <img src="~/images/icons/avatar.png" class="avatar" />
+                    <span class="author">Owner name</span>
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="popular-item p-3">
-                    <h6>Thanksgiving Trivia</h6>
-                    <p class="term-count">27 thuật ngữ</p>
-                    <p class="author">alexa-08</p>
+
+            <div class="item" onclick="pageRedirect('/create-course')">
+                <div class="course-info">
+                    <span class="course-title">NGÀY 5: CÂU HỎI KIỂM TRA PHẦN HIỂU PART 2 ( LẦN 1)</span>
+                    <span class="term-count">10 thuật ngữ</span>
                 </div>
+                <a class="owner-info" title="Thăm hồ sơ của Author" asp-controller="UserLibrary"
+                   asp-action="Courses" asp-route-username="asdasdasdasd">
+                    <img src="~/images/icons/avatar.png" class="avatar" />
+                    <span class="author">Owner name</span>
+                </a>
             </div>
         </div>
     </div>
 </div>
+<script type="module" src="~/js/home/main.js"></script>
