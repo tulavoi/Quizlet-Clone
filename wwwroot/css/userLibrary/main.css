@@ -144,6 +144,8 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
+    max-width: 20.375rem;
+    text-align: center;
 }
 
 .list-group-empty span{

@@ -16,18 +16,16 @@
         { "created", ("Bạn chưa tạo học phần nào", "Các học phần bạn tạo sẽ hiển thị ở đây") },
     };
 
-    var (title, description) = courseEmptyMessages.ContainsKey(filterBy)
-                                        ? courseEmptyMessages[filterBy]
-                                        : courseEmptyMessages["created"];
+    var (title, description) = courseEmptyMessages!.GetValueOrDefault(filterBy, courseEmptyMessages["created"]);
 
-    var currUser = await UserManager.GetUserAsync(User);
-    var istUserLibraryOwner = ViewBag.Username == currUser?.UserName; // nên so sánh = UserId
+    var currUser = await UserManager.GetUserAsync(User); // lấy ra User đang đăng nhập
+    var istOwnerLibrary = ViewBag.Username == currUser?.UserName;
 }
 
 <div class="content-container">
     <!-- Filter and Search Bar -->
     <div class="row">
-        @if (istUserLibraryOwner)
+        @if (istOwnerLibrary)
         {
             <div class="col-6 d-flex align-items-center">
                 <div class="select-container">
@@ -104,11 +102,16 @@
         {
             <div class="list-group-empty">
                 <img src="/images/icons/courses_empty.svg" width="200" />
-                <div class="title text">@title</div>
-                <span class="text">@description</span>
-                <a class="btn" asp-controller="Course" asp-action="Create">
-                    Tạo học phần
-                </a>
+                <div class="title text">
+                    @(istOwnerLibrary ? title : $"{ViewBag.Username}chưa tạo học phần nào")
+                </div>
+                <span class="text">
+                    @(istOwnerLibrary ? description : $"Các học phần người này tạo sẽ xuất hiện ở đây")
+                </span>
+                @if (istOwnerLibrary)
+                {
+                    <a class="btn" asp-controller="Course" asp-action="Create">Tạo học phần</a>
+                }
             </div>
         }
     </div>

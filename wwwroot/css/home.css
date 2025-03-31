@@ -1,17 +1,22 @@
 ﻿
 /* CSS này cho trang Home */
 
+.home-container{
+    display: flex;
+    row-gap: 3rem;
+    flex-direction: column;
+}
+
+.home-container .title {
+    font-weight: 700;
+    color: var(--dark-grey-color);
+}
+
 /* Bộ thẻ ghi nhớ phổ biến */
 .popular-courses{
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-/* Tiêu đề */
-.popular-courses .title{
-    font-weight: 600;
-    color: var(--dark-grey-color);
 }
 
 .popular-courses .items{
@@ -88,6 +93,7 @@
     gap: 10px;
     text-decoration: none;
     color: black;
+    margin-bottom: 1.5rem;
 }
 
 .popular-courses .items .item .owner-info .avatar{
