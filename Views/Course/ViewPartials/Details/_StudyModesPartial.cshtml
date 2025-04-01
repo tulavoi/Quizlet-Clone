@@ -1,19 +1,27 @@
 ﻿@model dynamic
-<nav class="navigation mb-2">
+<nav class="navigation">
     <a class="nav-button">
-        <i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
-        <span class="mt-2">Thẻ ghi nhớ</span>
+        <i class="fa-regular fa-copy" style="transform: rotate(-90deg);"></i>
+        <span>Thẻ ghi nhớ</span>
     </a>
     <a class="nav-button" asp-action="Index" asp-controller="Learn" asp-route-slug="@Model.Slug">
-        <i class="fa-solid fa-book text-primary"></i>
-        <span class="mt-2">Học</span>
+        <i class="fa-solid fa-book"></i>
+        <span>Học</span>
     </a>
     <a class="nav-button">
-        <i class="fa-regular fa-check-circle text-primary"></i>
-        <span class="mt-2">Kiểm tra</span>
+        <i class="fa-regular fa-check-circle"></i>
+        <span>Kiểm tra</span>
     </a>
     <a class="nav-button">
-        <i class="fa-solid fa-puzzle-piece text-primary"></i>
-        <span class="mt-2">Ghép thẻ</span>
+        <i class="fa-solid fa-cubes-stacked"></i>
+        <span>Khối hộp</span>
+    </a>
+    <a class="nav-button">
+        <i class="fa-solid fa-rocket"></i>
+        <span>Blast</span>
+    </a>
+    <a class="nav-button">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <span>Ghép thẻ</span>
     </a>
 </nav>
