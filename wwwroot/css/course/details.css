@@ -33,8 +33,8 @@
     font-weight: 500;
 }
 
-.course-detail-container .action-bar-container{
-    margin-bottom: 1.5rem;
+.course-detail-container .action-bar-container {
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -60,6 +60,7 @@
     display: flex;  
     flex-direction: row;
     gap: .5rem;
+/*    justify-content: flex-end;*/
 }
 
 .action-bar button {
@@ -382,36 +383,48 @@
 }
 
 /* Popup tùy chọn hiển thị flashcards, tùy chỉnh modal của trang */
-#flashcards-options-modal .modal-content {
-    padding: 10px;
+.flashcards-options-modal .modal-content {
+    padding: 1.5rem;
     border-radius: 20px;
 }
 
-#flashcards-options-modal .modal-header, .modal-body {
+.flashcards-options-modal .modal-header, .modal-body {
     border-bottom: none;
 }
 
-#flashcards-options-modal .modal-footer {
+.flashcards-options-modal .modal-footer {
     border-top: none;
 }
 
-#flashcards-options-modal .modal-header h2{
+.flashcards-options-modal .modal-header h2{
     font-weight: 700;
 }
 
-#flashcards-options-modal .modal-body .reset-cards-btn {
+.flashcards-options-modal .modal-body{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.flashcards-options-modal .modal-body .toggle-starred-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flashcards-options-modal .modal-body .reset-cards-btn {
     color: var(--red-color);
     background: none;
     border: none;
     padding: 0;
 }
 
-#flashcards-options-modal .modal-body span, .reset-cards-btn {
+.flashcards-options-modal .modal-body span, .reset-cards-btn {
     font-weight: 500;
     font-size: 1.15rem;
 }
 
-#flashcards-options-modal .modal-body .reset-cards-btn:hover {
+.flashcards-options-modal .modal-body .reset-cards-btn:hover {
     color: var(--blue-color);
 }
 
@@ -660,4 +673,20 @@ input:checked + .slider:before {
 
 .edit-flashcard-modal .btn-save:hover {
     background: #5856d6;
+}
+
+.btn-options.savedCourseFolder {
+    border: .125rem solid #7583ff;
+    color: var(--blue-color);
+    background: var(--btn-secondary-hover-color);
+}
+
+.btn-options.savedCourseFolder:hover{
+    border: .125rem solid #7583ff;
+    color: var(--blue-color);
+    background: var(--btn-secondary-hover-color);
+}
+
+.btn-options hr {
+    background-color: var(--light-grey-color);
 }

@@ -11,7 +11,8 @@ namespace QuizletClone.Interfaces
         Task<Folder?> DeleteAsync(int id);
         Task<Folder?> GetByIdAsync(int id);
         Task<List<Folder>?> GetAllAsync(string userId, FolderQueryObject queryObject);
-        Task<List<CourseFolder>?> GetCourseInFolder(int folderId);
+        Task<List<CourseFolder>?> GetCourseInFolderAsync(int folderId);
+        Task<List<Folder>?> GetFoldersContainingCourseAsync(int folderId, string userId);
         Task<Folder> AddToLibrary(Folder folder);
 	}
 }

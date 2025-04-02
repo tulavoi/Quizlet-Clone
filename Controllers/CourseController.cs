@@ -8,6 +8,7 @@ using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
 using QuizletClone.Models;
+using QuizletClone.ViewModels.Course;
 
 namespace QuizletClone.Controllers
 {
@@ -21,6 +22,7 @@ namespace QuizletClone.Controllers
 		private readonly IFlashcardRepository _flashcardRepo;
         private readonly IUserFlashcardProgressRepository _flashcardProgressRepo;
         private readonly IUserCourseProgressRepository _courseProgressRepo;
+        private readonly IFolderRepository _folderRepo;
 
         public CourseController(
             IPermissionRepository permissionRepo,
@@ -28,7 +30,8 @@ namespace QuizletClone.Controllers
             ICourseRepository courseRepo,
             IFlashcardRepository flashcardRepo,
             IUserFlashcardProgressRepository flashcardProgressRepo,
-            IUserCourseProgressRepository courseProgressRepo)
+            IUserCourseProgressRepository courseProgressRepo,
+            IFolderRepository folderRepo)
         {
             _permissionRepo = permissionRepo;
             _languageRepo = languageRepo;
@@ -36,6 +39,7 @@ namespace QuizletClone.Controllers
             _flashcardRepo = flashcardRepo;
             _flashcardProgressRepo = flashcardProgressRepo;
             _courseProgressRepo = courseProgressRepo;
+            _folderRepo = folderRepo;
         }
 
         [Route("/create-course")]
@@ -113,7 +117,7 @@ namespace QuizletClone.Controllers
                     .ToList();
             }
 
-            var courseDTO = course.ToCourseDTO(
+            var courseDTO = course.ToCourseDetailDTO(
                 flashcards, 
                 lastReviewedCard, 
                 learnedFlashcards, 
@@ -123,7 +127,24 @@ namespace QuizletClone.Controllers
                 courseProcress.IsShuffle
             );
 
-            return View(courseDTO);
+            // Lấy các folder của user
+            var folders = await _folderRepo.GetAllAsync(this.UserId, new FolderQueryObject
+            {
+                SortBy = "CreatedAt",
+                IsDescending = true,
+            });
+
+            // Lấy các folder chứa course
+            var foldersContainingCourse = await _folderRepo.GetFoldersContainingCourseAsync(courseDTO.Id, this.UserId);
+
+            var viewModel = new CourseDetailViewModel
+            {
+                Course = courseDTO,
+                Folders = folders!.Select(f => f.ToFolderDTO()).ToList(),
+                FoldersContainingCourse = foldersContainingCourse!.Select(f => f.ToFolderDTO()).ToList()
+            };
+
+            return View(viewModel);
         }
 
         private async Task SetViewBagForCreateCourse()

@@ -1,28 +1,48 @@
-﻿
+﻿@model QuizletClone.ViewModels.Course.ActionBarViewModel
+@{
+    var isCourseInFolder = Model.FoldersContainingCourse?.Count > 0;
+}
 <div class="action-bar-container">
-    <a class="folder-link">
-        <i class="fa-regular fa-folder"></i>
-        <span class="folder-title">Folder</span>
-    </a>
-
-    <div class="action-bar col-4 d-flex justify-content-end align-items-center p-0">
-        <button class="btn-options">
-            <div class="selected">
-                <i class="fa-solid fa-bookmark"></i>
-                Lưu
+    <div>
+        @if (Model.FoldersContainingCourse?.Count > 0)
+        {
+            <a class="folder-link" asp-controller="Folders" asp-action="Details" asp-route-slug="@Model.FoldersContainingCourse[0].Slug">
+                <i class="fa-regular fa-folder"></i>
+                @foreach (var folder in Model.FoldersContainingCourse)
+                {
+                    <span class="folder-title">@folder.Title</span>
+                }
+            </a>
+        }
+    </div>
+   
+    <div class="action-bar">
+        <button class="btn-options @(isCourseInFolder ? "savedCourseFolder" : "")">
+            <div class="selected ">
+                <i class="@(isCourseInFolder ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark")"></i>
+                @(isCourseInFolder ? "Đã lưu" : "Lưu")
             </div>
+
             <div class="options">
                 <div class="option" data-bs-toggle="modal" data-bs-target="#create-folder-modal">
                     <i class="fa-solid fa-plus"></i>
                     Thư mục mới
                 </div>
                 <hr class="m-0" />
-                @for (int i = 1; i <= 5; i++)
+                @if (Model.Folders?.Count > 0)
                 {
-                    <div class="option">
-                        <i class="fa-regular fa-folder"></i>
-                        Folder @i
-                    </div>
+                    @foreach (var folder in Model.Folders)
+                    {
+                        isCourseInFolder = Model.FoldersContainingCourse?.Any(f => f.Id == folder.Id) == true;
+                        <div class="option">
+                            <i class="@(isCourseInFolder ? "fa-solid fa-check" : "fa-regular fa-folder")"></i>
+                            @folder.Title
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span class="text-muted">Bạn chưa tạo thư mục nào</span>
                 }
             </div>
         </button>
@@ -48,4 +68,4 @@
         </button>
     </div>
 </div>
-<h2 class="course-title">@Model.Title</h2>
+<h2 class="course-title">@Model.CourseTitle</h2>

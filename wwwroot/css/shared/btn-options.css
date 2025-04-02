@@ -1,6 +1,6 @@
 ﻿/* Btn options */
 .btn-options {
-    border: 2px solid var(--border-button-color);
+    border: .125rem solid var(--border-button-color);
     border-radius: .5rem;
     cursor: pointer;
     padding: 6px 12px;

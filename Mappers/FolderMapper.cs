@@ -33,7 +33,18 @@ namespace QuizletClone.Mappers
 			};
 		}
 
-		public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
+        public static FolderDTO ToFolderDTO(this Folder folder)
+        {
+            return new FolderDTO
+            {
+                Id = folder.Id,
+                Title = folder.Title,
+                Slug = folder.Slug,
+                CreatedAt = folder.CreatedAt
+            };
+        }
+
+		public static FolderDetailDTO ToFolderDetailDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
             List<CourseFolder>? coursesInFolder)
         {
             var coursesAccessed = courseProgress?
@@ -45,7 +56,7 @@ namespace QuizletClone.Mappers
                     })
                     .ToList();
 
-            return new FolderDTO
+            return new FolderDetailDTO
             {
                 Id = folder.Id,
                 Title = folder.Title,

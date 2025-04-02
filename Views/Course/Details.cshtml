@@ -1,19 +1,19 @@
-﻿@using QuizletClone.DTOs.Course
-@model CourseDTO
+﻿@model QuizletClone.ViewModels.Course.CourseDetailViewModel
+@using QuizletClone.ViewModels.Course
 @{
-    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Title} | QuizletClone";
+    ViewData["Title"] = $"Thẻ ghi nhớ: {Model.Course.Title} | QuizletClone";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // Lấy ra vị trí của thẻ đã học gần nhất trong danh sách flashcards, nếu k có gán = 0
     var lastLearnedFcIndex = 0;
-    if (Model.LastLearnedFlashcard != null && Model.Flashcards.Any(x => x.Id == Model.LastLearnedFlashcard.Id))
-        lastLearnedFcIndex = Model.Flashcards.FindIndex(x => x.Id == Model.LastLearnedFlashcard.Id);
+    if (Model.Course.LastLearnedFlashcard != null && Model.Course.Flashcards.Any(x => x.Id == Model.Course.LastLearnedFlashcard.Id))
+        lastLearnedFcIndex = Model.Course.Flashcards.FindIndex(x => x.Id == Model.Course.LastLearnedFlashcard.Id);
 
     // Kiểm tra các flashcard đã học có được gắn sao hết hay không
-    var areLearnedStarred = Model.LearnedFlashcards?.All(x => x.IsStarred);     
+    var areLearnedStarred = Model.Course.LearnedFlashcards?.All(x => x.IsStarred);
 
     // Kiểm tra các flashcard chưa học có được gắn sao hết hay không
-    var areNotLearnedAreStarred = Model.NotLearnedFlashcards?.All(x => x.IsStarred);
+    var areNotLearnedAreStarred = Model.Course.NotLearnedFlashcards?.All(x => x.IsStarred);
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/course/details.css" />
@@ -22,47 +22,51 @@
 
 <div class="course-detail-container">
     <div class="row mb-4">
-        @await Html.PartialAsync("ViewPartials/Details/_ActionBarPartial.cshtml")
+        @await Html.PartialAsync("ViewPartials/Details/_ActionBarPartial.cshtml", new ActionBarViewModel{
+            CourseTitle = Model.Course.Title,
+            Folders = Model.Folders,
+            FoldersContainingCourse = Model.FoldersContainingCourse
+        })
     </div>
 
     <div class="row">
         <!-- Study Modes -->
         @await Html.PartialAsync("ViewPartials/Details/_StudyModesPartial.cshtml", new{
-            Slug = Model.Slug
+            Slug = Model.Course.Slug
         })
 
         <!-- Term Definition Cards -->
         <div class="flashcards-container" id="flashcards-container"
              data-curr-index-card="@lastLearnedFcIndex"
-             data-starred-card-count="@Model.StarredFlashcardCount">
+             data-starred-card-count="@Model.Course.StarredFlashcardCount">
             @await Html.PartialAsync("ViewPartials/Details/_FlashcardsPartial.cshtml", new {
-                Flashcards = Model.Flashcards,
-                StarredCardCount = Model.StarredFlashcardCount,
-                CourseId = Model.Id,
-                IsShuffle = Model.IsShuffle
+                Flashcards = Model.Course.Flashcards,
+                StarredCardCount = Model.Course.StarredFlashcardCount,
+                CourseId = Model.Course.Id,
+                    IsShuffle = Model.Course.IsShuffle
             })
         </div>
 
         <!-- Congratulation complete course -->
         @await Html.PartialAsync("ViewPartials/Details/_CongratulationPartial.cshtml", new{
-            Flashcards = Model.Flashcards,
-            FlashcardCount = Model.FlashcardCount,
-            StarredCardCount = Model.StarredFlashcardCount,
+            Flashcards = Model.Course.Flashcards,
+            FlashcardCount = Model.Course.FlashcardCount,
+            StarredCardCount = Model.Course.StarredFlashcardCount,
         })
     </div>
 
     <!-- User Info, Action Bar-->
     @await Html.PartialAsync("ViewPartials/Details/_UserInfoActionBarPartial.cshtml", new {
-        OwnerUsername = Model.OwnerUsername,
-        RelativeTime = Model.RelativeTime
+        OwnerUsername = Model.Course.OwnerUsername,
+        RelativeTime = Model.Course.RelativeTime
     })
 
     <!-- Your terms -->
     @await Html.PartialAsync("ViewPartials/Details/_YourTermsPartial.cshtml", new
     {
-        Flashcards = Model.Flashcards,
-        LearnedFlashcards = Model.LearnedFlashcards,
-        NotLearnedFlashcards = Model.NotLearnedFlashcards,
+        Flashcards = Model.Course.Flashcards,
+        LearnedFlashcards = Model.Course.LearnedFlashcards,
+        NotLearnedFlashcards = Model.Course.NotLearnedFlashcards,
         AreLearnedStarred = areLearnedStarred,
         AreNotLearnedStarred = areNotLearnedAreStarred
     })

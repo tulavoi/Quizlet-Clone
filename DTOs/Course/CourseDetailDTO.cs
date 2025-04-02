@@ -4,7 +4,7 @@ using QuizletClone.Models;
 
 namespace QuizletClone.DTOs.Course
 {
-    public class CourseDTO
+    public class CourseDetailDTO
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;

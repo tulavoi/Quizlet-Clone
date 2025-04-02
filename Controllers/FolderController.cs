@@ -51,9 +51,9 @@ namespace QuizletClone.Controllers
                 GetAll = true
             });
 
-            var coursesInFolder = await _folderRepo.GetCourseInFolder(folderId);
+            var coursesInFolder = await _folderRepo.GetCourseInFolderAsync(folderId);
 
-            return View(folder.ToFolderDTO(courseProgress, coursesInFolder));
+            return View(folder.ToFolderDetailDTO(courseProgress, coursesInFolder));
         }
 
         [HttpPost("update/{id:int}")]

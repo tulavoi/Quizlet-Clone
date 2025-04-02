@@ -36,7 +36,7 @@ namespace QuizletClone.Mappers
             };
 		}
 
-        public static CourseDTO ToCourseDTO(this Course course,
+        public static CourseDetailDTO ToCourseDetailDTO(this Course course,
             List<Flashcard> flashcards,
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
@@ -45,7 +45,7 @@ namespace QuizletClone.Mappers
             int starredCardsCount = 0,
             bool isShuffle = false)
         {
-            return new CourseDTO
+            return new CourseDetailDTO
             {
                 Id = course.Id,
                 OwnerUserId = course.UserId,
