@@ -12,6 +12,7 @@ using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
 using QuizletClone.Models;
+using System.Text.Json;
 
 namespace QuizletClone.Controllers
 {
@@ -120,7 +121,9 @@ namespace QuizletClone.Controllers
 			if (!ModelState.IsValid) return BadRequest(ModelState);
             var folder = requestDTO.ToFolderFromAddFolderToLibraryRequestDTO();
             await _folderRepo.AddToLibrary(folder);
-			return Ok();
+
+            var redirectUrl = Url.Action("Details", "Folders", new {slug = folder.Slug});
+            return Ok(new { redirectUrl });
 		}
 	}
 }

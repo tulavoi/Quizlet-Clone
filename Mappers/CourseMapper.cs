@@ -36,7 +36,7 @@ namespace QuizletClone.Mappers
             };
 		}
 
-        public static CourseDTO ToCourseDTO(this Course course,
+        public static CourseDetailDTO ToCourseDetailDTO(this Course course,
             List<Flashcard> flashcards,
             Flashcard? lastLearnedCard = null,
             List<Flashcard>? learnedFlashcards = null,
@@ -45,7 +45,7 @@ namespace QuizletClone.Mappers
             int starredCardsCount = 0,
             bool isShuffle = false)
         {
-            return new CourseDTO
+            return new CourseDetailDTO
             {
                 Id = course.Id,
                 OwnerUserId = course.UserId,
@@ -94,13 +94,25 @@ namespace QuizletClone.Mappers
             return new RecentCourseDTO
             {
                 Id = courseProgress.Course!.Id,
-                OwnerUserId = courseProgress.Course.UserId,
-                OwnerUsername = courseProgress.Course.User?.UserName ?? string.Empty,
+                OwnerDTO = courseProgress.Course.User!.ToUserDTO(),
                 Title = courseProgress.Course.Title,
                 Password = courseProgress.Course.Password,
                 Slug = courseProgress.Course.Slug,
                 RelativeTime = courseProgress.Course.CreatedAt.ToRelativeTime(),
                 FlashcardCount = courseProgress.Course.Flashcards.Count
+            };
+        }
+
+        public static PopularCourseDTO ToPopularCourseDTO(this Course course)
+        {
+            return new PopularCourseDTO
+            {
+                Id = course!.Id,
+                OwnerDTO = course.User!.ToUserDTO(),
+                Title = course.Title,
+                Password = course.Password,
+                Slug = course.Slug,
+                FlashcardCount = course.Flashcards.Count
             };
         }
 

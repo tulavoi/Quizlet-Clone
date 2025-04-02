@@ -5,6 +5,7 @@ using QuizletClone.DTOs.Course;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
 using QuizletClone.Models;
+using QuizletClone.ViewModels.Home;
 using System.Diagnostics;
 
 namespace QuizletClone.Controllers
@@ -14,29 +15,45 @@ namespace QuizletClone.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserCourseProgressRepository _courseProgressRepo;
+        private readonly ICourseRepository _courseRepo;
         private readonly string _activePage = "Home";
 
-        public HomeController(ILogger<HomeController> logger, IUserCourseProgressRepository courseProgressRepo)
+        public HomeController(ILogger<HomeController> logger, IUserCourseProgressRepository courseProgressRepo, ICourseRepository courseRepo)
         {
             _logger = logger;
             _courseProgressRepo = courseProgressRepo;
+            _courseRepo = courseRepo;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewData["ActivePage"] = this._activePage;
 
-            var courses = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
+            var recentCourses = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "LastUpdated",
                 IsDescending = true,
                 Quantity = 4
             });
 
-            var recentCoursesDTO = courses?.Select(x => x.ToRecentCourseDTO()).ToList() 
+            var popularCourses = await _courseRepo.GetPopularCoursesAsync(new CourseQueryObject
+            {
+                Quantity = 3
+            });
+
+            var recentCoursesDTO = recentCourses?.Select(x => x.ToRecentCourseDTO()).ToList() 
                 ?? new List<RecentCourseDTO>();
 
-            return View(recentCoursesDTO);
+            var popularCoursesDTO = popularCourses?.Select(x => x.ToPopularCourseDTO()).ToList()
+                ?? new List<PopularCourseDTO>();
+
+            var homeViewModel = new HomeViewModel
+            {
+                RecentCoursesDTO = recentCoursesDTO,
+                PopularCoursesDTO = popularCoursesDTO
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()

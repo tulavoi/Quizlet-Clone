@@ -1,0 +1,71 @@
+﻿@model QuizletClone.ViewModels.Course.ActionBarViewModel
+@{
+    var isCourseInFolder = Model.FoldersContainingCourse?.Count > 0;
+}
+<div class="action-bar-container">
+    <div>
+        @if (Model.FoldersContainingCourse?.Count > 0)
+        {
+            <a class="folder-link" asp-controller="Folders" asp-action="Details" asp-route-slug="@Model.FoldersContainingCourse[0].Slug">
+                <i class="fa-regular fa-folder"></i>
+                @foreach (var folder in Model.FoldersContainingCourse)
+                {
+                    <span class="folder-title">@folder.Title</span>
+                }
+            </a>
+        }
+    </div>
+   
+    <div class="action-bar">
+        <button class="btn-options @(isCourseInFolder ? "savedCourseFolder" : "")">
+            <div class="selected ">
+                <i class="@(isCourseInFolder ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark")"></i>
+                @(isCourseInFolder ? "Đã lưu" : "Lưu")
+            </div>
+
+            <div class="options">
+                <div class="option" data-bs-toggle="modal" data-bs-target="#create-folder-modal">
+                    <i class="fa-solid fa-plus"></i>
+                    Thư mục mới
+                </div>
+                <hr class="m-0" />
+                @if (Model.Folders?.Count > 0)
+                {
+                    @foreach (var folder in Model.Folders)
+                    {
+                        isCourseInFolder = Model.FoldersContainingCourse?.Any(f => f.Id == folder.Id) == true;
+                        <div class="option">
+                            <i class="@(isCourseInFolder ? "fa-solid fa-check" : "fa-regular fa-folder")"></i>
+                            @folder.Title
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span class="text-muted">Bạn chưa tạo thư mục nào</span>
+                }
+            </div>
+        </button>
+
+        <button id="btn-share" title="Chia sẻ">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </button>
+
+        <button class="btn-options" title="Xem thêm">
+            <div class="selected">
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <i class="fa-solid fa-pen"></i>
+                    Sửa
+                </div>
+                <div class="option text-danger">
+                    <i class="fa-solid fa-trash"></i>
+                    Xóa
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+<h2 class="course-title">@Model.CourseTitle</h2>

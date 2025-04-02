@@ -1,28 +1,37 @@
 ﻿@using QuizletClone.DTOs.Folder
+@using Microsoft.AspNetCore.Identity
+@using QuizletClone.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
 @model List<UserLibraryFolderDTO>
 @{
     ViewData["Title"] = $"{ViewBag.Username} | QuizletClone";
     Layout = "~/Views/UserLibrary/Shared/_Layout.cshtml";
+
+    var currUser = await UserManager.GetUserAsync(User);
+    var istOwnerLibrary = ViewBag.Username == currUser?.UserName;
 }
 
 <div class="content-container">
     <!-- Filter and Search Bar -->
     <div class="row">
-        <div class="col-6 d-flex align-items-center">
-            <div class="select-container">
-                <div class="custom-select">
-                    <div class="selected" data-value="created">
-                        Đã tạo
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="options">
-                        <a class="option">Đã đánh dấu</a>
-                        <a class="option">Đã tạo</a>
-                        <a class="option">Gần đây</a>
+        @if (istOwnerLibrary)
+        {
+            <div class="col-6 d-flex align-items-center">
+                <div class="select-container">
+                    <div class="custom-select">
+                        <div class="selected" data-value="created">
+                            Đã tạo
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="options">
+                            <a class="option">Đã đánh dấu</a>
+                            <a class="option">Đã tạo</a>
+                            <a class="option">Gần đây</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
 
         @if (Model.Count > 1){
             <div class="col-6">
@@ -56,12 +65,19 @@
         {
             <div class="list-group-empty">
                 <img src="/images/icons/folders_empty.svg" width="200" />
-                <div class="title text">Bạn chưa tạo thư mục nào</div>
-                <span class="text">Tạo một thư mục để sắp xếp các học phần</span>
-                <button type="button" class="btn"
-                        data-bs-toggle="modal" data-bs-target="#create-folder-modal">
-                    Tạo thư mục
-                </button>
+                <div class="title text">
+                    @(istOwnerLibrary ? "Bạn chưa tạo thư mục nào" : $"{@currUser?.UserName} chưa tạo thư mục nào")
+                </div>
+                <span class="text">
+                    @(istOwnerLibrary ? "Tạo một thư mục để sắp xếp các học phần" : "Các thư mục người này tạo sẽ xuất hiện ở đây")
+                </span>
+                @if (istOwnerLibrary)
+                {
+                    <button type="button" class="btn"
+                            data-bs-toggle="modal" data-bs-target="#create-folder-modal">
+                        Tạo thư mục
+                    </button>
+                }
             </div>
             @await Html.PartialAsync("/Views/Folders/Modals/CreateFolderModal.cshtml")
         }

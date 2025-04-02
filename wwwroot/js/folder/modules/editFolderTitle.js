@@ -44,7 +44,7 @@ if (folderTitle) {
 		// Nếu newTitle không trùng với oldTitle thì lưu vào database
 		if (newTitle !== oldTitle) {
 			const folderId = document.querySelector(".folder-title").getAttribute("data-folder-id"); // Lấy folderId
-			postData(`update/${folderId}`, { title: newTitle }, "failed to update folder title");
+			postData(`update/${folderId}`, { title: newTitle });
 		}
 	}
 }

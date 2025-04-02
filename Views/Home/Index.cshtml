@@ -1,25 +1,28 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using QuizletClone.Areas.Identity.Data
-@using QuizletClone.DTOs.Course
-@model List<RecentCourseDTO>
+@model QuizletClone.ViewModels.Home.HomeViewModel
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Học phần của bạn | QuizletClone";
 }
+
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" />
 }
-<div class="my-2">
+<div class="my-2 home-container">
     <!-- Học phần gần đây -->
-    @if (Model.Count > 0)
+    @if (Model.RecentCoursesDTO?.Count > 0)
     {
         <div>
-            <h5 class="section-title">Gần đây</h5>
+            <div class="title">
+                <span>Gần đây</span>
+            </div>
             <div class="row gy-2">
-                @foreach (var course in Model)
+                @foreach (var course in Model.RecentCoursesDTO)
                 {
+                    var author = (course.OwnerDTO.Id == UserManager.GetUserId(User) ? "bạn" : course.OwnerDTO.Username);
                     <a class="col-md-6 btn py-0 my-2" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
                         <div class="recent-course p-2 row">
                             <div class="col-1 p-0">
@@ -28,8 +31,8 @@
                             <div class="col-10 p-0">
                                 <h6 class="mb-1">@course.Title</h6>
                                 <span class="fw-bold course-info m-0 text-secondary">
-                                    Học phần • @course.FlashcardCount terms 
-                                    • Tác giả: @(course.OwnerUserId == UserManager.GetUserId(User) ? "bạn" : course.OwnerUsername)
+                                    Học phần • @course.FlashcardCount terms
+                                    • Tác giả: @author
                                 </span>
                             </div>
                         </div>
@@ -39,31 +42,32 @@
         </div>
     }
 
-    <!-- Bộ thẻ ghi nhớ phổ biến -->
-    <div class="mt-5">
-        <h5 class="section-title">Bộ thẻ ghi nhớ phổ biến</h5>
-        <div class="row gy-3">
-            <div class="col-md-4">
-                <div class="popular-item p-3">
-                    <h6>matematica</h6>
-                    <p class="term-count">15 thuật ngữ</p>
-                    <p class="author">quizlette727480 • Giáo viên</p>
-                </div>
+    @if (Model.PopularCoursesDTO?.Count > 0)
+    {
+        <!-- Bộ thẻ ghi nhớ phổ biến -->
+        <div class="popular-courses">
+            <div class="title">
+                <span>Bộ thẻ ghi nhớ phổ biến</span>
             </div>
-            <div class="col-md-4">
-                <div class="popular-item p-3">
-                    <h6>SMARTER TGATI 2024 VOCAB</h6>
-                    <p class="term-count">896 thuật ngữ</p>
-                    <p class="author">GATENGCOOLCOOLI • Giáo viên</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="popular-item p-3">
-                    <h6>Thanksgiving Trivia</h6>
-                    <p class="term-count">27 thuật ngữ</p>
-                    <p class="author">alexa-08</p>
-                </div>
+
+            <div class="items">
+                @foreach (var course in Model.PopularCoursesDTO)
+                {
+                    var author = (course.OwnerDTO.Id == UserManager.GetUserId(User) ? "Bạn" : course.OwnerDTO.Username);
+                    <div class="item" onclick="pageRedirect('/@course.Slug')">
+                        <div class="course-info">
+                            <span class="course-title">@course.Title</span>
+                            <span class="term-count">@course.FlashcardCount thuật ngữ</span>
+                        </div>
+                        <a class="owner-info" title="Thăm hồ sơ của @author" asp-controller="UserLibrary"
+                           asp-action="Courses" asp-route-username="@course.OwnerDTO.Username">
+                            <img src="~/images/icons/avatar.png" class="avatar" />
+                            <span class="author">@author</span>
+                        </a>
+                    </div>
+                }
             </div>
         </div>
-    </div>
+    }
 </div>
+<script type="module" src="~/js/home/main.js"></script>

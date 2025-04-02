@@ -1,5 +1,5 @@
 ﻿@* Popup tùy chọn hiển thị flashcard *@
-<div class="modal fade" tabindex="-1" id="flashcards-options-modal" aria-hidden="true">
+<div class="modal fade flashcards-options-modal" tabindex="-1" id="flashcards-options-modal" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 55%;">
         <div class="modal-content">
             <div class="modal-header mt-3">
@@ -7,7 +7,19 @@
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row mt-3">
+                <div class="toggle-starred-container mt-3">
+                    <span style="font-size: 1.15rem;">Chỉ học các thuật ngữ có sao</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleStarred">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="">
+                    <button class="reset-cards-btn" onclick="resetCards()">Khởi động lại Thẻ ghi nhớ</button>
+                </div>
+
+                @* <div class="row mt-3">
                     <div class="col-9">
                         <span class="float-start" style="font-size: 1.15rem;">Chỉ học các thuật ngữ có sao</span>
                     </div>
@@ -23,7 +35,7 @@
                     <div class="col-5">
                         <button class="reset-cards-btn" onclick="resetCards()">Khởi động lại Thẻ ghi nhớ</button>
                     </div>
-                </div>
+                </div> *@
             </div>
             <div class="modal-footer mb-3">
                 

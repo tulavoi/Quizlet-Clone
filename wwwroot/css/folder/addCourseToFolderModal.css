@@ -62,3 +62,39 @@
 .option img {
     width: 20px;
 }
+
+.empty-course-list {
+    background: var(--btn-secondary-hover-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: .5rem;
+    padding: 1.5rem 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    color: var(--dark-grey-color);
+    font-weight: 600;
+    font-size: .875rem;
+}
+
+.btn-create-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue-color);
+    color: white;
+    font-size: .875rem;
+    font-weight: 600;
+    padding: .375rem .875rem;
+    border-radius: .5rem;
+    min-height: 2.5rem;
+}
+
+.btn-create-new:hover {
+    background: var(--btn-blue-hover-color);
+    color: white;
+}

@@ -18,3 +18,5 @@ import { backToLastCard, resetFlashcards, studyStarredCards, restartAll } from '
 
 // Import functions from editFlashcard.js
 import { updateFlashcard, assignDataToModal } from './modules/editFlashcardModal.js';
+
+import { } from '../../shared/customSelect.js';

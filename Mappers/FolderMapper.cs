@@ -33,19 +33,30 @@ namespace QuizletClone.Mappers
 			};
 		}
 
-		public static FolderDTO ToFolderDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
+        public static FolderDTO ToFolderDTO(this Folder folder)
+        {
+            return new FolderDTO
+            {
+                Id = folder.Id,
+                Title = folder.Title,
+                Slug = folder.Slug,
+                CreatedAt = folder.CreatedAt
+            };
+        }
+
+		public static FolderDetailDTO ToFolderDetailDTO(this Folder folder, List<UserCourseProgress>? courseProgress, 
             List<CourseFolder>? coursesInFolder)
         {
-			//var coursesAccessed = courseProgress?
-   //                 .Select(c =>
-   //                 {
-   //                     var dto = c.Course!.ToCoursesAccessedDTO();
-   //                     dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
-   //                     return dto;
-   //                 })
-   //                 .ToList();
+            var coursesAccessed = courseProgress?
+                    .Select(c =>
+                    {
+                        var dto = c.Course!.ToCoursesAccessedDTO();
+                        dto.IsInFolder = coursesInFolder?.Any(cf => cf.CourseId == dto.Id) ?? false;
+                        return dto;
+                    })
+                    .ToList();
 
-            return new FolderDTO
+            return new FolderDetailDTO
             {
                 Id = folder.Id,
                 Title = folder.Title,
@@ -53,7 +64,7 @@ namespace QuizletClone.Mappers
                 UpdatedAt = folder.UpdatedAt.ToString("d/M/yy"),
                 Owner = folder.User!.ToUserDTO(),
 				CoursesInFolder = coursesInFolder?.Select(cf => cf.ToCourseInFolderDTO()).ToList(),
-                //CoursesAccessed = coursesAccessed
+                CoursesAccessed = coursesAccessed
             };
         }
 

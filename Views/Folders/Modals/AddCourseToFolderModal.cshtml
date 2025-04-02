@@ -11,60 +11,73 @@
                     <h2 class="modal-title">Thêm vào thư mục</h2>
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="btn-options btn-create-course">
-                        <div class="selected">
-                            <i class="fa-solid fa-plus"></i>
-                            Tạo mới
-                        </div>
-                        <div class="options">
-                            <div class="option" style="color: var(--cherry-color)">
-                                <img src="/images/icons/card.png"/>
-                                Học phần
+                @if (Model.CoursesAccessed != null)
+                {
+                    <div class="modal-body">
+                        <div class="btn-options btn-create-course">
+                            <div class="selected">
+                                <i class="fa-solid fa-plus"></i>
+                                Tạo mới
+                            </div>
+                            <div class="options">
+                                <div class="option" style="color: var(--cherry-color)">
+                                    <img src="/images/icons/card.png"/>
+                                    Học phần
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="course-list">
-                        @if (Model.CoursesAccessed != null)
-                        {
-                            @foreach (var course in Model.CoursesAccessed)
-                            {
-                                iconClass = course.IsInFolder
-                                ? "fa-solid fa-circle-check"
-                                : "fa-solid fa-plus";
-                                username = course.OwnerUserId == Model.CurrUserId ? "bạn" : course.OwnerUsername;
+                        <div class="course-list">
+                       
+                                @foreach (var course in Model.CoursesAccessed)
+                                {
+                                    iconClass = course.IsInFolder
+                                    ? "fa-solid fa-circle-check"
+                                    : "fa-solid fa-plus";
+                                    username = course.OwnerUserId == Model.CurrUserId ? "bạn" : course.OwnerUsername;
 
-                                <div class="card-item">
-                                    <div class="course-item"
-                                         onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
-                                        <div class="course-icon">
-                                            <img src="/images/icons/card.png" alt="Icon">
-                                        </div>
-                                        <div class="course-content">
-                                            <div class="title">
-                                                <span>@course.Title</span>
+                                    <div class="card-item">
+                                        <div class="course-item"
+                                             onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
+                                            <div class="course-icon">
+                                                <img src="/images/icons/card.png" alt="Icon">
                                             </div>
-                                            <div class="course-info">
-                                                Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username&nbsp;&nbsp;
+                                            <div class="course-content">
+                                                <div class="title">
+                                                    <span>@course.Title</span>
+                                                </div>
+                                                <div class="course-info">
+                                                    Học phần&nbsp;&nbsp;•&nbsp;&nbsp;@course.FlashcardCount terms&nbsp;&nbsp;•&nbsp;&nbsp;Tác giả: @username&nbsp;&nbsp;
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="course-actions">
-                                            <div class="btn-options btn-add-to-folder"
-                                                 onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
-                                                <i class="@iconClass"></i>
+                                            <div class="course-actions">
+                                                <div class="btn-options btn-add-to-folder"
+                                                     onclick="ToggleCourseFolder(@course.Id, @Model.FolderId, event)">
+                                                    <i class="@iconClass"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
-                        }
+                                }
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-complete" data-bs-dismiss="modal">Hoàn tất</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-complete" data-bs-dismiss="modal">Hoàn tất</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-course-list">
+                        <div class="message">
+                            Bạn chưa tạo hay học bất kỳ mục nào
+                        </div>
+                        <a class="btn-create-new btn" asp-controller="Course" asp-action="Create">
+                            <i class="fa-solid fa-plus"></i>
+                            Tạo mới
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@ export async function ToggleCourseFolder(courseId, folderId, event) {
 
     try {
         // Gửi request lên server
-        await postData("/course-folder/toggle-course-folder", { courseId, folderId }, "Failed to toggle course folder");
+        await postData("/course-folder/toggle-course-folder", { courseId, folderId });
 
         // Đảo trạng thái icon
         icon.classList.toggle("fa-circle-check", !isCurrentlyInFolder);

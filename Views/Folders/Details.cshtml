@@ -2,7 +2,7 @@
 @using QuizletClone.Areas.Identity.Data
 @using QuizletClone.DTOs.Folder
 @using QuizletClone.ViewModels.Folders
-@model FolderDTO
+@model FolderDetailDTO
 @inject UserManager<AppUser> UserManager
 @{
 	ViewData["Title"] = $"Thư mục {Model.Title} | QuizletClone";
@@ -10,22 +10,26 @@
 	var btnState = @Model.CoursesInFolder?.Count > 1 ? "" : "inactive";
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
-	var user = await UserManager.GetUserAsync(User);
 	var isOwner = UserManager.GetUserId(User) == Model.Owner.Id;
 	var hasPublicCourses = Model.CoursesInFolder.Any(c => isOwner || c.ViewPermissionType != PermissionType.OnlyMe);
+
+	// Nếu user là chủ sở hữu (isOwner == true), đặt ID cho tiêu đề để có thể chỉnh sửa.
+	// Nếu không, để trống để tiêu đề không thể click vào và đổi tên.
+	var editableFolderTitleId = isOwner ? "folderTitle" : "";
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
 	<link rel="stylesheet" href="~/css/folder/confirmDeleteModal.css" />
 	<link rel="stylesheet" href="~/css/folder/addCourseToFolderModal.css" />
 	<link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
+	<link rel="stylesheet" href="~/css/shared/btn-options.css" />
 }
 
 <div class="folder-detail-container">
 	<header>
 		<div class="header-content">
 			<div class="folder-title" data-folder-id="@Model.Id">
-				<h1 id="folderTitle">@Model.Title</h1>
+				<h1 id="@editableFolderTitleId">@Model.Title</h1>
 			</div>
 
 			<!-- Hiển thị các action buttons -->
@@ -69,7 +73,7 @@
 			<div class="filter-search-container">
 				<div class="select-container">
 					<div class="custom-select">
-						<div class="selected" data-value="created">
+						<div class="selected" data-value="updated">
 							Các mục gần đây
 							<i class="fa-solid fa-angle-down"></i>
 						</div>

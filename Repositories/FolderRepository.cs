@@ -80,18 +80,28 @@ namespace QuizletClone.Repositories
             return folder;
         }
 
-		public async Task<List<CourseFolder>?> GetCourseInFolder(int folderId)
+		public async Task<List<CourseFolder>?> GetCourseInFolderAsync(int folderId)
 		{
 			return await _context.CourseFolders
                 .Where(cf => cf.FolderId == folderId)
                 .Include(cf => cf.Folder!.User)
+                .Include(cf => cf.Course!.User)
                 .Include(cf => cf.Course)
                     .ThenInclude(c => c!.CoursePermission)
                         .ThenInclude(cp => cp.ViewPermission)
 				.ToListAsync();
 		}
 
-		public async Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO)
+        public async Task<List<Folder>?> GetFoldersContainingCourseAsync(int courseId, string userId)
+        {
+            return await _context.CourseFolders
+                .Where(cf => cf.CourseId == courseId && cf.Folder!.UserId == userId)
+                .OrderByDescending(cf => cf.UpdatedAt)
+                .Select(f => f.Folder!)
+                .ToListAsync();
+        }
+
+        public async Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO)
 		{
             var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
             if (existingFolder == null) return;
