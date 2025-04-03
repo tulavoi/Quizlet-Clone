@@ -98,6 +98,7 @@ namespace QuizletClone.Repositories
         public async Task<List<Course>?> GetPopularCoursesAsync(CourseQueryObject query)
         {
             return await _context.UserCourseProgresses
+                .Include(ucp => ucp.Course!.User)
                 .GroupBy(ucp => ucp.CourseId)
                 .OrderByDescending(g => g.Count())  // Đếm số lượng người truy cập khóa đó
                 .Take(query.Quantity)

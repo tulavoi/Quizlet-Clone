@@ -1,18 +1,38 @@
 ﻿@model QuizletClone.ViewModels.Course.ActionBarViewModel
 @{
     var isCourseInFolder = Model.FoldersContainingCourse?.Count > 0;
+    var folders = Model.FoldersContainingCourse;
 }
 <div class="action-bar-container">
-    <div>
-        @if (Model.FoldersContainingCourse?.Count > 0)
+    <div class="folder-link-container">
+        @if (folders?.Count > 0)
         {
-            <a class="folder-link" asp-controller="Folders" asp-action="Details" asp-route-slug="@Model.FoldersContainingCourse[0].Slug">
+            <a class="folder-link" asp-controller="Folders" asp-action="Details" asp-route-slug="@folders[0].Slug">
                 <i class="fa-regular fa-folder"></i>
-                @foreach (var folder in Model.FoldersContainingCourse)
-                {
-                    <span class="folder-title">@folder.Title</span>
-                }
+                <span class="folder-title">@folders[0].Title</span>                
             </a>
+
+            @if (folders.Count > 1)
+            {
+                <div class="btn-options other-folders">
+                    <div class="selected">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="options">
+                        <div class="option title">
+                            <span>Cũng được thêm vào</span>
+                        </div>
+                        <hr />
+                        @for (int i = 1; i < folders.Count; i++)
+                        {
+                            <a class="option" asp-controller="Folders" action="Details" asp-route-slug="@folders[i].Slug">
+                                <i class="fa-regular fa-folder"></i>
+                                @folders[i].Title
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
         }
     </div>
    
@@ -28,13 +48,13 @@
                     <i class="fa-solid fa-plus"></i>
                     Thư mục mới
                 </div>
-                <hr class="m-0" />
+                <hr />
                 @if (Model.Folders?.Count > 0)
                 {
                     @foreach (var folder in Model.Folders)
                     {
                         isCourseInFolder = Model.FoldersContainingCourse?.Any(f => f.Id == folder.Id) == true;
-                        <div class="option">
+                        <div class="option" onclick="ToggleCourseFolder(@Model.CourseId, @folder.Id)">
                             <i class="@(isCourseInFolder ? "fa-solid fa-check" : "fa-regular fa-folder")"></i>
                             @folder.Title
                         </div>

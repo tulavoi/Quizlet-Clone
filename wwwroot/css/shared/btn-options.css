@@ -35,6 +35,9 @@
     display: none;
     padding: 8px 0;
     z-index: 1000;
+    overflow-y: auto;
+    min-width: 15rem;
+    min-height: 3.5rem;
 }
 
 .btn-options .option {

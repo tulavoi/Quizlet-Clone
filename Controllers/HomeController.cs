@@ -41,11 +41,9 @@ namespace QuizletClone.Controllers
                 Quantity = 3
             });
 
-            var recentCoursesDTO = recentCourses?.Select(x => x.ToRecentCourseDTO()).ToList() 
-                ?? new List<RecentCourseDTO>();
+            var recentCoursesDTO = recentCourses?.Select(x => x.ToRecentCourseDTO()).ToList() ?? new();
 
-            var popularCoursesDTO = popularCourses?.Select(x => x.ToPopularCourseDTO()).ToList()
-                ?? new List<PopularCourseDTO>();
+            var popularCoursesDTO = popularCourses?.Select(x => x.ToPopularCourseDTO()).ToList() ?? new();
 
             var homeViewModel = new HomeViewModel
             {
