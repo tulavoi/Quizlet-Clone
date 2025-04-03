@@ -1,5 +1,6 @@
-﻿@import url('../shared/custom-input.css');
-@import url('../shared/btn-avatar.css');
+﻿@import url('../../shared/custom-input.css');
+@import url('../../shared/btn-avatar.css');
+@import url('./actionBar.css');
 
 /* CSS này cho trang chi tiết học phần */
 
@@ -31,54 +32,6 @@
 .rate span {
     color: var(--grey-color);
     font-weight: 500;
-}
-
-.course-detail-container .action-bar-container {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.course-detail-container .action-bar-container .folder-link{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    text-decoration: none;
-    color: var(--dark-grey-color);
-    font-weight: 600;
-    cursor: pointer;
-    width: fit-content;
-}
-
-.course-detail-container .action-bar-container .folder-link:hover{
-    color: var(--black-color);
-}
-
-/* Action bar */
-.action-bar{
-    display: flex;  
-    flex-direction: row;
-    gap: .5rem;
-/*    justify-content: flex-end;*/
-}
-
-.action-bar button {
-    border-radius: .5rem;
-    border: 2px solid var(--light-green-color);
-    background: none;
-    color: var(--grey-color);
-    padding: .4rem .7rem !important;
-    height: 2.5rem;
-}
-
-.action-bar button:hover {
-    background: var(--light-grey-color);
-}
-
-/* Course title */
-.course-detail-container .course-title {
-    font-weight: 800;
 }
 
 /* Study mode buttons */
@@ -619,7 +572,7 @@ input:checked + .slider:before {
 
 /* Modal edit flashcard */
 .edit-flashcard-modal .modal-content {
-    padding: 10px;
+    padding: 1.5rem;
     border-radius: 20px;
 }
 
@@ -635,6 +588,7 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 1rem 0;
 }
 
 .edit-flashcard-modal .flashcard-input input {
@@ -673,20 +627,4 @@ input:checked + .slider:before {
 
 .edit-flashcard-modal .btn-save:hover {
     background: #5856d6;
-}
-
-.btn-options.savedCourseFolder {
-    border: .125rem solid #7583ff;
-    color: var(--blue-color);
-    background: var(--btn-secondary-hover-color);
-}
-
-.btn-options.savedCourseFolder:hover{
-    border: .125rem solid #7583ff;
-    color: var(--blue-color);
-    background: var(--btn-secondary-hover-color);
-}
-
-.btn-options hr {
-    background-color: var(--light-grey-color);
 }

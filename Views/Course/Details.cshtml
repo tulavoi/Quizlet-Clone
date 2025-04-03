@@ -6,6 +6,7 @@
 
     // Lấy ra vị trí của thẻ đã học gần nhất trong danh sách flashcards, nếu k có gán = 0
     var lastLearnedFcIndex = 0;
+
     if (Model.Course.LastLearnedFlashcard != null && Model.Course.Flashcards.Any(x => x.Id == Model.Course.LastLearnedFlashcard.Id))
         lastLearnedFcIndex = Model.Course.Flashcards.FindIndex(x => x.Id == Model.Course.LastLearnedFlashcard.Id);
 
@@ -16,13 +17,14 @@
     var areNotLearnedAreStarred = Model.Course.NotLearnedFlashcards?.All(x => x.IsStarred);
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/course/details.css" />
+    <link rel="stylesheet" href="~/css/course/detail/details.css" />
     <link rel="stylesheet" href="~/css/shared/btn-options.css" />
 }
 
 <div class="course-detail-container">
     <div class="row mb-4">
         @await Html.PartialAsync("ViewPartials/Details/_ActionBarPartial.cshtml", new ActionBarViewModel{
+            CourseId = Model.Course.Id,
             CourseTitle = Model.Course.Title,
             Folders = Model.Folders,
             FoldersContainingCourse = Model.FoldersContainingCourse

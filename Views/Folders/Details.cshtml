@@ -11,7 +11,7 @@
 	var btnTitle = string.IsNullOrEmpty(btnState) ? "" : "Thêm 1 học phần để học";
 
 	var isOwner = UserManager.GetUserId(User) == Model.Owner.Id;
-	var hasPublicCourses = Model.CoursesInFolder.Any(c => isOwner || c.ViewPermissionType != PermissionType.OnlyMe);
+	var hasPublicCourses = Model.CoursesInFolder!.Any(c => isOwner || c.ViewPermissionType != PermissionType.OnlyMe);
 
 	// Nếu user là chủ sở hữu (isOwner == true), đặt ID cho tiêu đề để có thể chỉnh sửa.
 	// Nếu không, để trống để tiêu đề không thể click vào và đổi tên.
@@ -99,7 +99,7 @@
 			FolderId = Model.Id,
 			IsOwner = isOwner,
 			HasPublicCourses = hasPublicCourses,
-			Courses = Model.CoursesInFolder.Select(c => new CourseInFolderViewModel{
+			Courses = Model.CoursesInFolder?.Select(c => new CourseInFolderViewModel{
 				Id = c.Id,
 				Title = c.Title, 
 				Slug = c.Slug,
