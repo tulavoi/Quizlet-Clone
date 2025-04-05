@@ -2,7 +2,7 @@
 {
     public class FlashcardQueryObject
     {
-        public bool IsLearned { get; set; }
-        public bool IsStarred { get; set; }
+        public bool? IsLearned { get; set; }
+        public bool? IsStarred { get; set; }
     }
 }

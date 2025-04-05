@@ -87,8 +87,8 @@ namespace QuizletClone.Controllers
             // Lưu lại course progress khi user truy cập vào course
             await _courseProgressRepo.UpdateProgressAsync(this.UserId, course.Id, courseProcress.IsShuffle);
 
-            // Lấy ra flashcard đã xen gần nhất trong học phần của user
-            var lastReviewedCard = await _flashcardRepo.GetCurrentDisplayedAsync(this.UserId, course.Id);
+            // Lấy ra flashcard đã xem gần nhất trong học phần của user
+            var lastReviewedCard = await _flashcardRepo.GetMostRecentlyAsync(this.UserId, course.Id);
 
             // Lấy ra flashcards user đã học trong học phần
             var learnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id, 
@@ -99,7 +99,7 @@ namespace QuizletClone.Controllers
                 new FlashcardQueryObject { IsLearned = false });
 
             // Lấy ra flashcards user đã gắn sao
-            var starredFlashcards = await _flashcardRepo.GetStarredCardsInCourseAsync(this.UserId, course.Id,
+            var starredFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsStarred = true });
 
             // Lấy ra danh sách flashcard progress của user trong học phần
@@ -111,9 +111,8 @@ namespace QuizletClone.Controllers
             // Nếu isShuffle đều là true, trộn các flashcards
             if (courseProcress.IsShuffle)
             {
-                var rand = new Random();
                 flashcards = flashcards
-                    .OrderBy(_ => rand.Next()) // Sử dụng Random để xáo trộn ngẫu nhiên
+                    .OrderBy(_ => Guid.NewGuid()) // Sử dụng Random để xáo trộn ngẫu nhiên
                     .ToList();
             }
 

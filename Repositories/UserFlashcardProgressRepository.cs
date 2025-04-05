@@ -57,11 +57,11 @@ namespace QuizletClone.Repositories
                 {
                     FlashcardId = flashcardId,
                     UserId = userId,
-                    LastReviewedAt = DateTime.Now.AddSeconds(2) // Có thể bị trùng thời gian khi SaveLearnedCardAsync nên + thêm 2 giây 
+                    LastReviewedAt = DateTime.Now.AddMilliseconds(1) // Có thể bị trùng thời gian khi SaveLearnedCardAsync nên + thêm 1 millisecond 
                 };
                 _context.UserFlashcardProgresses.Add(progress);
             }
-            else if (progress != null && progress.LastReviewedAt == null) progress.LastReviewedAt = DateTime.Now.AddSeconds(2);
+            else progress.LastReviewedAt = DateTime.Now.AddMilliseconds(1);
 
             await _context.SaveChangesAsync();
         }

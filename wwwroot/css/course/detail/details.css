@@ -289,7 +289,8 @@
     gap: 10px;
 }
 
-.learned-terms .row{
+.learned-terms .row, 
+.not-leanred-terms .row{
     padding: 1rem;
 }
 
