@@ -105,5 +105,14 @@ namespace QuizletClone.Repositories
                 .Select(g => g.First().Course!)     // Lấy khóa học từ group
                 .ToListAsync();
         }
+
+        public async Task<Course?> DeleteAsync(int id)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == id);
+            if (course == null) return null;
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
     }
 }

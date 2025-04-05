@@ -4,8 +4,6 @@ using QuizletClone.DTOs.Flashcard;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Models;
-using System.Net.Quic;
-using System.Net.WebSockets;
 
 namespace QuizletClone.Repositories
 {
@@ -18,7 +16,7 @@ namespace QuizletClone.Repositories
         }
 
         // Lấy ra flashcard đang hiển thị ở lần truy cập trước
-        public async Task<Flashcard?> GetCurrentDisplayedAsync(string userId, int courseId)
+        public async Task<Flashcard?> GetMostRecentlyAsync(string userId, int courseId)
         {
             return await _context.UserFlashcardProgresses
                 .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId && x.LastReviewedAt != null)
@@ -28,36 +26,39 @@ namespace QuizletClone.Repositories
         }
 
         // Lấy tất cả flashcard
-        public async Task<List<Flashcard?>> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
+        public async Task<List<Flashcard>?> GetAllCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
         {
-            // Lấy tất cả flashcard trong khóa học
-            var allFlashcardsInCourse = _context.Flashcards
-                .Where(x => x.CourseId == courseId);
+            var queryable = _context.Flashcards
+                .Where(fc => fc.CourseId == courseId)
 
-            // Lấy thông tin UserFlashcardProgresses cho người dùng trong khóa học
-            var userProgresses = _context.UserFlashcardProgresses
-                .Where(up => up.UserId == userId && up.Flashcard.CourseId == courseId);
+                // Left join với UserFlashcardProgresses của user để lấy tiến độ học 
+                // tương ứng với mỗi flashcard
+                .GroupJoin(
+                    _context.UserFlashcardProgresses
+                        .Where(p => p.UserId == userId),        // dữ liệu bên phải: tiến độ học của user 
+                    flashcard => flashcard.Id,                  // khóa bên trái: flashcard.Id
+                    progress => progress.FlashcardId,           // khóa bên phải: progress.FlashcardId
+                    (flashcard, progresses) => new              // kết quả sau khi join
+                    {
+                        flashcard,                              // flashcard
+                        progress = progresses.FirstOrDefault()  // lấy ra tiến độ nếu có (hoặc null nếu chưa học)
+                    }
+                );
 
-            // Kết hợp 2 nguồn dữ liệu
-            var result = from flashcard in allFlashcardsInCourse
-                         join progress in userProgresses
-                         on flashcard.Id equals progress.FlashcardId into progressGroup
-                         from progress in progressGroup.DefaultIfEmpty() // Left join
-                         where (query.IsLearned && progress != null && progress.IsLearned) // Lấy flashcards đã học
-                        || (!query.IsLearned && (progress == null || !progress.IsLearned)) // Lấy flashcards chưa học
-                         select flashcard;
+            if (query.IsLearned.HasValue)
+            {
+                queryable = queryable.Where(fp =>
+                    (query.IsLearned.Value && fp.progress != null && fp.progress.IsLearned) ||
+                    (!query.IsLearned.Value && (fp.progress == null || !fp.progress.IsLearned))
+                );
+            }
 
-            return await result.ToListAsync();
-        }
+            if (query.IsStarred.HasValue)
+            {
+                queryable = queryable.Where(fp => fp.progress != null && fp.progress.IsStarred == query.IsStarred.Value);
+            }
 
-        // Lấy ra các flashcard đc gắn sao trong course
-        public async Task<List<Flashcard?>> GetStarredCardsInCourseAsync(string userId, int courseId, FlashcardQueryObject query)
-        {
-            // Lấy tất cả flashcard trong khóa học
-            return await _context.UserFlashcardProgresses
-                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId && x.IsStarred == query.IsStarred)
-                .Select(x => x.Flashcard)
-                .ToListAsync();
+            return await queryable.Select(fp => fp.flashcard).ToListAsync();
         }
 
         public async Task UpdateAsync(UpdateFlashcardRequestDTO flashcardDTO)

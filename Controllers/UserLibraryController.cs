@@ -63,8 +63,7 @@ namespace QuizletClone.Controllers
                     GetAll = true
                 });
 
-                courseDTOs = courses?.Select(x => x.ToUserLibraryCoursesDTO()).ToList()
-                                ?? new List<UserLibraryCoursesDTO>();
+                courseDTOs = courses?.Select(x => x.ToUserLibraryCoursesDTO()).ToList() ?? new();
             }
             else if (filter == "recently")
             {
@@ -75,8 +74,7 @@ namespace QuizletClone.Controllers
                     GetAll = true
                 });
 
-                courseDTOs = courseProgress?.Select(x => x.ToUserLibraryCoursesDTO()).ToList()
-                                ?? new List<UserLibraryCoursesDTO>();
+                courseDTOs = courseProgress?.Select(x => x.ToUserLibraryCoursesDTO()).ToList() ?? new();
             }
 
             var groupedCourses = courseDTOs

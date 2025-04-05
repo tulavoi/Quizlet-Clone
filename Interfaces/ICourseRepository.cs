@@ -11,5 +11,6 @@ namespace QuizletClone.Interfaces
         Task<Course?> GetByIdAsync(int id, CourseQueryObject? query = null);
         string GetErrorMessage(CreateCourseRequestDTO courseDTO);
         Task<List<Course>?> GetPopularCoursesAsync(CourseQueryObject query);
+        Task<Course?> DeleteAsync(int id);
     }
 }

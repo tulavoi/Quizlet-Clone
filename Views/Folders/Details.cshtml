@@ -19,7 +19,7 @@
 }
 @section Styles {
 	<link rel="stylesheet" href="~/css/folder/detail.css" />
-	<link rel="stylesheet" href="~/css/folder/confirmDeleteModal.css" />
+	<link rel="stylesheet" href="~/css/folder/deleteConfirmationModal.css" />
 	<link rel="stylesheet" href="~/css/folder/addCourseToFolderModal.css" />
 	<link rel="stylesheet" href="~/css/userLibrary/searchBox.css" />
 	<link rel="stylesheet" href="~/css/shared/btn-options.css" />
@@ -53,7 +53,8 @@
 		@if (isOwner)
 		{
 			<!-- Modal xác nhận xóa folder -->
-			@await Html.PartialAsync("/Views/Folders/Modals/ConfirmDeleteFolderModal.cshtml", new{
+			@await Html.PartialAsync("/Views/Folders/Modals/FolderDeleteConfirmationModal.cshtml", new
+			{
 				Id = Model.Id
 			})
 		

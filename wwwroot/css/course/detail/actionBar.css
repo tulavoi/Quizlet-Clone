@@ -94,3 +94,7 @@
 .btn-options.other-folders .options .option.title:hover{
     background: none;
 }
+
+.btn-more .options .option i{
+    font-size: 1rem !important;
+}

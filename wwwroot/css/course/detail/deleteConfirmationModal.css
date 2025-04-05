@@ -1,0 +1,49 @@
+﻿
+@import url('../../folder/styleForModal.css');
+
+.course-delete-confirmation-modal .modal-content {
+    display: flex;
+    gap: 20px;
+    padding: 32px;
+}
+
+.course-delete-confirmation-modal .modal-header {
+    padding: 0; 
+}
+
+.course-delete-confirmation-modal .modal-body{
+    padding: 0;
+}
+
+.course-delete-confirmation-modal .modal-body *{
+    padding-top: .5rem;
+    margin: 0;
+}
+
+.course-delete-confirmation-modal .modal-body .course-title{
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.course-delete-confirmation-modal .modal-body .describe {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.course-delete-confirmation-modal .modal-body .warning {
+    font-size: .875rem;
+    letter-spacing: normal;
+    line-height: 1.4285714285714286;
+    font-weight: 600;
+}
+
+.course-delete-confirmation-modal .modal-footer{
+    padding: 0;
+    border-top: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.course-delete-confirmation-modal .modal-footer * {
+    margin: 0;
+}

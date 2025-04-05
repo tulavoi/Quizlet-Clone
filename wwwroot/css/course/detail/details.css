@@ -1,6 +1,7 @@
 ﻿@import url('../../shared/custom-input.css');
 @import url('../../shared/btn-avatar.css');
 @import url('./actionBar.css');
+@import url('./deleteConfirmationModal.css');
 
 /* CSS này cho trang chi tiết học phần */
 
@@ -289,7 +290,8 @@
     gap: 10px;
 }
 
-.learned-terms .row{
+.learned-terms .row, 
+.not-leanred-terms .row{
     padding: 1rem;
 }
 
