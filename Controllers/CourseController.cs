@@ -165,13 +165,22 @@ namespace QuizletClone.Controllers
         {
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });
             var model = new { 
-                count = count, 
-                termValue = termValue, 
-                defiValue = defiValue, 
-                termLanguageId = termLanguageId, 
-                defiLanguageId = defiLanguageId,
+                count, 
+                termValue, 
+                defiValue, 
+                termLanguageId, 
+                defiLanguageId,
             };
             return PartialView("~/Views/Course/ViewPartials/Create/_TermDefinitionPartial.cshtml", model);
+        }
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var course = await _courseRepo.DeleteAsync(id);
+            if (course == null) return NotFound();
+			return RedirectToAction("Index", "Home"); // Quay về trang chủ
         }
     }
 }

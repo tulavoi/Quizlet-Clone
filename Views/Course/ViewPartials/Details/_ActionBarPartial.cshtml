@@ -80,7 +80,7 @@
                     <i class="fa-solid fa-pen"></i>
                     Sửa
                 </div>
-                <div class="option text-danger">
+                <div class="option text-danger" data-bs-toggle="modal" data-bs-target="#course-delete-confirmation-modal">
                     <i class="fa-solid fa-trash"></i>
                     Xóa
                 </div>
@@ -88,4 +88,11 @@
         </button>
     </div>
 </div>
+
+<!-- Modal xác nhận xóa folder -->
+@await Html.PartialAsync("/Views/Course/ViewPartials/Details/_CourseDeleteConfirmModal.cshtml", new
+{
+    CourseId = Model.CourseId,
+    CourseTitle = Model.CourseTitle
+})
 <h2 class="course-title">@Model.CourseTitle</h2>

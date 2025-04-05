@@ -71,7 +71,7 @@ namespace QuizletClone.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var folder = await _folderRepo.DeleteAsync(id);
             if (folder == null) return NotFound();
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Index", "Home"); // Quay về trang chủ
         }
     }
 }

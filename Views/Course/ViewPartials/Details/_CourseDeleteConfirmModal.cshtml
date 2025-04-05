@@ -1,0 +1,25 @@
+﻿@model dynamic
+<div class="course-delete-confirmation-modal">
+    <div class="modal" tabindex="-1" id="course-delete-confirmation-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Xóa học phần này?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="course-title">@Model.CourseTitle</h3>
+                    <p class="describe">Thư mục sẽ bị xóa vĩnh viễn nhưng bạn sẽ có thể tìm thấy nội dung từ thư mục đó trong thư viện của mình.</p>
+                    <p class="warning">Bạn có chắc chắn không? Bạn sẽ không được hoàn tác.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" data-bs-dismiss="modal">Hủy</button>
+                    <a class="btn-confirm-delete" asp-controller="Course" asp-action="Delete"
+                       asp-route-id="@Model.CourseId">
+                        Vâng hãy xóa học phần
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
