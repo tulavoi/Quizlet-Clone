@@ -1,4 +1,9 @@
-﻿.btn-title {
+﻿@import url('../../shared/btn-options.css');
+@import url('../../shared/btn-common.css');
+@import url('./buttonStudyModes.css');
+@import url('./studyProgress.css');
+
+/*.btn-title {
     font-size: 1.2rem;
     font-weight: 600;
     text-decoration: none;
@@ -35,17 +40,17 @@
     font-weight: 500;
     background: none;
     margin-right: 1rem;
-}
+}*/
 
 /* Dropdown container */
-.dropdown {
+/*.dropdown {
     position: relative;
     display: inline-block;
     font-family: Arial, sans-serif;
-}
+}*/
 
 /* Dropdown toggle button */
-.dropdown-toggle {
+/*.dropdown-toggle {
     background: none;
     border: none;
     padding: .5rem .5rem;
@@ -57,16 +62,16 @@
 }
 
 .dropdown-toggle:after{
-    display: none; /* Ẩn dấu mũi tên */
-}
+    display: none;*/ /* Ẩn dấu mũi tên */
+/*}*/
 
 /* Hover effect for button */
-.dropdown-toggle:hover {
+/*.dropdown-toggle:hover {
     background-color: var(--light-grey-color);
-}
+}*/
 
 /* Dropdown menu */
-.dropdown-menu {
+/*.dropdown-menu {
     display: none;
     position: absolute;
     top: 100%;
@@ -78,10 +83,10 @@
     width: 12rem;
     z-index: 1000;
     border: 1px solid #e0e0e0;
-}
+}*/
 
 /* Dropdown item */
-.dropdown-item {
+/*.dropdown-item {
     display: block;
     padding: 0.5rem 1rem;
     text-decoration: none;
@@ -97,23 +102,23 @@
     font-weight: bold;
     font-size: .9rem;
     margin-left: 7px;
-}
+}*/
 
 /* Hover effect for dropdown item */
-.dropdown-item:hover {
+/*.dropdown-item:hover {
     background-color: #f0f0f0;
     color: var(--grey-color);
-}
+}*/
 
 /* Dropdown divider */
-.dropdown-divider {
+/*.dropdown-divider {
     border: none;
     border-top: 1px solid #e0e0e0;
     margin: 0.5rem 0;
-}
+}*/
 
 /* Show dropdown menu when active */
-.dropdown.show .dropdown-menu {
+/*.dropdown.show .dropdown-menu {
     display: block;
 }
 
@@ -125,10 +130,10 @@
 
 .dropdown i{
     font-size: 1.3rem;
-}
+}*/
 
 /* Question container */
-.question-container {
+/*.question-container {
     max-width: 60%;
     margin: auto;
 }
@@ -158,4 +163,65 @@
     width: 100%;
     height: 1rem;
     border-radius: 12.5rem;
+}*/
+
+
+.study-mode-container {
+    display: block;
+    color: var(--black-color);
+    line-height: 1.625;
 }
+
+.ph45gj{
+    background-color: white;
+    min-height: 100vh;
+}
+
+.gh5634 {
+    max-height: 100%;
+    transition: max-height .2s ease-in;
+}
+
+.mjerg54{
+    display: block;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 901;
+}
+
+.km656h2{
+    display: block;
+}
+
+.jm345gm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 4rem;
+    width: 100%;
+}
+
+.btn-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.mrtgrt5{
+    display: flex;
+    gap: .5rem;
+    flex-direction: row;
+}
+
+.l45og4m {
+    min-height: 4rem;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto -.5rem;
+    padding: 2rem 1.5rem .5rem;
+}
+

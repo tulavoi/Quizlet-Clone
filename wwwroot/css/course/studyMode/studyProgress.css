@@ -1,0 +1,83 @@
+﻿/* Progress bar */
+.study-progress-bar-container {
+    display: grid;
+    grid-template-columns: 4.375rem auto 4.375rem; /* Cột trái, phải: 70px, giữa: auto*/
+    grid-template-areas: "left-pill bar right-pill";
+    width: 100%;
+    max-width: 60rem;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.oi23gf4 {
+    padding: .25rem 1rem;
+    border-radius: 12.5rem;
+    width: 4.375rem;
+    height: 2rem;
+    color: var(--black-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.correct-answers {
+    background: #c7f7e6;
+    border: .125rem solid #c7f7e6;
+}
+
+.all-questions {
+    background: var(--light-grey-color);
+    border: .125rem solid var(--light-grey-color);
+}
+
+.study-progress-bar {
+    width: 100%;
+    position: relative;
+    height: 1rem;
+    grid-area: bar;
+    align-self: center;
+}
+
+.study-progress-bar .jf34mf45{
+    background: var(--border-button-color);
+    border-radius: 12.5rem;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.study-progress-bar .jf34mf45 .nf34ofs{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+}
+
+.study-progress-bar .ph34jas{
+    position: absolute;
+    border-radius: 12.5rem;
+    height: 100%;
+}
+
+.study-progress-bar .ph34jas.n3wqoc2{
+    width: 1%;
+    background: #12815a;
+    z-index: 301;
+    transition: width .75s cubic-bezier(.37,0,.53,1);
+}
+
+.study-progress-bar .ph34jas.m23oc34{
+    width: 15%;
+    background: #59e8b5;
+    z-index: 201;
+}
+
+.study-progress-bar .ph34jas.hc34cas{
+    width: 100%;
+    background: var(--border-button-color);
+    z-index: 101;
+}

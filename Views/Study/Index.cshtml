@@ -1,0 +1,178 @@
+﻿@using QuizletClone.DTOs.Course
+@model StudyModeDTO
+@{
+	ViewData["Title"] = $"Học: {Model.Title} | QuizletClone";
+	ViewData["HideNavbar"] = true; // Ẩn navbar 
+	ViewData["HideSidebar"] = true; // Ẩn sidebar
+	ViewData["NotContainer"] = true; // Không dùng container
+	ViewData["HideFooter"] = true; // Ẩn footer
+}
+@section Styles {
+	<link rel="stylesheet" href="~/css/course/studyMode/style.css" />
+}
+
+@* <div class="learn-container">
+	<div class="row g-0 py-3 px-4 my-3">
+		<div class="col-4">
+			<div class="dropdown">
+				<button class="dropdown-toggle">
+					<i class="fa-solid fa-book text-primary"></i>
+					<span>Học</span>
+					<i class="fa-solid fa-angle-down" style="font-size: small;"></i>
+				</button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item">
+						<i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
+						<span>Thẻ ghi nhớ</span>
+					</a>
+
+					<a class="dropdown-item">
+						<i class="fa-regular fa-check-circle text-primary"></i>
+						<span>Kiểm tra</span>
+					</a>
+
+					<a class="dropdown-item">
+						<i class="fa-solid fa-puzzle-piece text-primary"></i>
+						<span>Ghép thẻ</span>
+					</a>
+
+					<hr class="dropdown-divider">
+					<a asp-controller="Home" asp-action="Index" 
+						class="dropdown-item">
+						<span>Trang chủ</span>
+					</a>
+
+					<a class="dropdown-item"><span>Tìm kiếm</span></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-4 d-flex justify-content-center align-items-center">
+			
+		</div>
+
+		<div class="col-4">
+			<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
+			   class="common-btn custom-btn-close float-end">
+				<i class="fa-solid fa-xmark"></i>
+		   </a>
+
+		   <button class="float-end common-btn btn-option">
+			   Tùy chọn
+		   </button>
+		</div>
+	</div>
+	
+	<div class="question-container mt-5">
+		<!-- Progress bar -->
+		<div class="row">
+			<div class="col-1 d-flex justify-content-center align-items-center">
+				<div class="correct-answers">
+					0
+				</div>
+			</div>
+
+			<div class="col-10 d-flex justify-content-center align-items-center">
+				<div class="learn-progress">
+				</div>
+			</div>
+
+			<div class="col-1 d-flex justify-content-center align-items-center">
+				<div class="all-questions">
+					10
+				</div>
+			</div>
+		</div>
+	</div>
+</div> *@
+
+<div class="study-mode-container">
+	<div class="ph45gj gh5634">
+		<div class="mjerg54">
+			<div class="km656h2">
+				<div class="jm345gm">
+					<div>
+						<div class="btn-options btn-studyModes">
+							<div class="selected">
+								<i class="fa-solid fa-book"></i>
+								<span>Học</span>
+								<i class="fa-solid fa-angle-down"></i>
+							</div>
+							<div class="options">
+								<a class="option">
+									<i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
+									<span>Thẻ ghi nhớ</span>
+								</a>
+
+								<a class="option">
+									<i class="fa-regular fa-check-circle text-primary"></i>
+									<span>Kiểm tra</span>
+								</a>
+
+								<a class="option">
+									<i class="fa-solid fa-puzzle-piece text-primary"></i>
+									<span>Ghép thẻ</span>
+								</a>
+
+								<hr class="dropdown-divider">
+								<a class="option" asp-controller="Home" asp-action="Index">
+									<span>Trang chủ</span>
+								</a>
+
+								<a class="option">
+									<span>Tìm kiếm</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
+						   class="btn-title">
+							@Model.Title
+						</a>
+					</div>
+
+					<div class="mrtgrt5">
+						<buton class="btn-common" style="font-size: 1.2rem;">
+							<i class="fa-solid fa-gear"></i>
+						</buton>
+
+						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
+						   class="btn-common" style="font-size: 1.5rem;">
+							<i class="fa-solid fa-xmark"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="l45og4m">
+					<div class="study-progress-bar-container">
+						<div class="correct-answers oi23gf4">
+							<span>0</span>
+						</div>
+
+						<div class="study-progress-bar">
+							<div class="jf34mf45">
+								<div class="nf34ofs" tabindex="-1">
+									<div class="ph34jas n3wqoc2"></div>
+								</div>
+
+								<div class="nf34ofs" tabindex="-1">
+									<div class="ph34jas m23oc34"></div>
+								</div>
+
+								<div class="ph34jas hc34cas" width="100"></div>
+							</div>
+						</div>
+
+						<div class="all-questions oi23gf4">
+							<span>10</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="module" src="~/js/course/studyMode/main.js"></script>

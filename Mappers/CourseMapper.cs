@@ -78,9 +78,9 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static LearnCourseDTO ToLearnCourseDTO(this Course course)
+        public static StudyModeDTO ToStudyModeDTO(this Course course)
         {
-            return new LearnCourseDTO
+            return new StudyModeDTO
             {
                 Id = course.Id,
                 Title = course.Title,

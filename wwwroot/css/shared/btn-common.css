@@ -1,0 +1,21 @@
+﻿.btn-common {
+	border: .125rem solid var(--border-button-color);
+	border-radius: .5rem;
+	cursor: pointer;
+	padding: 9px;
+	font-size: .875rem;
+	font-weight: 600;
+	color: var(--dark-grey-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	text-decoration: none;
+	min-height: 2.5rem;
+	max-height: 2.5rem;
+	min-width: 2.5rem;
+}
+
+.btn-common:hover {
+	background-color: var(--btn-secondary-hover-color);
+}
