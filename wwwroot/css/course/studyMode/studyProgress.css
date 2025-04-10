@@ -1,4 +1,12 @@
 ﻿/* Progress bar */
+.study-progress-wrapper {
+    min-height: 4rem;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto -.5rem;
+    padding: 2rem 1.5rem .5rem;
+}
+
 .study-progress-bar-container {
     display: grid;
     grid-template-columns: 4.375rem auto 4.375rem; /* Cột trái, phải: 70px, giữa: auto*/
@@ -11,7 +19,7 @@
     font-size: 1rem;
 }
 
-.oi23gf4 {
+.progress-pill {
     padding: .25rem 1rem;
     border-radius: 12.5rem;
     width: 4.375rem;
@@ -24,14 +32,14 @@
     font-size: 1rem;
 }
 
-.correct-answers {
-    background: #c7f7e6;
-    border: .125rem solid #c7f7e6;
+.correct-pill {
+    background: var(--mint-light);
+    border: .125rem solid transparent;
 }
 
-.all-questions {
+.total-pill {
     background: var(--light-grey-color);
-    border: .125rem solid var(--light-grey-color);
+    border: .125rem solid transparent;
 }
 
 .study-progress-bar {
@@ -42,7 +50,7 @@
     align-self: center;
 }
 
-.study-progress-bar .jf34mf45{
+.study-progress-bar .progress-bar-track{
     background: var(--border-button-color);
     border-radius: 12.5rem;
     height: 100%;
@@ -51,32 +59,32 @@
     position: relative;
 }
 
-.study-progress-bar .jf34mf45 .nf34ofs{
+.study-progress-bar .progress-bar-track .progress-layer{
     display: flex;
     width: fit-content;
     height: fit-content;
 }
 
-.study-progress-bar .ph34jas{
+.study-progress-bar .bar-segment{
     position: absolute;
     border-radius: 12.5rem;
     height: 100%;
 }
 
-.study-progress-bar .ph34jas.n3wqoc2{
+.study-progress-bar .bar-segment.progress-bar-correct{
     width: 1%;
-    background: #12815a;
+    background: var(--green-deep);
     z-index: 301;
     transition: width .75s cubic-bezier(.37,0,.53,1);
 }
 
-.study-progress-bar .ph34jas.m23oc34{
+.study-progress-bar .bar-segment.progress-bar-pending{
     width: 15%;
-    background: #59e8b5;
+    background: var(--green-soft);
     z-index: 201;
 }
 
-.study-progress-bar .ph34jas.hc34cas{
+.study-progress-bar .bar-segment.progress-bar-background{
     width: 100%;
     background: var(--border-button-color);
     z-index: 101;

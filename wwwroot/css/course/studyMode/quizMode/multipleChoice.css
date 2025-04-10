@@ -1,0 +1,51 @@
+﻿
+/* Answers */
+.quiz-card-answers{
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.quiz-card-answers .quiz-answer{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border: .125rem solid var(--btn-secondary-hover-color);
+    border-radius: .5rem;
+    align-items: center;
+    border-radius: .5rem;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.quiz-card-answers .quiz-answer:hover{
+    border: .125rem solid var(--dark-grey-color);
+}
+
+.quiz-answer-text{
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.quiz-answer-no {
+    border-radius: 50%;
+    background: var(--btn-secondary-hover-color);
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    font-weight: 600;
+    font-size: .875rem;
+    color: var(--dark-grey-color);
+    justify-content: center;
+}
+
+/* Quiz help button*/
+.quiz-card-help .quiz-help-button {
+    background-color: white;
+    color: var(--blue-color);
+}
+
+.quiz-card-help .quiz-help-button:hover{
+/*    background: var(--btn-secondary-hover-color);*/
+background-color: #edefff;
+}
