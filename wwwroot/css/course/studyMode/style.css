@@ -61,34 +61,6 @@
     flex-direction: row;
 }
 
-/* Questions */
-/*.jm23f09{
-    display: flex;
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
+.action-btns .btn-common{
+    border-color: transparent;
 }
-
-.n45gi23 {
-    display: block;
-    flex: 1 1;
-    margin-left: 0;
-    padding: 2rem 1.5rem 1.5rem 1.5rem;
-    position: relative;
-    width: 100%;
-}
-
-.kd2kg5s {
-    margin: 0 auto;
-    min-height: 80vh;
-    height: auto;
-    position: relative;
-    overflow: hidden;
-}
-
-.oad92def {
-    position: relative;
-    border: .125rem solid var(--btn-secondary-hover-color);
-    max-width: 60rem;
-    box-shadow: none;
-}*/

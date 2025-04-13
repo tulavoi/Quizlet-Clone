@@ -1,5 +1,6 @@
-﻿/* Progress bar */
-.study-progress-wrapper {
+﻿
+/* Study Progress cũ*/
+/*.study-progress-wrapper {
     min-height: 4rem;
     display: flex;
     justify-content: center;
@@ -9,8 +10,8 @@
 
 .study-progress-bar-container {
     display: grid;
-    grid-template-columns: 4.375rem auto 4.375rem; /* Cột trái, phải: 70px, giữa: auto*/
-    grid-template-areas: "left-pill bar right-pill";
+    grid-template-columns: 4.375rem auto 4.375rem;*/ /* Cột trái, phải: 70px, giữa: auto*/
+    /*grid-template-areas: "left-pill bar right-pill";
     width: 100%;
     max-width: 60rem;
     gap: 1rem;
@@ -88,4 +89,110 @@
     width: 100%;
     background: var(--border-button-color);
     z-index: 101;
+}*/
+
+/* Total questions */
+.progress-pill {
+    padding: .5rem;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    color: var(--black-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.total-pill {
+    background: var(--light-grey-color);
+    border: .125rem solid transparent;
+}
+
+/* Study progress bar */
+.study-progress-container {
+    max-height: 3.0625rem;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto -.5rem;
+    padding: 1rem 1.5rem .5rem;
+    background: white;
+}
+
+.progress-wrapper {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    gap: .5rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    position: relative;
+    display: grid;
+}
+
+.progress-bar-track {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    gap: .5rem;
+    align-items: center;
+}
+
+.progress-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 1rem;
+    border-radius: 1rem;
+    background: var(--primary-green-color);
+}
+
+.progress-step:before {
+    content: " ";
+    width: var(--progress-fill, 0%);
+    height: 100%;
+    border-radius: 1rem;
+    background-color: var(--primary-green-color);
+    transition: width .5s cubic-bezier(.49,0,.68,1), background-color .4s .1s;
+}
+
+.progress-indicator {
+    position: absolute;
+    left: 1%;
+    transform: translateX(calc(-1% * 14.285714285714285));
+    transition: left .5s, transform .5s;
+    transition-timing-function: cubic-bezier(.37,0,.53,1);
+    z-index: 101;
+}
+
+/* Số lượng câu trả lời đúng */
+.progress-badge {
+    background-color: var(--green-deep);
+    color: #fff;
+    z-index: 201;
+    position: relative;
+    transition: background-color .4s .1s;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: normal;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    min-height: 2rem;
+    padding: .25rem .5rem;
+    border-radius: 12.5rem;
+}
+
+.progress-number {
+    transform: translateY(0px);
+    opacity: 1;
+    margin: 0;
+    padding: 0;
 }

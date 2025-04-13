@@ -62,14 +62,14 @@
 
 					<!-- Các button thao tác (tùy chọn, thoát) -->
 					<div class="action-btns">
-						<buton class="btn-common" style="font-size: 1.2rem;">
+						<button class="btn-common" style="font-size: 1.2rem;">
 							<i class="fa-solid fa-gear"></i>
-						</buton>
+						</button>
 
-						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
+						<button asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
 						   class="btn-common" style="font-size: 1.5rem;">
 							<i class="fa-solid fa-xmark"></i>
-						</a>
+						</button>
 					</div>
 				</div>
 
@@ -78,6 +78,7 @@
 			</div>
 		</div>
 
+		<!-- Quiz Container-->
 		<div class="quiz-container">
 			<article class="quiz-card">
 				<div class="quiz-header">

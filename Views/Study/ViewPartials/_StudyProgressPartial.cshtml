@@ -1,4 +1,6 @@
-﻿<div class="study-progress-wrapper">
+﻿
+@* Study Progress cũ *@
+@* <div class="study-progress-wrapper">
 	<div class="study-progress-bar-container">
 		<!-- Hiển thị số câu đúng -->
 		<div class="correct-pill progress-pill">
@@ -23,6 +25,30 @@
 		<!-- Hiển thị số lượng câu hỏi -->
 		<div class="total-pill progress-pill">
 			<span>10</span>
+		</div>
+	</div>
+</div> *@
+
+
+<div class="study-progress-container">
+	<div class="progress-wrapper">
+		<div class="progress-bar-container">
+			<div class="progress-bar-track">
+				<div class="progress-step" style="background: var(--border-button-color);">
+					<div class="progress-indicator">
+						<div class="progress-badge">
+							<p class="progress-number">0</p>
+						</div>
+					</div>
+				</div>
+				@* <div class="progress-step" style="background: var(--border-button-color);"></div>
+				<div class="progress-step" style="background: var(--border-button-color);"></div> *@
+			</div>
+		</div>
+
+		<!-- Hiển thị số lượng câu hỏi -->
+		<div class="total-pill progress-pill">
+			<span>22</span>
 		</div>
 	</div>
 </div>
