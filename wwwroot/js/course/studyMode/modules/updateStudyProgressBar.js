@@ -2,6 +2,7 @@
 var steps = 0;
 var questionsPerStep = 0;
 
+// Tạo và hiển thị các steps dựa vào tổng số câu hỏi
 export function updateStudyProgressBar() {
     const totalQuestions = parseInt(document.querySelector('.total-pill span').textContent, 10);
 
@@ -11,37 +12,27 @@ export function updateStudyProgressBar() {
     questionsPerStep = result.questionsPerStep;
     steps = result.steps;
 
+    // Tìm phần tử bao progress-bar để render nội dung vào
     const track = document.querySelector('.progress-bar-track');
-
     if (!track) return;
+    track.innerHTML = ''; // Xóa các progress-step cũ
 
-    // Xóa các progress-step cũ
-    track.innerHTML = '';
-
+    // Tạo HTML cho từng bước
+    let html = '';
     for (let i = 0; i < steps; i++) {
-        const step = document.createElement('div');
-        step.classList.add('progress-step');
-        step.style.background = 'var(--border-button-color)';
-
-        // Nếu là bước đầu tiên thì thêm badge và số thứ tự
-        if (i === 0) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('progress-indicator');
-
-            const badge = document.createElement('div');
-            badge.classList.add('progress-badge');
-
-            const number = document.createElement('p');
-            number.classList.add('progress-number');
-            number.textContent = '0';
-
-            badge.appendChild(number);
-            indicator.appendChild(badge);
-            step.appendChild(indicator);
-        }
-
-        track.appendChild(step);
+        html += `
+            <div class="progress-step" style="background: var(--border-button-color);">
+                ${i === 0 ? `
+                    <div class="progress-indicator">
+                        <div class="progress-badge">
+                            <p class="progress-number">0</p>
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+        `;
     }
+    track.innerHTML = html;
 }
 
 function getStepSize(totalQuestions) {
@@ -100,21 +91,34 @@ window.checkAnswer = checkAnswer;
 
 function updateBadge() {
     // Tăng số trên badge
-    let progressNumber = document.querySelector('.progress-number');
-    let current = parseInt(progressNumber.textContent, 10) + 1;
-    progressNumber.textContent = current;
-
-    const progressSteps = document.querySelectorAll('.progress-step');
-    const progressStep = progressSteps[0];
-    const progressIndicator = document.querySelector('.progress-indicator');
+    const current = incrementBadgeNumber();
+    const percentage = calculatePercentage(current);
 
     // Cập nhật màu progress-step
-    const percentage = Math.min((current / questionsPerStep) * 100, 100).toFixed(2);
-    progressStep.style.setProperty('--progress-fill', `${percentage}%`);
+    updateProgressStepColor(percentage);
+    
+    // Cập nhật vị trí của badge
+    updateBagdePosition(percentage);
+}
 
-    // Chưa cập nhật đc vị trí của badge 
-    //const stepIndex = Math.max(Math.floor(current / questionsPerStep), 0);
-    //const maxIndex = steps - 1;
-    //const left = Math.min((stepIndex / maxIndex) * 100, 100).toFixed(2);
-    //progressIndicator.style.left = `${left}%`;
+function updateBagdePosition(percentage) {
+    const progressIndicator = document.querySelector('.progress-indicator');
+    progressIndicator.style.setProperty('--progress-indicator-0', `${percentage}%`);
+    progressIndicator.style.setProperty('--progress-indicator-1', `translateX(calc(-1% * ${percentage}))`);
+}
+
+function updateProgressStepColor(percentage) {
+    const progressStep = document.querySelectorAll('.progress-step')[0];
+    progressStep.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
+}
+
+function incrementBadgeNumber() {
+    const progressNumber = document.querySelector('.progress-number');
+    let current = parseInt(progressNumber.textContent, 10) + 1;
+    progressNumber.textContent = current;
+    return current;
+}
+
+function calculatePercentage(current) {
+    return Math.min((current / questionsPerStep) * 100, 100)
 }

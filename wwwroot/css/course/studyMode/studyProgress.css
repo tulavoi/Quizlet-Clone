@@ -1,4 +1,10 @@
 ﻿
+:root {
+    --progress-fill: 0%;
+    --progress-indicator-0: 0%;
+    --progress-indicator-1: tranlateX(calc(-1% * 0));
+}
+
 /* Study Progress cũ*/
 /*.study-progress-wrapper {
     min-height: 4rem;
@@ -11,7 +17,7 @@
 .study-progress-bar-container {
     display: grid;
     grid-template-columns: 4.375rem auto 4.375rem;*/ /* Cột trái, phải: 70px, giữa: auto*/
-    /*grid-template-areas: "left-pill bar right-pill";
+/*grid-template-areas: "left-pill bar right-pill";
     width: 100%;
     max-width: 60rem;
     gap: 1rem;
@@ -90,7 +96,6 @@
     background: var(--border-button-color);
     z-index: 101;
 }*/
-
 /* Total questions */
 .progress-pill {
     padding: .5rem;
@@ -163,8 +168,8 @@
 
 .progress-indicator {
     position: absolute;
-    left: 1%;
-    transform: translateX(calc(-1% * 14.285714285714285));
+    left: var(--progress-indicator-0);
+    transform: var(--progress-indicator-1);
     transition: left .5s, transform .5s;
     transition-timing-function: cubic-bezier(.37,0,.53,1);
     z-index: 101;
