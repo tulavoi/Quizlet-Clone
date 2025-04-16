@@ -46,6 +46,68 @@
 }
 
 .quiz-card-help .quiz-help-button:hover{
-/*    background: var(--btn-secondary-hover-color);*/
-background-color: #edefff;
+    background-color: #edefff;
+}
+
+/* Class is-correct được gắn vào án đúng sau khi chọn */
+.quiz-answer.is-correct,
+.quiz-answer.is-correct-2 {
+    pointer-events: none;
+    border-color: var(--green-deep);
+}
+
+.quiz-answer.is-correct-2 {
+    border-style: dashed;
+}
+
+/* Ẩn số thứ tự khi đúng */
+.is-correct .quiz-answer-no,
+.is-correct-2 .quiz-answer-no {
+    position: relative;
+    color: transparent;
+    background: transparent;
+}
+
+/* Hiển thị icon check */
+.is-correct .quiz-answer-no::before,
+.is-correct-2 .quiz-answer-no::before {
+    content: '\f00c'; /* Font Awesome check icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--green-deep);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Class is-disabled được gắn vào các đáp án k được chọn và help button */
+.is-disabled{
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* Class is-incorrect được gắn vào đáp án sai mà user đã chọn */
+.quiz-answer.is-incorrect {
+    border-color: var(--light-orange-color);
+}
+
+.is-incorrect .quiz-answer-no {
+    position: relative;
+    color: transparent;
+    background: transparent;
+}
+
+.is-incorrect .quiz-answer-no::before {
+    content: '\f00d'; /* Unicode cho icon fa-xmark */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1.7rem;
+    color: var(--orange-deep);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

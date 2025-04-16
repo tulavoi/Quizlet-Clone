@@ -1,4 +1,4 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
-import { updateStudyProgressBar } from './modules/updateStudyProgressBar.js';
-updateStudyProgressBar();
+import { generateProgressStep } from './modules/updateStudyProgressBar.js';
+generateProgressStep();

@@ -3,7 +3,7 @@ var steps = 0;
 var questionsPerStep = 0;
 
 // Tạo và hiển thị các steps dựa vào tổng số câu hỏi
-export function updateStudyProgressBar() {
+export function generateProgressStep() {
     const totalQuestions = parseInt(document.querySelector('.total-pill span').textContent, 10);
 
     const result = getStepSize(totalQuestions);
@@ -82,36 +82,63 @@ function isBetterPlan(bestPlan, currPlan) {
     );
 }
 
-export function checkAnswer(isCorrect) {
-    if (!isCorrect) return;
+// Xử lý khi user chọn đáp án đúng
+export function checkAnswer(isCorrect, selectedAnswer) {
+    if (!isCorrect) {
+        return;
+    }
+    
+    updateProgressBar();
 
-    updateBadge();
+    updateQuizUI(selectedAnswer);
 }
 window.checkAnswer = checkAnswer;
 
-function updateBadge() {
-    // Tăng số trên badge
+// Cập nhật giao diện câu hỏi khi user chọn đúng đáp án
+function updateQuizUI(correctAnswer) {
+    // Vô hiệu hóa các đáp án và help btn, trừ đáp án đúng
+    const answers = document.querySelectorAll('.quiz-answer');
+    const helpBtn = document.querySelector('.quiz-help-button');
+
+    answers.forEach(answer => {
+        answer.classList.add(answer === correctAnswer ? 'is-correct' : 'is-disabled');
+    });
+
+    if (helpBtn) {
+        helpBtn.classList.add('is-disabled');
+    }
+
+    // Cập nhật tiêu đề thành "Xuất sắc!" và đổi màu chữ
+    const quizCardTitle = document.querySelector('.quiz-answer-section .quiz-card-title span');
+    if (quizCardTitle) {
+        quizCardTitle.textContent = "Xuất sắc!";
+        quizCardTitle.style.color = "var(--green-deep)";
+    }
+}
+
+function updateProgressBar() {
     const current = incrementBadgeNumber();
     const percentage = calculatePercentage(current);
 
-    // Cập nhật màu progress-step
     updateProgressStepColor(percentage);
     
-    // Cập nhật vị trí của badge
     updateBagdePosition(percentage);
 }
 
+// Cập nhật vị trí của badge
 function updateBagdePosition(percentage) {
     const progressIndicator = document.querySelector('.progress-indicator');
     progressIndicator.style.setProperty('--progress-indicator-0', `${percentage}%`);
     progressIndicator.style.setProperty('--progress-indicator-1', `translateX(calc(-1% * ${percentage}))`);
 }
 
+// Cập nhật màu progress-step
 function updateProgressStepColor(percentage) {
     const progressStep = document.querySelectorAll('.progress-step')[0];
     progressStep.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
 }
 
+// Tăng số trên badge
 function incrementBadgeNumber() {
     const progressNumber = document.querySelector('.progress-number');
     let current = parseInt(progressNumber.textContent, 10) + 1;
