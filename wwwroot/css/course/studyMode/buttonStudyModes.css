@@ -1,0 +1,23 @@
+﻿.btn-studyModes {
+    border: none;
+    line-height: 1.5;
+    font-weight: 600;
+    font-size: 1.1rem;
+    height: 45px;
+}
+
+.btn-studyModes .options{
+    margin-top: .5rem;
+    left: 0;
+    font-size: 1rem;
+    box-shadow: 0 .25rem 1rem 0 var(--light-grey-color);
+}
+
+.btn-studyModes .fa-angle-down{
+    color: var(--dark-grey-color);
+    font-size: small;
+} 
+
+.btn-studyModes i {
+    color: var(--blue-color);
+}

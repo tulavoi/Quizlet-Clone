@@ -8,11 +8,11 @@ using QuizletClone.Mappers;
 namespace QuizletClone.Controllers
 {
     [Authorize]
-    [Route("learn")]
-    public class LearnController : BaseController
+    [Route("study")]
+    public class StudyController : BaseController
     {
 		private readonly ICourseRepository _courseRepo;
-        public LearnController(ICourseRepository courseRepo)
+        public StudyController(ICourseRepository courseRepo)
         {
             _courseRepo = courseRepo;
         }
@@ -25,7 +25,7 @@ namespace QuizletClone.Controllers
             var course = await _courseRepo.GetByIdAsync(courseId);
             if (course == null) return NotFound();
 
-            return View(course.ToLearnCourseDTO());
+            return View(course.ToStudyModeDTO());
         }
     }
 }
