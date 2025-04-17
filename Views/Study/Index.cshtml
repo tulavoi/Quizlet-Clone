@@ -16,7 +16,7 @@
 		<div class="study-mode-header">
 			<div class="study-mode-controls">
 				<div class="study-mode-toolbar">
-					<!-- Button lựa chọn chế độ -->
+					@* Button lựa chọn chế độ *@
 					<div>
 						<div class="btn-options btn-studyModes">
 							<div class="selected">
@@ -52,7 +52,7 @@
 						</div>
 					</div>
 
-					<!-- Tiêu đề học phần -->
+					@* Tiêu đề học phần *@
 					<div>
 						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
 						   class="btn-title">
@@ -60,25 +60,25 @@
 						</a>
 					</div>
 
-					<!-- Các button thao tác (tùy chọn, thoát) -->
+					@* Các button thao tác (tùy chọn, thoát) *@
 					<div class="action-btns">
 						<button class="btn-common" style="font-size: 1.2rem;">
 							<i class="fa-solid fa-gear"></i>
 						</button>
 
-						<button asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
+						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
 						   class="btn-common" style="font-size: 1.5rem;">
 							<i class="fa-solid fa-xmark"></i>
-						</button>
+						</a>
 					</div>
 				</div>
 
-				<!-- Study Progress -->
+				@* Study Progress *@
 				@await Html.PartialAsync("ViewPartials/_StudyProgressPartial.cshtml")
 			</div>
 		</div>
 
-		<!-- Quiz Container-->
+		@* Quiz Container*@
 		<div class="quiz-container">
 			<article class="quiz-card">
 				<div class="quiz-header">
@@ -96,14 +96,16 @@
 					</div>
 				</div>
 
-				<!-- Multiple Choice Quiz -->
+				@* Multiple Choice Quiz *@
 				@await Html.PartialAsync("ViewPartials/_MultipleChoiceQuizPartial.cshtml")
 
-				<!-- Input Answer Quiz -->
+				@* Input Answer Quiz *@
 				@* @await Html.PartialAsync("ViewPartials/_InputAnswerQuizPartial.cshtml") *@
 			</article>
-
 		</div>
+
+		@* Notification Bar *@
+		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")
 	</div>
 </div>
 

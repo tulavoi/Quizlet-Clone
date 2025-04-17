@@ -1,8 +1,10 @@
 ﻿@import url('../../shared/btn-options.css');
 @import url('../../shared/btn-common.css');
+@import url('../../shared/btn-primary.css');
 @import url('./buttonStudyModes.css');
 @import url('./studyProgress.css');
 @import url('./quizzes.css');
+@import url('./notificationBar.css');
 
 .content{
     padding: 0;

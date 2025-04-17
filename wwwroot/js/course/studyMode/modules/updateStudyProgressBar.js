@@ -83,37 +83,87 @@ function isBetterPlan(bestPlan, currPlan) {
 }
 
 // Xử lý khi user chọn đáp án đúng
-export function checkAnswer(isCorrect, selectedAnswer) {
-    if (!isCorrect) {
-        return;
-    }
-    
-    updateProgressBar();
+export function checkAnswer(selectedAnswer) {
+    if (!selectedAnswer) return;
 
-    updateQuizUI(selectedAnswer);
+    let isCorrect = selectedAnswer.dataset.correct === 'true';
+    updateQuizUI(isCorrect, selectedAnswer);
+
+    // Nếu chọn đúng đáp án thì cập nhật progress bar
+    if (isCorrect) updateProgressBar();
 }
 window.checkAnswer = checkAnswer;
 
 // Cập nhật giao diện câu hỏi khi user chọn đúng đáp án
-function updateQuizUI(correctAnswer) {
-    // Vô hiệu hóa các đáp án và help btn, trừ đáp án đúng
+function updateQuizUI(isCorrect, selectedAnswer) {
     const answers = document.querySelectorAll('.quiz-answer');
     const helpBtn = document.querySelector('.quiz-help-button');
 
+    // Tìm đáp án đúng nếu như đã chọn đáp án sai
+    let correctAnswer = null;
+    if (!isCorrect) {
+        correctAnswer = Array.from(answers).find(answer =>
+            answer.dataset.correct === 'true'
+        );
+    }
+
+    // Vô hiệu hóa các đáp án và help btn, trừ đáp án đúng
     answers.forEach(answer => {
-        answer.classList.add(answer === correctAnswer ? 'is-correct' : 'is-disabled');
+        if (answer === selectedAnswer) {
+            answer.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+        } else {
+            answer.classList.add('is-disabled');
+        }
     });
 
-    if (helpBtn) {
-        helpBtn.classList.add('is-disabled');
+    helpBtn?.classList.add('is-disabled');
+
+    // Nếu chọn sai, highlight đáp án đúng
+    if (!isCorrect && correctAnswer) {
+        correctAnswer.classList.remove('is-disabled');
+        correctAnswer.classList.add('is-correct-2');
     }
 
-    // Cập nhật tiêu đề thành "Xuất sắc!" và đổi màu chữ
+    // Cập nhật tiêu đề và đổi màu chữ dựa vào câu hỏi đúng hay sai
     const quizCardTitle = document.querySelector('.quiz-answer-section .quiz-card-title span');
     if (quizCardTitle) {
-        quizCardTitle.textContent = "Xuất sắc!";
-        quizCardTitle.style.color = "var(--green-deep)";
+        quizCardTitle.textContent = isCorrect ? "Xuất sắc!" : "Đừng lo, bạn vẫn đang học mà!";
+        quizCardTitle.style.color = isCorrect ? "var(--green-deep)" : "var(--orange-deep)";
     }
+
+    if (!isCorrect) showNotificationBar();
+}
+
+// Hiển thị thanh thông báo tiếp tục
+function showNotificationBar() {
+    const notification = document.querySelector('.notification-bar-container');
+    const continueBtn = document.querySelector('.btn-continue');
+
+    notification.classList.remove('d-none');
+    requestAnimationFrame(() => {
+        notification.classList.add('show'); // kích hoạt hiệu ứng
+    });
+
+    document.addEventListener('keydown', handleContinue);
+    continueBtn.addEventListener('click', handleContinue);
+}
+
+
+// Xử lý khi bấm tiếp tục or phím bất kỳ
+function handleContinue(){
+    nextQuestion();
+    hideNotificationBar();
+}
+
+// Ẩn thông báo tiếp tục
+function hideNotificationBar() {
+    const notification = document.querySelector('.notification-bar-container');
+    notification.classList.add('d-none');
+}
+
+// Thực hiện chuyển sang câu hỏi tiếp theo
+function nextQuestion() {
+    console.log('next question');
 }
 
 function updateProgressBar() {

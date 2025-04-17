@@ -91,6 +91,7 @@
 
 /* Class is-incorrect được gắn vào đáp án sai mà user đã chọn */
 .quiz-answer.is-incorrect {
+    pointer-events: none;
     border-color: var(--light-orange-color);
 }
 

@@ -19,4 +19,5 @@
 
 .btn-common:hover {
 	background-color: var(--btn-secondary-hover-color);
+	color: var(--dark-grey-color);
 }

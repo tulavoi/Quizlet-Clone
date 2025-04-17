@@ -1,0 +1,21 @@
+﻿.btn-primary {
+    border: .125rem solid var(--blue-color);
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: .625rem 1.375rem;
+    font-size: .875rem;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-decoration: none;
+    min-height: 3rem;
+    min-width: 2.5rem;
+    background: var(--blue-color);
+}
+
+.btn-primary:hover{
+    background: var(--btn-blue-hover-color);
+}
