@@ -1,0 +1,64 @@
+﻿
+<div class="quiz-container">
+	<article class="quiz-card">
+		<div class="quiz-header">
+			<div class="quiz-card-header-top">
+				<div class="quiz-card-title">
+					<span>Định nghĩa</span>
+				</div>
+			</div>
+
+			<div class="quiz-definition-text">
+				<span>được gửi đến, được chuyển đến</span>
+			</div>
+		</div>
+
+		<div class="quiz-answer-section multiple-choice-quiz">
+			<div class="quiz-card-title">
+				<span>Chọn thuật ngữ đúng</span>
+			</div>
+
+			<div class="quiz-card-answers">
+				<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
+					<div class="quiz-answer-no">1</div>
+					<div class="quiz-answer-text">
+						ちょきんします (貯金します)
+					</div>
+				</div>
+
+				<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
+					<div class="quiz-answer-no">2</div>
+					<div class="quiz-answer-text">
+						やせます (痩せます)
+					</div>
+				</div>
+
+				<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
+					<div class="quiz-answer-no">3</div>
+					<div class="quiz-answer-text">
+						ふとります (太ります)
+					</div>
+				</div>
+
+				<div class="quiz-answer" data-correct="true" onclick="checkAnswer(this)">
+					<div class="quiz-answer-no">4</div>
+					<div class="quiz-answer-text">
+						とどきます (届きます)
+					</div>
+				</div>
+			</div>
+
+			<div class="quiz-card-help">
+				<i class="fa-regular fa-flag"></i>
+
+				<button class="quiz-help-button">Bạn không biết?</button>
+			</div>
+		</div>
+
+		@* Multiple Choice Quiz *@
+		@* @await Html.PartialAsync("./_MultipleChoiceQuizPartial.cshtml") *@
+
+		@* Input Answer Quiz *@
+		@* @await Html.PartialAsync("./_InputAnswerQuizPartial.cshtml") *@
+	</article>
+</div>

@@ -78,31 +78,8 @@
 			</div>
 		</div>
 
-		@* Quiz Container*@
-		<div class="quiz-container">
-			<article class="quiz-card">
-				<div class="quiz-header">
-					<div class="quiz-card-header-top">
-						<div class="quiz-card-title">
-							<span>Định nghĩa</span>
-						</div>
-						<div class="quiz-card-icon">
-							<i class="fa-regular fa-flag"></i>
-						</div>
-					</div>
-
-					<div class="quiz-definition-text">
-						<span>được gửi đến, được chuyển đến</span>
-					</div>
-				</div>
-
-				@* Multiple Choice Quiz *@
-				@await Html.PartialAsync("ViewPartials/_MultipleChoiceQuizPartial.cshtml")
-
-				@* Input Answer Quiz *@
-				@* @await Html.PartialAsync("ViewPartials/_InputAnswerQuizPartial.cshtml") *@
-			</article>
-		</div>
+		@* Quiz Container *@
+		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml")
 
 		@* Notification Bar *@
 		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")

@@ -6,6 +6,10 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.quiz-card-answers.active{
+    display: block;
+}
+
 .quiz-card-answers .quiz-answer{
     display: flex;
     flex-direction: row;
