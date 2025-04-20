@@ -2,14 +2,13 @@
 // Cập nhật giao diện câu hỏi khi user chọn đúng đáp án
 export function updateQuizUI(isCorrect, selectedAnswer) {
     const answers = document.querySelectorAll('.quiz-answer');
-    const helpBtn = document.querySelector('.quiz-help-button');
 
     // Tìm đáp án đúng nếu như đã chọn đáp án sai
     let correctAnswer = isCorrect ? null : findCorrectAnswer(answers);
 
     // Vô hiệu hóa các đáp án và help btn, trừ đáp án đúng
     disableAnswers(answers, selectedAnswer, isCorrect);
-    disableHelpButon(helpBtn);
+    disableHelpButon();
 
     // Nếu chọn sai, highlight đáp án đúng
     if (!isCorrect && correctAnswer) highlightCorrectAnswer(correctAnswer);
@@ -31,11 +30,14 @@ function updateQuizTitle(isCorrect) {
     }
 }
 
-function disableHelpButon(helpBtn) {
+function disableHelpButon() {
+    const helpBtn = document.querySelector('.quiz-help-button');
+    const btnReport = document.querySelector('.btn-report');
     helpBtn?.classList.add('is-disabled');
+    btnReport?.classList.add('is-disabled');
 }
 
-function disableAnswers(answers, selectedAnswer, isCorrect) {
+export function disableAnswers(answers, selectedAnswer, isCorrect = false) {
     answers.forEach(answer => {
         if (answer === selectedAnswer) {
             answer.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
@@ -45,7 +47,7 @@ function disableAnswers(answers, selectedAnswer, isCorrect) {
     });
 }
 
-function findCorrectAnswer(answers) {
+export function findCorrectAnswer(answers) {
     return Array.from(answers).find(answer =>
         answer.dataset.correct === 'true'
     );
