@@ -1,5 +1,7 @@
 ﻿import { showNotificationBar } from './notificationHandler.js';
-import { findCorrectAnswer } from './uiUpdater.js';
+import { findCorrectAnswer, markAnswers } from './uiUpdater.js';
+import { nextQuestion } from './quizHandler.js';
+import { enableCorrectAnswerForNext } from './answerHandler.js';
 
 // Nhớ refactor lại
 export function showCorrectAnswer() {
@@ -7,9 +9,11 @@ export function showCorrectAnswer() {
     const correctAnswer = findCorrectAnswer(answers);
     correctAnswer.classList.add('is-correct-2');
 
-    disableAnswers(answers, correctAnswer);
+    markAnswers(answers, correctAnswer, true, true);
     showNotificationBar();
     hideHelpButton();
+
+    enableCorrectAnswerForNext(correctAnswer);
 }
 window.showCorrectAnswer = showCorrectAnswer;
 
@@ -22,10 +26,4 @@ function hideHelpButton() {
             <span style="padding: 8px 16px;">Đã bỏ qua</span>
         </div>
     `;
-}
-
-function disableAnswers(answers, correctAnswer) {
-    answers.forEach(answer => {
-        answer.classList.add(answer === correctAnswer ? 'is-correct' : 'is-disabled');
-    });
 }

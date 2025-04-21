@@ -60,6 +60,10 @@
     border-color: var(--green-deep);
 }
 
+.quiz-answer.is-correct-2:hover {
+    border: .125rem dashed var(--green-deep) !important;
+}
+
 .quiz-answer.is-correct-2 {
     border-style: dashed;
 }

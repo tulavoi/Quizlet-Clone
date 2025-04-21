@@ -82,6 +82,7 @@
     justify-content: end;
     align-items: center;
     gap: 1rem;
+    height: 2.5rem;
 }
 
 .quiz-card-help i {

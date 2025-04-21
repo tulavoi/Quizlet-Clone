@@ -1,4 +1,6 @@
-﻿
+﻿import { enableCorrectAnswerForNext } from './answerHandler.js';
+import { correctMessages, incorrectMessages, getMessage } from './messages.js';
+
 // Cập nhật giao diện câu hỏi khi user chọn đúng đáp án
 export function updateQuizUI(isCorrect, selectedAnswer) {
     const answers = document.querySelectorAll('.quiz-answer');
@@ -6,14 +8,16 @@ export function updateQuizUI(isCorrect, selectedAnswer) {
     // Tìm đáp án đúng nếu như đã chọn đáp án sai
     let correctAnswer = isCorrect ? null : findCorrectAnswer(answers);
 
-    // Vô hiệu hóa các đáp án và help btn, trừ đáp án đúng
-    disableAnswers(answers, selectedAnswer, isCorrect);
+    // Vô hiệu hóa các đáp án khác và đánh dấu đáp án đã chọn
+    markAnswers(answers, selectedAnswer, isCorrect);
     disableHelpButon();
 
     // Nếu chọn sai, highlight đáp án đúng
     if (!isCorrect && correctAnswer) highlightCorrectAnswer(correctAnswer);
 
     updateQuizTitle(isCorrect);
+
+    enableCorrectAnswerForNext(correctAnswer);
 }
 
 function highlightCorrectAnswer(correctAnswer) {
@@ -21,27 +25,27 @@ function highlightCorrectAnswer(correctAnswer) {
     correctAnswer.classList.add('is-correct-2');
 }
 
+// Cập nhật tiêu đề của quiz theo kết quả
 function updateQuizTitle(isCorrect) {
-    // Cập nhật tiêu đề và đổi màu chữ dựa vào câu hỏi đúng hay sai
     const quizCardTitle = document.querySelector('.quiz-answer-section .quiz-card-title span');
     if (quizCardTitle) {
-        quizCardTitle.textContent = isCorrect ? "Xuất sắc!" : "Đừng lo, bạn vẫn đang học mà!";
+        quizCardTitle.textContent = isCorrect ? getMessage(correctMessages) : getMessage(incorrectMessages);
         quizCardTitle.style.color = isCorrect ? "var(--green-deep)" : "var(--orange-deep)";
     }
 }
 
 function disableHelpButon() {
     const helpBtn = document.querySelector('.quiz-help-button');
-    const btnReport = document.querySelector('.btn-report');
     helpBtn?.classList.add('is-disabled');
-    btnReport?.classList.add('is-disabled');
 }
 
-export function disableAnswers(answers, selectedAnswer, isCorrect = false) {
+export function markAnswers(answers, selectedAnswer, isCorrect = false, skipMarking = false) {
     answers.forEach(answer => {
         if (answer === selectedAnswer) {
-            answer.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+            // Chỉ thêm class nếu không bỏ qua việc đánh dấu đúng/sai
+            if (!skipMarking) answer.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
         } else {
+            // Vô hiệu hóa các đáp án còn lại
             answer.classList.add('is-disabled');
         }
     });

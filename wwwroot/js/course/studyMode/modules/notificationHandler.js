@@ -17,9 +17,8 @@ export function showNotificationBar() {
 // Xử lý khi bấm phím bất kỳ
 function handleKeyContinue(event) {
     // Nếu nhấn Alt, Shift hoặc Ctrl thì bỏ qua
-    const disallowKeys = ['Alt', 'Shift', 'Ctrl'];
+    const disallowKeys = ['Alt', 'Shift', 'Control'];
     if (disallowKeys.includes(event.key)) return;
-
     handleContinue();
 }
 
@@ -35,7 +34,8 @@ function handleContinue() {
 }
 
 // Ẩn thông báo tiếp tục
-function hideNotificationBar() {
+export function hideNotificationBar() {
     const notification = document.querySelector('.notification-bar-container');
     notification.classList.add('d-none');
+    notification.classList.remove('show');
 }
