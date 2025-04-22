@@ -249,7 +249,7 @@
 }
 
 .terms-list {
-    background: #f6f7fb;
+    background: var(--bg-color-grey);
     border-radius: 1rem;
     display: flex;
     flex-direction: column;

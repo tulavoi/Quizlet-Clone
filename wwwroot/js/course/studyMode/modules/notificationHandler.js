@@ -16,9 +16,9 @@ export function showNotificationBar() {
 
 // Xử lý khi bấm phím bất kỳ
 function handleKeyContinue(event) {
-    // Nếu nhấn Alt, Shift hoặc Ctrl thì bỏ qua
-    const disallowKeys = ['Alt', 'Shift', 'Control'];
-    if (disallowKeys.includes(event.key)) return;
+    // Nếu nhấn kèm phím Alt, Shift, Ctrl hoặc Meta(command, window) thì bỏ qua
+    if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return;
+
     handleContinue();
 }
 
