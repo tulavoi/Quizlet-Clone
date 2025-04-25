@@ -73,13 +73,78 @@
 	color: var(--dark-grey-color);
 }
 
-.t1r06iym {
+.section-title {
 	font-weight: 600;
 	font-size: 1rem;
 	color: var(--dark-grey-color);
 	margin: 1.5rem 0;
 }
 
-.t1d9jfsa{
+.flashcard-list{
 	padding-bottom: 4rem;
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+}
+
+.flashcard-item {
+	padding: 1rem 1.5rem;
+	width: 100%;
+	border: .125rem solid var(--btn-secondary-hover-color);
+	border-radius: .5rem;
+}
+
+.flashcard-content{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	gap: 1.5rem;
+}
+
+.t1xa5rl1 {
+	align-items: center;
+	display: flex;
+	width: 100%;
+	font-weight: 400;
+	font-size: .875rem;
+}
+
+.term-label {
+	width: 33%;
+	border-right: .0625rem solid var(--btn-secondary-hover-color);
+	letter-spacing: normal;
+	display: flex;
+	align-items: center;
+	padding-right: 1.5rem;
+	margin-right: 1.5rem;
+	height: 100%;
+}
+
+.definition-label {
+	width: 67%;
+	letter-spacing: normal;
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.flashcard-actions{
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+
+.flashcard-actions button{
+	border: none;
+	border-radius: 50%;
+	background: none;
+	font-size: .75rem;
+	padding: .25rem;
+    width: 2rem;
+    height: 2rem;
+	color: var(--dark-grey-color);
+}
+
+.flashcard-actions button:hover{
+	background: var(--btn-secondary-hover-color);
 }

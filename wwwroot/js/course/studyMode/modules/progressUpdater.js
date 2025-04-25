@@ -1,10 +1,13 @@
 ﻿
-let steps = 0;
-let questionsPerStep = 0;
+import { questions } from './questions.js';
+
+export let steps = 0;
+export let questionsPerStep = 0;
+export let totalQuestions = questions.length;
 
 // Tạo và hiển thị các steps dựa vào tổng số câu hỏi
 export function generateProgressStep() {
-    const totalQuestions = parseInt(document.querySelector('.total-pill span').textContent, 10);
+    document.querySelector('.total-pill span').textContent = totalQuestions;
 
     const result = getStepSize(totalQuestions);
     if (!result) return;
@@ -81,36 +84,36 @@ function isBetterPlan(bestPlan, currPlan) {
     );
 }
 
-export function updateProgressBar() {
-    const current = incrementBadgeNumber();
-    const percentage = calculatePercentage(current);
+export function updateProgressBar(progress) {
+    const current = incrementBadgeNumber(progress);
+    const percentage = calculatePercentage(current, questionsPerStep);
 
-    updateProgressStepColor(percentage);
+    updateProgressStepColor(percentage, progress);
     
-    updateBagdePosition(percentage);
+    updateBagdePosition(percentage, progress);
 }
 
 // Cập nhật vị trí của badge
-function updateBagdePosition(percentage) {
-    const progressIndicator = document.querySelector('.progress-indicator');
+export function updateBagdePosition(percentage, progress) {
+    const progressIndicator = progress.querySelector('.progress-indicator');
     progressIndicator.style.setProperty('--progress-indicator-0', `${percentage}%`);
     progressIndicator.style.setProperty('--progress-indicator-1', `translateX(calc(-1% * ${percentage}))`);
 }
 
 // Cập nhật màu progress-step
-function updateProgressStepColor(percentage) {
-    const progressStep = document.querySelectorAll('.progress-step')[0];
+export function updateProgressStepColor(percentage, progress) {
+    const progressStep = progress.querySelectorAll('.progress-step')[0];
     progressStep.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
 }
 
 // Tăng số trên badge
-function incrementBadgeNumber() {
-    const progressNumber = document.querySelector('.progress-number');
+export function incrementBadgeNumber(progress) {
+    const progressNumber = progress.querySelector('.progress-number');
     let current = parseInt(progressNumber.textContent, 10) + 1;
     progressNumber.textContent = current;
     return current;
 }
 
-function calculatePercentage(current) {
-    return Math.min((current / questionsPerStep) * 100, 100)
+export function calculatePercentage(current, numOfQuestions) {
+    return Math.min((current / numOfQuestions) * 100, 100)
 }

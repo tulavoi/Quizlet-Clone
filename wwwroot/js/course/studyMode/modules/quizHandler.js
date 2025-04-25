@@ -1,40 +1,16 @@
 ﻿
-const questions = [
-    {
-        question: "được gửi đến, được chuyển đến",
-        answers: [
-            { text: "ちょきんします (貯金します)", isCorrect: false },
-            { text: "やせます (痩せます)", isCorrect: false },
-            { text: "ふとります (太ります)", isCorrect: false },
-            { text: "とどきます (届きます)", isCorrect: true },
-        ]
-    },
-
-    {
-        question: "rắc rối, khó xử, có vấn đề",
-        answers: [
-            { text: "付けます（つけます", isCorrect: false },
-            { text: "咲きます（さきます)", isCorrect: false },
-            { text: "困ります（こまります)", isCorrect: true },
-            { text: "拾います（ひろいます)", isCorrect: false },
-        ]
-    },
-
-    {
-        question: "nở (hoa)",
-        answers: [
-            { text: "付けます（つけます", isCorrect: false },
-            { text: "咲きます（さきます)", isCorrect: true },
-            { text: "困ります（こまります)", isCorrect: false },
-            { text: "拾います（ひろいます)", isCorrect: false },
-        ]
-    }
-];
+import { questions, getQuestionsForStep } from './questions.js';
+import { showNotificationBar } from './notificationHandler.js';
+import { displayProgressOverview, updateProgressbar } from './progressOverview.js';
 
 let currQuestionIndex = 0;
+let questionsInStep = [];
+let stepIndex = 0;
 
 export function showQuestion() {
-    let currQuestion = questions[currQuestionIndex];
+    questionsInStep = getQuestionsForStep(stepIndex);
+
+    let currQuestion = questionsInStep[currQuestionIndex];
     let quizContainer = document.querySelector('.quiz-container');
 
     quizContainer.innerHTML = "";
@@ -100,7 +76,11 @@ function createQuizCard(currQuestion) {
 // Thực hiện chuyển sang câu hỏi tiếp theo
 export function nextQuestion() {
     currQuestionIndex += 1;
-
-    if (currQuestionIndex > questions.length) return;
-    showQuestion();
+    if (currQuestionIndex > questionsInStep.length - 1) {
+        const correctAnswer = parseInt(document.querySelector('#learnProgress .progress-number').textContent, 10);
+        console.log(correctAnswer);
+        displayProgressOverview();
+        updateProgressbar(correctAnswer);
+        showNotificationBar();
+    } else showQuestion();
 }

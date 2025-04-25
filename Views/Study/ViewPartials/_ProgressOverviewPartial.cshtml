@@ -1,5 +1,5 @@
 ﻿
-<div class="progress-overview-container">
+<div class="progress-overview-container d-none">
 	<div class="summary-content">
 		<div class="summary-content-header">
 			<div class="motivational-message">
@@ -13,7 +13,7 @@
 				</div>
 
 				@* Progress bar *@
-				<div class="progress-wrapper">
+				<div class="progress-wrapper" id="progressOverview">
 					<div class="progress-bar-container">
 						<div class="progress-bar-track">
 							<div class="progress-step" style="background: var(--border-button-color);">
@@ -28,7 +28,7 @@
 
 					<!-- Hiển thị số lượng câu hỏi -->
 					<div class="total-pill progress-pill">
-						<span>14</span>
+						<span>0</span>
 					</div>
 				</div>
 
@@ -44,13 +44,36 @@
 			</div>
 		</div>
 
-		<div class="">
-			<div class="t1r06iym">
+		<div class="flashcard-section">
+			<div class="section-title">
 				<span>Thuật ngữ đã học phần này</span>
 			</div>
 
-			<div class="t1d9jfsa">
-				<div>asduhsuashd</div>
+			<div class="flashcard-list">
+				@for(int i = 1; i <= 7; i++){
+					<div class="flashcard-item">
+						<div class="flashcard-content">
+							<div class="t1xa5rl1">
+								<div class="term-label">Term</div>
+								<div class="definition-label">Definition</div>
+							</div>
+
+							<div class="flashcard-actions">
+								<button class="starred-btn" title="Gắn sao"
+										data-is-starred="false"
+										data-flashcard-id="0"
+										onclick="starredFlashcard(this)">
+									<i class="fa-solid fa-star"></i>
+								</button>
+
+								<button class="audio-btn" title="Phát âm"
+										onclick="textToSpeech('Term', 'EN')">
+									<i class="fa-solid fa-volume-high text-secondary"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				}
 			</div>
 		</div>
 	</div>

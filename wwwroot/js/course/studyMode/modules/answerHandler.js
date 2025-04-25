@@ -3,6 +3,8 @@ import { updateQuizUI } from './uiUpdater.js';
 import { showNotificationBar, hideNotificationBar } from './notificationHandler.js';
 import { nextQuestion } from './quizHandler.js';
 
+let learnProgress = document.querySelector('#learnProgress');
+
 // Xử lý khi user chọn đáp án đúng
 export function checkAnswer(selectedAnswer) {
     if (!selectedAnswer) return;
@@ -12,7 +14,7 @@ export function checkAnswer(selectedAnswer) {
 
     // Nếu chọn đúng đáp án thì cập nhật progress bar
     if (isCorrect) {
-        updateProgressBar();
+        updateProgressBar(learnProgress);
         setTimeout(() => {
             nextQuestion();
         }, 1000);

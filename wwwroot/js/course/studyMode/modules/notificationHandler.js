@@ -1,4 +1,5 @@
 ﻿import { nextQuestion } from './quizHandler.js';
+import { hideProgressOverview } from './progressOverview.js';
 
 // Hiển thị thanh thông báo tiếp tục
 export function showNotificationBar() {
@@ -38,4 +39,6 @@ export function hideNotificationBar() {
     const notification = document.querySelector('.notification-bar-container');
     notification.classList.add('d-none');
     notification.classList.remove('show');
+
+    hideProgressOverview();
 }
