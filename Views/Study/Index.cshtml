@@ -15,94 +15,23 @@
 	<div class="study-mode-wrapper gh5634">
 		<div class="study-mode-header">
 			<div class="study-mode-controls">
-				<div class="study-mode-toolbar">
-					@* Button lựa chọn chế độ *@
-					<div>
-						<div class="btn-options btn-studyModes">
-							<div class="selected">
-								<i class="fa-solid fa-book"></i>
-								<span>Học</span>
-								<i class="fa-solid fa-angle-down"></i>
-							</div>
-							<div class="options">
-								<a class="option">
-									<i class="fa-regular fa-copy text-primary" style="transform: rotate(-90deg);"></i>
-									<span>Thẻ ghi nhớ</span>
-								</a>
-
-								<a class="option">
-									<i class="fa-regular fa-check-circle text-primary"></i>
-									<span>Kiểm tra</span>
-								</a>
-
-								<a class="option">
-									<i class="fa-solid fa-puzzle-piece text-primary"></i>
-									<span>Ghép thẻ</span>
-								</a>
-
-								<hr class="dropdown-divider">
-								<a class="option" asp-controller="Home" asp-action="Index">
-									<span>Trang chủ</span>
-								</a>
-
-								<a class="option">
-									<span>Tìm kiếm</span>
-								</a>
-							</div>
-						</div>
-					</div>
-
-					@* Tiêu đề học phần *@
-					<div>
-						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
-						   class="btn-title">
-							@Model.Title
-						</a>
-					</div>
-
-					@* Các button thao tác (tùy chọn, thoát) *@
-					<div class="action-btns">
-						<button class="btn-common" style="font-size: 1.2rem;">
-							<i class="fa-solid fa-gear"></i>
-						</button>
-
-						<a asp-controller="Course" asp-action="Details" asp-route-slug="@Model.Slug"
-						   class="btn-common" style="font-size: 1.5rem;">
-							<i class="fa-solid fa-xmark"></i>
-						</a>
-					</div>
-				</div>
+				@* Study Mode Toolbar *@
+				@await Html.PartialAsync("ViewPartials/_StudyModeToolbarPartial.cshtml", new
+				{
+					CourseTitle = Model.Title,
+					CourseSlug = Model.Slug,
+				})
 
 				@* Study Progress *@
 				@await Html.PartialAsync("ViewPartials/_StudyProgressPartial.cshtml")
 			</div>
 		</div>
 
-		@* Quiz Container*@
-		<div class="quiz-container">
-			<article class="quiz-card">
-				<div class="quiz-header">
-					<div class="quiz-card-header-top">
-						<div class="quiz-card-title">
-							<span>Định nghĩa</span>
-						</div>
-						<div class="quiz-card-icon">
-							<i class="fa-regular fa-flag"></i>
-						</div>
-					</div>
+		@* Quiz Container *@
+		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml")
 
-					<div class="quiz-definition-text">
-						<span>được gửi đến, được chuyển đến</span>
-					</div>
-				</div>
-
-				@* Multiple Choice Quiz *@
-				@await Html.PartialAsync("ViewPartials/_MultipleChoiceQuizPartial.cshtml")
-
-				@* Input Answer Quiz *@
-				@* @await Html.PartialAsync("ViewPartials/_InputAnswerQuizPartial.cshtml") *@
-			</article>
-		</div>
+		@* Progress Overview *@
+		@await Html.PartialAsync("ViewPartials/_ProgressOverviewPartial.cshtml")
 
 		@* Notification Bar *@
 		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")

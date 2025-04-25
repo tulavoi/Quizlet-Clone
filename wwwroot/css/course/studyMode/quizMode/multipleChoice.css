@@ -6,6 +6,10 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.quiz-card-answers.active{
+    display: block;
+}
+
 .quiz-card-answers .quiz-answer{
     display: flex;
     flex-direction: row;
@@ -54,6 +58,10 @@
 .quiz-answer.is-correct-2 {
     pointer-events: none;
     border-color: var(--green-deep);
+}
+
+.quiz-answer.is-correct-2:hover {
+    border: .125rem dashed var(--green-deep) !important;
 }
 
 .quiz-answer.is-correct-2 {
