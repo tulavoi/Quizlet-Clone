@@ -38,6 +38,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
 		builder.ApplyConfiguration(new UserCourseProgressConfiguration());
 
 		builder.ApplyConfiguration(new UserFlashcardProgressConfiguration());
+
+		builder.ApplyConfiguration(new UserLearningProgressConfiguration());
     }
 
 	private void RemoveAspNetPrefix(ModelBuilder builder)
@@ -61,4 +63,5 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CoursePermission> CoursePermissions { get; set; }
     public DbSet<UserFlashcardProgress> UserFlashcardProgresses { get; set; }
     public DbSet<UserCourseProgress> UserCourseProgresses { get; set; }
+    public DbSet<UserLearningProgress> UserLearningProgresses { get; set; }
 }

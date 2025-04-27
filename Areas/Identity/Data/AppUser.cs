@@ -12,7 +12,8 @@ namespace QuizletClone.Areas.Identity.Data;
 public class AppUser : IdentityUser
 {
     public string AvatarFileName { get; set; } = string.Empty;
-    public List<Course> Courses { get; set; } = new List<Course>();
-    public List<Folder> Folders { get; set; } = new List<Folder>();
+    public List<Course> Courses { get; set; } = new();
+    public List<Folder> Folders { get; set; } = new();
+    public List<UserLearningProgress> UserLearningProgresses { get; set; } = new();
 }
 

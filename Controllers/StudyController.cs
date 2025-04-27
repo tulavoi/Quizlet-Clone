@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
+using System.Net.Quic;
 
 namespace QuizletClone.Controllers
 {
@@ -12,9 +13,12 @@ namespace QuizletClone.Controllers
     public class StudyController : BaseController
     {
 		private readonly ICourseRepository _courseRepo;
-        public StudyController(ICourseRepository courseRepo)
+		private readonly IQuizService _quizService;
+
+        public StudyController(ICourseRepository courseRepo, IQuizService quizService)
         {
             _courseRepo = courseRepo;
+            _quizService = quizService;
         }
 
         [HttpGet("{slug}")]
@@ -25,7 +29,11 @@ namespace QuizletClone.Controllers
             var course = await _courseRepo.GetByIdAsync(courseId);
             if (course == null) return NotFound();
 
-            return View(course.ToStudyModeDTO());
+            // Tạo Quiz
+            var questions = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id);
+            if (questions == null) return NotFound();
+
+			return View(course.ToStudyModeDTO());
         }
     }
 }

@@ -20,8 +20,8 @@ namespace QuizletClone.Models
 		public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }
 
-        public List<Flashcard> Flashcards { get; set; } = new List<Flashcard>();
-        public List<CourseFolder> CourseFolders { get; set; } = new List<CourseFolder>();
-        public CoursePermission CoursePermission { get; set; } = new CoursePermission();
+        public List<Flashcard> Flashcards { get; set; } = new();
+        public List<CourseFolder> CourseFolders { get; set; } = new();
+        public CoursePermission CoursePermission { get; set; } = new();
     }
 }
