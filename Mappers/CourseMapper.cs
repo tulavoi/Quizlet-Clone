@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Flashcard;
+using QuizletClone.DTOs.LearningMode;
 using QuizletClone.Extensions;
 using QuizletClone.Models;
 
@@ -78,14 +79,14 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static StudyModeDTO ToStudyModeDTO(this Course course)
+        public static LearningModeDTO ToLearningModeDTO(this Course course, LearningQuestionDTO questionDTO)
         {
-            return new StudyModeDTO
+            return new LearningModeDTO
             {
                 Id = course.Id,
                 Title = course.Title,
                 Slug = course.Slug,
-                Flashcards = course.Flashcards.Select(x => x.ToFlashcardDTO()).ToList()
+                LearningQuestion = questionDTO
             };
         }
 

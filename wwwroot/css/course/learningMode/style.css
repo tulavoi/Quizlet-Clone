@@ -2,7 +2,7 @@
 @import url('../../shared/btn-common.css');
 @import url('../../shared/btn-primary.css');
 @import url('./buttonStudyModes.css');
-@import url('./studyProgress.css');
+@import url('./learningProgress.css');
 @import url('./quizzes.css');
 @import url('./notificationBar.css');
 @import url('./progressOverview.css');
@@ -11,13 +11,13 @@
     padding: 0;
 }
 
-.study-mode-container {
+.learning-mode-container {
     display: block;
     color: var(--black-color);
     line-height: 1.625;
 }
 
-.study-mode-wrapper {
+.learning-mode-wrapper {
     background-color: white;
     min-height: 100vh;
 }
@@ -27,7 +27,7 @@
     transition: max-height .2s ease-in;
 }
 
-.study-mode-header {
+.learning-mode-header {
     display: block;
     position: sticky;
     top: 0;

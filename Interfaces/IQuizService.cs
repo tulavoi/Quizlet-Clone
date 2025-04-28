@@ -4,6 +4,6 @@ namespace QuizletClone.Interfaces
 {
 	public interface IQuizService
 	{
-		Task<List<LearningQuestionDTO>> GenerateQuestionDTOsAsync(string userId, int courseId);
+		Task<LearningQuestionDTO> GenerateQuestionDTOsAsync(string userId, int courseId);
 	}
 }

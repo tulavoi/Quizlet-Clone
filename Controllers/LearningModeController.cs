@@ -9,13 +9,13 @@ using System.Net.Quic;
 namespace QuizletClone.Controllers
 {
     [Authorize]
-    [Route("study")]
-    public class StudyController : BaseController
+    [Route("learn")]
+    public class LearningModeController : BaseController
     {
 		private readonly ICourseRepository _courseRepo;
 		private readonly IQuizService _quizService;
 
-        public StudyController(ICourseRepository courseRepo, IQuizService quizService)
+        public LearningModeController(ICourseRepository courseRepo, IQuizService quizService)
         {
             _courseRepo = courseRepo;
             _quizService = quizService;
@@ -30,10 +30,10 @@ namespace QuizletClone.Controllers
             if (course == null) return NotFound();
 
             // Tạo Quiz
-            var questions = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id);
-            if (questions == null) return NotFound();
+            var question = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id);
+            if (question == null) return NotFound();
 
-			return View(course.ToStudyModeDTO());
+			return View(course.ToLearningModeDTO(question));
         }
     }
 }

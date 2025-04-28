@@ -1,10 +1,14 @@
-﻿
+﻿@using QuizletClone.ViewModels.LearningMode
+@model LearningProgressViewModel
+@{
+	var totalQuestions = Model.MultipleChoiceQuestions.Count + Model.EssayQuestions.Count;
+}
 
-<div class="study-progress-container">
+<div class="learning-progress-container">
 	<div class="progress-wrapper">
 		<div class="progress-bar-container">
 			<div class="progress-bar-track" id="learnProgress">
-				@* <div class="progress-step" style="background: var(--border-button-color);">
+				<div class="progress-step" style="background: var(--border-button-color);">
 					<div class="progress-indicator">
 						<div class="progress-badge">
 							<p class="progress-number">0</p>
@@ -12,13 +16,13 @@
 					</div>
 				</div>
 				<div class="progress-step" style="background: var(--border-button-color);"></div>
-				<div class="progress-step" style="background: var(--border-button-color);"></div> *@
+				<div class="progress-step" style="background: var(--border-button-color);"></div>
 			</div>
 		</div>
 
 		<!-- Hiển thị số lượng câu hỏi -->
 		<div class="total-pill progress-pill">
-			<span>14</span>
+			<span>@totalQuestions</span>
 		</div>
 	</div>
 </div>
