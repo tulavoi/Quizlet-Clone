@@ -24,16 +24,18 @@
 				})
 
 				@* Learning Progress *@
-				@await Html.PartialAsync("ViewPartials/_LearningProgressPartial.cshtml", new LearningProgressViewModel
+				@await Html.PartialAsync("ViewPartials/_LearningProgressPartial.cshtml", new
 				{
-					MultipleChoiceQuestions = Model.LearningQuestion.MultipleChoiceQuestions,
-					EssayQuestions = Model.LearningQuestion.EssayQuestions
+					TotalQuestions = Model.LearningQuestion.AllQuestions.Count
 				})
 			</div>
 		</div>
 
 		@* Quiz Container *@
-		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml")
+		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml", new QuizContainerViewModel
+		{
+			AllQuestions = Model.LearningQuestion.AllQuestions,
+		})
 
 		@* Progress Overview *@
 		@await Html.PartialAsync("ViewPartials/_ProgressOverviewPartial.cshtml")

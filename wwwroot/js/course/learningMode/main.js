@@ -1,14 +1,22 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
-import { generateProgressStep } from './modules/progressUpdater.js';
-generateProgressStep();
+import { renderLearningProgess } from './modules2/progressUpdater.js';
+renderLearningProgess();
 
-import { } from './modules/answerHandler.js';
-import { } from './modules/helpButtonHandler.js';
-import { } from './modules/progressOverview.js';
-//updateProgressbar(); // Chỉ gọi hàm này khi hiển thị progress overview
+import { getQuestions } from './modules2/questions.js';
+getQuestions();
 
-import { showQuestion } from './modules/quizHandler.js';
-showQuestion();
+import { renderQuiz } from './modules2/quizHandler.js';
+renderQuiz();
 
-import { } from '../detail/modules/flashcardAction.js';
+//import { generateProgressStep } from './modules/progressUpdater.js';
+//generateProgressStep();
+
+//import { } from './modules/answerHandler.js';
+//import { } from './modules/helpButtonHandler.js';
+//import { } from './modules/progressOverview.js';
+
+//import { showQuestion } from './modules/quizHandler.js';
+//showQuestion();
+
+//import { } from '../detail/modules/flashcardAction.js';

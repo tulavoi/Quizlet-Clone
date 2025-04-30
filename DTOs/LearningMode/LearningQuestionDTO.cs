@@ -2,7 +2,6 @@
 {
 	public class LearningQuestionDTO
 	{
-		public List<MultipleChoiceQuestionDTO> MultipleChoiceQuestions { get; set; } = new();
-		public List<EssayQuestionDTO> EssayQuestions { get; set; } = new();
+		public List<QuestionDTO> AllQuestions { get; set; } = new();
 	}
 }

@@ -1,9 +1,8 @@
 ﻿namespace QuizletClone.DTOs.LearningMode
 {
-	public class MultipleChoiceQuestionDTO
+	public class MultipleChoiceQuestionDTO : QuestionDTO
 	{
-		public string Question { get; set; } = string.Empty;
-		public List<string> Answers { get; set; } = new();
+		public List<string> Options { get; set; } = new();
 		public string CorrectAnswer { get; set; } = string.Empty;
 	}
 }

@@ -60,7 +60,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFolderRepository, FolderRepository>();
 builder.Services.AddScoped<ICourseFolderRepository, CourseFolderRepository>();
 builder.Services.AddScoped<IUserLearningProgressRepository, UserLearningProgressRepository>();
-builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 
 // Serilog
 builder.Host.UseSerilog((context, config) =>
