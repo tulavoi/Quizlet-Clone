@@ -14,44 +14,12 @@
 				</div>
 
 				<div class="quiz-definition-text">
-					<span>Question</span> <!-- Thay bằng nội dung câu hỏi động -->
+					<span>Question</span>
 				</div>
 			</div>
 
-			<div class="quiz-answer-section multiple-choice-quiz">
-				<div class="quiz-card-title">
-					<span>Chọn thuật ngữ đúng</span>
-				</div>
-
-				<div class="quiz-card-answers">
-					<!-- Chèn đáp án tại đây, ví dụ: -->
-					<div class="quiz-answer" data-correct="true" onclick="checkAnswer(this)">
-						<div class="quiz-answer-no">1</div>
-						<div class="quiz-answer-text">Đáp án A</div>
-					</div>
-
-					<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
-						<div class="quiz-answer-no">2</div>
-						<div class="quiz-answer-text">Đáp án B</div>
-					</div>
-
-					<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
-						<div class="quiz-answer-no">3</div>
-						<div class="quiz-answer-text">Đáp án C</div>
-					</div>
-
-					<div class="quiz-answer" data-correct="false" onclick="checkAnswer(this)">
-						<div class="quiz-answer-no">4</div>
-						<div class="quiz-answer-text">Đáp án D</div>
-					</div>
-					<!-- Tiếp tục với các đáp án khác -->
-				</div>
-
-				<div class="quiz-card-help">
-					<i class="fa-regular fa-flag btn-report"></i>
-					<button class="quiz-help-button" onclick="showCorrectAnswer()">Bạn không biết?</button>
-				</div>
-			</div>
+			@await Html.PartialAsync("./_EssayQuizPartial.cshtml")
+			@await Html.PartialAsync("./_MultipleChoiceQuizPartial.cshtml")
 		</article> *@
 	</div>
 </div>

@@ -99,7 +99,7 @@ namespace QuizletClone.Services
 		{
 			return flashcards
 				.SelectMany(fc => fc.Term ?? string.Empty)
-				.Where(c => c != '\'' && c != '(' && c != ')') // Không lấy ký tự rỗng, '(' và ')'
+				.Where(c => c != ' ' && c != '(' && c != ')') // Không lấy ký tự rỗng, '(' và ')'
 				.Distinct()
 				.OrderBy(_ => random.Next())
 				.ToList();

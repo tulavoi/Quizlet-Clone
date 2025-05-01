@@ -1,11 +1,19 @@
-﻿
-<div class="quiz-answer-section input-answer-quiz">
+﻿<div class="quiz-answer-section essay-quiz">
 	<div class="quiz-card-title">
 		<span>Đáp án của bạn</span>
 	</div>
 
+	<div class="character-bank-container">
+		@for (int i = 0; i < 50; i++)
+		{
+			<span class="character-button-wrapper">
+				<button class="character-button">あ</button>
+			</span>
+		}
+	</div>
+
 	<div class="">
-		<input type="text" class=" answer-input" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án"/>
+		<input type="text" class=" answer-input" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án" />
 	</div>
 
 	<div class="quiz-card-help">

@@ -1,0 +1,70 @@
+﻿
+.character-bank-container{
+	margin-bottom: 1rem;
+	max-height: 10rem;
+	overflow-y: auto;
+	display: block;
+}
+
+.character-button-wrapper{
+	vertical-align: top;
+	display: inline-block;
+	margin: .5rem 0 0 .5rem;
+}
+
+/* Char Button */
+.character-button-wrapper .character-button {
+	border: .125rem solid var(--border-button-color);
+	background-color: white;
+	padding: .375rem .875rem;
+	color: var(--dark-grey-color);
+	height: 2.5rem;
+    font-weight: 600;
+    font-size: .875rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 12.5rem;
+	font: inherit;
+	width: fit-content;
+	transition: all .12s cubic-bezier(.47,0,.745,.715);
+	margin: 0;
+	position: relative;
+}
+
+.character-button-wrapper .character-button:hover{
+	background-color: var(--btn-secondary-hover-color);
+}
+
+.answer-input {
+	display: block;
+	width: 100%;
+	font-weight: 600;
+	font-size: 1rem;
+	letter-spacing: normal;
+	line-height: 1.5;
+	background: var(--bg-color-grey);
+	border: .125rem solid transparent;
+	border-radius: .5rem;
+	padding: .7rem 1rem;
+}
+
+.answer-input:focus{
+	border-color: var(--light-blue-color);
+	outline: none;
+	background: white;
+}
+
+/* Quiz answer button */
+.essay-quiz .quiz-card-help{
+	justify-content: flex-end;
+}
+
+.quiz-answer-button{
+	color: white;
+	background-color: var(--blue-color);
+}
+
+.quiz-answer-button:hover{
+	background-color: var(--btn-blue-hover-color);
+}

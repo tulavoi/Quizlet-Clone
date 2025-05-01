@@ -30,7 +30,8 @@ namespace QuizletClone.Controllers
             if (course == null) return NotFound();
 
             // Tạo questions
-            var question = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id, queryObject);
+            //queryObject.QuestionType = QuestionType.Essay; // Lấy các essay question để thử nghiệm
+			var question = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id, queryObject);
             if (question == null) return NotFound();
             
 			return View(course.ToLearningModeDTO(question));
