@@ -91,7 +91,7 @@ namespace QuizletClone.Services
 				Question = flashcard.Definition!,
 				QuestionType = QuestionType.Multiple,
 				Options = answers!,
-				CorrectAnswer = flashcard.Term!
+				CorrectOption = flashcard.Term!
 			};
 		}
 

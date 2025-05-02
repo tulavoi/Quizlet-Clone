@@ -1,16 +1,16 @@
 ﻿
 /* Answers */
-.quiz-card-answers{
+.quiz-card-options{
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr 1fr;
 }
 
-.quiz-card-answers.active{
+.quiz-card-options.active{
     display: block;
 }
 
-.quiz-card-answers .quiz-answer{
+.quiz-card-options .quiz-option{
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -22,16 +22,16 @@
     cursor: pointer;
 }
 
-.quiz-card-answers .quiz-answer:hover{
+.quiz-card-options .quiz-option:hover{
     border: .125rem solid var(--dark-grey-color);
 }
 
-.quiz-answer-text{
+.quiz-option-text{
     font-weight: 400;
     font-size: 1.2rem;
 }
 
-.quiz-answer-no {
+.quiz-option-no {
     border-radius: 50%;
     background: var(--btn-secondary-hover-color);
     width: 1.5rem;
@@ -54,31 +54,38 @@
 }
 
 /* Class is-correct được gắn vào án đúng sau khi chọn */
-.quiz-answer.is-correct,
-.quiz-answer.is-correct-2 {
+.quiz-option.is-correct,
+.quiz-option.is-correct-2 {
     pointer-events: none;
     border-color: var(--green-deep);
 }
 
-.quiz-answer.is-correct-2:hover {
+.quiz-option.clickable {
+    cursor: pointer;
+    pointer-events: auto;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.quiz-option.is-correct-2:hover {
     border: .125rem dashed var(--green-deep) !important;
 }
 
-.quiz-answer.is-correct-2 {
+.quiz-option.is-correct-2 {
     border-style: dashed;
 }
 
 /* Ẩn số thứ tự khi đúng */
-.is-correct .quiz-answer-no,
-.is-correct-2 .quiz-answer-no {
+.is-correct .quiz-option-no,
+.is-correct-2 .quiz-option-no {
     position: relative;
     color: transparent;
     background: transparent;
 }
 
 /* Hiển thị icon check */
-.is-correct .quiz-answer-no::before,
-.is-correct-2 .quiz-answer-no::before {
+.is-correct .quiz-option-no::before,
+.is-correct-2 .quiz-option-no::before {
     content: '\f00c'; /* Font Awesome check icon */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
@@ -98,18 +105,18 @@
 }
 
 /* Class is-incorrect được gắn vào đáp án sai mà user đã chọn */
-.quiz-answer.is-incorrect {
+.quiz-option.is-incorrect {
     pointer-events: none;
     border-color: var(--light-orange-color);
 }
 
-.is-incorrect .quiz-answer-no {
+.is-incorrect .quiz-option-no {
     position: relative;
     color: transparent;
     background: transparent;
 }
 
-.is-incorrect .quiz-answer-no::before {
+.is-incorrect .quiz-option-no::before {
     content: '\f00d'; /* Unicode cho icon fa-xmark */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
