@@ -1,11 +1,9 @@
-﻿import { getQuestions } from '../questions.js';
+﻿import { getCurrentQuestion, nextQuestion } from './quizState.js';
 import { renderEssayQuestion } from './renderEssay.js';
 import { renderMultipleChoiceQuestion } from './renderMultiple.js';
 import { attachCharacterButtonsEvent } from './essayEvents.js';
 import { } from './multipleEvents.js';
-
-const questions = getQuestions();
-let currQuestionIndex = 0;
+import { } from './quizHelp.js';
 
 const QUESTION_TYPE = {
     MULTIPLE: "Multiple",
@@ -13,13 +11,30 @@ const QUESTION_TYPE = {
 };
 
 export function renderQuiz() {
-    const question = questions[currQuestionIndex];
-    const quizWrapper = document.querySelector('.quiz-wrapper');
+    const question = getCurrentQuestion();
+    let quizContainer = document.querySelector('.quiz-container');
+    quizContainer.innerHTML = "";
 
-    if (question.QuestionType === QUESTION_TYPE.ESSAY) {
-        quizWrapper.innerHTML = renderEssayQuestion(question);
+    // Tạo wrapper có animation
+    const quizWrapper = document.createElement('div');
+    quizWrapper.classList.add('quiz-wrapper', 'slide-in-right');
+
+    // Gán nội dung câu hỏi
+    const isEssay = question.QuestionType === QUESTION_TYPE.ESSAY;
+    let content = isEssay
+            ? renderEssayQuestion(question)
+            : renderMultipleChoiceQuestion(question);
+
+    quizWrapper.innerHTML = content;
+    quizContainer.appendChild(quizWrapper);
+
+    // Gắn event nếu là câu hỏi tự luận
+    if (isEssay) {
         attachCharacterButtonsEvent();
-    } else {
-        quizWrapper.innerHTML = renderMultipleChoiceQuestion(question);
     }
+}
+
+export function nextQuiz() {
+    nextQuestion();
+    renderQuiz();
 }

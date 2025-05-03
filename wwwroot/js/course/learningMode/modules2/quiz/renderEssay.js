@@ -12,7 +12,7 @@ export function renderEssayQuestion(question) {
         `;
     }).join("");
 
-    let essayQuiz = `
+    return `
             <article class="quiz-card">
                 ${headerHtml}
                 <div class="quiz-section essay-quiz">
@@ -29,11 +29,10 @@ export function renderEssayQuestion(question) {
 				    </div>
 
 				    <div class="quiz-card-help">
-					    <button class="quiz-help-button">Bạn không biết?</button>
+					    <button class="quiz-help-button" onclick="helpButtonClickEvent()">Bạn không biết?</button>
 					    <button class="quiz-answer-button">Trả lời</button>
 				    </div>
 			    </div>
             </article>
         `;
-    return essayQuiz;
 }
