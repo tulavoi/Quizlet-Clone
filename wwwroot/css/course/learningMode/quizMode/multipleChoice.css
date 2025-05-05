@@ -10,7 +10,7 @@
     display: block;
 }
 
-.quiz-card-options .quiz-option{
+.quiz-option{
     display: flex;
     flex-direction: row;
     gap: 1rem;

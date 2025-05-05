@@ -98,7 +98,7 @@ namespace QuizletClone.Services
 		private List<char> CreateCharacterBank(List<Flashcard> flashcards, Random random)
 		{
 			return flashcards
-				.SelectMany(fc => fc.Term ?? string.Empty)
+				.SelectMany(fc => fc.Term!.ToLower() ?? string.Empty)
 				.Where(c => c != ' ' && c != '(' && c != ')') // Không lấy ký tự rỗng, '(' và ')'
 				.Distinct()
 				.OrderBy(_ => random.Next())

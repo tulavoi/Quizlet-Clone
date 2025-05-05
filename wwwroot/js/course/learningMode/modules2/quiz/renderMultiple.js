@@ -5,7 +5,7 @@ export function renderMultipleChoiceQuestion(question) {
     const optionsHtml = question.Options.map((option, index) => {
         const isCorrect = question.CorrectOption === option;
         return `
-            <div class="quiz-option" data-correct="${isCorrect}" onclick="checkAnswer(this)">
+            <div class="quiz-option" data-correct="${isCorrect}" onclick="checkOption(this)">
                 <div class="quiz-option-no">${index + 1}</div>
                 <div class="quiz-option-text">${option}</div>
             </div>

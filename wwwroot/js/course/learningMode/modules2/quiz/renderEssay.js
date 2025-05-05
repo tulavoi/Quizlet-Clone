@@ -21,16 +21,20 @@ export function renderEssayQuestion(question) {
 				    </div>
 
                     <div class="character-bank-container">
-				        ${characterButtons}
-                    </div>
+						${characterButtons}
+					</div>
 
-				    <div class="">
-					    <input type="text" class="answer-input" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án" />
-				    </div>
+					<div class="">
+						<input type="text" class="answer-input" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án" />
+					</div>
 
 				    <div class="quiz-card-help">
+					    <div class="suggestion-container">
+							<button class="suggestion-button" onclick="displaySuggestion('${question.CorrectAnswer}')">Hiển thị gợi ý</button>
+						</div>
+
 					    <button class="quiz-help-button" onclick="helpButtonClickEvent()">Bạn không biết?</button>
-					    <button class="quiz-answer-button">Trả lời</button>
+					    <button class="quiz-answer-button" onclick="checkAnswer('${question.CorrectAnswer}')">Trả lời</button>
 				    </div>
 			    </div>
             </article>

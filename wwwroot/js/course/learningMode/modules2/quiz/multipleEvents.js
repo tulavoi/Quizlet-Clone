@@ -4,7 +4,7 @@ import { disableHelpButton } from './quizHelp.js';
 import { setQuizTitleWithResult } from './updateQuizText.js';
 import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
 
-export function checkAnswer(selectedOption) {
+export function checkOption(selectedOption) {
     const isCorrect = selectedOption.dataset.correct === 'true';
     const options = document.querySelectorAll('.quiz-option');
 
@@ -21,7 +21,7 @@ export function checkAnswer(selectedOption) {
         showNotificationBar();
     }
 }
-window.checkAnswer = checkAnswer;
+window.checkOption = checkOption;
 
 function updateOptionState(selectedOption, options) {
     options.forEach(option => {

@@ -68,3 +68,41 @@
 .quiz-answer-button:hover{
 	background-color: var(--btn-blue-hover-color);
 }
+
+.suggestion-container {
+	margin-right: auto;
+}
+
+.suggestion-button {
+	border: .125rem solid var(--border-button-color) !important;
+	background-color: white;
+	color: var(--dark-grey-color);
+}
+
+.suggestion-button:hover{
+	background-color: var(--btn-secondary-hover-color);
+}
+
+.sugesstion-block {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+}
+
+.sugesstion-block .suggestion-title{
+	font-weight: 600;
+    font-size: .75rem;
+	color: #939bb4;
+}
+
+.sugesstion-block .suggestion-text{
+	font-weight: 400;
+    font-size: 1rem;
+	color: var(--dark-grey-color);
+}
+
+.answer-area {
+	display: flex;
+	flex-direction: column;
+	gap: .75rem;
+}
