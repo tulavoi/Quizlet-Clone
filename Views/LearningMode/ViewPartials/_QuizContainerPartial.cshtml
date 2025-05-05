@@ -1,0 +1,36 @@
+﻿@using QuizletClone.ViewModels.LearningMode
+@using Newtonsoft.Json
+
+@model QuizContainerViewModel
+
+<div class="quiz-container">
+	@*<div class="quiz-wrapper">
+		 <article class="quiz-card">
+			<div class="quiz-header">
+				<div class="quiz-card-header-top">
+					<div class="quiz-card-title">
+						<span>Định nghĩa</span>
+					</div>
+				</div>
+
+				<div class="quiz-definition-text">
+					<span>Question</span>
+				</div>
+			</div>
+
+			@await Html.PartialAsync("./_EssayQuizPartial.cshtml")
+			@await Html.PartialAsync("./_MultipleChoiceQuizPartial.cshtml")
+		</article> 
+	</div>*@
+</div>
+
+<script>
+	// Serialize danh sách AllQuestions sang JSON để dùng bên JavaScript.
+	// Cấu hình JsonSerializerSettings để:
+	// - TypeNameHandling.Auto: thêm thông tin kiểu thực tế (giúp phân biệt các lớp kế thừa như MultipleChoiceQuestionDTO)
+	// - StringEnumConverter: chuyển enum (QuestionType) thành chuỗi thay vì số (e.g., "Multiple" thay vì 1)
+	window.allQuestions = @Html.Raw(JsonConvert.SerializeObject(Model.AllQuestions, new JsonSerializerSettings {
+		TypeNameHandling = TypeNameHandling.Auto,
+		Converters = new List<JsonConverter> { new Newtonsoft.Json.Converters.StringEnumConverter() }
+	}))
+</script>

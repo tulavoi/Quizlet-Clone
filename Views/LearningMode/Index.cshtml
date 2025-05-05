@@ -1,0 +1,48 @@
+﻿@using QuizletClone.DTOs.Course
+@using QuizletClone.ViewModels.LearningMode
+@model LearningModeDTO
+@{
+	ViewData["Title"] = $"Học: {Model.Title} | QuizletClone";
+	ViewData["HideNavbar"] = true; // Ẩn navbar 
+	ViewData["HideSidebar"] = true; // Ẩn sidebar
+	ViewData["NotContainer"] = true; // Không dùng container
+	ViewData["HideFooter"] = true; // Ẩn footer
+}
+@section Styles {
+	<link rel="stylesheet" href="~/css/course/learningMode/style.css" />
+}
+
+<div class="learning-mode-container">
+	<div class="learning-mode-wrapper gh5634">
+		<div class="learning-mode-header">
+			<div class="study-mode-controls">
+				@* Learning Mode Toolbar *@
+				@await Html.PartialAsync("ViewPartials/_LearningModeToolbarPartial.cshtml", new
+				{
+					CourseTitle = Model.Title,
+					CourseSlug = Model.Slug,
+				})
+
+				@* Learning Progress *@
+				@await Html.PartialAsync("ViewPartials/_LearningProgressPartial.cshtml", new
+				{
+					TotalQuestions = Model.LearningQuestion.AllQuestions.Count
+				})
+			</div>
+		</div>
+
+		@* Quiz Container *@
+		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml", new QuizContainerViewModel
+		{
+			AllQuestions = Model.LearningQuestion.AllQuestions,
+		})
+
+		@* Progress Overview *@
+		@await Html.PartialAsync("ViewPartials/_ProgressOverviewPartial.cshtml")
+
+		@* Notification Bar *@
+		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")
+	</div>
+</div>
+
+<script type="module" src="~/js/course/learningMode/main.js"></script>

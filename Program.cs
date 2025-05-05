@@ -12,6 +12,7 @@ using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Repositories;
 using System.Security.Claims;
+using QuizletClone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,8 @@ builder.Services.AddScoped<IUserCourseProgressRepository, UserCourseProgressRepo
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFolderRepository, FolderRepository>();
 builder.Services.AddScoped<ICourseFolderRepository, CourseFolderRepository>();
+builder.Services.AddScoped<IUserLearningProgressRepository, UserLearningProgressRepository>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 
 // Serilog
 builder.Host.UseSerilog((context, config) =>

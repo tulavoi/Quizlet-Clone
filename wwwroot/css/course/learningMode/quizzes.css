@@ -1,5 +1,5 @@
 ﻿@import url('quizMode/multipleChoice.css');
-@import url('quizMode/inputAnswer.css');
+@import url('quizMode/essay.css');
 
 @keyframes slideInRight {
     from {
@@ -34,7 +34,7 @@
     justify-content: space-between;
     margin: 0 auto 0;
     min-height: 29.25rem;
-    padding: 1.5rem 2rem 1rem;
+    padding: 1.5rem 2rem;
 }
 
 .slide-in-right {
@@ -46,9 +46,12 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-bottom: 4rem;
     position: relative;
     justify-content: flex-start;
+}
+
+.quiz-header-height {
+    min-height: 10rem;
 }
 
 .quiz-card-header-top {
@@ -68,7 +71,7 @@
 }
 
 /* Choose answer */
-.quiz-answer-section {
+.quiz-section {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

@@ -1,9 +1,9 @@
-﻿
+﻿@model dynamic
 
-<div class="study-progress-container">
-	<div class="progress-wrapper">
+<div class="learning-progress-container">
+	<div class="progress-wrapper" id="learningProgress">
 		<div class="progress-bar-container">
-			<div class="progress-bar-track" id="learnProgress">
+			<div class="progress-bar-track">
 				@* <div class="progress-step" style="background: var(--border-button-color);">
 					<div class="progress-indicator">
 						<div class="progress-badge">
@@ -18,7 +18,7 @@
 
 		<!-- Hiển thị số lượng câu hỏi -->
 		<div class="total-pill progress-pill">
-			<span>14</span>
+			<span>@Model.TotalQuestions</span>
 		</div>
 	</div>
 </div>
