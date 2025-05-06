@@ -28,12 +28,12 @@
 
 .quiz-option-text{
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .quiz-option-no {
     border-radius: 50%;
-    background: var(--btn-secondary-hover-color);
+/*    background: var(--btn-secondary-hover-color);*/
     width: 1.5rem;
     height: 1.5rem;
     display: flex;
@@ -43,7 +43,7 @@
     justify-content: center;
 }
 
-/* Quiz help button*/
+/* Quiz help button */
 .quiz-card-help .quiz-help-button {
     background-color: white;
     color: var(--blue-color);
@@ -75,26 +75,13 @@
     border-style: dashed;
 }
 
-/* Ẩn số thứ tự khi đúng */
 .is-correct .quiz-option-no,
-.is-correct-2 .quiz-option-no {
+.is-correct-2 .quiz-option-no,
+.is-incorrect .quiz-option-no,
+.is-skipped .quiz-option-no{
     position: relative;
     color: transparent;
     background: transparent;
-}
-
-/* Hiển thị icon check */
-.is-correct .quiz-option-no::before,
-.is-correct-2 .quiz-option-no::before {
-    content: '\f00c'; /* Font Awesome check icon */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-size: 1.4rem;
-    color: var(--green-deep);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 /* Class is-disabled được gắn vào các đáp án k được chọn và help button */
@@ -110,20 +97,32 @@
     border-color: var(--light-orange-color);
 }
 
-.is-incorrect .quiz-option-no {
-    position: relative;
-    color: transparent;
-    background: transparent;
-}
-
-.is-incorrect .quiz-option-no::before {
-    content: '\f00d'; /* Unicode cho icon fa-xmark */
+.quiz-option-no::before {
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: 1.7rem;
-    color: var(--orange-deep);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Hiển thị icon check */
+.is-correct .quiz-option-no::before,
+.is-correct-2 .quiz-option-no::before {
+    content: '\f00c'; /* Font Awesome check icon */
+    color: var(--green-deep);
+    font-size: 1.4rem !important;
+}
+
+/* Hiển thị icon X */
+.is-incorrect .quiz-option-no::before {
+    content: '\f00d'; /* Unicode cho icon fa-xmark */
+    color: var(--orange-deep);
+}
+
+/* Hiển thị icon X */
+.is-skipped .quiz-option-no::before {
+    content: '\f00d'; /* Unicode cho icon fa-xmark */
+    color: var(--dark-grey-color);
 }

@@ -1,7 +1,7 @@
 ﻿
 import { nextQuiz } from './quizHandler.js';
 import { disableHelpButton } from './quizHelp.js';
-import { setQuizTitleWithResult } from './updateQuizText.js';
+import { setQuizTitleWithResult } from './updateQuizUI.js';
 import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
 
 export function checkOption(selectedOption) {
@@ -41,7 +41,7 @@ function updateOptionState(selectedOption, options) {
     });
 }
 
-export function disableWrongOptions(correctOption) {
+function disableWrongOptions(correctOption) {
     const options = document.querySelectorAll('.quiz-option');
     options.forEach(option => {
         if (option !== correctOption) {
@@ -61,9 +61,15 @@ export function hightlightCorrectOption(option) {
     });
 }
 
-export function findCorrectOption() {
+function findCorrectOption() {
     const options = document.querySelectorAll('.quiz-option');
     return Array.from(options).find(option =>
         option.dataset.correct === 'true'
     );
+}
+
+export function displayCorrectOption() {
+    const option = findCorrectOption();
+    disableWrongOptions(option);
+    hightlightCorrectOption(option);
 }

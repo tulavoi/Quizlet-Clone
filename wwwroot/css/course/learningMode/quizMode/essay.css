@@ -106,3 +106,10 @@
 	flex-direction: column;
 	gap: .75rem;
 }
+
+.answer-area .is-skipped {
+    border-color: var(--dark-grey-color);
+	color: var(--dark-grey-color);
+    pointer-events: none;
+}
+
