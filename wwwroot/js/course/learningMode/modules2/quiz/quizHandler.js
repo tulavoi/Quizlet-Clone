@@ -1,7 +1,7 @@
 ﻿import { getCurrentQuestion, nextQuestion } from './quizState.js';
-import { renderEssayQuestion } from './renderEssay.js';
-import { renderMultipleChoiceQuestion } from './renderMultiple.js';
-import { attachCharacterButtonsEvent } from './essayEvents.js';
+import { renderEssayQuestion } from './essayRenderer.js';
+import { renderMultipleChoiceQuestion } from './multipleRenderer.js';
+import { attachCharacterButtonsEvent, attachInputAnswerEvent } from './essayEvents.js';
 import { } from './multipleEvents.js';
 import { } from './quizHelp.js';
 
@@ -31,6 +31,7 @@ export function renderQuiz() {
     // Gắn event nếu là câu hỏi tự luận
     if (isEssay) {
         attachCharacterButtonsEvent();
+        attachInputAnswerEvent();
     }
 }
 

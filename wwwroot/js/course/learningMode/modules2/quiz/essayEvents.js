@@ -1,10 +1,24 @@
 ﻿
 import { nextQuiz } from './quizHandler.js';
 import { showNotificationBar } from '../notificationBar/notificationBarHandler.js';
-import { renderCorrectAnswer, renderIncorrectAnswer, renderSkippedAnswer } from './updateQuizUI.js';
+import { renderCorrectAnswer, renderIncorrectAnswer, renderSkippedAnswer } from './quizUIManager.js';
+import { } from '../progressBar/learningProgress/progressUpdater.js';
 
 export function getCorrectAnswer() {
     return document.querySelector('.quiz-section').dataset.correctAnswer;
+}
+
+export function attachInputAnswerEvent() {
+    const input = document.querySelector('.answer-input');
+    if (input) {
+        input.focus();
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+    }
 }
 
 export function attachCharacterButtonsEvent() {
@@ -18,25 +32,6 @@ export function attachCharacterButtonsEvent() {
         })
     });
 }
-
-export function displaySuggestion() {
-    const correctAnswer = getCorrectAnswer();
-    const suggestionContainer = document.querySelector('.suggestion-container');
-    if (!suggestionContainer || !correctAnswer || correctAnswer.trim() === '') return;
-
-    const firstChar = correctAnswer.charAt(0);
-    const suggestionBlockHtml = `
-        <div class="sugesstion-block">
-            <span class="suggestion-title">GỢI Ý</span>
-            <span class="suggestion-text">
-                ${firstChar}________
-            </span>
-        </div>
-    `;
-
-    suggestionContainer.innerHTML = suggestionBlockHtml;
-}
-window.displaySuggestion = displaySuggestion;
 
 export function checkAnswer() {
     const correctAnswer = getCorrectAnswer();
@@ -56,6 +51,25 @@ export function checkAnswer() {
     }
 }
 window.checkAnswer = checkAnswer;
+
+export function displaySuggestion() {
+    const correctAnswer = getCorrectAnswer();
+    const suggestionContainer = document.querySelector('.suggestion-container');
+    if (!suggestionContainer || !correctAnswer || correctAnswer.trim() === '') return;
+
+    const firstChar = correctAnswer.charAt(0);
+    const suggestionBlockHtml = `
+        <div class="sugesstion-block">
+            <span class="suggestion-title">GỢI Ý</span>
+            <span class="suggestion-text">
+                ${firstChar}________
+            </span>
+        </div>
+    `;
+
+    suggestionContainer.innerHTML = suggestionBlockHtml;
+}
+window.displaySuggestion = displaySuggestion;
 
 export function updateAnswerArea(isCorrect, userInput, correctAnswer) {
     if (userInput === '') {

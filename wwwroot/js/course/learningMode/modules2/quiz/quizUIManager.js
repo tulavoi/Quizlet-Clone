@@ -6,6 +6,8 @@ import {
     getMessage
 } from '../messages.js';
 
+import { hightlightCorrectOption } from './multipleEvents.js';
+
 export function renderSkippedAnswer(correctAnswer) {
     const essayQuiz = document.querySelector('.essay-quiz');
     essayQuiz.innerHTML = '';
@@ -33,8 +35,9 @@ export function renderSkippedAnswer(correctAnswer) {
             </div>
         </div>
     `;
-    //const option = document.querySelector('.answer-area .quiz-option.is-correct-2');
-    //console.log(option);
+
+    const option = document.querySelector('.answer-area .quiz-option.is-correct-2');
+    hightlightCorrectOption(option);
 }
 
 export function renderCorrectAnswer(userInput) {
@@ -55,7 +58,7 @@ export function renderCorrectAnswer(userInput) {
     `;
 }
 
-export function renderIncorrectAnswer(userInput, correctAnswer) {
+export function renderIncorrectAnswer(userInput, correctAnswer)  {
     const essayQuiz = document.querySelector('.essay-quiz');
     essayQuiz.innerHTML = '';
 
@@ -82,6 +85,9 @@ export function renderIncorrectAnswer(userInput, correctAnswer) {
             </div>
         </div>
     `;
+
+    const option = document.querySelector('.answer-area .quiz-option.is-correct-2');
+    hightlightCorrectOption(option);
 }
 
 export function showSkipMessageInHelpBox() {

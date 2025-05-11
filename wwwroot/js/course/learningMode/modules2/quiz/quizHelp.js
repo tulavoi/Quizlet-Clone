@@ -1,6 +1,6 @@
 ﻿
 import { displayCorrectOption } from './multipleEvents.js';
-import { showSkipMessageInHelpBox, setQuizTitleWithResult, renderSkippedAnswer } from './updateQuizUI.js';
+import { showSkipMessageInHelpBox, setQuizTitleWithResult, renderSkippedAnswer } from './quizUIManager.js';
 import { getCorrectAnswer } from './essayEvents.js';
 import { showNotificationBar } from '../notificationBar/notificationBarHandler.js';
 

@@ -5,8 +5,8 @@ import { hideNotificationBar } from './notificationBarHandler.js';
 // Xử lý khi bấm phím bất kỳ
 export function handleKeyContinue(event) {
     // Nếu nhấn kèm phím Alt, Shift, Ctrl hoặc Meta(command, window) thì bỏ qua
-    if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return;
-
+    if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey || event.key === 'Enter') return;
+    
     // Ngăn hành vi mặc định như cuộn trang khi bấm Space
     event.preventDefault();
 

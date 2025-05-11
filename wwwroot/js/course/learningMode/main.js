@@ -1,7 +1,7 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
 
-import { renderLearningProgess } from './modules2/progressUpdater.js';
+import { renderLearningProgess } from './modules2/progressBar/learningProgress/progressRenderer.js';
 renderLearningProgess();
 
 import { getQuestions } from './modules2/questions.js';

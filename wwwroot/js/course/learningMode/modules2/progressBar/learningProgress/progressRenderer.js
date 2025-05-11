@@ -22,7 +22,7 @@ function buildProgressStepHtml(stepSize) {
                 ${i === 0 ? `
                     <div class="progress-indicator">
                         <div class="progress-badge">
-                            <p class="progress-number">0</p>
+                            <p class="progress-number" id="correctAnswerCount">0</p>
                         </div>
                     </div>
                 ` : ''}

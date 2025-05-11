@@ -33,7 +33,7 @@
 
 .quiz-option-no {
     border-radius: 50%;
-/*    background: var(--btn-secondary-hover-color);*/
+    background: var(--btn-secondary-hover-color);
     width: 1.5rem;
     height: 1.5rem;
     display: flex;

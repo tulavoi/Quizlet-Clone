@@ -1,7 +1,7 @@
 ﻿
 import { nextQuiz } from './quizHandler.js';
 import { disableHelpButton } from './quizHelp.js';
-import { setQuizTitleWithResult } from './updateQuizUI.js';
+import { setQuizTitleWithResult } from './quizUIManager.js';
 import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
 
 export function checkOption(selectedOption) {
