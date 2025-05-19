@@ -1,6 +1,6 @@
 ﻿
 const allQuestions = window.allQuestions;
 
-export function getQuestions() {
+export function getAllQuestions() {
     return allQuestions;
 }

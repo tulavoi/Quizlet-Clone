@@ -3,6 +3,9 @@ import { nextQuiz } from './quizHandler.js';
 import { disableHelpButton } from './quizHelp.js';
 import { setQuizTitleWithResult } from './quizUIManager.js';
 import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
+import { updateProgress } from '../progressBar/learningProgress/progressUpdater.js';
+
+const learningProgress = document.querySelector('#learningProgress');
 
 export function checkOption(selectedOption) {
     const isCorrect = selectedOption.dataset.correct === 'true';
@@ -13,11 +16,12 @@ export function checkOption(selectedOption) {
     disableHelpButton();
 
     if (isCorrect) {
-        // update learning progress
         setTimeout(() => {
             nextQuiz();
         }, 1000);
+        updateProgress(learningProgress, isCorrect);
     } else {
+        updateProgress(learningProgress, isCorrect);
         showNotificationBar();
     }
 }

@@ -1,6 +1,6 @@
-﻿import { getQuestions } from '../questions.js';
+﻿import { getAllQuestions } from '../questions.js';
 
-const questions = getQuestions();
+const questions = getAllQuestions();
 let currQuestionIndex = 0;
 
 export function getCurrentQuestion() {
@@ -11,6 +11,6 @@ export function nextQuestion() {
     currQuestionIndex++;
 }
 
-export function getCurrentIndex() {
+export function getCurrentQuestionIndex() {
     return currQuestionIndex;
 }

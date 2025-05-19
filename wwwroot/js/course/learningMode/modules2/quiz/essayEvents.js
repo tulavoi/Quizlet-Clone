@@ -2,7 +2,9 @@
 import { nextQuiz } from './quizHandler.js';
 import { showNotificationBar } from '../notificationBar/notificationBarHandler.js';
 import { renderCorrectAnswer, renderIncorrectAnswer, renderSkippedAnswer } from './quizUIManager.js';
-import { } from '../progressBar/learningProgress/progressUpdater.js';
+import { updateProgress } from '../progressBar/learningProgress/progressUpdater.js';
+
+const learningProgress = document.querySelector('#learningProgress');
 
 export function getCorrectAnswer() {
     return document.querySelector('.quiz-section').dataset.correctAnswer;
@@ -46,7 +48,9 @@ export function checkAnswer() {
         setTimeout(() => {
             nextQuiz();
         }, 1000);
+        updateProgress(learningProgress, isCorrect);
     } else {
+        updateProgress(learningProgress, isCorrect);
         showNotificationBar();
     }
 }

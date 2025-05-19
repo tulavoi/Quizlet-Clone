@@ -1,14 +1,17 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
 
+import { getAllQuestions } from './modules2/questions.js';
+getAllQuestions();
+
 import { renderLearningProgess } from './modules2/progressBar/learningProgress/progressRenderer.js';
 renderLearningProgess();
 
-import { getQuestions } from './modules2/questions.js';
-getQuestions();
-
 import { renderQuiz } from './modules2/quiz/quizHandler.js';
 renderQuiz();
+
+//import { renderUI } from './modules2/uiHandler.js';
+//renderUI();
 
 //import { generateProgressStep } from './modules/progressUpdater.js';
 //generateProgressStep();

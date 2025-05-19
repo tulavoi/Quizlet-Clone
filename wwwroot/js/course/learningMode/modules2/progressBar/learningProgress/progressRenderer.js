@@ -2,16 +2,21 @@
 const learningProgress = document.querySelector('#learningProgress');
 let totalQuestions = parseInt(learningProgress.querySelector('.total-pill').textContent, 10);
 
+export let stepSize = getStepSize();
+
+export function getQuestionPerStep(index) {
+    return stepSize[index];
+}
+
 export function renderLearningProgess() {
-    var stepSizes = getStepSize();
-    if (!stepSizes) return;
+    if (!stepSize) return;
 
     const track = learningProgress.querySelector('.progress-bar-track');
     if (!track) return;
     track.innerHTML = "";
 
     // Tạo HTML cho từng step
-    track.innerHTML = buildProgressStepHtml(stepSizes);
+    track.innerHTML = buildProgressStepHtml(stepSize);
 }
 
 function buildProgressStepHtml(stepSize) {
@@ -67,4 +72,12 @@ function getStepSize() {
         }
     }
     return stepDistribution;
+}
+
+export function displayLearningProgress() {
+    document.querySelector('.learning-progress-container').classList.remove('d-none');
+}
+
+export function hideLearningProgress() {
+    document.querySelector('.learning-progress-container').classList.add('d-none');
 }
