@@ -1,9 +1,9 @@
 ﻿
-import { getQuestionPerStep } from "./progressRenderer.js";
+import { getStepIndex, getCorrectCount, getQuestionPerStep } from '../../quiz/quizState.js';
 
-let stepIndex = 0; // Biến này đại diện cho đang ở step nào trong bộ câu hỏi
-let correctCount = 0;
-export let questionPerStep = getQuestionPerStep(stepIndex);
+let stepIndex = getStepIndex();
+let correctCount = getCorrectCount();
+let questionPerStep = getQuestionPerStep(stepIndex);
 
 export function updateProgress(progress, isAnsweredCorrect) {
     const progressIndicator = progress.querySelector('.progress-indicator');

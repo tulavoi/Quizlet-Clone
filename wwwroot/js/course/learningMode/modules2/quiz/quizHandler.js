@@ -39,8 +39,8 @@ export function renderQuiz() {
 
 export function nextQuiz() {
     nextQuestion();
-    //renderUI(); // gọi renderUI sẽ gây ra lỗi số câu đúng bị reset = 0
-    renderQuiz();
+    renderUI(); // gọi renderUI sẽ gây ra lỗi số câu đúng bị reset = 0
+    //renderQuiz();
     resetIncorrectState();
 }
 

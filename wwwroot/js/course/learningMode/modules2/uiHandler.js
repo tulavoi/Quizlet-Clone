@@ -1,28 +1,28 @@
 ﻿
 import { renderQuiz, hideQuizContainer, displayQuizContainer } from './quiz/quizHandler.js';
-import { renderOverviewProgress, hideOverviewProgress } from './progressBar/overviewProgress/progressRenderer.js';
-import { questionPerStep } from './progressBar/learningProgress/progressUpdater.js';
-import { renderLearningProgess, hideLearningProgress, displayLearningProgress } from './progressBar/learningProgress/progressRenderer.js';
-import { getCurrentQuestionIndex } from './quiz/quizState.js';
+import { hideOverviewProgress, displayOverviewProgress } from './progressBar/overviewProgress/progressRenderer.js';
+import { hideLearningProgress, displayLearningProgress } from './progressBar/learningProgress/progressRenderer.js';
+import { getCurrentQuestionIndex, getQuestionPerStep } from './quiz/quizState.js';
+
 
 export function renderUI() {
     const currQuestionIndex = getCurrentQuestionIndex();
 
-    // Nếu câu hỏi hiện tại nằm trong số lượng câu hỏi mỗi step
+    const questionPerStep = getQuestionPerStep(1);
+
+    // Nếu câu hỏi hiện tại nằm trong số lượng câu hỏi mỗi step thì hiển thị quiz, learning progress và hiển thị overview progress
+    // Nếu không thì ẩn quiz, learning progress để hiển thị overview progress
     if (currQuestionIndex + 1 <= questionPerStep) {
-        hideOverviewProgress();
-        renderLearningProgess();
+        displayLearningProgress();
+        displayQuizContainer();
         renderQuiz();
+
+        hideOverviewProgress();
     } else {
         hideLearningProgress();
         hideQuizContainer();
-        renderOverviewProgress();
 
-        // Hiển thị ra notification bar, nếu bấm tiếp tục thì tăng step index lên 1, renderQuiz, hiển thị learning progress, ẩn overview progress
-        setTimeout(() => {
-            hideOverviewProgress();
-            displayLearningProgress();
-            displayQuizContainer();
-        }, 3000);
+        displayOverviewProgress();
+        // Hiển thị progress bar, tăng step index lên 1
     }
 }

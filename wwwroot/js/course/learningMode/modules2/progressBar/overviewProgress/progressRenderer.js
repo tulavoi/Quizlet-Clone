@@ -2,8 +2,6 @@
 let proressOverview = document.querySelector('#progressOverview');
 
 export function renderOverviewProgress() {
-    //console.log("render overview progress");
-
     displayOverviewProgress();
 }
 
