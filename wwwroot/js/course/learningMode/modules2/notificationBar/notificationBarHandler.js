@@ -20,6 +20,4 @@ export function hideNotificationBar() {
     const notification = document.querySelector('.notification-bar-container');
     notification.classList.add('d-none');
     notification.classList.remove('show');
-
-    //hideProgressOverview();
 }

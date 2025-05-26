@@ -15,7 +15,7 @@ export function renderEssayQuestion(question) {
     return `
             <article class="quiz-card">
                 ${headerHtml}
-                <div class="quiz-section essay-quiz">
+                <div class="quiz-section essay-quiz" data-correct-answer="${question.CorrectAnswer}">
 				    <div class="quiz-card-title">
 					    <span>Đáp án của bạn</span>
 				    </div>
@@ -30,11 +30,11 @@ export function renderEssayQuestion(question) {
 
 				    <div class="quiz-card-help">
 					    <div class="suggestion-container">
-							<button class="suggestion-button" onclick="displaySuggestion('${question.CorrectAnswer}')">Hiển thị gợi ý</button>
+							<button class="suggestion-button" onclick="displaySuggestion()">Hiển thị gợi ý</button>
 						</div>
 
-					    <button class="quiz-help-button" onclick="helpButtonClickEvent()">Bạn không biết?</button>
-					    <button class="quiz-answer-button" onclick="checkAnswer('${question.CorrectAnswer}')">Trả lời</button>
+					    <button class="quiz-help-button" onclick="helpButtonClickEvent(this)">Bạn không biết?</button>
+					    <button class="quiz-answer-button" onclick="checkAnswer()">Trả lời</button>
 				    </div>
 			    </div>
             </article>

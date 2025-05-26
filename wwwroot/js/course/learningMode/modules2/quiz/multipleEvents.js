@@ -1,8 +1,11 @@
 ﻿
 import { nextQuiz } from './quizHandler.js';
 import { disableHelpButton } from './quizHelp.js';
-import { setQuizTitleWithResult } from './updateQuizText.js';
+import { setQuizTitleWithResult } from './quizUIManager.js';
 import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
+import { updateProgress } from '../progressBar/learningProgress/progressUpdater.js';
+
+const learningProgress = document.querySelector('#learningProgress');
 
 export function checkOption(selectedOption) {
     const isCorrect = selectedOption.dataset.correct === 'true';
@@ -13,11 +16,12 @@ export function checkOption(selectedOption) {
     disableHelpButton();
 
     if (isCorrect) {
-        // update learning progress
         setTimeout(() => {
             nextQuiz();
         }, 1000);
+        updateProgress(learningProgress, isCorrect);
     } else {
+        updateProgress(learningProgress, isCorrect);
         showNotificationBar();
     }
 }
@@ -41,7 +45,7 @@ function updateOptionState(selectedOption, options) {
     });
 }
 
-export function disableWrongOptions(correctOption) {
+function disableWrongOptions(correctOption) {
     const options = document.querySelectorAll('.quiz-option');
     options.forEach(option => {
         if (option !== correctOption) {
@@ -61,9 +65,15 @@ export function hightlightCorrectOption(option) {
     });
 }
 
-export function findCorrectOption() {
+function findCorrectOption() {
     const options = document.querySelectorAll('.quiz-option');
     return Array.from(options).find(option =>
         option.dataset.correct === 'true'
     );
+}
+
+export function displayCorrectOption() {
+    const option = findCorrectOption();
+    disableWrongOptions(option);
+    hightlightCorrectOption(option);
 }

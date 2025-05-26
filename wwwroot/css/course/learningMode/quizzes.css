@@ -1,17 +1,6 @@
 ﻿@import url('quizMode/multipleChoice.css');
 @import url('quizMode/essay.css');
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+@import url('../../shared/animations.css');
 
 .quiz-container {
     display: block;
@@ -37,10 +26,6 @@
     padding: 1.5rem 2rem;
 }
 
-.slide-in-right {
-    animation: slideInRight 0.4s ease forwards;
-}
-
 /* Quiz header */
 .quiz-header {
     display: flex;
@@ -61,7 +46,7 @@
 
 .quiz-card-title {
     font-weight: 600;
-    font-size: .875rem;
+    font-size: 1rem;
     color: var(--dark-grey-color);
 }
 

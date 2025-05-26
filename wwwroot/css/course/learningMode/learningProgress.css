@@ -72,13 +72,18 @@
     height: 100%;
     border-radius: 1rem;
     background-color: var(--primary-green-color);
-    transition: width .5s cubic-bezier(.49,0,.68,1), background-color .4s .1s;
+    transition: width .5s cubic-bezier(.37,0,.53,1), background-color .5s cubic-bezier(.37,0,.53,1);
+}
+
+.progress-step.in-correct:before,
+.progress-badge.in-correct {
+    background-color: var(--orange-deep);
 }
 
 .progress-indicator {
     position: absolute;
-    left: var(--progress-indicator-0);
-    transform: var(--progress-indicator-1);
+    left: var(--progress-indicator-0, 0%);
+    transform: var(--progress-indicator-1, translateX(0));
     transition: left .5s, transform .5s;
     transition-timing-function: cubic-bezier(.37,0,.53,1);
     z-index: 101;

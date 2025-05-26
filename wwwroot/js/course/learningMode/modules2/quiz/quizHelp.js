@@ -1,6 +1,7 @@
 ﻿
-import { hightlightCorrectOption, findCorrectOption, disableWrongOptions } from './multipleEvents.js';
-import { showSkipMessageInHelpBox, setQuizTitleWithResult } from './updateQuizText.js';
+import { displayCorrectOption } from './multipleEvents.js';
+import { showSkipMessageInHelpBox, setQuizTitleWithResult, renderSkippedAnswer } from './quizUIManager.js';
+import { getCorrectAnswer } from './essayEvents.js';
 import { showNotificationBar } from '../notificationBar/notificationBarHandler.js';
 
 export function disableHelpButton() {
@@ -8,16 +9,18 @@ export function disableHelpButton() {
     helpBtn.classList.add('is-disabled');
 }
 
-function helpButtonClickEvent(){
+function helpButtonClickEvent() {
+    const button = event.currentTarget;
+    const quizSection = button.closest('.quiz-section');
+
     showSkipMessageInHelpBox();
-    setQuizTitleWithResult();
-    displayCorrectOption();
     showNotificationBar();
+
+    if (quizSection.classList.contains('essay-quiz')) {
+        renderSkippedAnswer(getCorrectAnswer());
+    } else if (quizSection.classList.contains('multiple-choice-quiz')) {
+        setQuizTitleWithResult();
+        displayCorrectOption();
+    }
 }
 window.helpButtonClickEvent = helpButtonClickEvent;
-
-function displayCorrectOption() {
-    const option = findCorrectOption();
-    disableWrongOptions(option);
-    hightlightCorrectOption(option);
-}

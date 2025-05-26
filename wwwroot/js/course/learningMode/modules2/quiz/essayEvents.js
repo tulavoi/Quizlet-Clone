@@ -1,13 +1,27 @@
 ﻿
 import { nextQuiz } from './quizHandler.js';
-import { showNotificationBar, hideNotificationBar } from '../notificationBar/notificationBarHandler.js';
-import { setQuizTitleWithResult } from './updateQuizText.js';
-import {
-    correctMessages,
-    incorrectMessages,
-    skipMessages,
-    getMessage
-} from '../messages.js';
+import { showNotificationBar } from '../notificationBar/notificationBarHandler.js';
+import { renderCorrectAnswer, renderIncorrectAnswer, renderSkippedAnswer } from './quizUIManager.js';
+import { updateProgress } from '../progressBar/learningProgress/progressUpdater.js';
+
+const learningProgress = document.querySelector('#learningProgress');
+
+export function getCorrectAnswer() {
+    return document.querySelector('.quiz-section').dataset.correctAnswer;
+}
+
+export function attachInputAnswerEvent() {
+    const input = document.querySelector('.answer-input');
+    if (input) {
+        input.focus();
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+    }
+}
 
 export function attachCharacterButtonsEvent() {
     const buttons = document.querySelectorAll('.character-button');
@@ -21,7 +35,30 @@ export function attachCharacterButtonsEvent() {
     });
 }
 
-export function displaySuggestion(correctAnswer) {
+
+export function checkAnswer() {
+    const correctAnswer = getCorrectAnswer();
+    const userInput = document.querySelector('.answer-input').value.trim().toLowerCase();
+    if (!correctAnswer) return;
+
+    const isCorrect = isAnswerCorrect(userInput, correctAnswer);
+
+    updateAnswerArea(isCorrect, userInput, correctAnswer);
+
+    if (isCorrect) {
+        setTimeout(() => {
+            nextQuiz();
+        }, 1000);
+        updateProgress(learningProgress, isCorrect);
+    } else {
+        updateProgress(learningProgress, isCorrect);
+        showNotificationBar();
+    }
+}
+window.checkAnswer = checkAnswer;
+
+export function displaySuggestion() {
+    const correctAnswer = getCorrectAnswer();
     const suggestionContainer = document.querySelector('.suggestion-container');
     if (!suggestionContainer || !correctAnswer || correctAnswer.trim() === '') return;
 
@@ -39,64 +76,13 @@ export function displaySuggestion(correctAnswer) {
 }
 window.displaySuggestion = displaySuggestion;
 
-export function checkAnswer(correctAnswer) {
-    const userInput = document.querySelector('.answer-input').value.trim().toLowerCase();
-    if (!correctAnswer) return;
-
-    const isCorrect = isAnswerCorrect(userInput, correctAnswer);
-
-    updateAnswerArea(isCorrect, userInput, correctAnswer);
-    setQuizTitleWithResult(isCorrect);
-
-    if (isCorrect) {
-        setTimeout(() => {
-            nextQuiz();
-        }, 1000);
+export function updateAnswerArea(isCorrect, userInput, correctAnswer) {
+    if (userInput === '') {
+        renderSkippedAnswer(correctAnswer);
+    } else if (isCorrect) {
+        renderCorrectAnswer(userInput);
     } else {
-        showNotificationBar();
-    }
-}
-window.checkAnswer = checkAnswer;
-
-function updateAnswerArea(isCorrect, userInput, correctAnswer) {
-    const essayQuiz = document.querySelector('.essay-quiz');
-    essayQuiz.innerHTML = '';
-
-    if (isCorrect) {
-        essayQuiz.innerHTML = `
-            <div class="answer-area">
-                <div class="quiz-card-title">
-                    <span style="color: var(--green-deep);">${ getMessage(correctMessages) }</span>
-                </div>
-
-                <div class="quiz-option is-correct">
-                    <div class="quiz-option-no"></div>
-                    <div class="quiz-option-text">${userInput}</div>
-                </div>
-            </div>
-        `;
-    } else {
-        essayQuiz.innerHTML = `
-            <div class="answer-area">
-                <div class="quiz-card-title">
-                    <span style="color: var(--orange-deep);">${ getMessage(incorrectMessages) }</span>
-                </div>
-
-                <div class="quiz-option is-incorrect">
-                    <div class="quiz-option-no"></div>
-                    <div class="quiz-option-text">${userInput}</div>
-                </div>
-                <div class="my-2"></div>
-                <div class="quiz-card-title">
-                    <span style="color: var(--green-deep);">Đáp án đúng</span>
-                </div>
-
-                <div class="quiz-option is-correct-2">
-                    <div class="quiz-option-no"></div>
-                    <div class="quiz-option-text">${correctAnswer}</div>
-                </div>
-            </div>
-        `;
+        renderIncorrectAnswer(userInput, correctAnswer);
     }
 }
 

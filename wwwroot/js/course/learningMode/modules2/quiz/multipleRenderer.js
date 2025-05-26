@@ -29,7 +29,7 @@ export function renderMultipleChoiceQuestion(question) {
 			        <div class="quiz-card-help">
 				        <i class="fa-regular fa-flag btn-report"></i>
 
-				        <button class="quiz-help-button" onclick="helpButtonClickEvent()">Bạn không biết?</button>
+				        <button class="quiz-help-button" onclick="helpButtonClickEvent(this)">Bạn không biết?</button>
 			        </div>
 		        </div>
             </article>
