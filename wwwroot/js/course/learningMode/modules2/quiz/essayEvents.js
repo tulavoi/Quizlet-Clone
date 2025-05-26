@@ -35,6 +35,7 @@ export function attachCharacterButtonsEvent() {
     });
 }
 
+
 export function checkAnswer() {
     const correctAnswer = getCorrectAnswer();
     const userInput = document.querySelector('.answer-input').value.trim().toLowerCase();

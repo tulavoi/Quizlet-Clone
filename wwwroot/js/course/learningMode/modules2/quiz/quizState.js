@@ -1,12 +1,19 @@
 ﻿import { getAllQuestions } from '../questions.js';
 
 const questions = getAllQuestions();
+const stepSize = generateStepSize();
+
 let currQuestionIndex = 0;
+let stepStartIndex = 0;             // Vị trí bắt đầu của step hiện tại trong mảng questions
+let stepIndex = 0;                  // Biến này đại diện cho đang ở step nào trong bộ câu hỏi
+let correctCount = 0;               // Biến này đại diện cho số câu trả lời đúng của user trong học phần
 
-let stepIndex = 0;      // Biến này đại diện cho đang ở step nào trong bộ câu hỏi
-let correctCount = 0;   // Biến này đại diện cho số câu trả lời đúng của user trong học phần
-
-let stepSize = generateStepSize();
+// ==============================
+// Getter
+// ==============================
+export function getCurrentQuestion() {
+    return questions[stepStartIndex + currQuestionIndex];
+}
 
 export function getCorrectCount() {
     return correctCount;
@@ -16,32 +23,42 @@ export function getStepIndex() {
     return stepIndex;
 }
 
-export function increaseStepIndex() {
-    stepIndex += 1;
-}
-
-export function getCurrentQuestion() {
-    return questions[currQuestionIndex];
-}
-
-export function nextQuestion() {
-    currQuestionIndex++;
-}
-
-export function getCurrentQuestionIndex() {
-    return currQuestionIndex;
+export function getStepSize() {
+    return stepSize;
 }
 
 export function getNumberOfQuestions() {
     return questions.length;
 }
 
-export function getStepSize() {
-    return stepSize;
+export function getCurrentQuestionIndex() {
+    return currQuestionIndex;
 }
 
 export function getQuestionPerStep(index) {
     return stepSize[index];
+}
+
+// ==============================
+// Logic cập nhật trạng thái
+// ==============================
+
+export function nextQuestion() {
+    currQuestionIndex++;
+}
+
+function resetCurrentQuestionIndex() {
+    currQuestionIndex = 0;
+}
+
+export function increaseStep() {
+    stepStartIndex += stepSize[stepIndex];
+    stepIndex++;
+    resetCurrentQuestionIndex();
+}
+
+export function increaseCorrectCount(){
+    correctCount++;
 }
 
 function generateStepSize() {

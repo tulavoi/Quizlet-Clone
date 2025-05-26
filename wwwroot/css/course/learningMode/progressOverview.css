@@ -1,4 +1,7 @@
-﻿.progress-overview-container {
+﻿
+@import url('../../shared/animations.css');
+
+.progress-overview-container {
 	display: block;
 	flex: 1 1;
 	margin-left: 0;
@@ -19,7 +22,7 @@
 }
 
 .summary-content-header {
-	padding: 3rem 0;
+	padding: 2rem 0 3rem;
 }
 
 .motivational-message {

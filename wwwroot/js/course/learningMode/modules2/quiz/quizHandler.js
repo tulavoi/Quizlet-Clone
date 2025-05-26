@@ -1,4 +1,4 @@
-﻿import { getCurrentQuestion, nextQuestion, getCurrentQuestionIndex } from './quizState.js';
+﻿import { getCurrentQuestion, nextQuestion } from './quizState.js';
 import { renderEssayQuestion } from './essayRenderer.js';
 import { renderMultipleChoiceQuestion } from './multipleRenderer.js';
 import { attachCharacterButtonsEvent, attachInputAnswerEvent } from './essayEvents.js';
@@ -39,8 +39,7 @@ export function renderQuiz() {
 
 export function nextQuiz() {
     nextQuestion();
-    renderUI(); // gọi renderUI sẽ gây ra lỗi số câu đúng bị reset = 0
-    //renderQuiz();
+    renderUI();
     resetIncorrectState();
 }
 

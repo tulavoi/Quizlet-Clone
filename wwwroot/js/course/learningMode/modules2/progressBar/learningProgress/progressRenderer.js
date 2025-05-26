@@ -1,8 +1,6 @@
 ﻿
 import { getStepSize } from '../../quiz/quizState.js';
 
-//let numberOfQuestions = getNumberOfQuestions();
-
 let stepSize = getStepSize();
 
 const learningProgress = document.querySelector('#learningProgress');
