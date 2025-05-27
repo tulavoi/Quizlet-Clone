@@ -9,7 +9,7 @@ import {
     getStepIndex
 } from './quiz/quizState.js';
 import { showNotificationBar } from './notificationBar/notificationBarHandler.js';
-import { fillStepProgress, moveBagdeToEnd, moveBadgeToNextStep } from './progressBar/learningProgress/progressUpdater.js';
+import { fillStepProgress, moveIndicatorToEnd, moveBadgeToNextStep } from './progressBar/learningProgress/progressUpdater.js';
 
 const learningProgress = document.querySelector('#learningProgress');
 
@@ -26,8 +26,8 @@ export function renderUI() {
     } else {
         setTimeout(() => {
             Promise.all([
-                fillStepProgress(learningProgress, stepIndex),      // Fill màu xanh đầy thanh step
-                moveBagdeToEnd(learningProgress)                    // Di chuyển Bagde đến cuối thanh step
+                fillStepProgress(learningProgress, stepIndex),          // Fill màu xanh đầy thanh step
+                moveIndicatorToEnd(learningProgress)                    // Di chuyển Indicator đến cuối thanh step
             ]).then(() => {
                 setTimeout(() => {
                     hideLearningProgress();

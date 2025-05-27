@@ -1,9 +1,6 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
 
-//import { getAllQuestions } from './modules2/questions.js';
-//getAllQuestions();
-
 import { renderLearningProgess } from './modules2/progressBar/learningProgress/progressRenderer.js';
 renderLearningProgess();
 

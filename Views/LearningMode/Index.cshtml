@@ -38,7 +38,9 @@
 		})
 
 		@* Progress Overview *@
-		@await Html.PartialAsync("ViewPartials/_OverviewProgressPartial.cshtml")
+		@await Html.PartialAsync("ViewPartials/_OverviewProgressPartial.cshtml", new{
+			totalQuestionCount = Model.LearningQuestion.AllQuestions.Count
+		})
 
 		@* Notification Bar *@
 		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")

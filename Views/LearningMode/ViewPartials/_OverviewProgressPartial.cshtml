@@ -1,4 +1,6 @@
 ﻿
+@model dynamic
+
 <div class="progress-overview-container d-none">
 	<div class="summary-content">
 		<div class="summary-content-header fade-in">
@@ -19,7 +21,7 @@
 							<div class="progress-step" style="background: var(--border-button-color);">
 								<div class="progress-indicator">
 									<div class="progress-badge">
-										<p class="progress-number">0</p>
+										<p class="progress-number" id="totalCorrectAnswers">0</p>
 									</div>
 								</div>
 							</div>
@@ -28,7 +30,7 @@
 
 					<!-- Hiển thị số lượng câu hỏi -->
 					<div class="total-pill progress-pill">
-						<span>0</span>
+						<span>@Model.totalQuestionCount</span>
 					</div>
 				</div>
 
