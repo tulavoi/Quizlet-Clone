@@ -2,7 +2,7 @@
 import { nextQuiz } from '../quiz/quizHandler.js';
 import { hideNotificationBar } from './notificationBarHandler.js';
 import { hideOverviewProgress } from '../progressBar/overviewProgress/progressRenderer.js';
-import { moveBadgeToNextStep } from '../progressBar/learningProgress/progressUpdater.js';
+import { moveIndicatorToNextStep } from '../progressBar/learningProgress/progressUpdater.js';
 import { renderUI } from '../uiHandler.js';
 
 // Xử lý khi bấm phím bất kỳ

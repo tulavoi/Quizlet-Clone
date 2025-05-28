@@ -81,7 +81,7 @@ export function moveIndicatorToEnd(progress) {
     });
 }
 
-export function moveBadgeToNextStep() {
+export function moveIndicatorToNextStep() {
     stepIndex = getStepIndex();
     const progress = document.querySelector('#learningProgress');
     const progressSteps = progress.querySelectorAll('.progress-step');

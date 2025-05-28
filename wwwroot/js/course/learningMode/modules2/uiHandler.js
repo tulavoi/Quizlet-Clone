@@ -9,7 +9,7 @@ import {
     getStepIndex
 } from './quiz/quizState.js';
 import { showNotificationBar } from './notificationBar/notificationBarHandler.js';
-import { fillStepProgress, moveIndicatorToEnd, moveBadgeToNextStep } from './progressBar/learningProgress/progressUpdater.js';
+import { fillStepProgress, moveIndicatorToEnd, moveIndicatorToNextStep } from './progressBar/learningProgress/progressUpdater.js';
 
 const learningProgress = document.querySelector('#learningProgress');
 
@@ -34,7 +34,7 @@ export function renderUI() {
                     hideQuizContainer();
                     displayOverviewProgress();
                     showNotificationBar();
-                    moveBadgeToNextStep();
+                    moveIndicatorToNextStep();
                 }, 550);
             });
         }, 100);

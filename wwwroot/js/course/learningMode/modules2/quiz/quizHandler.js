@@ -6,14 +6,20 @@ import { } from './multipleEvents.js';
 import { } from './quizHelp.js';
 import { resetIncorrectState } from '../progressBar/learningProgress/progressUpdater.js';
 import { renderUI } from '../uiHandler.js';
+import { saveQuestionsLearnedInStep } from '../questions.js';
 
-const QUESTION_TYPE = {
+
+export const QUESTION_TYPE = {
     MULTIPLE: "Multiple",
     ESSAY: "Essay"
 };
 
 export function renderQuiz() {
     const currQuestion = getCurrentQuestion();
+
+    // Lưu lại câu hỏi đã render
+    saveQuestionsLearnedInStep(currQuestion);
+
     let quizContainer = document.querySelector('.quiz-container');
     quizContainer.innerHTML = "";
 
