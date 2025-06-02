@@ -103,7 +103,7 @@ namespace QuizletClone.Controllers
                 new FlashcardQueryObject { IsStarred = true });
 
             // Lấy ra danh sách flashcard progress của user trong học phần
-            var flashcardProcresses = await _flashcardProgressRepo.GetByIdAsync(this.UserId, course.Id);
+            var flashcardProcresses = await _flashcardProgressRepo.GetByCourseIdAsync(this.UserId, course.Id);
 
             // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lấy tất cả flashcard
             var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();

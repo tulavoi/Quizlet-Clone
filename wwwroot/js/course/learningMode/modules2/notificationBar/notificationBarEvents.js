@@ -10,10 +10,8 @@ export function handleKeyContinue(event) {
     // Nếu nhấn kèm phím Alt, Shift, Ctrl hoặc Meta(command, window) thì bỏ qua
     if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey || event.key === 'Enter') return;
 
-    // Kiểm tra nếu phím bấm là một trong các phím F1 -> F12
-    if (event.key >= 'F1' && event.key <= 'F12') {
-        return;
-    }
+    // Nếu nhấn F1 -> F12 thì bỏ qua
+    if (/^F[1-9]$|^F1[0-2]$/.test(event.key)) return;
 
     // Ngăn hành vi mặc định như cuộn trang khi bấm Space
     event.preventDefault();

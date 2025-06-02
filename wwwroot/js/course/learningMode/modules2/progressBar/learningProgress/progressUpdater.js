@@ -60,7 +60,7 @@ export function updateProgressIndicator(indicator, numberElement, percentage) {
 }
 
 export function calculatePercentage(current, total) {
-    return Math.min((current / total) * 100, 100)
+    return current != 0 ? Math.min((current / total) * 100, 100) : 0;
 }
 
 export function fillStepProgress(progress, currStepIndex) {

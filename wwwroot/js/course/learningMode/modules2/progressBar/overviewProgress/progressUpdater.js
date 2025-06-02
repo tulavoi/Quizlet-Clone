@@ -1,7 +1,8 @@
 ﻿
 import { getQuestionsLearnedInStep, resetQuestionsLearnedInStep } from '../../questions.js';
 import { } from '../../../../detail/modules/flashcardAction.js'; // import để thực hiện chức năng text to speech
-import { QUESTION_TYPE } from '../../quiz/quizHandler.js';
+import { updateStarredButtonsColor } from '../../../../detail/modules/starredFlashcard.js'; // import để thực hiện chức năng text to speech
+
 import {
     updateProgressIndicator,
     calculatePercentage,
@@ -37,28 +38,26 @@ function updateFlashcardsLearnedInStep() {
     const container = document.querySelector('#flashcardsLearnedInStep');
     container.innerHTML = '';
 
-    const learnedQuestions = getQuestionsLearnedInStep();
-    learnedQuestions.forEach(question => {
-        let term = question.QuestionType == QUESTION_TYPE.ESSAY ? question.CorrectAnswer : question.CorrectOption;
-        let definition = question.Question;
+    const questions = getQuestionsLearnedInStep();
+    questions.forEach(question => {
         const flashcard = document.createElement('div');
 
         flashcard.className = 'flashcard-item';
         flashcard.innerHTML = `
             <div class="flashcard-content">
                 <div class="t1xa5rl1">
-                    <div class="term-label">${term}</div>
-                    <div class="definition-label">${definition}</div>
+                    <div class="term-label">${question.Flashcard.Term ?? "..."}</div>
+                    <div class="definition-label">${question.Flashcard.Definition ?? "..."}</div>
                 </div>
                 <div class="flashcard-actions">
                     <button class="starred-btn" title="Gắn sao"
-                            data-is-starred="false"
-                            data-flashcard-id="0"
+                            data-is-starred="${question.Flashcard.IsStarred}"
+                            data-flashcard-id="${question.Flashcard.Id}"
                             onclick="starredFlashcard(this)">
                         <i class="fa-solid fa-star"></i>
                     </button>
                     <button class="audio-btn" title="Phát âm"
-                            onclick="textToSpeech('${term}', 'JA')">
+                            onclick="textToSpeech('${question.Flashcard.Term ?? ""}', '${question.Flashcard.TermLanguageCode}')">
                         <i class="fa-solid fa-volume-high text-secondary"></i>
                     </button>
                 </div>
@@ -66,6 +65,6 @@ function updateFlashcardsLearnedInStep() {
         `;
         container.appendChild(flashcard);
     });
-
+    updateStarredButtonsColor();
     resetQuestionsLearnedInStep(); // Reset lại array chứa các câu hỏi đã học trong step
 }
