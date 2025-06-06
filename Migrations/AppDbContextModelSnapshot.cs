@@ -51,13 +51,13 @@ namespace QuizletClone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "91b5d6dc-2f8f-4b77-b9ca-42a8779cb408",
+                            Id = "96f20fc6-9965-44f1-a9cf-e4527092fee3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "52e80a40-5d1a-4559-8da5-44e3e3dcbaa9",
+                            Id = "00dce89c-660a-40ec-b601-a35361a80592",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -641,16 +641,13 @@ namespace QuizletClone.Migrations
 
             modelBuilder.Entity("QuizletClone.Models.UserLearningProgress", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CorrectAnswerCount")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CorrectAnswerCount")
                         .HasColumnType("int");
 
                     b.Property<int>("CurrentQuestionIndex")
@@ -662,15 +659,9 @@ namespace QuizletClone.Migrations
                     b.Property<int>("TotalQuestions")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserLearningProgresses");
                 });

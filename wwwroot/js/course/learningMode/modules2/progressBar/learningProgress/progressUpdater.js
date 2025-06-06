@@ -19,6 +19,12 @@ export function updateProgress(progress, isAnsweredCorrect) {
     const progressSteps = progress.querySelectorAll('.progress-step');
     const progressBadge = progressIndicator.querySelector('.progress-badge');
 
+    // Nếu không có step hiện tại thì không làm gì cả
+    if (!progressSteps[stepIndex]) {
+        console.log('return o day');
+        return;
+    }
+
     // Nếu trả lời sai
     if (!isAnsweredCorrect) {
         markIncorrect(progressSteps[stepIndex], progressBadge);
@@ -48,7 +54,9 @@ function markIncorrect(step, badge) {
 }
 
 export function updateProgressStep(step, percentage) {
-    step.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
+    if (step) {
+        step.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
+    }
 }
 
 export function updateProgressIndicator(indicator, numberElement, percentage) {
@@ -84,10 +92,14 @@ export function moveIndicatorToEnd(progress) {
 export function moveIndicatorToNextStep() {
     stepIndex = getStepIndex();
     const progress = document.querySelector('#learningProgress');
+    if (!progress) return;
+
     const progressSteps = progress.querySelectorAll('.progress-step');
     const indicator = progress.querySelector('.progress-indicator');
     const progressNumber = progress.querySelector('#totalCorrectAnswers');
 
     updateProgressIndicator(indicator, progressNumber, 0);
-    progressSteps[stepIndex].appendChild(indicator);
+    if (progressSteps[stepIndex]) {
+        progressSteps[stepIndex].appendChild(indicator);
+    }
 }

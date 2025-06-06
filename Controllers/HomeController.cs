@@ -33,7 +33,7 @@ namespace QuizletClone.Controllers
             {
                 SortBy = "LastUpdated",
                 IsDescending = true,
-                Quantity = 4
+                Quantity = 6
             });
 
             var popularCourses = await _courseRepo.GetPopularCoursesAsync(new CourseQueryObject

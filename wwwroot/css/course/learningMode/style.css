@@ -6,6 +6,7 @@
 @import url('./quizzes.css');
 @import url('./notificationBar.css');
 @import url('./progressOverview.css');
+@import url('./learningFinish.css');
 
 .content{
     padding: 0;

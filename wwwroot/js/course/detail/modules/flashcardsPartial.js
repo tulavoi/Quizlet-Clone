@@ -6,7 +6,7 @@
 // ==============================================
 
 // Import functions from confetti.js
-import { triggerConfetti } from './congratulation.js';
+import { triggerConfetti } from '../../../shared/confetti.js';
 
 // Import variables from variablesShared.js
 import {

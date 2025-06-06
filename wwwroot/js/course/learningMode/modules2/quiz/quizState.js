@@ -48,7 +48,7 @@ export function getQuestionPerStep(index) {
 // Increase Functions
 // ==============================
 
-export function increaseCurrQuestionIndex() {
+function increaseCurrQuestionIndex() {
     currQuestionIndex++;
 }
 

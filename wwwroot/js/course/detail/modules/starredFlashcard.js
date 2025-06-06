@@ -15,7 +15,6 @@ const toggleStarred = document.getElementById('toggleStarred');
 export function updateStarredButtonsColor() {
     // Lặp qua tất cả các button để cập nhật màu sắc ban đầu
     const buttons = document.querySelectorAll('[data-is-starred]');
-    console.log(buttons);
 
     buttons.forEach(btn => {
         let isStarred = getDataIsStarredValue(btn);

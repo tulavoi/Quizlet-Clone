@@ -3,10 +3,6 @@ import { updateProgress } from './progressUpdater.js';
 
 let overviewProgress = document.querySelector('#progressOverview');
 
-export function renderOverviewProgress() {
-    displayOverviewProgress();
-}
-
 export function hideOverviewProgress() {
     document.querySelector('.progress-overview-container').classList.add('d-none');
     document.querySelector('.flashcard-section').classList.add('d-none');

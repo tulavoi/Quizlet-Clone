@@ -2,7 +2,6 @@
 import { nextQuiz } from '../quiz/quizHandler.js';
 import { hideNotificationBar } from './notificationBarHandler.js';
 import { hideOverviewProgress } from '../progressBar/overviewProgress/progressRenderer.js';
-import { moveIndicatorToNextStep } from '../progressBar/learningProgress/progressUpdater.js';
 import { renderUI } from '../uiHandler.js';
 
 // Xử lý khi bấm phím bất kỳ
@@ -15,12 +14,13 @@ export function handleKeyContinue(event) {
 
     // Ngăn hành vi mặc định như cuộn trang khi bấm Space
     event.preventDefault();
-
+    console.log('handle key continue');
     handleContinue();
 }
 
 // Xử lý khi bấm tiếp tục
 export function handleContinue() {
+    console.log('handle continue');
     const overviewVisible = !document.querySelector('.progress-overview-container').classList.contains('d-none');
 
     if (overviewVisible) {

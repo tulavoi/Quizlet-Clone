@@ -8,7 +8,12 @@ namespace QuizletClone.Areas.Identity.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<UserLearningProgress> builder)
 		{
-			builder.HasKey(x => x.Id);
+			// Khai báo key cho UserLearningProgress
+			builder.HasKey(x => new
+			{
+				x.UserId,
+				x.CourseId,
+			});
 
 			builder.HasOne(u => u.User)
 				.WithMany(u => u.UserLearningProgresses)
