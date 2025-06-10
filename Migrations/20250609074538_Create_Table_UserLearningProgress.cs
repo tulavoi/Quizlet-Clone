@@ -41,7 +41,6 @@ namespace QuizletClone.Migrations
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     CorrectAnswerCount = table.Column<int>(type: "int", nullable: false),
                     CurrentQuestionIndex = table.Column<int>(type: "int", nullable: false),
-                    TotalQuestions = table.Column<int>(type: "int", nullable: false),
                     LastAccessed = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -143,8 +142,8 @@ namespace QuizletClone.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "00dce89c-660a-40ec-b601-a35361a80592", null, "User", "USER" },
-                    { "96f20fc6-9965-44f1-a9cf-e4527092fee3", null, "Admin", "ADMIN" }
+                    { "98326afa-0330-4a40-b4f5-85263f45c440", null, "Admin", "ADMIN" },
+                    { "eb888ac0-36ef-47c2-b13d-ec1184d8ea0a", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -162,12 +161,12 @@ namespace QuizletClone.Migrations
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "00dce89c-660a-40ec-b601-a35361a80592");
+                keyValue: "98326afa-0330-4a40-b4f5-85263f45c440");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "96f20fc6-9965-44f1-a9cf-e4527092fee3");
+                keyValue: "eb888ac0-36ef-47c2-b13d-ec1184d8ea0a");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Slug",

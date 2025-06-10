@@ -12,8 +12,8 @@ using QuizletClone.Areas.Identity.Data;
 namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250606085527_Create_Table_UserLearningProgress")]
-    partial class Create_Table_UserLearningProgress
+    [Migration("20250610075222_Add_Col_AccessCount_To_Course_Table")]
+    partial class Add_Col_AccessCount_To_Course_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace QuizletClone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "96f20fc6-9965-44f1-a9cf-e4527092fee3",
+                            Id = "e508fc3e-4fa9-445b-adcf-6cb09271b640",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "00dce89c-660a-40ec-b601-a35361a80592",
+                            Id = "42c177ff-dfcf-47e7-a45e-2e0ecfe5847f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -253,6 +253,9 @@ namespace QuizletClone.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -658,9 +661,6 @@ namespace QuizletClone.Migrations
 
                     b.Property<DateTime>("LastAccessed")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("TotalQuestions")
-                        .HasColumnType("int");
 
                     b.HasKey("UserId", "CourseId");
 

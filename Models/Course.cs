@@ -13,7 +13,8 @@ namespace QuizletClone.Models
         public string? Description { get; set; } = null;
         public string? Password { get; set; } = null;
         public string Slug { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public int AccessCount { get; set; } = 0;
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [Required]

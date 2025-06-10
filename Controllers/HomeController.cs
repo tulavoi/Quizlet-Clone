@@ -38,6 +38,7 @@ namespace QuizletClone.Controllers
 
             var popularCourses = await _courseRepo.GetPopularCoursesAsync(new CourseQueryObject
             {
+                IsDescending = true,
                 Quantity = 3
             });
 

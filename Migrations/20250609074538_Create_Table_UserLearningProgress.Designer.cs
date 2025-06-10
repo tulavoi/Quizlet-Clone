@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizletClone.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using QuizletClone.Areas.Identity.Data;
 namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250609074538_Create_Table_UserLearningProgress")]
+    partial class Create_Table_UserLearningProgress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QuizletClone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e508fc3e-4fa9-445b-adcf-6cb09271b640",
+                            Id = "98326afa-0330-4a40-b4f5-85263f45c440",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "42c177ff-dfcf-47e7-a45e-2e0ecfe5847f",
+                            Id = "eb888ac0-36ef-47c2-b13d-ec1184d8ea0a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -250,9 +253,6 @@ namespace QuizletClone.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AccessCount")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

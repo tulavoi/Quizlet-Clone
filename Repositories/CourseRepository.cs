@@ -8,7 +8,7 @@ using QuizletClone.Models;
 
 namespace QuizletClone.Repositories
 {
-    public class CourseRepository : ICourseRepository
+	public class CourseRepository : ICourseRepository
     {
         private readonly AppDbContext _context;
         private readonly ICoursePermissionRepository _coursePerRepo;
@@ -97,14 +97,24 @@ namespace QuizletClone.Repositories
 
         public async Task<List<Course>?> GetPopularCoursesAsync(CourseQueryObject query)
         {
-            return await _context.UserCourseProgresses
-                .Include(ucp => ucp.Course!.User)
-                .GroupBy(ucp => ucp.CourseId)
-                .OrderByDescending(g => g.Count())  // Đếm số lượng người truy cập khóa đó
-                .Take(query.Quantity)
-                .Select(g => g.First().Course!)     // Lấy khóa học từ group
-                .ToListAsync();
-        }
+            var courses = _context.Courses
+				.Include(fc => fc.Flashcards)
+				.AsQueryable();
+
+			if (!string.IsNullOrEmpty(query.FilterBy))
+			{
+                courses = courses.Where(c => c.Title.Contains(query.FilterBy) 
+                    || c.Description.Contains(query.FilterBy));
+			}
+
+            courses = query.IsDescending ? courses.OrderByDescending(c => c.AccessCount)
+                : courses.OrderBy(c => c.AccessCount);
+
+			if (!query.GetAll)
+				courses = courses.Take(query.Quantity);
+
+            return await courses.ToListAsync();
+		}
 
         public async Task<Course?> DeleteAsync(int id)
         {
@@ -114,5 +124,21 @@ namespace QuizletClone.Repositories
             await _context.SaveChangesAsync();
             return course;
         }
-    }
+
+		public async Task IncreaseAccessCount(string userId, int courseId)
+		{
+			var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
+			if (course == null) return;
+
+			// Nếu userId truy cập vào course này lần đầu tiên, tăng access count
+			var userProgress = await _context.UserCourseProgresses
+				.FirstOrDefaultAsync(ucp => ucp.UserId == userId && ucp.CourseId == courseId);
+            if (userProgress == null)
+            {
+                course.AccessCount++;
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+			}
+		}
+	}
 }
