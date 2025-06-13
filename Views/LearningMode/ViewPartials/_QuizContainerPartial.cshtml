@@ -29,8 +29,11 @@
 	// Cấu hình JsonSerializerSettings để:
 	// - TypeNameHandling.Auto: thêm thông tin kiểu thực tế (giúp phân biệt các lớp kế thừa như MultipleChoiceQuestionDTO)
 	// - StringEnumConverter: chuyển enum (QuestionType) thành chuỗi thay vì số (e.g., "Multiple" thay vì 1)
-	window.allQuestions = @Html.Raw(JsonConvert.SerializeObject(Model.AllQuestions, new JsonSerializerSettings {
-		TypeNameHandling = TypeNameHandling.Auto,
-		Converters = new List<JsonConverter> { new Newtonsoft.Json.Converters.StringEnumConverter() }
-	}))
+	window.quizData = {
+		courseId: @Model.CourseId,
+		allQuestions: @Html.Raw(JsonConvert.SerializeObject(Model.AllQuestions, new JsonSerializerSettings {
+			TypeNameHandling = TypeNameHandling.Auto,
+			Converters = new List<JsonConverter> { new Newtonsoft.Json.Converters.StringEnumConverter() }
+		}))
+	};
 </script>

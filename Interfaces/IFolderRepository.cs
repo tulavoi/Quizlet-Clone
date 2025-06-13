@@ -7,7 +7,7 @@ namespace QuizletClone.Interfaces
     public interface IFolderRepository
     {
         Task<Folder> CreateAsync(Folder folder);
-        Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO);
+        Task UpdateAsync(int id, Folder folder);
         Task<Folder?> DeleteAsync(int id);
         Task<Folder?> GetByIdAsync(int id);
         Task<List<Folder>?> GetAllAsync(string userId, FolderQueryObject queryObject);

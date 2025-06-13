@@ -1,5 +1,7 @@
 ﻿import { getAllQuestions } from '../questions.js';
 
+const courseId = window.quizData.courseId;
+
 const questions = getAllQuestions();
 const stepSize = generateStepSize();
 
@@ -12,6 +14,17 @@ let stepCorrectCount = 0;               // Biến đại diện cho số câu tr
 // ==============================
 // Getter
 // ==============================
+export function getData() {
+    const courseId = getCourseId();
+    const correctAnswerCount = getTotalCorrectAnswers();
+    const currentQuestionIndex = getCurrentQuestionIndex();
+    return { courseId, correctAnswerCount, currentQuestionIndex };
+}
+
+export function getCourseId() {
+    return courseId;
+}
+
 export function getStepCorrectCount() {
     return stepCorrectCount;
 }

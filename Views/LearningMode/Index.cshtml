@@ -34,6 +34,7 @@
 		@* Quiz Container *@
 		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml", new QuizContainerViewModel
 		{
+			CourseId = Model.CourseId,
 			AllQuestions = Model.LearningQuestion.AllQuestions,
 		})
 

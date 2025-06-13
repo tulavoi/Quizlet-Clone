@@ -9,7 +9,6 @@
 import {
     cards,
     sharedVariables,
-    postData
 } from './sharedVariables.js';
 
 import { updateCardDisplay } from './flashcardsPartial.js';

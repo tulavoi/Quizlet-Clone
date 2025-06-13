@@ -36,7 +36,7 @@ namespace QuizletClone.Repositories
                 .GroupJoin(
                     _context.UserFlashcardProgresses
                         .Where(p => p.UserId == userId),        // dữ liệu bên phải: tiến độ học của user 
-                    flashcard => flashcard.Id,                  // khóa bên trái: flashcard.Id
+                    flashcard => flashcard.Id,                  // khóa bên trái: flashcard.CourseId\
                     progress => progress.FlashcardId,           // khóa bên phải: progress.FlashcardId
                     (flashcard, progresses) => new              // kết quả sau khi join
                     {

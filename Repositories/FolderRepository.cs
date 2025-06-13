@@ -101,12 +101,12 @@ namespace QuizletClone.Repositories
                 .ToListAsync();
         }
 
-        public async Task UpdateAsync(int id, UpdateFolderRequestDTO folderDTO)
+        public async Task UpdateAsync(int id, Folder folder)
 		{
             var existingFolder = await _context.Folders.FirstOrDefaultAsync(f => f.Id == id);
             if (existingFolder == null) return;
 
-            existingFolder.Title = folderDTO.Title;
+            existingFolder.Title = folder.Title;
             existingFolder.UpdatedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();

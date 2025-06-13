@@ -26,11 +26,11 @@ namespace QuizletClone.Controllers
 		}
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(CreateFolderRequestDTO folderDTO)
+        public async Task<IActionResult> Create(CreateFolderRequestDTO createRequestDTO)
         {
-            folderDTO.UserId = this.UserId;
+            createRequestDTO.UserId = this.UserId;
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var folder = folderDTO.ToFolderFromCreateDTO();
+            var folder = createRequestDTO.ToFolderFromCreateDTO();
             await _folderRepo.CreateAsync(folder);
             return RedirectToAction(nameof(Details), new { slug = folder.Slug });
         }
@@ -60,8 +60,8 @@ namespace QuizletClone.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateFolderRequestDTO folderDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _folderRepo.UpdateAsync(id , folderDTO);
-
+            var folder = folderDTO.ToFolderFromUpdateDTO();
+            await _folderRepo.UpdateAsync(id , folder);
             return Ok();
 		}
 

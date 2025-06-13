@@ -16,7 +16,7 @@ namespace QuizletClone.Models
         public string Slug { get; set; } = string.Empty;
 
         [Required]
-        public required string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }
         public List<CourseFolder> CourseFolders { get; set; } = new();
     }

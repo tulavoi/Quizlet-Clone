@@ -19,6 +19,15 @@ namespace QuizletClone.Mappers
             };
         }
 
+		public static Folder ToFolderFromUpdateDTO(this UpdateFolderRequestDTO folderDTO)
+		{
+			return new Folder
+			{
+				Title = folderDTO.Title,
+				UpdatedAt = DateTime.Now,
+			};
+		}
+
 		public static Folder ToFolderFromAddFolderToLibraryRequestDTO(this AddFolderToLibraryRequestDTO folderDTO)
 		{
 			return new Folder

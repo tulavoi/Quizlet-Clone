@@ -83,7 +83,7 @@ namespace QuizletClone.Mappers
         {
             return new LearningModeDTO
             {
-                Id = course.Id,
+                CourseId = course.Id,
                 Title = course.Title,
                 Slug = course.Slug,
                 LearningQuestion = questionDTO

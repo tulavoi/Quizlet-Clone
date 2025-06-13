@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using QuizletClone.DTOs.LearningMode;
+using QuizletClone.DTOs.UserCourseProgress;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
-using System.Net.Quic;
 using QuizletClone.Models;
 
 namespace QuizletClone.Controllers
 {
     [Authorize]
-    [Route("learn")]
+    [Route("learning")]
     public class LearningModeController : BaseController
     {
 		private readonly ICourseRepository _courseRepo;
@@ -54,5 +55,15 @@ namespace QuizletClone.Controllers
             
 			return View(course.ToLearningModeDTO(question));
         }
-    }
+
+		[HttpPost("update-progress")]
+		public async Task<IActionResult> UpdateProgress([FromBody] UpdateLearningProgressRequestDTO updateRequestDTO)
+		{
+            updateRequestDTO.UserId = this.UserId;
+			if (updateRequestDTO.CourseId <= 0) return BadRequest("Invalid course ID.");
+            var progress = updateRequestDTO.ToLearningProgressFromUpdateDTO();
+			await _learningProgressRepo.UpdateAsync(progress);
+            return Ok();
+		}
+	}
 }
