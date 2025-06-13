@@ -5,18 +5,16 @@ namespace QuizletClone.Models
 {
 	public class UserLearningProgress
 	{
-		public int Id { get; set; }
-		public int CorrectAnswerCount { get; set; } = 0;
-		public int CurrentQuestionIndex { get; set; } = 0;
-		public int TotalQuestions { get; set; } = 0;
-		public DateTime LastAccessed { get; set; } = DateTime.Now;
-
-        [Required]
+		[Required]
 		public AppUser? User { get; set; }
 		public string UserId { get; set; } = string.Empty;
 
-        [Required]
+		[Required]
 		public Course? Course { get; set; }
 		public int CourseId { get; set; }
+
+		public int CorrectAnswerCount { get; set; } = 0;
+		public int CurrentQuestionIndex { get; set; } = 0;
+		public DateTime LastAccessed { get; set; } = DateTime.Now;
 	}
 }

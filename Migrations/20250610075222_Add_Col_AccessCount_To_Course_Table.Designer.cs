@@ -12,8 +12,8 @@ using QuizletClone.Areas.Identity.Data;
 namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250427083849_Create_Table_UserLearningProgress")]
-    partial class Create_Table_UserLearningProgress
+    [Migration("20250610075222_Add_Col_AccessCount_To_Course_Table")]
+    partial class Add_Col_AccessCount_To_Course_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace QuizletClone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "91b5d6dc-2f8f-4b77-b9ca-42a8779cb408",
+                            Id = "e508fc3e-4fa9-445b-adcf-6cb09271b640",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "52e80a40-5d1a-4559-8da5-44e3e3dcbaa9",
+                            Id = "42c177ff-dfcf-47e7-a45e-2e0ecfe5847f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -253,6 +253,9 @@ namespace QuizletClone.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -644,16 +647,13 @@ namespace QuizletClone.Migrations
 
             modelBuilder.Entity("QuizletClone.Models.UserLearningProgress", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CorrectAnswerCount")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CorrectAnswerCount")
                         .HasColumnType("int");
 
                     b.Property<int>("CurrentQuestionIndex")
@@ -662,18 +662,9 @@ namespace QuizletClone.Migrations
                     b.Property<DateTime>("LastAccessed")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TotalQuestions")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserLearningProgresses");
                 });

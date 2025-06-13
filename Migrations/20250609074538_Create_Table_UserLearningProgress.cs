@@ -37,18 +37,15 @@ namespace QuizletClone.Migrations
                 name: "UserLearningProgresses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                     CorrectAnswerCount = table.Column<int>(type: "int", nullable: false),
                     CurrentQuestionIndex = table.Column<int>(type: "int", nullable: false),
-                    TotalQuestions = table.Column<int>(type: "int", nullable: false),
-                    LastAccessed = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    LastAccessed = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLearningProgresses", x => x.Id);
+                    table.PrimaryKey("PK_UserLearningProgresses", x => new { x.UserId, x.CourseId });
                     table.ForeignKey(
                         name: "FK_UserLearningProgresses_Courses_CourseId",
                         column: x => x.CourseId,
@@ -145,19 +142,14 @@ namespace QuizletClone.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "52e80a40-5d1a-4559-8da5-44e3e3dcbaa9", null, "User", "USER" },
-                    { "91b5d6dc-2f8f-4b77-b9ca-42a8779cb408", null, "Admin", "ADMIN" }
+                    { "98326afa-0330-4a40-b4f5-85263f45c440", null, "Admin", "ADMIN" },
+                    { "eb888ac0-36ef-47c2-b13d-ec1184d8ea0a", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLearningProgresses_CourseId",
                 table: "UserLearningProgresses",
                 column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserLearningProgresses_UserId",
-                table: "UserLearningProgresses",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -169,12 +161,12 @@ namespace QuizletClone.Migrations
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "52e80a40-5d1a-4559-8da5-44e3e3dcbaa9");
+                keyValue: "98326afa-0330-4a40-b4f5-85263f45c440");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "91b5d6dc-2f8f-4b77-b9ca-42a8779cb408");
+                keyValue: "eb888ac0-36ef-47c2-b13d-ec1184d8ea0a");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Slug",

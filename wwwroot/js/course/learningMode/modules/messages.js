@@ -13,6 +13,10 @@ export const incorrectMessages = [
     "Đừng nản chí, học là một quá trình!"
 ];
 
+export const skipMessages = [
+    "Thử lại câu hỏi này sau!"
+];
+
 export function getMessage(messages) {
     var randomIndex = Math.floor(Math.random() * messages.length);
     return messages[randomIndex];

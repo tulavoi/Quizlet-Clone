@@ -7,8 +7,20 @@
 // ==============================================
 
 // Lấy biến đếm số thẻ được gắn sao
-let starredCardCount = parseInt(document.getElementById('flashcards-container')
-    .getAttribute('data-starred-card-count'), 10);
+let flashcardContainer = document.getElementById('flashcards-container');
+let starredCardCount = parseInt(flashcardContainer?.getAttribute('data-starred-card-count'), 10);
+const toggleStarred = document.getElementById('toggleStarred');
+
+// Cập nhật màu sắc các nút gắn sao
+export function updateStarredButtonsColor() {
+    // Lặp qua tất cả các button để cập nhật màu sắc ban đầu
+    const buttons = document.querySelectorAll('[data-is-starred]');
+
+    buttons.forEach(btn => {
+        let isStarred = getDataIsStarredValue(btn);
+        updateIconColor(btn, isStarred);
+    });
+}
 
 // Bắt đầu quy trình gắn sao flashcard
 export function starredFlashcard(btn, isStarred = null) {
@@ -21,7 +33,7 @@ export function starredFlashcard(btn, isStarred = null) {
     isStarred = !isStarred;
 
     // Cập  nhật lại màu icon
-    updateBtnIconColor(btn, isStarred);
+    updateIconColor(btn, isStarred);
    
     // Cập nhật giá trị trạng thái gắn sao của flashcard
     updateFlashcardStarred(flashcardId, isStarred);
@@ -34,10 +46,10 @@ function getDataIsStarredValue(btn) {
 }
 
 // Cập nhật màu icon của btnCreateFolder
-function updateBtnIconColor(btn, isStarred) {
+function updateIconColor(btn, isStarred) {
     btn.setAttribute('data-is-starred', isStarred.toString());
     const icon = btn.querySelector('i');
-    icon.style.color = isStarred ? '#FFCD1F' : '#6C757D';
+    icon.style.color = isStarred ? 'var(--yellow-color)' : 'var(--grey-color)';
 }
 
 // Lưu trạng thái gắn sao của flashcard
@@ -68,6 +80,8 @@ function updateFlashcardStarred(flashcardId, isStarred) {
 
 // Bật/tắt toggleStarred 
 function changeStateToggleStarred() {
+    if (!toggleStarred) return;
+
     const switchElement = toggleStarred.closest('.switch');
 
     if (starredCardCount > 0) {
@@ -89,13 +103,7 @@ function changeStateToggleStarred() {
 
 // Hàm chạy khi trang được load
 window.addEventListener('DOMContentLoaded', () => {
-    // Lặp qua tất cả các button để cập nhật màu sắc ban đầu
-    const buttons = document.querySelectorAll('[data-is-starred]');
-
-    buttons.forEach(btn => {
-        let isStarred = getDataIsStarredValue(btn);
-        updateBtnIconColor(btn, isStarred);
-    });
+    updateStarredButtonsColor();
 
     // Gọi lại hàm để kiểm tra có flashcard nào đc gắn sao k và cập nhật trạng thái
     changeStateToggleStarred();

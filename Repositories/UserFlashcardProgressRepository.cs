@@ -17,15 +17,22 @@ namespace QuizletClone.Repositories
             _context = context;
         }
 
-        public async Task<List<UserFlashcardProgress>> GetByIdAsync(string userId, int courseId)
+        public async Task<List<UserFlashcardProgress>> GetByCourseIdAsync(string userId, int courseId)
         {
             return await _context.UserFlashcardProgresses
-                .Where(x => x.UserId == userId && x.Flashcard.CourseId == courseId)
+                .Where(x => x.UserId == userId && x.Flashcard!.CourseId == courseId)
                 .ToListAsync() ?? new List<UserFlashcardProgress>();
         }
 
-        // Lưu lại flashcard đã học
-        public async Task SaveLearnedCardAsync(string userId, int flashcardId)
+		public async Task<UserFlashcardProgress?> GetByFlashcardIdAsync(string userId, int flashcardId)
+		{
+			return await _context.UserFlashcardProgresses
+				.Where(x => x.UserId == userId && x.Flashcard!.Id == flashcardId)
+				.FirstOrDefaultAsync();
+		}
+
+		// Lưu lại flashcard đã học
+		public async Task SaveLearnedCardAsync(string userId, int flashcardId)
         {
             var progress = await GetProgressAsync(userId, flashcardId);
 

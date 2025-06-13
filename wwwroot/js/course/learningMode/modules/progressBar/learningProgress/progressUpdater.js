@@ -1,15 +1,29 @@
 ﻿
-import { getStepIndex, getCorrectCount, getQuestionPerStep, increaseCorrectCount } from '../../quiz/quizState.js';
+import {
+    getStepIndex,
+    getTotalCorrectAnswers,
+    getQuestionPerStep,
+    getStepCorrectCount,
+    increaseTotalCorrectAnswers,
+    increaseStepCorrectCount,
+} from '../../quiz/quizState.js';
 
 let stepIndex = 0;
-let questionPerStep = getQuestionPerStep(stepIndex);
 
 export function updateProgress(progress, isAnsweredCorrect) {
     stepIndex = getStepIndex();
+    let questionPerStep = getQuestionPerStep(stepIndex);
+
     const progressIndicator = progress.querySelector('.progress-indicator');
-    const progressNumber = progress.querySelector('.progress-number');
+    const progressNumber = progress.querySelector('#totalCorrectAnswers');
     const progressSteps = progress.querySelectorAll('.progress-step');
     const progressBadge = progressIndicator.querySelector('.progress-badge');
+
+    // Nếu không có step hiện tại thì không làm gì cả
+    if (!progressSteps[stepIndex]) {
+        console.log('return o day');
+        return;
+    }
 
     // Nếu trả lời sai
     if (!isAnsweredCorrect) {
@@ -17,11 +31,11 @@ export function updateProgress(progress, isAnsweredCorrect) {
         return;
     }
 
-    increaseCorrectCount();
+    increaseStepCorrectCount();
+    increaseTotalCorrectAnswers();
 
-    // không cập nhật màu dựa vào số câu trả lời đúng, cập nhật dựa vào câu hỏi thứ báo nhiêu trong step
-    const percentage = calculatePercentage(getCorrectCount(), questionPerStep);
-    updateBadge(progressIndicator, progressNumber, percentage);
+    const percentage = calculatePercentage(getStepCorrectCount(), questionPerStep);
+    updateProgressIndicator(progressIndicator, progressNumber, percentage);
     updateProgressStep(progressSteps[stepIndex], percentage);
 }
 
@@ -39,24 +53,22 @@ function markIncorrect(step, badge) {
     badge.classList.add('in-correct');
 }
 
-function updateProgressStep(step, percentage) {
-    step.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
+export function updateProgressStep(step, percentage) {
+    if (step) {
+        step.style.setProperty('--progress-fill', `calc(${percentage}% + .3rem)`);
+    }
 }
 
-function updateBadge(indicator, numberElement, percentage) {
-    if (!numberElement) {
-        // hoàn thành step 1 -> sang step 2 -> trả lời đúng -> lỗi numberElement null
-        // không cập nhật màu dựa vào số câu trả lời đúng, cập nhật dựa vào câu hỏi thứ báo nhiêu trong step
-        console.log("num element null"); 
-        return;
-    }
-    numberElement.textContent = getCorrectCount(); 
+export function updateProgressIndicator(indicator, numberElement, percentage) {
+    if (!numberElement || !indicator) return;
+
+    numberElement.textContent = getTotalCorrectAnswers(); 
     indicator.style.setProperty('--progress-indicator-0', `${percentage}%`);
     indicator.style.setProperty('--progress-indicator-1', `translateX(calc(-1% * ${percentage}))`);
 }
 
-function calculatePercentage(current, total) {
-    return Math.min((current / total) * 100, 100)
+export function calculatePercentage(current, total) {
+    return current != 0 ? Math.min((current / total) * 100, 100) : 0;
 }
 
 export function fillStepProgress(progress, currStepIndex) {
@@ -67,30 +79,27 @@ export function fillStepProgress(progress, currStepIndex) {
     });
 }
 
-export function moveBagdeToEnd(progress) {
+export function moveIndicatorToEnd(progress) {
     return new Promise(resolve => {
         const indicator = progress.querySelector('.progress-indicator');
-        const badge = indicator.querySelector('.progress-badge');
+        const progressNumber = progress.querySelector('#totalCorrectAnswers');
 
-        updateBadge(indicator, badge, 100);
+        updateProgressIndicator(indicator, progressNumber, 100);
         setTimeout(resolve, 120);
     });
 }
 
-export function moveBadgeToNextStep() {
+export function moveIndicatorToNextStep() {
     stepIndex = getStepIndex();
     const progress = document.querySelector('#learningProgress');
+    if (!progress) return;
+
     const progressSteps = progress.querySelectorAll('.progress-step');
     const indicator = progress.querySelector('.progress-indicator');
-    const badge = indicator.querySelector('.progress-badge');
+    const progressNumber = progress.querySelector('#totalCorrectAnswers');
 
-    // Xóa indicator cũ nếu đang nằm trong một step trước
-    progressSteps.forEach(step => {
-        if (step.contains(indicator)) {
-            step.removeChild(indicator);
-        }
-    });
-
-    updateBadge(indicator, badge, 0);
-    progressSteps[stepIndex].appendChild(indicator);
+    updateProgressIndicator(indicator, progressNumber, 0);
+    if (progressSteps[stepIndex]) {
+        progressSteps[stepIndex].appendChild(indicator);
+    }
 }

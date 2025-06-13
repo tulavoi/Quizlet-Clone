@@ -34,14 +34,20 @@
 		@* Quiz Container *@
 		@await Html.PartialAsync("ViewPartials/_QuizContainerPartial.cshtml", new QuizContainerViewModel
 		{
+			CourseId = Model.CourseId,
 			AllQuestions = Model.LearningQuestion.AllQuestions,
 		})
 
 		@* Progress Overview *@
-		@await Html.PartialAsync("ViewPartials/_OverviewProgressPartial.cshtml")
+		@await Html.PartialAsync("ViewPartials/_OverviewProgressPartial.cshtml", new{
+			totalQuestionCount = Model.LearningQuestion.AllQuestions.Count
+		})
 
 		@* Notification Bar *@
 		@await Html.PartialAsync("ViewPartials/_NotificationBarPartial.cshtml")
+
+		@* Learning Finish *@
+		@await Html.PartialAsync("ViewPartials/_LearningFinishPartial.cshtml")
 	</div>
 </div>
 

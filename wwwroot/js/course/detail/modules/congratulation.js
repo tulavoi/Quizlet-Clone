@@ -9,7 +9,6 @@
 import {
     cards,
     sharedVariables,
-    postData
 } from './sharedVariables.js';
 
 import { updateCardDisplay } from './flashcardsPartial.js';
@@ -17,17 +16,6 @@ import { updateCardDisplay } from './flashcardsPartial.js';
 const btnRestartAll = document.getElementById('btn-restart-all');
 const btnResetFlashcard = document.getElementById('btn-reset-flashcards');
 
-// Bắn pháo bông
-export function triggerConfetti() {
-    confetti({
-        particleCount: 100,                                 // Số hạt pháo bông
-        angle: 90,                                          // Góc bắn 90 độ
-        spread: 360,                                        // Độ lan tỏa (360: bung toàn diện)
-        startVelocity: 45,                                  // Tốc độ bắn ban đầu
-        origin: { x: 0.5, y: 0.5 },                         // Vị trí giữa screen
-        colors: ['#ff0', '#ff6347', '#87ceeb', '#32cd32'],  // Màu sắc pháo bông
-    });
-}
 
 // Trở về thẻ cuối cùng
 export function backToLastCard() {

@@ -58,6 +58,7 @@ export function hightlightCorrectOption(option) {
     option.classList.add('is-correct-2');
     option.classList.add('clickable');
 
+    // BUG: Sau khi click vào sẽ chuyển đến câu hỏi tiếp theo, nếu nhấn nút bất kỳ câu hỏi đó sẽ bị skip
     // Khi click sẽ đóng notification bar và chuyển tới câu hỏi tiếp theo
     option.addEventListener('click', () => {
         hideNotificationBar();

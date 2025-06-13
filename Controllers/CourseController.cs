@@ -74,15 +74,18 @@ namespace QuizletClone.Controllers
         [HttpGet("/{slug}")]
         public async Task<IActionResult> Details(string slug, [FromQuery] bool isStarred = false)
         {
-            // Lấy course id dựa vào slug
-            int id = SlugHelper.GetIdBySlug(slug);
+            // Lấy course courseId dựa vào slug
+            int courseId = SlugHelper.GetIdBySlug(slug);
 
             // Lấy ra course
-            var course = await _courseRepo.GetByIdAsync(id);
+            var course = await _courseRepo.GetByIdAsync(courseId);
             if (course == null) return NotFound();
 
-            // Lấy ra course progress của user
-            var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
+			// Tăng số lần truy cập vào course
+			await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
+
+			// Lấy ra course progress của user
+			var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
 
             // Lưu lại course progress khi user truy cập vào course
             await _courseProgressRepo.UpdateProgressAsync(this.UserId, course.Id, courseProcress.IsShuffle);
@@ -103,7 +106,7 @@ namespace QuizletClone.Controllers
                 new FlashcardQueryObject { IsStarred = true });
 
             // Lấy ra danh sách flashcard progress của user trong học phần
-            var flashcardProcresses = await _flashcardProgressRepo.GetByIdAsync(this.UserId, course.Id);
+            var flashcardProcresses = await _flashcardProgressRepo.GetByCourseIdAsync(this.UserId, course.Id);
 
             // Nếu isStarred = true thì lấy starredFlashcards, nếu = false thì lấy tất cả flashcard
             var flashcards = isStarred ? starredFlashcards : course.Flashcards.ToList();

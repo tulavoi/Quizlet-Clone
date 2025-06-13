@@ -1,22 +1,40 @@
 ﻿import { getAllQuestions } from '../questions.js';
 
+const courseId = window.quizData.courseId;
+
 const questions = getAllQuestions();
 const stepSize = generateStepSize();
 
 let currQuestionIndex = 0;
-let stepStartIndex = 0;             // Vị trí bắt đầu của step hiện tại trong mảng questions
-let stepIndex = 0;                  // Biến này đại diện cho đang ở step nào trong bộ câu hỏi
-let correctCount = 0;               // Biến này đại diện cho số câu trả lời đúng của user trong học phần
+let stepStartIndex = 0;                 // Vị trí bắt đầu của step hiện tại trong mảng questions
+let stepIndex = 0;                      // Biến này đại diện cho đang ở step nào trong bộ câu hỏi
+let totalCorrectAnswers = 0;            // Biến này đại diện cho số câu trả lời đúng của user trong học phần
+let stepCorrectCount = 0;               // Biến đại diện cho số câu trả lời đúng trong mỗi step
 
 // ==============================
 // Getter
 // ==============================
+export function getData() {
+    const courseId = getCourseId();
+    const correctAnswerCount = getTotalCorrectAnswers();
+    const currentQuestionIndex = getCurrentQuestionIndex();
+    return { courseId, correctAnswerCount, currentQuestionIndex };
+}
+
+export function getCourseId() {
+    return courseId;
+}
+
+export function getStepCorrectCount() {
+    return stepCorrectCount;
+}
+
 export function getCurrentQuestion() {
     return questions[stepStartIndex + currQuestionIndex];
 }
 
-export function getCorrectCount() {
-    return correctCount;
+export function getTotalCorrectAnswers() {
+    return totalCorrectAnswers;
 }
 
 export function getStepIndex() {
@@ -27,7 +45,7 @@ export function getStepSize() {
     return stepSize;
 }
 
-export function getNumberOfQuestions() {
+export function getTotalQuestionCount() {
     return questions.length;
 }
 
@@ -40,29 +58,46 @@ export function getQuestionPerStep(index) {
 }
 
 // ==============================
-// Logic cập nhật trạng thái
+// Increase Functions
 // ==============================
 
-export function nextQuestion() {
+function increaseCurrQuestionIndex() {
     currQuestionIndex++;
 }
 
-function resetCurrentQuestionIndex() {
-    currQuestionIndex = 0;
+export function increaseStepCorrectCount() {
+    stepCorrectCount++;
 }
 
 export function increaseStep() {
     stepStartIndex += stepSize[stepIndex];
     stepIndex++;
     resetCurrentQuestionIndex();
+    resetStepCorrectCount();
 }
 
-export function increaseCorrectCount(){
-    correctCount++;
+export function increaseTotalCorrectAnswers() {
+    totalCorrectAnswers++;
+}
+
+// ==============================
+// Logic cập nhật trạng thái
+// ==============================
+
+export function nextQuestion() {
+    increaseCurrQuestionIndex();
+}
+
+function resetStepCorrectCount() {
+    stepCorrectCount = 0;
+}
+
+function resetCurrentQuestionIndex() {
+    currQuestionIndex = 0;
 }
 
 function generateStepSize() {
-    const numberOfQuestions = getNumberOfQuestions();
+    const numberOfQuestions = getTotalQuestionCount();
 
     // Các số lượng question/step được ưu tiên thử nghiệm
     const preferredPerStep = [5, 6, 7];

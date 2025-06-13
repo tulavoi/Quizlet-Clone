@@ -1,4 +1,4 @@
-﻿import { getCurrentQuestion, nextQuestion } from './quizState.js';
+﻿import { getCurrentQuestion, nextQuestion, getData } from './quizState.js';
 import { renderEssayQuestion } from './essayRenderer.js';
 import { renderMultipleChoiceQuestion } from './multipleRenderer.js';
 import { attachCharacterButtonsEvent, attachInputAnswerEvent } from './essayEvents.js';
@@ -6,14 +6,21 @@ import { } from './multipleEvents.js';
 import { } from './quizHelp.js';
 import { resetIncorrectState } from '../progressBar/learningProgress/progressUpdater.js';
 import { renderUI } from '../uiHandler.js';
+import { saveQuestionsLearnedInStep } from '../questions.js';
+import { updateLearningProgress } from '../services/apiHandler.js';
 
-const QUESTION_TYPE = {
+
+export const QUESTION_TYPE = {
     MULTIPLE: "Multiple",
     ESSAY: "Essay"
 };
 
 export function renderQuiz() {
     const currQuestion = getCurrentQuestion();
+
+    // Lưu lại câu hỏi đã render
+    saveQuestionsLearnedInStep(currQuestion);
+
     let quizContainer = document.querySelector('.quiz-container');
     quizContainer.innerHTML = "";
 
@@ -41,6 +48,8 @@ export function nextQuiz() {
     nextQuestion();
     renderUI();
     resetIncorrectState();
+    updateLearningProgress(getData());
+    //console.log(getData());
 }
 
 export function displayQuizContainer() {
