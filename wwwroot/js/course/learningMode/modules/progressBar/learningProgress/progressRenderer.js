@@ -1,5 +1,5 @@
 ﻿
-import { getStepSize } from '../../quiz/quizState.js';
+import { getStepSize, getTotalCorrectAnswers, getStepIndex } from '../../quiz/quizState.js';
 
 let stepSize = getStepSize();
 
@@ -17,14 +17,15 @@ export function renderLearningProgess() {
 }
 
 function buildProgressStepHtml(stepSize) {
+    let stepIndex = getStepIndex();
     let html = '';
     for (let i = 0; i < stepSize.length; i++) {
         html += `
-            <div class="progress-step" style="background: var(--border-button-color);">
-                ${i === 0 ? `
+            <div class="progress-step" style="background: ${i < stepIndex ? 'var(--primary-green -color)' : 'var(--border-button-color)'};">
+                ${i === stepIndex ? `
                     <div class="progress-indicator">
                         <div class="progress-badge">
-                            <p class="progress-number" id="totalCorrectAnswers">0</p>
+                            <p class="progress-number" id="totalCorrectAnswers">${getTotalCorrectAnswers()}</p>
                         </div>
                     </div>
                 ` : ''}

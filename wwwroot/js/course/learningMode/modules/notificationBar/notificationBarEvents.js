@@ -14,13 +14,11 @@ export function handleKeyContinue(event) {
 
     // Ngăn hành vi mặc định như cuộn trang khi bấm Space
     event.preventDefault();
-    console.log('handle key continue');
     handleContinue();
 }
 
 // Xử lý khi bấm tiếp tục
 export function handleContinue() {
-    console.log('handle continue');
     const overviewVisible = !document.querySelector('.progress-overview-container').classList.contains('d-none');
 
     if (overviewVisible) {

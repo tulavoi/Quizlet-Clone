@@ -9,5 +9,7 @@ namespace QuizletClone.DTOs.Course
         public string Title { get; set; } = string.Empty;
         public string? Slug { get; set; } = string.Empty;
         public LearningQuestionDTO LearningQuestion { get; set; } = new();
-    }
+		public int CorrectAnswerCount { get; set; }
+		public int CurrentQuestionIndex { get; set; }
+	}
 }

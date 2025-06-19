@@ -79,15 +79,17 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static LearningModeDTO ToLearningModeDTO(this Course course, LearningQuestionDTO questionDTO)
+        public static LearningModeDTO ToLearningModeDTO(this Course course, LearningQuestionDTO questionDTO, UserLearningProgress? progress)
         {
             return new LearningModeDTO
             {
                 CourseId = course.Id,
                 Title = course.Title,
                 Slug = course.Slug,
-                LearningQuestion = questionDTO
-            };
+                LearningQuestion = questionDTO,
+                CorrectAnswerCount = progress?.CorrectAnswerCount ?? 0,
+                CurrentQuestionIndex = progress?.CurrentQuestionIndex ?? 0
+			};
         }
 
         public static RecentCourseDTO ToRecentCourseDTO(this UserCourseProgress courseProgress)
