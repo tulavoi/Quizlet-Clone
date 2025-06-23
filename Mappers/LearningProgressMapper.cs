@@ -13,6 +13,7 @@ namespace QuizletClone.Mappers
 				CourseId = requestDTO.CourseId,
 				CorrectAnswerCount = requestDTO.CorrectAnswerCount,
 				CurrentQuestionIndex = requestDTO.CurrentQuestionIndex,
+				CorrectAnswersPerStep = requestDTO.CorrectAnswersPerStep,
 				LastAccessed = requestDTO.LastAccessed
 			};
 		}

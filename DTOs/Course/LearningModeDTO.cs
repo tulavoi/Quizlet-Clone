@@ -11,5 +11,6 @@ namespace QuizletClone.DTOs.Course
         public LearningQuestionDTO LearningQuestion { get; set; } = new();
 		public int CorrectAnswerCount { get; set; }
 		public int CurrentQuestionIndex { get; set; }
+        public string CorrectAnswersPerStep { get; set; } = string.Empty;
 	}
 }

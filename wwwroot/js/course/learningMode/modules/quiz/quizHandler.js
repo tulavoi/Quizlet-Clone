@@ -49,7 +49,6 @@ export function nextQuiz() {
     renderUI();
     resetIncorrectState();
     updateLearningProgress(getData());
-    //console.log(getData());
 }
 
 export function displayQuizContainer() {

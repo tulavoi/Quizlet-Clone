@@ -4,7 +4,6 @@ const allQuestions = window.quizData.allQuestions;
 let questionsLearnedInStep = [];
 
 export function getAllQuestions() {
-    console.log(allQuestions);
     return allQuestions;
 }
 

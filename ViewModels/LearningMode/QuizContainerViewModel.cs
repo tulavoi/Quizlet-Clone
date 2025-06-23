@@ -8,5 +8,6 @@ namespace QuizletClone.ViewModels.LearningMode
 		public List<QuestionDTO> AllQuestions { get; set; } = new();
 		public int CorrectAnswerCount { get; set; }
 		public int CurrentQuestionIndex { get; set; }
+		public string CorrectAnswersPerStep { get; set; } = string.Empty;
 	}
 }

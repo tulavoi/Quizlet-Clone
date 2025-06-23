@@ -88,7 +88,8 @@ namespace QuizletClone.Mappers
                 Slug = course.Slug,
                 LearningQuestion = questionDTO,
                 CorrectAnswerCount = progress?.CorrectAnswerCount ?? 0,
-                CurrentQuestionIndex = progress?.CurrentQuestionIndex ?? 0
+                CurrentQuestionIndex = progress?.CurrentQuestionIndex ?? 0,
+                CorrectAnswersPerStep = progress?.CorrectAnswersPerStep ?? string.Empty
 			};
         }
 

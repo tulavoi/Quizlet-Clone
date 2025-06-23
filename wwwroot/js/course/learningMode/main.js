@@ -1,8 +1,8 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
 
-import { updateStepIndexFromCurrentQestionIndex } from './modules/quiz/quizState.js';
-updateStepIndexFromCurrentQestionIndex();
+import { initQuizState } from './modules/quiz/quizState.js';
+initQuizState();
 
 import { renderLearningProgess } from './modules/progressBar/learningProgress/progressRenderer.js';
 renderLearningProgess();

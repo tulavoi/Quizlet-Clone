@@ -33,7 +33,12 @@
 		courseId: @Model.CourseId,
 		learningProgress: {
 			correctAnswerCount: @Model.CorrectAnswerCount,
-			currentQuestionIndex: @Model.CurrentQuestionIndex
+			currentQuestionIndex: @Model.CurrentQuestionIndex,
+			correctAnswersPerStep: @Html.Raw(
+				string.IsNullOrWhiteSpace(Model.CorrectAnswersPerStep)
+					? "[]"
+					: Model.CorrectAnswersPerStep
+			)
 		},
 		allQuestions: @Html.Raw(JsonConvert.SerializeObject(Model.AllQuestions, new JsonSerializerSettings {
 			TypeNameHandling = TypeNameHandling.Auto,

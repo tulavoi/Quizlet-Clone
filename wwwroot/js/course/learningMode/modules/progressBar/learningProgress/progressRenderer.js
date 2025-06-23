@@ -1,11 +1,10 @@
 ﻿
 import { getStepSize, getTotalCorrectAnswers, getStepIndex } from '../../quiz/quizState.js';
 
-let stepSize = getStepSize();
-
 const learningProgress = document.querySelector('#learningProgress');
 
 export function renderLearningProgess() {
+    let stepSize = getStepSize();
     if (!stepSize) return;
 
     const track = learningProgress.querySelector('.progress-bar-track');

@@ -3,9 +3,9 @@ import {
     getStepIndex,
     getTotalCorrectAnswers,
     getQuestionPerStep,
-    getNumCorrectAnswersInStep,
+    getNumCorrectAnswersPerStep,
     increaseTotalCorrectAnswers,
-    increaseStepCorrectCount,
+    increaseNumCorrectAnswersPerStep,
 } from '../../quiz/quizState.js';
 
 let stepIndex = 0;
@@ -28,11 +28,10 @@ export function updateProgress(progress, isAnsweredCorrect) {
         return;
     }
 
-    increaseStepCorrectCount();
+    increaseNumCorrectAnswersPerStep();
     increaseTotalCorrectAnswers();
 
-    console.log('step correct count: ' + getNumCorrectAnswersInStep());
-    const percentage = calculatePercentage(getNumCorrectAnswersInStep(), questionPerStep);
+    const percentage = calculatePercentage(getNumCorrectAnswersPerStep(), questionPerStep);
     updateProgressIndicator(progressIndicator, progressNumber, percentage);
     updateProgressStep(progressSteps[stepIndex], percentage);
 }
@@ -55,7 +54,7 @@ function markIncorrect(step, badge) {
 export function updateCurrentStepProgress() {
     stepIndex = getStepIndex();
     let questionPerStep = getQuestionPerStep(stepIndex);
-    const percentage = calculatePercentage(getNumCorrectAnswersInStep(), questionPerStep);
+    const percentage = calculatePercentage(getNumCorrectAnswersPerStep(), questionPerStep);
     const progress = document.querySelector('#learningProgress');
     const progressSteps = progress.querySelectorAll('.progress-step');
     const progressIndicator = progress.querySelector('.progress-indicator');
