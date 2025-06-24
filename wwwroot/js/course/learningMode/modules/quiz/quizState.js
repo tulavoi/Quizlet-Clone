@@ -1,21 +1,23 @@
 ﻿import { getAllQuestions } from '../questions.js';
 
+// ==============================
+// Biến trạng thái
+// ==============================
 let questions = [];
 let stepSize = [];
 
-// Lấy chỉ số câu hỏi hiện tại từ quizData, index của câu hỏi trong questions[]
+let courseId = 0;
+let stepIndex = 0;
+let questionIndexInStep = 0;
+let questionStartIndexOfStep = 0;
 let questionIndexInQuestions = 0;
 let totalCorrectAnswers = 0;
 
-// Index của câu hỏi trong 1 step
-let questionIndexInStep = 0
-
-let questionStartIndexOfStep = 0;       // Vị trí bắt đầu của step hiện tại trong mảng questions
-let stepIndex = 0;                      // Step hiện tại trong bộ câu hỏi
-let courseId = 0;
-
 let correctAnswersPerStep = [];
 
+// ==============================
+// Khởi tạo Quiz
+// ==============================
 export function initQuizState() {
     questions = getAllQuestions();
     stepSize = generateStepSize();
@@ -24,24 +26,29 @@ export function initQuizState() {
     questionIndexInQuestions = window.quizData.learningProgress.currentQuestionIndex;
     totalCorrectAnswers = window.quizData.learningProgress.correctAnswerCount;
 
-    updateStepIndexFromCurrentQestionIndex();
+    updateStepState();
 }
 
-// Hàm này phải nằm trong hàm khởi tạo
-function updateStepIndexFromCurrentQestionIndex() {
-    let accumulatedSize = 0;
+// Cập nhật các chỉ số liên quan đến step hiện tại, dựa vào questionIndexInQuestions
+function updateStepState() {
+    let accumulated = 0;
     for (let i = 0; i < stepSize.length; i++) {
-        accumulatedSize += stepSize[i];
-        if (questionIndexInQuestions < accumulatedSize) {
+        const nextAccumulated = accumulated + stepSize[i];
+
+        // Nếu câu hỏi hiện tại nằm trong khoảng của step i
+        if (questionIndexInQuestions < nextAccumulated) {
             stepIndex = i;
-            break;
+            questionStartIndexOfStep = accumulated;
+            questionIndexInStep = questionIndexInQuestions - accumulated;
+            return;
         }
+        accumulated = nextAccumulated; // Chuyển sang step kế tiếp
     }
 
-    questionStartIndexOfStep = stepSize.slice(0, stepIndex).reduce((sum, val) => sum + val, 0);
-
-    // Nếu bạn cần biết vị trí câu hỏi trong step hiện tại:
-    questionIndexInStep = questionIndexInQuestions - questionStartIndexOfStep;
+    // Đã vượt quá step cuối cùng
+    stepIndex = stepSize.length;
+    questionStartIndexOfStep = accumulated;
+    questionIndexInStep = 0;
 }
 
 // ==============================
