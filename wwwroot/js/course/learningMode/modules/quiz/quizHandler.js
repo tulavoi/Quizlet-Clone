@@ -6,7 +6,6 @@ import { } from './multipleEvents.js';
 import { } from './quizHelp.js';
 import { resetIncorrectState } from '../progressBar/learningProgress/progressUpdater.js';
 import { renderUI } from '../uiHandler.js';
-import { saveQuestionsLearnedInStep } from '../questions.js';
 import { updateLearningProgress } from '../services/apiHandler.js';
 
 
@@ -17,9 +16,6 @@ export const QUESTION_TYPE = {
 
 export function renderQuiz() {
     const currQuestion = getCurrentQuestion();
-
-    // Lưu lại câu hỏi đã render
-    saveQuestionsLearnedInStep(currQuestion);
 
     let quizContainer = document.querySelector('.quiz-container');
     quizContainer.innerHTML = "";

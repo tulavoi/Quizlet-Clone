@@ -13,6 +13,7 @@ import { showNotificationBar } from './notificationBar/notificationBarHandler.js
 import { fillStepProgress, moveIndicatorToEnd, moveIndicatorToNextStep, updateCurrentStepProgress } from './progressBar/learningProgress/progressUpdater.js';
 import { displayLearningFinish } from './learningFinish/learningFinishHandler.js';
 import { triggerConfetti } from '../../../shared/confetti.js';
+import { addLearnedQuestions } from '../modules/quiz/questionsInStep.js';
 
 
 const learningProgress = document.querySelector('#learningProgress');
@@ -29,6 +30,7 @@ export function renderUI() {
     else if (questionIndexInStep < questionsPerStep) {
         showQuiz();
     } else {
+        addLearnedQuestions();  // Thêm câu hỏi đã học vào danh sách đã học trước khi stepIndex tăng lên
         handleStepComplete(stepIndex);
     }
 }
