@@ -81,7 +81,7 @@ namespace QuizletClone.Services
 		{
 			return new EssayQuestionDTO
 			{
-				Flashcard = flashcard.ToFlashcardDTO(),
+				Flashcard = flashcard.ToFlashcardDTO(userFlashcardProgress),
 				Question = flashcard.Definition!,
 				QuestionType = QuestionType.Essay,
 				CorrectAnswer = flashcard.Term!,

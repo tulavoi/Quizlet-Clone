@@ -44,6 +44,8 @@ namespace QuizletClone.Repositories
 			existedProgress.LastAccessed = DateTime.Now;
 			existedProgress.CorrectAnswerCount = progress.CorrectAnswerCount;
 			existedProgress.CurrentQuestionIndex = progress.CurrentQuestionIndex;
+			existedProgress.CorrectAnswersPerStep = progress.CorrectAnswersPerStep;
+			existedProgress.QuestionType = progress.QuestionType;
 			await _context.SaveChangesAsync();
 		}
 	}

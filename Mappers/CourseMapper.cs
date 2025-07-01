@@ -4,6 +4,7 @@ using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Flashcard;
 using QuizletClone.DTOs.LearningMode;
 using QuizletClone.Extensions;
+using QuizletClone.Helpers;
 using QuizletClone.Models;
 
 namespace QuizletClone.Mappers
@@ -79,15 +80,19 @@ namespace QuizletClone.Mappers
             };
         }
 
-        public static LearningModeDTO ToLearningModeDTO(this Course course, LearningQuestionDTO questionDTO)
+        public static LearningModeDTO ToLearningModeDTO(this Course course, LearningQuestionDTO questionDTO, UserLearningProgress? progress)
         {
             return new LearningModeDTO
             {
                 CourseId = course.Id,
                 Title = course.Title,
                 Slug = course.Slug,
-                LearningQuestion = questionDTO
-            };
+                LearningQuestion = questionDTO,
+                CorrectAnswerCount = progress?.CorrectAnswerCount ?? 0,
+                CurrentQuestionIndex = progress?.CurrentQuestionIndex ?? 0,
+                CorrectAnswersPerStep = progress?.CorrectAnswersPerStep ?? string.Empty,
+                QuestionType = progress?.QuestionType ?? QuestionType.Both
+			};
         }
 
         public static RecentCourseDTO ToRecentCourseDTO(this UserCourseProgress courseProgress)

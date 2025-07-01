@@ -4,15 +4,16 @@ import { hideOverviewProgress, displayOverviewProgress } from './progressBar/ove
 import { hideLearningProgress, displayLearningProgress } from './progressBar/learningProgress/progressRenderer.js';
 import {
     getQuestionPerStep,
-    getCurrentQuestionIndex,
+    getQuestionIndexInStep,
     increaseStep,
     getStepIndex,
     getStepSize,
 } from './quiz/quizState.js';
 import { showNotificationBar } from './notificationBar/notificationBarHandler.js';
-import { fillStepProgress, moveIndicatorToEnd, moveIndicatorToNextStep } from './progressBar/learningProgress/progressUpdater.js';
+import { fillStepProgress, moveIndicatorToEnd, moveIndicatorToNextStep, updateCurrentStepProgress } from './progressBar/learningProgress/progressUpdater.js';
 import { displayLearningFinish } from './learningFinish/learningFinishHandler.js';
 import { triggerConfetti } from '../../../shared/confetti.js';
+import { addLearnedQuestions } from '../modules/quiz/questionsInStep.js';
 
 
 const learningProgress = document.querySelector('#learningProgress');
@@ -21,14 +22,15 @@ export function renderUI() {
     const stepIndex = getStepIndex();
     const stepSizes = getStepSize();
     const questionsPerStep = getQuestionPerStep(stepIndex);
-    const currQuestionIndex = getCurrentQuestionIndex();
+    const questionIndexInStep = getQuestionIndexInStep();
 
     if (stepIndex >= stepSizes.length) {
         handleLearningFinish();
     }
-    else if (currQuestionIndex < questionsPerStep) {
+    else if (questionIndexInStep < questionsPerStep) {
         showQuiz();
     } else {
+        addLearnedQuestions();  // Thêm câu hỏi đã học vào danh sách đã học trước khi stepIndex tăng lên
         handleStepComplete(stepIndex);
     }
 }
@@ -40,6 +42,8 @@ function handleLearningFinish() {
 
 function showQuiz() {
     displayLearningProgress();
+    updateCurrentStepProgress();
+
     displayQuizContainer();
     renderQuiz();
     hideOverviewProgress();

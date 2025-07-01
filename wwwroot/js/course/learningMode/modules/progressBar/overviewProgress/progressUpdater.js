@@ -1,5 +1,6 @@
 ﻿
-import { getQuestionsLearnedInStep, resetQuestionsLearnedInStep } from '../../questions.js';
+import { resetQuestionsLearnedInStep } from '../../quiz/questionsInStep.js';
+import { getQuestionsLearnedInStep } from '../../quiz/questionsInStep.js';
 import { } from '../../../../detail/modules/flashcardAction.js'; // import để thực hiện chức năng text to speech
 import { updateStarredButtonsColor } from '../../../../detail/modules/starredFlashcard.js'; // import để thực hiện chức năng text to speech
 
@@ -26,6 +27,7 @@ export function updateProgress(progress) {
         updateProgressIndicator(progressIndicator, progressNumber, percentage);
         updateProgressStep(progressStep, percentage);
     }, 1000);
+
     updateFlashcardsLearnedInStep();
 }
 
@@ -39,6 +41,7 @@ function updateFlashcardsLearnedInStep() {
     container.innerHTML = '';
 
     const questions = getQuestionsLearnedInStep();
+    console.log(questions);
     questions.forEach(question => {
         const flashcard = document.createElement('div');
 

@@ -31,6 +31,15 @@
 	// - StringEnumConverter: chuyển enum (QuestionType) thành chuỗi thay vì số (e.g., "Multiple" thay vì 1)
 	window.quizData = {
 		courseId: @Model.CourseId,
+		learningProgress: {
+			correctAnswerCount: @Model.CorrectAnswerCount,
+			currentQuestionIndex: @Model.CurrentQuestionIndex,
+			correctAnswersPerStep: @Html.Raw(
+				string.IsNullOrWhiteSpace(Model.CorrectAnswersPerStep)
+					? "[]"
+					: Model.CorrectAnswersPerStep
+			)
+		},
 		allQuestions: @Html.Raw(JsonConvert.SerializeObject(Model.AllQuestions, new JsonSerializerSettings {
 			TypeNameHandling = TypeNameHandling.Auto,
 			Converters = new List<JsonConverter> { new Newtonsoft.Json.Converters.StringEnumConverter() }

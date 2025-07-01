@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizletClone.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using QuizletClone.Areas.Identity.Data;
 namespace QuizletClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250621090051_AddCorrectAnswersPerStepToUserLearningProgress")]
+    partial class AddCorrectAnswersPerStepToUserLearningProgress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QuizletClone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ed7289ba-f633-49ca-9a6d-ebd3e3e2c263",
+                            Id = "5aa25022-8915-4a93-98e1-e6cc2c9fb3a3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8440f7b9-91ff-4ae6-83ba-930ee4eeb0bb",
+                            Id = "633e15ac-84fd-4b33-93d6-fe9c62ae3d6d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -662,9 +665,6 @@ namespace QuizletClone.Migrations
 
                     b.Property<DateTime>("LastAccessed")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("QuestionType")
-                        .HasColumnType("int");
 
                     b.HasKey("UserId", "CourseId");
 
