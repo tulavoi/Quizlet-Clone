@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json.Converters;
+using QuizletClone.Helpers;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace QuizletClone.DTOs.LearningMode
 {
@@ -13,5 +16,7 @@ namespace QuizletClone.DTOs.LearningMode
 		[Required]
 		public string UserId { get; set; } = string.Empty;
 		public DateTime LastAccessed { get; set; } = DateTime.Now;
+		//[JsonConverter(typeof(StringEnumConverter))]
+		public QuestionType QuestionType { get; set; } = QuestionType.Both;
 	}
 }

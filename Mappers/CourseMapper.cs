@@ -4,6 +4,7 @@ using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Flashcard;
 using QuizletClone.DTOs.LearningMode;
 using QuizletClone.Extensions;
+using QuizletClone.Helpers;
 using QuizletClone.Models;
 
 namespace QuizletClone.Mappers
@@ -89,7 +90,8 @@ namespace QuizletClone.Mappers
                 LearningQuestion = questionDTO,
                 CorrectAnswerCount = progress?.CorrectAnswerCount ?? 0,
                 CurrentQuestionIndex = progress?.CurrentQuestionIndex ?? 0,
-                CorrectAnswersPerStep = progress?.CorrectAnswersPerStep ?? string.Empty
+                CorrectAnswersPerStep = progress?.CorrectAnswersPerStep ?? string.Empty,
+                QuestionType = progress?.QuestionType ?? QuestionType.Both
 			};
         }
 

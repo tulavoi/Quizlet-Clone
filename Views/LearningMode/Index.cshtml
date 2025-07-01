@@ -23,6 +23,11 @@
 					CourseSlug = Model.Slug,
 				})
 
+				@* Setting Panel *@
+				@await Html.PartialAsync("ViewPartials/_SettingPanelPartial.cshtml", new{
+					QuestionType = Model.QuestionType,
+				})
+
 				@* Learning Progress *@
 				@await Html.PartialAsync("ViewPartials/_LearningProgressPartial.cshtml", new
 				{

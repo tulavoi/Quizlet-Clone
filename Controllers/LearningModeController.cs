@@ -46,10 +46,10 @@ namespace QuizletClone.Controllers
             else
             {
                 await _learningProgressRepo.UpdateAsync(progress);
+				queryObject.QuestionType = progress.QuestionType; // Nếu như người dùng đã có tiến độ học, thì sử dụng loại câu hỏi đã lưu
 			}
 
 			// Tạo questions
-			//queryObject.QuestionType = QuestionType.Essay; // Lấy các essay questionDTO để thử nghiệm
 			var questionDTO = await _quizService.GenerateQuestionDTOsAsync(this.UserId, course.Id, queryObject);
             if (questionDTO == null) return NotFound();
             

@@ -1,5 +1,6 @@
 ﻿
 import { } from '../../shared/btnOptionsDropdown.js';
+import { } from './modules/settingPanel/settingPanelEvents.js';
 
 import { initQuizState } from './modules/quiz/quizState.js';
 initQuizState();

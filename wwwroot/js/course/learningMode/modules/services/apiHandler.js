@@ -1,6 +1,8 @@
 ﻿
 
 export async function updateLearningProgress(data) {
+    console.log(data);
+    //return;
     try {
         const response = await fetch('/learning/update-progress', {
             method: 'POST',

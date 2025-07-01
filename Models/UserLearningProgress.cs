@@ -1,4 +1,5 @@
 ﻿using QuizletClone.Areas.Identity.Data;
+using QuizletClone.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace QuizletClone.Models
@@ -16,6 +17,7 @@ namespace QuizletClone.Models
 		public int CorrectAnswerCount { get; set; } = 0;
 		public int CurrentQuestionIndex { get; set; } = 0;
 		public string CorrectAnswersPerStep { get; set; } = string.Empty;
+		public QuestionType QuestionType { get; set; } = QuestionType.Both;
 		public DateTime LastAccessed { get; set; } = DateTime.Now;
 	}
 }

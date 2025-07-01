@@ -14,7 +14,8 @@ namespace QuizletClone.Mappers
 				CorrectAnswerCount = requestDTO.CorrectAnswerCount,
 				CurrentQuestionIndex = requestDTO.CurrentQuestionIndex,
 				CorrectAnswersPerStep = requestDTO.CorrectAnswersPerStep,
-				LastAccessed = requestDTO.LastAccessed
+				LastAccessed = requestDTO.LastAccessed,
+				QuestionType = requestDTO.QuestionType
 			};
 		}
 	}

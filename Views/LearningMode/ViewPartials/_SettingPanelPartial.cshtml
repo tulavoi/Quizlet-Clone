@@ -1,0 +1,55 @@
+﻿@model dynamic
+@using QuizletClone.Helpers;
+@{
+	var selectedType = Model.QuestionType;
+
+	var questionTypeOptions = new[]
+	{
+		new { Icon = "fa-list-ul", Label = "Trắc nghiệm", Id = "multipleQuestion", Type = QuestionType.Multiple },
+		new { Icon = "fa-pen", Label = "Tự luận", Id = "essayQuestion", Type = QuestionType.Essay }
+	};
+
+	Func<QuestionType, bool> isChecked = (type) => selectedType == QuestionType.Both || selectedType == type;
+}
+
+<div id="settingsPanel" class="settings-panel hidden">
+	<div class="header">
+		<button class="btn-icon">
+			<i class="fa-solid fa-shuffle"></i>
+		</button>
+		<button class="btn-icon">
+			<i class="fa-solid fa-star"></i>
+		</button>
+		<button class="btn-icon active">
+			<i class="fa-solid fa-volume-high"></i>
+		</button>
+	</div>
+
+	<div class="question-section">
+		<div class="question-types-wrapper">
+			<div class="question-types">
+				<p class="question-types-title">Loại câu hỏi</p>
+				
+				@foreach (var question in questionTypeOptions)
+				{
+					<div class="question-type-item">
+						<i class="fa-solid @question.Icon"></i>
+						<p>@question.Label</p>
+
+						<label class="toggle-switch">
+							<input class="toggle-input" 
+							type="checkbox" 
+							id="@question.Id" 
+							@(isChecked(question.Type) ? "checked" : "")>
+							<span class="toggle-slider toggle-slider-round"></span>
+						</label>
+					</div>
+				}
+			</div>
+		</div>
+
+		<div class="question-options">
+			<button onclick="resetQuestions()" class="reset-btn">Đặt lại câu hỏi</button>
+		</div>
+	</div>
+</div>

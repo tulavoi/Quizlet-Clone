@@ -1,5 +1,6 @@
 ﻿using QuizletClone.DTOs.Flashcard;
 using QuizletClone.DTOs.LearningMode;
+using QuizletClone.Helpers;
 
 namespace QuizletClone.DTOs.Course
 {
@@ -12,5 +13,6 @@ namespace QuizletClone.DTOs.Course
 		public int CorrectAnswerCount { get; set; }
 		public int CurrentQuestionIndex { get; set; }
         public string CorrectAnswersPerStep { get; set; } = string.Empty;
+        public QuestionType QuestionType { get; set; } = QuestionType.Both;
 	}
 }

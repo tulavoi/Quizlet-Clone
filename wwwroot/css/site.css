@@ -1,5 +1,6 @@
 ﻿:root {
     --grey-color: #6c757d;
+    --grey-color-2: #939bb4;
     --light-grey-color: #282e3e1a;
     --light-green-color: #3ccfcf;
     --btn-secondary-hover-color: #edeff4;
@@ -26,6 +27,7 @@
     --green-deep: #12815a;
     --green-soft: #59e8b5;
     --navy-color: #232946;
+    --twilight-blue: #dbdfff;
 }
 
 html, body {

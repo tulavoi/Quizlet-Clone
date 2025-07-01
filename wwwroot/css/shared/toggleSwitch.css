@@ -1,0 +1,61 @@
+﻿/* Toggle Switch */
+.toggle-switch {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1rem;
+    width: 2rem;
+}
+
+.toggle-input {
+    border: 0px;
+    clip: rect(0px, 0px, 0px, 0px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0px;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap
+}
+
+.toggle-slider {
+    border-radius: .5rem;
+    cursor: pointer;
+    display: block;
+    height: .875rem;
+    position: relative;
+    width: 2.125rem;
+}
+.toggle-slider:after{
+    border-radius: 50%;
+    box-shadow: 0 .0625rem .0625rem #00000024, 0 .125rem .0625rem #0000001f, 0 .0625rem .1875rem #0003;
+    content: "";
+    cursor: pointer;
+    height: 1.25rem;
+    left: 0;
+    position: absolute;
+    top: -.1875rem;
+    transition: all .12s cubic-bezier(.37,0,.53,1);
+    width: 1.25rem;
+}
+
+.toggle-slider-round {
+    background: var(--grey-color-2);
+}
+
+.toggle-slider-round:after {
+    background-color: white;
+    transform: translateX(0);
+}
+
+.toggle-input:checked + .toggle-slider.toggle-slider-round {
+    background: var(--twilight-blue);
+}
+
+.toggle-input:checked + .toggle-slider.toggle-slider-round:after {
+    transform: translateX(calc(2.125rem - 1.25rem));
+    background-color: var(--blue-color);
+}
