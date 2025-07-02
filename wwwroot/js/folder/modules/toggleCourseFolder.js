@@ -3,7 +3,7 @@
 export async function ToggleCourseFolder(courseId, folderId, event = null) {
     try {
         // Gửi request lên server
-        await postData("/course-folder/toggle-course-folder", { courseId, folderId });
+        postData("/course-folder/toggle-course-folder", { courseId, folderId });
 
         if (event) {
             const btnAddToFolder = event.currentTarget; // Lấy ra button đang được click
