@@ -1,0 +1,19 @@
+﻿.accessDenied-container {
+    display: flex;
+    justify-content: center; /* căn giữa theo chiều ngang */
+    align-items: center; /* căn giữa theo chiều dọc */
+    height: 50vh;
+}
+
+.mwfhas {
+    display: flex;
+    gap: 2.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mwfhas img {
+    width: 4.5rem;
+    height: 4.5rem;
+}

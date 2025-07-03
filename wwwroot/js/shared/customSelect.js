@@ -5,6 +5,9 @@
     const selected = customSelect.querySelector(".selected");
     const optionItems = customSelect.querySelectorAll(".option");
 
+    // Gọi hàm sắp xếp mặc định khi trang load
+    sortCourses('updated');
+
     // Hiển thị hoặc ẩn dropdown khi click
     customSelect.addEventListener('click', toggleDropdown);
 
@@ -55,7 +58,6 @@
                 case "updated":
                     const dateA = new Date(a.getAttribute("data-updated"));
                     const dateB = new Date(b.getAttribute("data-updated"));
-                    console.log(dateA, dateB);
                     return dateB - dateA; // Sắp xếp giảm dần (mới nhất trước)
                 case "title":
                     const titleA = a.querySelector('.title span').textContent.trim().toLowerCase();

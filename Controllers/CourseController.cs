@@ -81,6 +81,14 @@ namespace QuizletClone.Controllers
             var course = await _courseRepo.GetByIdAsync(courseId);
             if (course == null) return NotFound();
 
+			// Kiểm tra quyền truy cập vào học phần của user không sở hữu
+            if (course.CoursePermission?.ViewPermission?.Type == PermissionType.OnlyMe)
+            {
+				ViewBag.Heading = "Học phần đã được bảo vệ";
+				ViewBag.Message = "Rất tiếc, chỉ người tạo học phần này mới có quyền truy cập";
+				return View("/Views/Shared/AccessDenied.cshtml");
+            }
+
 			// Tăng số lần truy cập vào course
 			await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
 

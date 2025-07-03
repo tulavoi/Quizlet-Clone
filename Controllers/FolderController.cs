@@ -8,6 +8,7 @@ using QuizletClone.DTOs.Folder;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Mappers;
+using QuizletClone.Models;
 using System.Globalization;
 
 namespace QuizletClone.Controllers
@@ -44,7 +45,7 @@ namespace QuizletClone.Controllers
             var folder = await _folderRepo.GetByIdAsync(folderId);
             if (folder == null) return NotFound();
 
-            var courseProgress = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
+			var courseProgress = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "LastUpdated",
                 IsDescending = true,

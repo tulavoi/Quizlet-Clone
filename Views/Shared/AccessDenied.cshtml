@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Xuất hiện lỗi ngoài dự tính | QuizletClone";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/shared/accessDenied.css" />
+}
+
+<div class="accessDenied-container">
+    <div class="mwfhas">
+        <img src="~/images/icons/error.png" />
+        <h3>@ViewBag.Heading</h3>
+        <p>@ViewBag.Message</p>
+    </div>
+</div>
