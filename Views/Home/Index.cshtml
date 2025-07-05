@@ -23,7 +23,7 @@
                 @foreach (var course in Model.RecentCoursesDTO)
                 {
                     var author = (course.OwnerDTO.Id == UserManager.GetUserId(User) ? "bạn" : course.OwnerDTO.Username);
-                    <a class="col-md-6 btn py-0 my-2" asp-controller="Course" asp-action="Details" asp-route-slug="@course.Slug">
+                    <a class="col-md-6 btn py-0 my-2" asp-controller="Course" asp-action="Verify" asp-route-slug="@course.Slug">
                         <div class="recent-course p-2 row">
                             <div class="col-1 p-0">
                                 <img src="/images/icons/card.png" alt="Icon">

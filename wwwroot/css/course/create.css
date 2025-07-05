@@ -1,4 +1,5 @@
-﻿
+﻿@import url('../shared/custom-input.css');
+
 /* CSS này cho trang tạo học phần mới */
 
 body {
@@ -50,22 +51,6 @@ body {
 #title::placeholder {
     font-weight: bold;
     color: #6c757d;
-}
-
-.custom-input {
-    width: 100%;
-    border: none;
-    border-bottom: 3px solid var(--input-border-bottom-color);
-    outline: none;
-    font-size: 16px;
-    padding: 5px 0;
-    border-radius: 0;
-    background: white;
-    color: #282E3E;
-}
-
-.custom-input:focus {
-    border-bottom: 3px solid var(--yellow-color);
 }
 
 .course-password-input {

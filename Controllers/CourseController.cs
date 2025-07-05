@@ -1,6 +1,7 @@
 ﻿using api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Newtonsoft.Json;
 using QuizletClone.DTOs.Course;
 using QuizletClone.DTOs.Flashcard;
@@ -12,21 +13,21 @@ using QuizletClone.ViewModels.Course;
 
 namespace QuizletClone.Controllers
 {
-	[Authorize]
+    [Authorize]
     [Route("course")]
-	public class CourseController : BaseController
-	{
-		private readonly IPermissionRepository _permissionRepo;
-		private readonly ILanguageRepository _languageRepo;
-		private readonly ICourseRepository _courseRepo;
-		private readonly IFlashcardRepository _flashcardRepo;
+    public class CourseController : BaseController
+    {
+        private readonly IPermissionRepository _permissionRepo;
+        private readonly ILanguageRepository _languageRepo;
+        private readonly ICourseRepository _courseRepo;
+        private readonly IFlashcardRepository _flashcardRepo;
         private readonly IUserFlashcardProgressRepository _flashcardProgressRepo;
         private readonly IUserCourseProgressRepository _courseProgressRepo;
         private readonly IFolderRepository _folderRepo;
 
         public CourseController(
             IPermissionRepository permissionRepo,
-            ILanguageRepository languageRepo, 
+            ILanguageRepository languageRepo,
             ICourseRepository courseRepo,
             IFlashcardRepository flashcardRepo,
             IUserFlashcardProgressRepository flashcardProgressRepo,
@@ -44,10 +45,10 @@ namespace QuizletClone.Controllers
 
         [Route("/create-course")]
         public async Task<IActionResult> Create()
-		{
+        {
             await this.SetViewBagForCreateCourse();
-			return View();
-		}
+            return View();
+        }
 
         [HttpPost("/create-course")]
         public async Task<IActionResult> Create(CreateCourseRequestDTO courseDTO)
@@ -81,19 +82,11 @@ namespace QuizletClone.Controllers
             var course = await _courseRepo.GetByIdAsync(courseId);
             if (course == null) return NotFound();
 
-			// Kiểm tra quyền truy cập vào học phần của user không sở hữu
-            if (course.CoursePermission?.ViewPermission?.Type == PermissionType.OnlyMe)
-            {
-				ViewBag.Heading = "Học phần đã được bảo vệ";
-				ViewBag.Message = "Rất tiếc, chỉ người tạo học phần này mới có quyền truy cập";
-				return View("/Views/Shared/AccessDenied.cshtml");
-            }
+            // Tăng số lần truy cập vào course
+            await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
 
-			// Tăng số lần truy cập vào course
-			await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
-
-			// Lấy ra course progress của user
-			var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
+            // Lấy ra course progress của user
+            var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
 
             // Lưu lại course progress khi user truy cập vào course
             await _courseProgressRepo.UpdateProgressAsync(this.UserId, course.Id, courseProcress.IsShuffle);
@@ -102,11 +95,11 @@ namespace QuizletClone.Controllers
             var lastReviewedCard = await _flashcardRepo.GetMostRecentlyAsync(this.UserId, course.Id);
 
             // Lấy ra flashcards user đã học trong học phần
-            var learnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id, 
+            var learnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsLearned = true });
 
             // Lấy ra flashcards user chưa học trong học phần
-            var notLearnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id, 
+            var notLearnedFlashcards = await _flashcardRepo.GetAllCardsInCourseAsync(this.UserId, course.Id,
                 new FlashcardQueryObject { IsLearned = false });
 
             // Lấy ra flashcards user đã gắn sao
@@ -128,10 +121,10 @@ namespace QuizletClone.Controllers
             }
 
             var courseDTO = course.ToCourseDetailDTO(
-                flashcards, 
-                lastReviewedCard, 
-                learnedFlashcards, 
-                notLearnedFlashcards, 
+                flashcards,
+                lastReviewedCard,
+                learnedFlashcards,
+                notLearnedFlashcards,
                 flashcardProcresses,
                 starredFlashcards.Count,
                 courseProcress.IsShuffle
@@ -155,6 +148,58 @@ namespace QuizletClone.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost("/verify-password")]
+        public async Task<IActionResult> VerifyPassword(string slug, string password)
+        {
+            int courseId = SlugHelper.GetIdBySlug(slug);
+			var course = await _courseRepo.GetByIdAsync(courseId);
+			if (course == null) return NotFound();
+
+            if (course.Password != password)
+            {
+				TempData["PasswordError"] = "error";
+				return RedirectToAction("Verify", new { slug = course.Slug });
+			}
+
+			// Lưu password để xác thực cho các lần truy cập sau
+            HttpContext.Session.SetString($"CoursePassword_{courseId}", password);
+
+			return RedirectToAction("Details", new { slug = course.Slug });
+		}
+
+		[HttpGet("/verify/{slug}")]
+        public async Task<IActionResult> Verify(string slug)
+        {
+            int courseId = SlugHelper.GetIdBySlug(slug);
+            var course = await _courseRepo.GetByIdAsync(courseId);
+            if (course == null) return NotFound();
+
+            if (course.UserId == this.UserId) return RedirectToAction("Details", new { slug = course.Slug });
+
+			var permission = course.CoursePermission?.ViewPermission?.Type;
+
+			if (permission == PermissionType.OnlyMe)
+			{
+				ViewBag.Heading = "Học phần đã được bảo vệ";
+				ViewBag.Message = "Rất tiếc, chỉ người tạo học phần này mới có quyền truy cập.";
+				return View("/Views/Shared/AccessDenied.cshtml");
+			}
+
+			if (permission == PermissionType.WithPassword)
+			{
+				// Nếu password được lưu trong session đúng thì không cần xác thực lại
+				var storedPassword = HttpContext.Session.GetString($"CoursePassword_{courseId}");
+                if (storedPassword != null && storedPassword == course.Password)
+					return RedirectToAction("Details", new { slug = course.Slug });
+
+				ViewBag.Slug = course.Slug;
+				ViewBag.CourseTitle = course.Title;
+				return View("/Views/Shared/PasswordRequired.cshtml");
+			}
+
+			return RedirectToAction("Details", new { slug = course.Slug });
         }
 
         private async Task SetViewBagForCreateCourse()
