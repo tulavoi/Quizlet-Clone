@@ -29,7 +29,10 @@ namespace QuizletClone.Controllers
         {
             ViewData["ActivePage"] = this._activePage;
 
-            var recentCourses = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
+			List<RecentCourseDTO> recentCoursesDTO = new();
+			List<PopularCourseDTO> popularCoursesDTO = new();
+
+			var recentCourses = await _courseProgressRepo.GetAllByUserAsync(this.UserId, new CourseQueryObject
             {
                 SortBy = "LastUpdated",
                 IsDescending = true,
@@ -42,9 +45,11 @@ namespace QuizletClone.Controllers
                 Quantity = 3
             });
 
-            var recentCoursesDTO = recentCourses?.Select(x => x.ToRecentCourseDTO()).ToList() ?? new();
+            if (recentCourses != null)
+				recentCoursesDTO = recentCourses?.Select(x => x.ToRecentCourseDTO()).ToList() ?? new();
 
-            var popularCoursesDTO = popularCourses?.Select(x => x.ToPopularCourseDTO()).ToList() ?? new();
+            if (popularCourses != null)
+				popularCoursesDTO = popularCourses?.Select(x => x.ToPopularCourseDTO()).ToList() ?? new();
 
             var homeViewModel = new HomeViewModel
             {

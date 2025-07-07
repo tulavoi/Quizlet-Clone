@@ -6,7 +6,7 @@ namespace QuizletClone.Mappers
 {
 	public static class UserMapper
 	{
-		public static UserDTO ToUserDTO(this AppUser user)
+		public static UserDTO ToUserDTO(this AppUser? user)
 		{
 			return new UserDTO
 			{

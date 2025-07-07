@@ -40,8 +40,7 @@ builder.Services.ConfigureApplicationCookie(options => {
 });
 
 // Configuartion login
-builder.Services.AddAuthentication()
-.AddGoogle(options =>
+builder.Services.AddAuthentication().AddGoogle(options =>
 {
     var gconfig = builder.Configuration.GetSection("Authentication:Google");
     options.ClientId = gconfig["OAuthClientId"]!;

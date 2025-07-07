@@ -72,18 +72,29 @@ namespace QuizletClone.Controllers
             return RedirectToAction(nameof(Details), new { slug = course.Slug });
         }
 
-        [HttpGet("/{slug}")]
+		private async Task<Course?> GetCourseBySlugAsync(string slug)
+		{
+			int courseId = SlugHelper.GetIdBySlug(slug);
+			return await _courseRepo.GetByIdAsync(courseId);
+		}
+
+        private string GetCoursePasswordKey(int courseId)
+        {
+            return $"CoursePassword_{courseId}";
+        }
+
+		[HttpGet("/{slug}")]
         public async Task<IActionResult> Details(string slug, [FromQuery] bool isStarred = false)
         {
-            // Lấy course courseId dựa vào slug
-            int courseId = SlugHelper.GetIdBySlug(slug);
-
             // Lấy ra course
-            var course = await _courseRepo.GetByIdAsync(courseId);
+            var course = await this.GetCourseBySlugAsync(slug);
             if (course == null) return NotFound();
 
-            // Tăng số lần truy cập vào course
-            await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
+            var accessResult = this.CheckCourseAccess(course);
+            if (accessResult != null) return accessResult;
+
+			// Tăng số lần truy cập vào course
+			await _courseRepo.IncreaseAccessCount(this.UserId, course.Id);
 
             // Lấy ra course progress của user
             var courseProcress = await _courseProgressRepo.GetByIdAsync(this.UserId, course.Id);
@@ -153,8 +164,7 @@ namespace QuizletClone.Controllers
         [HttpPost("/verify-password")]
         public async Task<IActionResult> VerifyPassword(string slug, string password)
         {
-            int courseId = SlugHelper.GetIdBySlug(slug);
-			var course = await _courseRepo.GetByIdAsync(courseId);
+			var course = await this.GetCourseBySlugAsync(slug);
 			if (course == null) return NotFound();
 
             if (course.Password != password)
@@ -164,17 +174,15 @@ namespace QuizletClone.Controllers
 			}
 
 			// Lưu password để xác thực cho các lần truy cập sau
-            HttpContext.Session.SetString($"CoursePassword_{courseId}", password);
-
+            HttpContext.Session.SetString(this.GetCoursePasswordKey(course.Id), password);
 			return RedirectToAction("Details", new { slug = course.Slug });
 		}
 
 		[HttpGet("/verify/{slug}")]
         public async Task<IActionResult> Verify(string slug)
         {
-            int courseId = SlugHelper.GetIdBySlug(slug);
-            var course = await _courseRepo.GetByIdAsync(courseId);
-            if (course == null) return NotFound();
+			var course = await this.GetCourseBySlugAsync(slug);
+			if (course == null) return NotFound();
 
             if (course.UserId == this.UserId) return RedirectToAction("Details", new { slug = course.Slug });
 
@@ -190,7 +198,7 @@ namespace QuizletClone.Controllers
 			if (permission == PermissionType.WithPassword)
 			{
 				// Nếu password được lưu trong session đúng thì không cần xác thực lại
-				var storedPassword = HttpContext.Session.GetString($"CoursePassword_{courseId}");
+				var storedPassword = HttpContext.Session.GetString(this.GetCoursePasswordKey(course.Id));
                 if (storedPassword != null && storedPassword == course.Password)
 					return RedirectToAction("Details", new { slug = course.Slug });
 
@@ -202,7 +210,30 @@ namespace QuizletClone.Controllers
 			return RedirectToAction("Details", new { slug = course.Slug });
         }
 
-        private async Task SetViewBagForCreateCourse()
+        public IActionResult? CheckCourseAccess(Course course)
+        {
+			// Người dùng là người tạo học phần, không cần kiểm tra quyền truy cập
+            if (course.UserId == this.UserId) return null;
+
+			var permission = course.CoursePermission?.ViewPermission?.Type;
+			var storedPassword = HttpContext.Session.GetString(GetCoursePasswordKey(course.Id));
+
+			if (permission == PermissionType.OnlyMe)
+            {
+				ViewBag.Heading = "Học phần đã được bảo vệ";
+				ViewBag.Message = "Rất tiếc, chỉ người tạo học phần này mới có quyền truy cập.";
+				return View("/Views/Shared/AccessDenied.cshtml");
+			}
+
+            if (permission == PermissionType.WithPassword && (storedPassword == null || storedPassword != course.Password))
+            {
+				return RedirectToAction("Verify", new { slug = course.Slug });
+			}
+
+            return null;
+		}
+
+		private async Task SetViewBagForCreateCourse()
         {
             ViewBag.EditPermissions = await _permissionRepo.GetAllAsync(new PermissionQueryObject { IsEdit = true });
             ViewBag.ViewPermissions = await _permissionRepo.GetAllAsync(new PermissionQueryObject { IsEdit = false });
@@ -216,7 +247,7 @@ namespace QuizletClone.Controllers
             [FromQuery] int count,
             [FromQuery] string termValue, 
             [FromQuery] string defiValue, 
-            [FromQuery] int termLanguageId, 
+            [FromQuery] int termLanguageId,
             [FromQuery] int defiLanguageId)
         {
             ViewBag.Languages = await _languageRepo.GetAllAsync(new LanguageQueryObject { SortBy = "Name" });

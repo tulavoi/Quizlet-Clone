@@ -101,6 +101,7 @@ namespace QuizletClone.Repositories
         {
             var courses = _context.Courses
 				.Include(fc => fc.Flashcards)
+                .Include(u => u.User)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(query.FilterBy))
