@@ -42,15 +42,17 @@ namespace QuizletClone.Repositories
 
         public async Task<Course?> GetByIdAsync(int id, CourseQueryObject? query)
         {
-            var course = await _context.Courses
+			return await _context.Courses
                 .Include(x => x.User)
                 .Include(x => x.Flashcards)
                     .ThenInclude(f => f.Term_Lang)
                 .Include(x => x.Flashcards)
                     .ThenInclude(f => f.Definition_Lang)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            return course;
+                .Include(x => x.CoursePermission)
+                    .ThenInclude(cp => cp.ViewPermission)
+				.Include(x => x.CoursePermission)
+					.ThenInclude(cp => cp.EditPermission)
+				.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public string GetErrorMessage(CreateCourseRequestDTO courseDTO)
@@ -99,6 +101,7 @@ namespace QuizletClone.Repositories
         {
             var courses = _context.Courses
 				.Include(fc => fc.Flashcards)
+                .Include(u => u.User)
 				.AsQueryable();
 
 			if (!string.IsNullOrEmpty(query.FilterBy))

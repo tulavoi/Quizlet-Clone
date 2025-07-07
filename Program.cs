@@ -4,15 +4,16 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using Serilog;
-using Serilog.Formatting.Json;
 using QuizletClone.Areas.Identity.Data;
 using QuizletClone.Helpers;
 using QuizletClone.Interfaces;
 using QuizletClone.Repositories;
-using System.Security.Claims;
 using QuizletClone.Services;
+using Serilog;
+using Serilog.Formatting.Json;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,14 +26,21 @@ builder.Services.AddDefaultIdentity<AppUser>()
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+	options.IdleTimeout = TimeSpan.FromMinutes(30);  // Thời gian sống của session
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+
 builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = "/login/";
     options.LogoutPath = "/logout/";
 });
 
 // Configuartion login
-builder.Services.AddAuthentication()
-.AddGoogle(options =>
+builder.Services.AddAuthentication().AddGoogle(options =>
 {
     var gconfig = builder.Configuration.GetSection("Authentication:Google");
     options.ClientId = gconfig["OAuthClientId"]!;
@@ -95,6 +103,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

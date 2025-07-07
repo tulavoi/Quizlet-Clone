@@ -7,9 +7,11 @@
     padding: 5px 0;
     border-radius: 0;
     background: white;
-    color: #282E3E;
+    color: var(--black-color);
+    transition: box-shadow 0.2s, border-bottom-color 0.2s;
 }
 
 .custom-input:focus {
-    border-bottom: 3px solid var(--yellow-color);
+    border-bottom-color: var(--yellow-color);
+    box-shadow: 0 2px 0 var(--yellow-color);
 }
